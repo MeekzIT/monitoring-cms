@@ -1,9 +1,10 @@
 import React from "react";
+import MainLayout from "./containers/layout/Layout";
 
 function App() {
   return (
-    <div className="app">
-      <div> COMING SOON</div>
+    <div>
+      <MainLayout />
     </div>
   );
 }

@@ -9,18 +9,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.app {
-  width: 100%;
-  height: 100vh;
-  background-image: url("http://roe-preview.hexesis.com/static/media/loginback.9bc7364d.jpg");
-  background-position: center center;
-  background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.app div {
-  color: white;
-  font-size: 90px;
+.error-message {
+  font-size: 16px;
+  line-height: 12px;
+  color: maroon;
 }
