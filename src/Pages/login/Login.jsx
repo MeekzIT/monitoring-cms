@@ -1,31 +1,31 @@
 import { useState } from "react";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
+import { useDispatch } from "react-redux";
+import Error from "../../components/error/Error";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { InputAdornment, IconButton } from "@mui/material";
+import { InputAdornment, IconButton, Grid } from "@mui/material";
 
 import "./login.css";
-import Error from "../../components/error/Error";
+import { loginAction } from "../../store/actions/auth-action";
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "../../components/languageSwitcher/LanguageSwitcher";
 
 const LoginPage = () => {
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
   const validationSchema = Yup.object().shape({
-    email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required"),
-    password: Yup.string()
-      .min(8, "Password must be at least 8 characters")
-      .required("Password is required"),
+    email: Yup.string().email(t("invalid-email")).required(t("required")),
+    password: Yup.string().min(8, t("too-short")).required(t("required")),
   });
   const [showPassword, setShowPassword] = useState(false);
   const handleTogglePassword = () => {
@@ -46,30 +46,26 @@ const LoginPage = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            {t("sign-in")}
           </Typography>
+          <Grid container>
+            <LanguageSwitcher />
+          </Grid>
           <Box sx={{ mt: 1 }}>
             <Formik
               initialValues={{ email: "", password: "" }}
               validationSchema={validationSchema}
               onSubmit={(values) => {
-                console.log(values);
+                dispatch(loginAction(values));
               }}
             >
-              {({
-                values,
-                errors,
-                touched,
-                handleChange,
-                handleBlur,
-                handleSubmit,
-              }) => (
+              {({ values, errors, handleChange, handleBlur, handleSubmit }) => (
                 <Form onSubmit={handleSubmit}>
                   <TextField
                     margin="normal"
                     required
                     fullWidth
-                    label="Email"
+                    label={t("email")}
                     autoComplete="email"
                     name="email"
                     onChange={handleChange}
@@ -82,7 +78,7 @@ const LoginPage = () => {
                     required
                     fullWidth
                     autoComplete="current-password"
-                    label="Password"
+                    label={t("password")}
                     id="password"
                     name="password"
                     onChange={handleChange}
@@ -104,30 +100,19 @@ const LoginPage = () => {
                     }}
                   />
                   <Error message={errors.password} /> <br />
-                  <FormControlLabel
-                    control={<Checkbox value="remember" color="primary" />}
-                    label="Remember me"
-                  />
                   <Button
                     type="submit"
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3, mb: 2, color: "white" }}
                   >
-                    Sign In
+                    {t("sign-in")}
                   </Button>
                 </Form>
               )}
             </Formik>
           </Box>
         </Box>
-        {/* <Grid container>
-          <Grid item xs>
-            <Link href="#" variant="body2">
-              Forgot password?
-            </Link>
-          </Grid>
-        </Grid> */}
       </Container>
     </div>
   );

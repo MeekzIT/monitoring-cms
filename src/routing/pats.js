@@ -1,2 +1,13 @@
-export const HOME_PAGE = '/'
-export const LOGIN_PAGE = '/login'
+export const HOME_PAGE = "/";
+export const LOGIN_PAGE = "/login";
+export const USERS_PAGE = "/users";
+export const ITEMS_PAGE = "/items";
+export const USER_DETAIL = "/user/:id";
+export const COUNTRIES_PAGE = "/countries";
+export const CATEGORIES_PAGE = "/categories";
+export const SETTIGS_PAGE = "/settings";
+export const PAYMENT_PAGE = "/payment";
+export const OWNERS_BOXES = "/user/:user_id/owner/:id";
+export const ITEM_PAGE = "/user/:user_id/owner/:owner_id/item/:id";
+export const BOXES_PAGE = "/boxes";
+export const OWNER_ITEMS_PAGE = "/owner-items"

@@ -1,0 +1,16 @@
+.settings-box {
+    display: flex;
+    justify-content: space-around;
+}
+
+.ill-box {
+    width: 30%;
+}
+
+.settings {
+    width: 60%;
+}
+
+.ill-box img {
+    width: 100%;
+}

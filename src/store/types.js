@@ -1,0 +1,23 @@
+// auth
+export const LOGIN_ACTION = "LOGIN_ACTION";
+export const SET_AUTH = "SET_AUTH";
+export const CHANGE_LANGUAGE = "CHANGE_LANGUAGE";
+export const GET_HOME_STATISTICS = "GET_HOME_STATISTICS";
+export const GET_USERS = "GET_USERS";
+export const GET_COUNTRIES = "GET_COUNTRIES";
+export const ADD_USER = "ADD_USER";
+export const GET_SINGLE_USER = "GET_SINGLE_USER";
+export const DEL_COUNTRY = "DEL_COUNTRY";
+export const EDIT_COUNTRY = "EDIT_COUNTRY";
+export const ADD_COUNTRY = "ADD_COUNTRY";
+export const GET_CATEGORIES = "GET_CATEGORIES";
+export const DEL_CATEGORIES = "DEL_CATEGORIES";
+export const EDIR_CATEGORIES = "EDIR_CATEGORIES";
+export const ADD_CATEGORIES = "ADD_CATEGORIES";
+export const GET_OWNERS_OF_USER = "GET_OWNERS_OF_USER";
+export const EDIT_BOX = "EDIT_BOX";
+export const GET_SINGLE_OWNER = "GET_SINGLE_OWNER";
+export const GET_SINGLE_BOX = "GET_SINGLE_BOX";
+export const ADD_OWNER = "ADD_OWNER";
+export const GET_BOXES = "GET_BOXES";
+export const EDIT_ITEM = "EDIT_ITEM";

@@ -1,0 +1,275 @@
+import { useNavigate, useParams } from "react-router-dom";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import HomeIcon from "@mui/icons-material/Home";
+import { Box, Button, Grid, Modal, TextField, Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import { USERS_PAGE } from "../../routing/pats";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import {
+  changeBoxSettings,
+  getBoxes,
+  getSingleBox,
+  getSingleOwners,
+  getSingleUser,
+} from "../../store/actions/users-action";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import EditIcon from "@mui/icons-material/Edit";
+import AutoGraphIcon from "@mui/icons-material/AutoGraph";
+import Chart from "react-apexcharts";
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  bgcolor: "background.paper",
+  border: "3px solid #00a896",
+  boxShadow: 24,
+  p: 4,
+  borderRadius: "10px",
+};
+const options1 = {
+  chart: {
+    id: "basic-bar",
+  },
+  xaxis: {
+    categories: [
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+      22, 23, 24, 25, 26, 27, 28, 29, 30,
+    ],
+  },
+};
+
+const series1 = [
+  {
+    name: "series-1",
+    data: [
+      10, 25, 30, 30, 30, 35, 37, 38, 38, 40, 45, 45, 45, 50, 52, 55, 70, 75,
+      75, 75, 78, 78, 90, 90, 90, 90, 90, 91, 98, 98,
+    ],
+  },
+];
+
+const Boxes = () => {
+  const { id, user_id } = useParams();
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.single);
+  const owner = useSelector((state) => state.user.owner);
+  const data = useSelector((state) => state.user.boxes);
+  const [open, setOpen] = useState(false);
+  const [openStatistics, setOpenStatistics] = useState(false);
+  const [currentId, setCurrentId] = useState(null);
+  const [name, setName] = useState(null);
+  const [geo, setGeo] = useState(null);
+
+  useEffect(() => {
+    dispatch(getSingleUser(user_id));
+    dispatch(getBoxes(id));
+  }, []);
+
+  useEffect(() => {
+    user && dispatch(getSingleOwners(id));
+  }, [user]);
+
+  return (
+    <div>
+      <Box m={3}>
+        <Breadcrumbs aria-label="breadcrumb">
+          <div>
+            <HomeIcon />
+          </div>
+          <div onClick={() => navigate(USERS_PAGE)} className="steper-item">
+            {t("users")}
+          </div>
+          <div
+            onClick={() => navigate(`/user/${user?.id}`)}
+            className="steper-item"
+          >
+            {t("users").slice(0, t("users").length - 1)} {"  "}
+            {"("} {user?.firstName + " " + user?.lastName} {")"}
+          </div>
+          <Typography color="text.primary" className="active-steper-item">
+            {t("owners")} {"("} {owner?.firstName} {owner?.lastName} {")"}
+          </Typography>
+        </Breadcrumbs>
+      </Box>
+      <Box m={3}>
+        <Box>
+          <h1>
+            {owner?.firstName} {owner?.lastName}
+          </h1>
+          <h4>{owner?.email}</h4>
+        </Box>
+        <hr />
+        <Box>
+          {" "}
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>{t("name")}</TableCell>
+                  <TableCell align="left">{t("geolocation")}</TableCell>
+                  <TableCell align="left">{t("edit")}</TableCell>
+                  <TableCell align="left">{t("statistics")}</TableCell>
+                  <TableCell align="left"></TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {data?.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell align="left">{row.name}</TableCell>
+                    <TableCell align="left">{row.geolocation}</TableCell>
+                    <TableCell align="left">
+                      <Button
+                        variant="outlined"
+                        onClick={() => {
+                          setName(row.name);
+                          setGeo(row.geolocation);
+                          setCurrentId(row.id);
+                          setOpen(true);
+                        }}
+                      >
+                        <EditIcon />
+                      </Button>
+                    </TableCell>
+                    <TableCell align="left">
+                      <Button
+                        variant="outlined"
+                        onClick={() => {
+                          setOpenStatistics(true);
+                        }}
+                      >
+                        <AutoGraphIcon />
+                      </Button>
+                    </TableCell>
+                    <TableCell align="left">
+                      <Button
+                        variant="outlined"
+                        onClick={() => {
+                          dispatch(getSingleBox(row.id));
+                          navigate(
+                            `/user/${user_id}/owner/${owner.id}/item/${row.id}`
+                          );
+                        }}
+                      >
+                        <RemoveRedEyeIcon />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
+      </Box>
+      <Modal
+        open={open}
+        onClose={() => {
+          setOpen(false);
+          setGeo("");
+          setName("");
+        }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            {t("edit")}
+          </Typography>
+          <Box>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  label={t("name")}
+                  variant="outlined"
+                  fullWidth
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label={t("geolocation")}
+                  variant="outlined"
+                  fullWidth
+                  value={geo}
+                  onChange={(e) => setGeo(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography
+                  className="btnsBox"
+                  id="modal-modal-description"
+                  sx={{ mt: 2 }}
+                >
+                  <div>
+                    <Button variant="outlined" onClick={() => setOpen(false)}>
+                      {t("cancel")}
+                    </Button>
+                  </div>
+                  <div>
+                    <Button
+                      variant="contained"
+                      sx={{ color: "white" }}
+                      onClick={() => {
+                        dispatch(
+                          changeBoxSettings({
+                            id: currentId,
+                            name,
+                            geolocation: geo,
+                          })
+                        );
+                        setOpen(false);
+                        setGeo("");
+                        setName("");
+                      }}
+                    >
+                      {t("edit")}
+                    </Button>
+                  </div>
+                </Typography>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </Modal>
+
+      <Modal
+        open={openStatistics}
+        onClose={() => {
+          setOpenStatistics(false);
+        }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            {t("statistics")}
+          </Typography>
+          <Box>
+            <Chart
+              options={options1}
+              series={series1}
+              type="line"
+              width="500"
+            />
+          </Box>
+        </Box>
+      </Modal>
+    </div>
+  );
+};
+
+export default Boxes;
