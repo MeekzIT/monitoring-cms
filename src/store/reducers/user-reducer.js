@@ -47,6 +47,12 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         boxes: userBoxes,
       };
+    case GET_BOXES:
+      console.log(action.payload, "action.payloadaction.payloadaction.payload");
+      return {
+        ...state,
+        boxes: action.payload,
+      };
     case EDIT_BOX:
       const { id, name, geolocation } = action.payload;
       const updatedItems = state.boxes.map((item) =>
@@ -63,6 +69,7 @@ export const userReducer = (state = initialState, action) => {
       };
     case GET_SINGLE_BOX:
       let singleBox = state.boxes?.filter((i) => i.id == action.payload);
+      console.log(state.boxes, "-------------");
       return {
         ...state,
         box: singleBox[0],
@@ -75,16 +82,10 @@ export const userReducer = (state = initialState, action) => {
           Owners: [...state.single.Owners, action.payload],
         },
       };
-    case GET_BOXES:
-      return {
-        ...state,
-        boxes: action.payload,
-      };
     case EDIT_ITEM:
       let editedBox = state.box?.filter((i) =>
         i.id == action.payload.id ? action.payload : i
       );
-      console.log(editedBox, "ppppp");
       return { ...state, box: { ...state.box, Items: editedBox } };
     default:
       return state;

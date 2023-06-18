@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import {
   editItemChanges,
   getBoxes,
+  getOwnersOfUser,
+  getSingleBox,
   getSingleOwners,
   getSingleUser,
 } from "../../store/actions/users-action";
@@ -18,7 +20,6 @@ import Tab from "@mui/material/Tab";
 import SwipeableViews from "react-swipeable-views";
 import { useTheme } from "@mui/material/styles";
 import Chart from "react-apexcharts";
-import ChangeField from "../../components/changeField/ChangeField";
 import CalculateIcon from "@mui/icons-material/Calculate";
 import Calculator from "../../components/claculator/Calculator";
 import ItemField from "../../components/changeField/ItemFields";
@@ -105,6 +106,7 @@ const Items = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.single);
   const owner = useSelector((state) => state.user.owner);
+  const boxes = useSelector((state) => state.user.boxes);
   const box = useSelector((state) => state.user.box);
   const [value, setValue] = useState(0);
   const [changedData, setChangedData] = useState({});
@@ -122,11 +124,10 @@ const Items = () => {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
+  console.log(id,"dvGBHNJMnhb");
   useEffect(() => {
     dispatch(getSingleUser(user_id));
-    dispatch(getBoxes(id));
-    setCurrent(box?.Items[0]?.id);
-    setCalcData(box?.Items[0]?.ItemValue);
+    dispatch(getBoxes(owner_id));
   }, []);
 
   useEffect(() => {
@@ -135,13 +136,19 @@ const Items = () => {
 
   useEffect(() => {
     user && dispatch(getSingleOwners(id));
+    
   }, [user]);
+
+  useEffect(()=>{
+    // boxes.length && ; 
+  boxes?.length &&  dispatch(getSingleBox(id));
+  },[boxes])
 
   const handleEditChanges = () => {
     dispatch(editItemChanges({ ...changedData, id: currentId }));
   };
 
-  console.log(box);
+  console.log(box,"boxboxboxboxboxboxbox");
 
   return (
     <div>
