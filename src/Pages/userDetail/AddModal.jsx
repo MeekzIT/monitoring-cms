@@ -3,7 +3,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useTranslation } from "react-i18next";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
+import CloseIcon from "@mui/icons-material/Close";
 import * as Yup from "yup";
 import {
   FormControl,
@@ -15,7 +16,7 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { generatePassword } from "../../hooks/generatePassword";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import useCopyToClipboard from "../../hooks/useCopyToClipboard";
@@ -23,23 +24,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { addOwner } from "../../store/actions/users-action";
 import { getCountries } from "../../store/actions/statistics-action";
 import { useParams } from "react-router-dom";
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "3px solid #00a896",
-  boxShadow: 24,
-  p: 4,
-  borderRadius: "10px",
-};
+import { useIsMobile } from "../../hooks/useScreenType";
 
 const AddOwner = ({ open, handleClose }) => {
   const { t } = useTranslation();
   const { id } = useParams();
   const dispatch = useDispatch();
+  const isMobile = useIsMobile();
   const [isCopied, copyToClipboard] = useCopyToClipboard();
   const countries = useSelector((state) => state.statistics.countries);
 
@@ -64,6 +55,25 @@ const AddOwner = ({ open, handleClose }) => {
     countryId: Yup.number().integer("Invalid country ID").required("Required"),
   });
 
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: isMobile ? "100%" : 400,
+    bgcolor: "background.paper",
+    border: "3px solid #00a896",
+    boxShadow: 24,
+    p: 4,
+    borderRadius: "10px",
+    minHeight: isMobile ? "100vh" : null,
+    display: isMobile && "flex",
+    justifyContent: isMobile && "center",
+    alignItems: isMobile && "center",
+    flexDirection: isMobile && "column",
+    gap: isMobile && "20px",
+  };
+
   const initialValues = {
     firstName: "",
     lastName: "",
@@ -84,6 +94,9 @@ const AddOwner = ({ open, handleClose }) => {
         <Typography id="modal-modal-title" variant="h6" component="h2">
           Add New Owner
         </Typography>
+        <div className="mobile-modal-close-btn" onClick={handleClose}>
+          <CloseIcon fontSize="large" />
+        </div>
         <Box>
           <Formik
             initialValues={initialValues}

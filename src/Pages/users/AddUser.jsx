@@ -21,22 +21,13 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import useCopyToClipboard from "../../hooks/useCopyToClipboard";
 import { useDispatch } from "react-redux";
 import { addUsers } from "../../store/actions/users-action";
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "3px solid #00a896",
-  boxShadow: 24,
-  p: 4,
-  borderRadius: "10px",
-};
+import { useIsMobile } from "../../hooks/useScreenType";
+import CloseIcon from "@mui/icons-material/Close";
 
 const AddUser = ({ open, handleClose, countries }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const isMobile = useIsMobile();
   const [isCopied, copyToClipboard] = useCopyToClipboard();
   const signupSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -54,6 +45,25 @@ const AddUser = ({ open, handleClose, countries }) => {
     phoneNumber: Yup.string().required("Required"),
     countryId: Yup.number().integer("Invalid country ID").required("Required"),
   });
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: isMobile ? "100%" : 400,
+    bgcolor: "background.paper",
+    border: "3px solid #00a896",
+    boxShadow: 24,
+    p: 4,
+    borderRadius: "10px",
+    minHeight: isMobile ? "100vh" : null,
+    display: isMobile && "flex",
+    justifyContent: isMobile && "center",
+    alignItems: isMobile && "center",
+    flexDirection: isMobile && "column",
+    gap: isMobile && "20px",
+  };
 
   const initialValues = {
     firstName: "",
@@ -75,6 +85,10 @@ const AddUser = ({ open, handleClose, countries }) => {
         <Typography id="modal-modal-title" variant="h6" component="h2">
           Add New User
         </Typography>
+
+        <div className="mobile-modal-close-btn" onClick={handleClose}>
+          <CloseIcon fontSize="large" />
+        </div>
         <Box>
           <Formik
             initialValues={initialValues}
@@ -92,7 +106,7 @@ const AddUser = ({ open, handleClose, countries }) => {
               handleChange,
               setFieldValue,
             }) => (
-              <Form>
+              <Form style={{ padding: "10px" }}>
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
                     <Field

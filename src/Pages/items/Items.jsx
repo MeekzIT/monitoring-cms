@@ -1,7 +1,15 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import HomeIcon from "@mui/icons-material/Home";
-import { Box, Button, Grid, Modal, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  Modal,
+  TextField,
+  Typography,
+  makeStyles,
+} from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { USERS_PAGE } from "../../routing/pats";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,6 +31,7 @@ import Chart from "react-apexcharts";
 import CalculateIcon from "@mui/icons-material/Calculate";
 import Calculator from "../../components/claculator/Calculator";
 import ItemField from "../../components/changeField/ItemFields";
+import { useIsMobile } from "../../hooks/useScreenType";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -104,6 +113,7 @@ const Items = () => {
   const navigate = useNavigate();
   const { id, owner_id, user_id } = useParams();
   const dispatch = useDispatch();
+  const isMobile = useIsMobile();
   const user = useSelector((state) => state.user.single);
   const owner = useSelector((state) => state.user.owner);
   const boxes = useSelector((state) => state.user.boxes);
@@ -124,7 +134,7 @@ const Items = () => {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
-  console.log(id,"dvGBHNJMnhb");
+  console.log(id, "dvGBHNJMnhb");
   useEffect(() => {
     dispatch(getSingleUser(user_id));
     dispatch(getBoxes(owner_id));
@@ -136,23 +146,22 @@ const Items = () => {
 
   useEffect(() => {
     user && dispatch(getSingleOwners(id));
-    
   }, [user]);
 
-  useEffect(()=>{
-    // boxes.length && ; 
-  boxes?.length &&  dispatch(getSingleBox(id));
-  },[boxes])
+  useEffect(() => {
+    // boxes.length && ;
+    boxes?.length && dispatch(getSingleBox(id));
+  }, [boxes]);
 
   const handleEditChanges = () => {
     dispatch(editItemChanges({ ...changedData, id: currentId }));
   };
 
-  console.log(box,"boxboxboxboxboxboxbox");
+  console.log(box, "boxboxboxboxboxboxbox");
 
   return (
     <div>
-      <Box m={3}>
+      <Box m={2}>
         <Breadcrumbs aria-label="breadcrumb">
           <div>
             <HomeIcon />
@@ -184,8 +193,13 @@ const Items = () => {
             value={value}
             onChange={handleChange}
             aria-label="basic tabs example"
-            centered
-            variant="fullWidth"
+            TabIndicatorProps={{ sx: { display: "none" } }}
+            sx={{
+              "& .MuiTabs-flexContainer": {
+                flexWrap: "wrap",
+                padding: "0",
+              },
+            }}
           >
             {box?.Items?.map((i, idx) => {
               return (
@@ -211,17 +225,28 @@ const Items = () => {
                 index={idx}
                 dir={theme.direction}
                 key={i.id}
+                sx={{
+                  root: {
+                    "& .MuiBox": {
+                      padding: 0,
+                    },
+                  },
+                }}
               >
-                {idx + 1}
-
-                <Grid container spacing={2}>
+                <Grid
+                  spacing={1}
+                  sx={{
+                    padding: "0",
+                  }}
+                  container
+                >
                   <Grid item>
                     <div>
                       <Chart
                         options={options}
                         series={series}
                         type="line"
-                        width="500"
+                        width={isMobile ? "300" : "500"}
                       />
                     </div>
                     <div>
@@ -230,7 +255,7 @@ const Items = () => {
                         series={dountSeries}
                         label={dountLables}
                         type="donut"
-                        width="380"
+                        width={isMobile ? "300" : "500"}
                       />
                     </div>
                     <div>
@@ -238,7 +263,7 @@ const Items = () => {
                         options={options1}
                         series={series1}
                         type="line"
-                        width="500"
+                        width={isMobile ? "300" : "500"}
                       />
                     </div>
                     <div>

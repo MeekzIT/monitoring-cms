@@ -35,7 +35,7 @@ export const loginAction = (data) => {
             icon: "error",
             showConfirmButton: false,
             timer: 1500,
-            title:"Неправильные Данные"
+            title: "Неправильные Данные",
           });
       })
       .catch(function (error) {
@@ -64,11 +64,12 @@ export const logoutAction = () => {
       )
       .then(function (response) {
         if (response.data.succes) {
-          dispatch({ type: SET_AUTH, payload: false });
-          localStorage.clear("isAuth");
-          localStorage.setItem("isSuper");
-          localStorage.setItem("token");
-          // window.location.href = "/login";
+          // dispatch({ type: SET_AUTH, payload: false });
+          localStorage.removeItem("isAuth");
+          localStorage.removeItem("isSuper");
+          localStorage.removeItem("token");
+          localStorage.clear();
+          window.location.href = "/";
         }
       })
       .catch(function (error) {

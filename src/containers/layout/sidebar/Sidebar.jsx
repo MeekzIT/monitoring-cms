@@ -7,14 +7,20 @@ import {
   CATEGORIES_PAGE,
   COUNTRIES_PAGE,
   HOME_PAGE,
-  ITEMS_PAGE,
   USERS_PAGE,
 } from "../../../routing/pats";
 import { useTranslation } from "react-i18next";
+import ClearAllIcon from "@mui/icons-material/ClearAll";
+import CloseIcon from "@mui/icons-material/Close";
+import { Tooltip } from "@mui/material";
+import { useIsMobile } from "../../../hooks/useScreenType";
+import { useEffect, useState } from "react";
 
-const Sidebar = () => {
+const Sidebar = ({ close, setClose }) => {
   let location = useLocation();
   const { t } = useTranslation();
+  const isMobile = useIsMobile();
+  const [pathName, setPathName] = useState(location.pathname);
   const isAuth = useSelector((state) => state.auth.isAuth);
   const isSuper = useSelector((state) => state.auth.isSuper);
   const admin = useSelector((state) => state.auth.admin);
@@ -35,8 +41,37 @@ const Sidebar = () => {
     { id: 2, path: BOXES_PAGE, name: t("system") },
   ];
 
+  useEffect(() => {
+    setPathName(location.pathname);
+    pathName !== window.location.pathname && setClose(false);
+  }, [window.location.pathname]);
+
   return (
     <div className="sidebar">
+      {isMobile && (
+        <div className="sidebar-close">
+          <Tooltip title="Sidebar" arrow>
+            {close ? (
+              <CloseIcon
+                onClick={() => setClose(!close)}
+                style={{
+                  cursor: "pointer",
+                }}
+                fontSize="large"
+                sx={{ color: "#00a896", fontSize: "25px" }}
+              />
+            ) : (
+              <ClearAllIcon
+                onClick={() => setClose(!close)}
+                style={{
+                  cursor: "pointer",
+                }}
+                sx={{ color: "#00a896" }}
+              />
+            )}
+          </Tooltip>
+        </div>
+      )}
       <ul>
         {isAuth &&
           (isSuper == "admin"

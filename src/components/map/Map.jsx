@@ -31,15 +31,15 @@ const series = {
 
 const containerStyle = {
   width: "100%",
-  height: "420px",
-  svg: {
+  height: "420px",  
+  backgroundColor:"white",
+  svg: {  
     height: "100%",
   },
-  marginTop: "30px",
 };
 
 export default function Maps() {
-  return (
+  return (  
     <VectorMap
       map={"world_mill"}
       backgroundColor="transparent"

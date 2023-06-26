@@ -1,21 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Navbar from "./navbar/Navbar";
+import Sidebar from "./sidebar/Sidebar";
 import { Route, Routes } from "react-router-dom";
+import { useIsMobile } from "../../hooks/useScreenType";
 import { isAuthPages, notAuthPages } from "../../routing/routes";
 import { useSelector } from "react-redux";
 import { Box } from "@mui/material";
-import Navbar from "./navbar/Navbar";
-import Sidebar from "./sidebar/Sidebar";
 
 import "./layout.css";
 
 export default function MainLayout() {
+  const isMobile = useIsMobile()
+  const [close, setClose] = useState(!isMobile);
   const auth = useSelector((state) => state.auth.isAuth);
-  const [close, setClose] = useState(true);
+
+  console.log(isMobile);
+
+  useEffect(()=>{
+    setClose(!isMobile)
+  },[isMobile])
+
   return (
     <div className="home">
-      {close && <Sidebar />}
-      {/* {auth && <>{close ? <Sidebar /> : <></>}</>} */}
-      <div className="homeContainer">
+      {close && <Sidebar close={close} setClose={setClose}/>}
+      <div className="homeContainer" style={{display : close && isMobile ? "none" : "block"}}>
         <Navbar close={close} setClose={setClose} />
         <Box>
           <Routes>

@@ -3,4 +3,11 @@
     justify-content: space-around;
     flex-wrap: wrap;
     gap: 30px;
+    margin-top: 20px;
 }
+
+@media only screen and (max-width: 600px) {
+    .home-results-card{
+      gap: 10px;
+    }
+  } 

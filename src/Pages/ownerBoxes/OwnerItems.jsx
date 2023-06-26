@@ -18,6 +18,7 @@ import SwipeableViews from "react-swipeable-views";
 import { useTheme } from "@mui/material/styles";
 import Chart from "react-apexcharts";
 import ChangeField from "../../components/changeField/ChangeField";
+import { useIsMobile } from "../../hooks/useScreenType";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -92,6 +93,7 @@ const series1 = [
 const OwnerItems = () => {
   const { t } = useTranslation();
   const theme = useTheme();
+  const isMobile = useIsMobile();
   const dispatch = useDispatch();
   const owner = useSelector((state) => state.auth.admin);
   const data = useSelector((state) => state.user.boxes);
@@ -119,8 +121,6 @@ const OwnerItems = () => {
     setChangedData(changedData);
   };
 
-  console.log(changedData, Object.keys(changedData));
-
   return (
     <div>
       <Box sx={{ width: "100%" }}>
@@ -129,8 +129,12 @@ const OwnerItems = () => {
             value={value}
             onChange={handleChange}
             aria-label="basic tabs example"
-            centered
-            variant="fullWidth"
+            TabIndicatorProps={{ sx: { display: "none" } }}
+            sx={{
+              "& .MuiTabs-flexContainer": {
+                flexWrap: "wrap",
+              },
+            }}
           >
             {box?.Items?.map((i, idx) => {
               return (
@@ -156,16 +160,20 @@ const OwnerItems = () => {
                 dir={theme.direction}
                 key={i.id}
               >
-                {idx + 1}
-
-                <Grid container spacing={2}>
+                <Grid
+                  container
+                  spacing={2}
+                  sx={{
+                    padding: "0px !importants",
+                  }}
+                >
                   <Grid item>
                     <div>
                       <Chart
                         options={options}
                         series={series}
                         type="line"
-                        width="500"
+                        width={isMobile ? "300" : "500"}
                       />
                     </div>
                     <div>
@@ -174,7 +182,7 @@ const OwnerItems = () => {
                         series={dountSeries}
                         label={dountLables}
                         type="donut"
-                        width="380"
+                        width={isMobile ? "300" : "500"}
                       />
                     </div>
                     <div>
@@ -182,7 +190,7 @@ const OwnerItems = () => {
                         options={options1}
                         series={series1}
                         type="line"
-                        width="500"
+                        width={isMobile ? "300" : "500"}
                       />
                     </div>
                   </Grid>

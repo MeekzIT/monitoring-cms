@@ -84,77 +84,85 @@ const UserDetail = () => {
                   />
                 </Button>
               </Box>
-              <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>{t("name")}</TableCell>
-                      <TableCell align="left">{t("email")}</TableCell>
-                      <TableCell align="left">{t("country")}</TableCell>
-                      <TableCell align="left">{t("active")}</TableCell>
-                      <TableCell align="left">
-                        {t("lastPay")} / {t("paymentType")}
-                      </TableCell>
-                      <TableCell align="left"></TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {data?.Owners?.map((row) => (
-                      <TableRow
-                        key={row.id}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        <TableCell component="th" scope="row">
-                          {row.firstName} {row.lastName}
-                        </TableCell>
-                        <TableCell align="left">{row.email}</TableCell>
-                        <TableCell align="left">{row.Country.name}</TableCell>
-                        <TableCell align="left">
-                          {row.subscribe ? (
-                            <span
-                              style={{
-                                color: "green",
-                              }}
-                            >
-                              {t("subscribe")}
-                            </span>
-                          ) : (
-                            <span
-                              style={{
-                                color: "red",
-                              }}
-                            >
-                              {t("pasive")}
-                            </span>
-                          )}
-                        </TableCell>
-                        <TableCell align="left">
-                          {row.lastPay ? row.lastPay : "-"} /{" "}
-                          {row?.variant?.toUpperCase()}
-                        </TableCell>
-                        <TableCell align="left">
-                          <Button
-                            variant="contained"
-                            onClick={() => {
-                              dispatch(getOwnersOfUser(row.id));
-                              dispatch(getSingleOwners(row.id));
-                              navigate(`/user/${id}/owner/${row.id}`);
+              <Box sx={{ overflow: "auto" }}>
+                <Box
+                  sx={{ width: "100%", display: "table", tableLayout: "fixed" }}
+                >
+                  <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>{t("name")}</TableCell>
+                          <TableCell align="left">{t("email")}</TableCell>
+                          <TableCell align="left">{t("country")}</TableCell>
+                          <TableCell align="left">{t("active")}</TableCell>
+                          <TableCell align="left">
+                            {t("lastPay")} / {t("paymentType")}
+                          </TableCell>
+                          <TableCell align="left"></TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {data?.Owners?.map((row) => (
+                          <TableRow
+                            key={row.id}
+                            sx={{
+                              "&:last-child td, &:last-child th": { border: 0 },
                             }}
                           >
-                            <RemoveRedEyeIcon
-                              sx={{
-                                color: "white",
-                              }}
-                            />
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+                            <TableCell component="th" scope="row">
+                              {row.firstName} {row.lastName}
+                            </TableCell>
+                            <TableCell align="left">{row.email}</TableCell>
+                            <TableCell align="left">
+                              {row.Country.name}
+                            </TableCell>
+                            <TableCell align="left">
+                              {row.subscribe ? (
+                                <span
+                                  style={{
+                                    color: "green",
+                                  }}
+                                >
+                                  {t("subscribe")}
+                                </span>
+                              ) : (
+                                <span
+                                  style={{
+                                    color: "red",
+                                  }}
+                                >
+                                  {t("pasive")}
+                                </span>
+                              )}
+                            </TableCell>
+                            <TableCell align="left">
+                              {row.lastPay ? row.lastPay : "-"} /{" "}
+                              {row?.variant?.toUpperCase()}
+                            </TableCell>
+                            <TableCell align="left">
+                              <Button
+                                variant="contained"
+                                onClick={() => {
+                                  dispatch(getOwnersOfUser(row.id));
+                                  dispatch(getSingleOwners(row.id));
+                                  navigate(`/user/${id}/owner/${row.id}`);
+                                }}
+                              >
+                                <RemoveRedEyeIcon
+                                  sx={{
+                                    color: "white",
+                                  }}
+                                />
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </Box>
+              </Box>
             </Box>
           </Box>
         )}

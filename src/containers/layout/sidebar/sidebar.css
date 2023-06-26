@@ -1,12 +1,6 @@
 .sidebar {
   flex: 1;
   min-height: 100vh;
-  /* background: rgb(43, 251, 229);
-  background: linear-gradient(90deg,
-      rgba(43, 251, 229, 1) 0%,
-      rgba(37, 120, 136, 1) 0%,
-      rgba(79, 142, 135, 1) 0%,
-      rgba(10, 103, 91, 1) 100%); */
   background: rgb(0, 93, 83);
   background: linear-gradient(90deg, rgba(0, 93, 83, 1) 0%, rgba(255, 255, 255, 1) 100%);
   padding-top: 60px;
@@ -143,3 +137,15 @@ span {
   color: #082723;
   font-weight: bold;
 }
+
+.sidebar-close{
+  position: absolute;
+  top: 2%;
+  right:5%;
+}
+
+@media only screen and (max-width: 600px) {
+  .sidebar ul{
+    padding: 0 10px;
+  }
+} 
