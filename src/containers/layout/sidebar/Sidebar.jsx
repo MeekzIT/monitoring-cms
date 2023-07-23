@@ -58,7 +58,7 @@ const Sidebar = ({ close, setClose }) => {
                   cursor: "pointer",
                 }}
                 fontSize="large"
-                sx={{ color: "#00a896", fontSize: "25px" }}
+                sx={{ color: "#21726A", fontSize: "25px" }}
               />
             ) : (
               <ClearAllIcon
@@ -66,7 +66,7 @@ const Sidebar = ({ close, setClose }) => {
                 style={{
                   cursor: "pointer",
                 }}
-                sx={{ color: "#00a896" }}
+                sx={{ color: "#21726A" }}
               />
             )}
           </Tooltip>

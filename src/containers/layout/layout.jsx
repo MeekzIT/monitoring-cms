@@ -14,7 +14,6 @@ export default function MainLayout() {
   const [close, setClose] = useState(!isMobile);
   const auth = useSelector((state) => state.auth.isAuth);
 
-  console.log(isMobile);
 
   useEffect(()=>{
     setClose(!isMobile)

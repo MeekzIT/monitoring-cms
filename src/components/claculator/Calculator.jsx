@@ -21,10 +21,12 @@ import { styled } from "@mui/material/styles";
 import ChangeField from "../changeField/ChangeField";
 import { useIsMobile } from "../../hooks/useScreenType";
 import CloseIcon from "@mui/icons-material/Close";
+import { useDispatch } from "react-redux";
+import { editItemInfo } from "../../store/actions/users-action";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#00a896",
+    backgroundColor: "#21726A",
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -58,23 +60,18 @@ const rows = [
 const Calculator = ({ open, handleClose, data }) => {
   const { t } = useTranslation();
   const isMobile = useIsMobile();
+  const dispatch = useDispatch();
   const [showSettings, setShowSettings] = useState(false);
   const [changedData, setChangedData] = useState(null);
-  console.log(changedData, data, "asdasd");
   const handleChangeData = (name, value) => {
     changedData[name] = value;
     setChangedData(changedData);
+    dispatch(editItemInfo(changedData));
   };
 
   useEffect(() => {
     if (data !== null && data !== undefined) {
-      setChangedData({
-        whatherValue: data?.whatherValue,
-        whaterSpeed: data?.whaterSpeed,
-        liquidValue: data?.liquidValue,
-        liquidSpeed: data?.liquidSpeed,
-        energyValue: data?.energyValue,
-      });
+      setChangedData(data);
     }
   }, [data]);
 
@@ -83,9 +80,9 @@ const Calculator = ({ open, handleClose, data }) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: isMobile ? "100%" : 400,
+    width: isMobile ? "100%" : 800,
     bgcolor: "background.paper",
-    border: "3px solid #00a896",
+    border: "3px solid #21726A",
     boxShadow: 24,
     p: 4,
     borderRadius: "10px",
@@ -96,6 +93,8 @@ const Calculator = ({ open, handleClose, data }) => {
     flexDirection: isMobile && "column",
     gap: isMobile && "20px",
   };
+
+  console.log(changedData, "111111111111111111111111");
   return (
     <Modal
       open={open}
@@ -114,9 +113,9 @@ const Calculator = ({ open, handleClose, data }) => {
           variant="outlined"
           endIcon={
             showSettings ? (
-              <ReplyIcon sx={{ color: "#00a896" }} />
+              <ReplyIcon sx={{ color: "#21726A" }} />
             ) : (
-              <SettingsSuggestIcon sx={{ color: "#00a896" }} />
+              <SettingsSuggestIcon sx={{ color: "#21726A" }} />
             )
           }
           onClick={() => setShowSettings(!showSettings)}
@@ -135,16 +134,16 @@ const Calculator = ({ open, handleClose, data }) => {
                       <TableRow>
                         <TableCell>Function</TableCell>
                         <TableCell align="right">
-                          <WaterDropIcon sx={{ color: "#00a896" }} />
+                          <WaterDropIcon sx={{ color: "#21726A" }} />
                         </TableCell>
                         <TableCell align="right">
-                          <ElectricBoltIcon sx={{ color: "#00a896" }} />
+                          <ElectricBoltIcon sx={{ color: "#21726A" }} />
                         </TableCell>{" "}
                         <TableCell align="right">
-                          <BubbleChartIcon sx={{ color: "#00a896" }} />
+                          <BubbleChartIcon sx={{ color: "#21726A" }} />
                         </TableCell>{" "}
                         <TableCell align="right">
-                          <TimelapseIcon sx={{ color: "#00a896" }} />
+                          <TimelapseIcon sx={{ color: "#21726A" }} />
                         </TableCell>
                       </TableRow>
                     </TableHead>
@@ -182,77 +181,105 @@ const Calculator = ({ open, handleClose, data }) => {
                     <TableHead>
                       <TableRow>
                         <StyledTableCell align="left">
-                          Dessert (100g serving)
+                          Current Data
                         </StyledTableCell>
-                        <StyledTableCell align="left">Calories</StyledTableCell>
+                        <StyledTableCell align="left">Edit</StyledTableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       <StyledTableRow>
                         <StyledTableCell component="th" scope="row">
-                          {changedData?.whatherValue}
+                          {changedData?.power} KV
                         </StyledTableCell>
                         <StyledTableCell align="left">
                           <ChangeField
-                            name="whatherValue"
-                            value={changedData?.whatherValue}
+                            name="power"
+                            value={changedData?.power}
                             handleChangeData={handleChangeData}
-                            title="Price of wather per minute"
+                            title="Power"
                           />
                         </StyledTableCell>
                       </StyledTableRow>
                       <StyledTableRow>
                         <StyledTableCell component="th" scope="row">
-                          {changedData?.whaterSpeed}
+                          {changedData?.modeValue1}
                         </StyledTableCell>
                         <StyledTableCell component="th" scope="row">
                           <ChangeField
-                            name="whaterSpeed"
-                            value={changedData?.whaterSpeed}
+                            name="modeValue1"
+                            value={changedData?.modeValue1}
                             handleChangeData={handleChangeData}
-                            title="Price of wather per cubic meter"
+                            title="modeValue1"
                           />
                         </StyledTableCell>
                       </StyledTableRow>
 
                       <StyledTableRow>
                         <StyledTableCell align="left">
-                          {changedData?.liquidValue}
+                          {changedData?.modeValue2}
                         </StyledTableCell>
                         <StyledTableCell align="left">
                           <ChangeField
-                            name="liquidValue"
-                            value={changedData?.liquidValue}
+                            name="modeValue2"
+                            value={changedData?.modeValue2}
                             handleChangeData={handleChangeData}
-                            title="Liquid price"
+                            title="modeValue2"
                           />
                         </StyledTableCell>
                       </StyledTableRow>
 
                       <StyledTableRow>
                         <StyledTableCell align="left">
-                          {changedData?.liquidSpeed}
+                          {changedData?.modeValue3}
                         </StyledTableCell>
                         <StyledTableCell align="left">
                           <ChangeField
-                            name="liquidSpeed"
-                            value={changedData?.liquidSpeed}
+                            name="modeValue3"
+                            value={changedData?.modeValue3}
                             handleChangeData={handleChangeData}
-                            title="Liquid of wather per minute"
+                            title="modeValue3"
                           />
                         </StyledTableCell>
                       </StyledTableRow>
 
                       <StyledTableRow>
                         <StyledTableCell align="left">
-                          {changedData?.energyValue}
+                          {changedData?.modeValue4}
                         </StyledTableCell>
                         <StyledTableCell align="left">
                           <ChangeField
-                            name="energyValue"
-                            value={changedData?.energyValue}
+                            name="modeValue4"
+                            value={changedData?.modeValue4}
                             handleChangeData={handleChangeData}
-                            title="Energy consumption "
+                            title="modeValue4"
+                          />
+                        </StyledTableCell>
+                      </StyledTableRow>
+
+                      <StyledTableRow>
+                        <StyledTableCell align="left">
+                          {changedData?.modeValue5}
+                        </StyledTableCell>
+                        <StyledTableCell align="left">
+                          <ChangeField
+                            name="modeValu5"
+                            value={changedData?.modeValue5}
+                            handleChangeData={handleChangeData}
+                            title="modeValue5"
+                          />
+                        </StyledTableCell>
+                      </StyledTableRow>
+
+                      <StyledTableRow>
+                        <StyledTableCell align="left">
+                          {changedData?.modeValue6}
+                        </StyledTableCell>
+                        <StyledTableCell align="left">
+                          <ChangeField
+                            name="modeValu6"
+                            value={changedData?.modeValue6}
+                            handleChangeData={handleChangeData}
+                            title="modeValue6"
                           />
                         </StyledTableCell>
                       </StyledTableRow>

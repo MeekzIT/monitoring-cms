@@ -17,7 +17,7 @@ import ScrollToTop from "./components/scroll-to-top/ScrollToTop";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#00a896",
+      main: "#21726A",
     },
   },
 });

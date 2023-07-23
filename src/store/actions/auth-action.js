@@ -31,7 +31,7 @@ export const loginAction = (data) => {
         } else
           Swal.fire({
             position: "center",
-            iconColor: "#00a896",
+            iconColor: "#21726A",
             icon: "error",
             showConfirmButton: false,
             timer: 1500,

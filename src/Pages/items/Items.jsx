@@ -1,15 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import HomeIcon from "@mui/icons-material/Home";
-import {
-  Box,
-  Button,
-  Grid,
-  Modal,
-  TextField,
-  Typography,
-  makeStyles,
-} from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { USERS_PAGE } from "../../routing/pats";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +9,7 @@ import { useEffect, useState } from "react";
 import {
   editItemChanges,
   getBoxes,
-  getOwnersOfUser,
+  getItemInfo,
   getSingleBox,
   getSingleOwners,
   getSingleUser,
@@ -118,9 +110,11 @@ const Items = () => {
   const owner = useSelector((state) => state.user.owner);
   const boxes = useSelector((state) => state.user.boxes);
   const box = useSelector((state) => state.user.box);
+  const itemInfo = useSelector((state) => state.user.itemIinfo);
   const [value, setValue] = useState(0);
   const [changedData, setChangedData] = useState({});
-  const [currentId, setCurrent] = useState();
+  const [currentId, setCurrent] = useState(null);
+  const [ownerId, setOwnerId] = useState();
   const [calcData, setCalcData] = useState();
   const [open, setOpen] = useState(false);
   const handleChangeData = (name, value) => {
@@ -134,7 +128,6 @@ const Items = () => {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
-  console.log(id, "dvGBHNJMnhb");
   useEffect(() => {
     dispatch(getSingleUser(user_id));
     dispatch(getBoxes(owner_id));
@@ -142,7 +135,8 @@ const Items = () => {
 
   useEffect(() => {
     setCalcData(box?.Items.filter((i) => i.id === currentId)[0]?.ItemValue);
-  }, [currentId]);
+    ownerId && dispatch(getItemInfo(ownerId));
+  }, [currentId, ownerId]);
 
   useEffect(() => {
     user && dispatch(getSingleOwners(id));
@@ -151,13 +145,15 @@ const Items = () => {
   useEffect(() => {
     // boxes.length && ;
     boxes?.length && dispatch(getSingleBox(id));
+    setCurrent(box?.Items[0]?.id);
+    setOwnerId(box?.Items[0]?.p2);
   }, [boxes]);
 
   const handleEditChanges = () => {
     dispatch(editItemChanges({ ...changedData, id: currentId }));
   };
 
-  console.log(box, "boxboxboxboxboxboxbox");
+  console.log(itemInfo, "changedDatachangedDatachangaaedDatachangedData");
 
   return (
     <div>
@@ -183,7 +179,7 @@ const Items = () => {
             {t("owners")} {"("} {owner?.firstName} {owner?.lastName} {")"}
           </div>
           <Typography color="text.primary" className="active-steper-item">
-            {t("system")} {"("} {owner?.firstName} {owner?.lastName} {")"}
+            {t("system")}
           </Typography>
         </Breadcrumbs>
       </Box>
@@ -204,10 +200,13 @@ const Items = () => {
             {box?.Items?.map((i, idx) => {
               return (
                 <Tab
-                  label={`${t("device")} ( ${i.name} )`}
+                  label={`${t("device")} ( ${i.id} )`}
                   {...a11yProps(i.id)}
                   key={i.id}
-                  onClick={() => setCurrent(i.id)}
+                  onClick={() => {
+                    setCurrent(i.id);
+                    setOwnerId(i.p2s);
+                  }}
                 />
               );
             })}
@@ -310,7 +309,7 @@ const Items = () => {
       <Calculator
         open={open}
         handleClose={() => setOpen(false)}
-        data={calcData}
+        data={itemInfo}
       />
     </div>
   );

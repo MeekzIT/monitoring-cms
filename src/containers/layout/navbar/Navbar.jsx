@@ -45,7 +45,7 @@ const Navbar = ({ close, setClose }) => {
                 style={{
                   cursor: "pointer",
                 }}
-                sx={{ color: "#00a896" }}
+                sx={{ color: "white" }}
               />
             ) : (
               <ClearAllIcon
@@ -53,7 +53,7 @@ const Navbar = ({ close, setClose }) => {
                 style={{
                   cursor: "pointer",
                 }}
-                sx={{ color: "#00a896" }}
+                sx={{ color: "white" }}
               />
             )}
           </Tooltip>
@@ -78,7 +78,7 @@ const Navbar = ({ close, setClose }) => {
             <div className="item">
               <PersonIcon
                 sx={{
-                  color: "gray",
+                  color: "white",
                 }}
                 fontSize="large"
                 onClick={handleClick}

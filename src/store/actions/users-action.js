@@ -6,6 +6,7 @@ import {
   EDIT_BOX,
   EDIT_ITEM,
   GET_BOXES,
+  GET_INFO,
   GET_OWNERS_OF_USER,
   GET_SINGLE_BOX,
   GET_SINGLE_OWNER,
@@ -117,7 +118,7 @@ export const changeCredentials = (data) => {
         if (response.data.succes) {
           Swal.fire({
             position: "center",
-            iconColor: "#00a896",
+            iconColor: "#21726A",
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
@@ -142,7 +143,7 @@ export const changePassword = (data) => {
         if (response.data.succes) {
           Swal.fire({
             position: "center",
-            iconColor: "#00a896",
+            iconColor: "#21726A",
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
@@ -180,7 +181,7 @@ export const changeBoxSettings = (data) => {
           });
           Swal.fire({
             position: "center",
-            iconColor: "#00a896",
+            iconColor: "#21726A",
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
@@ -237,7 +238,7 @@ export const editItemChanges = (data) => {
   return (dispatch) => {
     axios
       .post(
-        `${keys.api}/owner//edit-item`,
+        `${keys.api}/owner/edit-item`,
         { data },
         {
           headers: {
@@ -253,7 +254,63 @@ export const editItemChanges = (data) => {
           });
           Swal.fire({
             position: "center",
-            iconColor: "#00a896",
+            iconColor: "#21726A",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+export const getItemInfo = (id) => {
+  return (dispatch) => {
+    axios
+      .get(`${keys.api}/owner/item-info`, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+        params: {
+          id,
+        },
+      })
+      .then((response) => {
+        dispatch({
+          type: GET_INFO,
+          payload: response.data.info,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+export const editItemInfo = (data) => {
+  return (dispatch) => {
+    axios
+      .post(
+        `${keys.api}/owner/item-info-edit`,
+        { data },
+        {
+          headers: {
+            Authorization: `Bearer ${keys.token}`,
+          },
+        }
+      )
+      .then((response) => {
+        if (response.data.succes) {
+          dispatch({
+            type: GET_INFO,
+            payload: response.data.info,
+          });
+          Swal.fire({
+            position: "center",
+            iconColor: "#21726A",
             icon: "success",
             showConfirmButton: false,
             timer: 1500,

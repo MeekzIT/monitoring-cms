@@ -60,7 +60,7 @@ const UserDetail = () => {
           <div className="loading-box">
             <CircularProgress
               sx={{
-                color: "#00a896",
+                color: "#21726A",
               }}
             />
           </div>

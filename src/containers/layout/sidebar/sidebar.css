@@ -1,8 +1,14 @@
 .sidebar {
   flex: 1;
   min-height: 100vh;
-  background: rgb(0, 93, 83);
-  background: linear-gradient(90deg, rgba(0, 93, 83, 1) 0%, rgba(255, 255, 255, 1) 100%);
+  /* background: rgb(0, 93, 83);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 93, 83, 1) 0%,
+    rgba(255, 255, 255, 1) 100%
+  ); */
+  background: #21726a;
+  border-right: 4px solid white;
   padding-top: 60px;
 }
 
@@ -33,10 +39,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgb(178, 255, 247);
-  background: radial-gradient(circle,
-      rgba(178, 255, 247, 1) 0%,
-      rgba(3, 126, 113, 1) 100%);
+  /* background: rgb(178, 255, 247);
+  background: radial-gradient(
+    circle,
+    rgba(178, 255, 247, 1) 0%,
+    rgba(3, 126, 113, 1) 100%
+  ); */
+  background: #21726a;
 }
 
 .logo {
@@ -138,14 +147,14 @@ span {
   font-weight: bold;
 }
 
-.sidebar-close{
+.sidebar-close {
   position: absolute;
   top: 2%;
-  right:5%;
+  right: 5%;
 }
 
 @media only screen and (max-width: 600px) {
-  .sidebar ul{
+  .sidebar ul {
     padding: 0 10px;
   }
-} 
+}

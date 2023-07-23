@@ -36,8 +36,8 @@ body {
 .ActivePagItem {
   width: 21px;
   height: 21px;
-  border: 1px solid #00a896;
-  color: #00a896;
+  border: 1px solid #21726a;
+  color: #21726a;
   border-radius: 50%;
   padding: 5px;
   margin-left: 15px;
@@ -69,7 +69,7 @@ body {
 }
 
 .active-steper-item {
-  color: #00a896 !important;
+  color: #21726a !important;
 }
 
 .change-field {
@@ -86,11 +86,11 @@ body {
 .mobile-modal-close-btn {
   position: absolute;
   top: 4%;
-  right: 10%;
+  right: 5%;
 }
 
 .mobile-modal-close-btn svg {
-  fill: #00a896;
+  fill: #21726a;
 }
 
 .css-19kzrtu {

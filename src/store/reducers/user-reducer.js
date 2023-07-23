@@ -4,6 +4,7 @@ import {
   EDIT_BOX,
   EDIT_ITEM,
   GET_BOXES,
+  GET_INFO,
   GET_OWNERS_OF_USER,
   GET_SINGLE_BOX,
   GET_SINGLE_OWNER,
@@ -18,6 +19,7 @@ const initialState = {
   boxes: null,
   owner: null,
   box: null,
+  itemInfo: null,
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -48,7 +50,6 @@ export const userReducer = (state = initialState, action) => {
         boxes: userBoxes,
       };
     case GET_BOXES:
-      console.log(action.payload, "action.payloadaction.payloadaction.payload");
       return {
         ...state,
         boxes: action.payload,
@@ -69,7 +70,6 @@ export const userReducer = (state = initialState, action) => {
       };
     case GET_SINGLE_BOX:
       let singleBox = state.boxes?.filter((i) => i.id == action.payload);
-      console.log(state.boxes, "-------------");
       return {
         ...state,
         box: singleBox[0],
@@ -87,6 +87,11 @@ export const userReducer = (state = initialState, action) => {
         i.id == action.payload.id ? action.payload : i
       );
       return { ...state, box: { ...state.box, Items: editedBox } };
+    case GET_INFO:
+      return {
+        ...state,
+        itemIinfo: action.payload,
+      };
     default:
       return state;
   }

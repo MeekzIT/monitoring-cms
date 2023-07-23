@@ -69,7 +69,7 @@ export const delCountries = (id) => {
           });
           Swal.fire({
             position: "center",
-            iconColor: "#00a896",
+            iconColor: "#21726A",
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
@@ -102,7 +102,7 @@ export const editCountries = (id, name, short) => {
           });
           Swal.fire({
             position: "center",
-            iconColor: "#00a896",
+            iconColor: "#21726A",
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
@@ -131,7 +131,7 @@ export const addCountries = (data) => {
           });
           Swal.fire({
             position: "center",
-            iconColor: "#00a896",
+            iconColor: "#21726A",
             icon: "success",
             showConfirmButton: false,
             timer: 1500,

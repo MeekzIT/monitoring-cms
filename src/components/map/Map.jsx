@@ -23,7 +23,7 @@ const series = {
   regions: [
     {
       values: mapData,
-      scale: ["#00a896"],
+      scale: ["#21726A"],
       normalizeFunction: "polynomial",
     },
   ],
@@ -31,15 +31,15 @@ const series = {
 
 const containerStyle = {
   width: "100%",
-  height: "420px",  
-  backgroundColor:"white",
-  svg: {  
+  height: "420px",
+  backgroundColor: "white",
+  svg: {
     height: "100%",
   },
 };
 
 export default function Maps() {
-  return (  
+  return (
     <VectorMap
       map={"world_mill"}
       backgroundColor="transparent"

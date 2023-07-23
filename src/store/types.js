@@ -21,3 +21,5 @@ export const GET_SINGLE_BOX = "GET_SINGLE_BOX";
 export const ADD_OWNER = "ADD_OWNER";
 export const GET_BOXES = "GET_BOXES";
 export const EDIT_ITEM = "EDIT_ITEM";
+export const GET_INFO = "GET_INFO";
+export const CHANGE_INFO = "CHANGE_INFO";
