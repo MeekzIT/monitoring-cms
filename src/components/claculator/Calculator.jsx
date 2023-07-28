@@ -23,6 +23,8 @@ import { useIsMobile } from "../../hooks/useScreenType";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch } from "react-redux";
 import { editItemInfo } from "../../store/actions/users-action";
+import DoubleField from "../changeField/DoubleField";
+import ChangeSelect from "../changeField/ChangedSelect";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -84,6 +86,14 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc }) => {
     overflowY: "scroll",
   };
 
+  const generateOptions = () => {
+    const options = [];
+    for (let i = 2; i <= 100; i += 2) {
+      options.push(i);
+    }
+    return options;
+  };
+  const options = generateOptions();
   console.log(currentFunctionId, "111111111111111111111111");
   return (
     <Modal
@@ -194,112 +204,110 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc }) => {
                     <TableBody>
                       <StyledTableRow>
                         <StyledTableCell component="th" scope="row">
-                          {changedData?.power} KW
+                          {changedData?.enginePower} KW
                         </StyledTableCell>
                         <StyledTableCell align="left">
                           <ChangeField
-                            name="power"
-                            value={changedData?.power}
+                            name="enginePower"
+                            value={changedData?.enginePower}
                             handleChangeData={handleChangeData}
-                            title={t("power")}
+                            title={t("enginePower")}
                           />
                         </StyledTableCell>
                       </StyledTableRow>
                       <StyledTableRow>
                         <StyledTableCell component="th" scope="row">
-                          {changedData?.water} dram / m 3
+                          {changedData?.electricPrice} dram / m 3
                         </StyledTableCell>
                         <StyledTableCell component="th" scope="row">
                           <ChangeField
-                            name="water"
-                            value={changedData?.water}
+                            name="electricPrice"
+                            value={changedData?.electricPrice}
                             handleChangeData={handleChangeData}
-                            title={t("water")}
+                            title={t("electricPrice")}
                           />
                         </StyledTableCell>
                       </StyledTableRow>
                       <StyledTableRow>
                         <StyledTableCell component="th" scope="row">
-                          {changedData?.modeValue1}
+                          {changedData?.waterPrice}
                         </StyledTableCell>
                         <StyledTableCell component="th" scope="row">
                           <ChangeField
-                            name="modeValue1"
-                            value={changedData?.modeValue1}
+                            name="waterPrice"
+                            value={changedData?.waterPrice}
                             handleChangeData={handleChangeData}
-                            title={`${t("modeValue")} №1`}
+                            title={`${t("waterPrice")}`}
                           />
                         </StyledTableCell>
                       </StyledTableRow>
 
                       <StyledTableRow>
                         <StyledTableCell align="left">
-                          {changedData?.modeValue2}
+                          {changedData?.waterPerMinute}
                         </StyledTableCell>
                         <StyledTableCell align="left">
                           <ChangeField
-                            name="modeValue2"
-                            value={changedData?.modeValue2}
+                            name="waterPerMinute"
+                            value={changedData?.waterPerMinute}
                             handleChangeData={handleChangeData}
-                            title={`${t("modeValue")} №2`}
+                            title={`${t("waterPerMinute")}`}
                           />
                         </StyledTableCell>
                       </StyledTableRow>
 
                       <StyledTableRow>
                         <StyledTableCell align="left">
-                          {changedData?.modeValue3}
+                          {changedData?.modeValuePerLitre}
                         </StyledTableCell>
                         <StyledTableCell align="left">
                           <ChangeField
-                            name="modeValue3"
-                            value={changedData?.modeValue3}
+                            name="modeValuePerLitre"
+                            value={changedData?.modeValuePerLitre}
                             handleChangeData={handleChangeData}
-                            title={`${t("modeValue")} №3`}
+                            title={`${t("modeValuePerLitre")}`}
                           />
                         </StyledTableCell>
                       </StyledTableRow>
 
                       <StyledTableRow>
                         <StyledTableCell align="left">
-                          {changedData?.modeValue4}
+                          {changedData?.PrcentOfRegulator}
                         </StyledTableCell>
                         <StyledTableCell align="left">
                           <ChangeField
-                            name="modeValue4"
-                            value={changedData?.modeValue4}
+                            name="PrcentOfRegulator"
+                            value={changedData?.PrcentOfRegulator}
                             handleChangeData={handleChangeData}
-                            title={`${t("modeValue")} №4`}
+                            title={`${t("PrcentOfRegulator")}`}
+                          />
+                          <ChangeSelect
+                            name="PrcentOfRegulator"
+                            value={changedData?.PrcentOfRegulator}
+                            handleChangeData={handleChangeData}
+                            title={`${t("PrcentOfRegulator")}`}
+                            options={options}
                           />
                         </StyledTableCell>
                       </StyledTableRow>
 
                       <StyledTableRow>
-                        <StyledTableCell align="left">
-                          {changedData?.modeValue5}
-                        </StyledTableCell>
-                        <StyledTableCell align="left">
-                          <ChangeField
-                            name="modeValu5"
-                            value={changedData?.modeValue5}
-                            handleChangeData={handleChangeData}
-                            title={`${t("modeValue")} №5`}
-                          />
-                        </StyledTableCell>
-                      </StyledTableRow>
-
-                      <StyledTableRow>
-                        <StyledTableCell align="left">
-                          {changedData?.modeValue6}
-                        </StyledTableCell>
-                        <StyledTableCell align="left">
-                          <ChangeField
-                            name="modeValu6"
-                            value={changedData?.modeValue6}
-                            handleChangeData={handleChangeData}
-                            title={`${t("modeValue")} №6`}
-                          />
-                        </StyledTableCell>
+                        <div style={{ display: "flex" }}>
+                          <StyledTableCell align="left">
+                            {changedData?.PrcetOfModeValueFirst} /{" "}
+                            {changedData?.PrcetOfModeValueSecond}
+                          </StyledTableCell>
+                          <StyledTableCell align="left">
+                            <DoubleField
+                              title={t("PrcentOfRegulator")}
+                              nameFirst={"PrcetOfModeValueFirst"}
+                              nameSecond={"PrcetOfModeValueSecond"}
+                              firstValue={changedData?.PrcetOfModeValueFirst}
+                              secondValue={changedData?.PrcetOfModeValueSecond}
+                              handleChangeData={handleChangeData}
+                            />
+                          </StyledTableCell>
+                        </div>
                       </StyledTableRow>
                     </TableBody>
                   </Table>
