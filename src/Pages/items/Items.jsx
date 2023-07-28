@@ -10,6 +10,7 @@ import {
   editItemChanges,
   getBoxes,
   getItemInfo,
+  getItemInfoCalc,
   getSingleBox,
   getSingleOwners,
   getSingleUser,
@@ -111,6 +112,7 @@ const Items = () => {
   const boxes = useSelector((state) => state.user.boxes);
   const box = useSelector((state) => state.user.box);
   const itemInfo = useSelector((state) => state.user.itemIinfo);
+  const itemInfoCalc = useSelector((state) => state.user.calcData);
   const [value, setValue] = useState(0);
   const [changedData, setChangedData] = useState({});
   const [currentId, setCurrent] = useState(null);
@@ -136,6 +138,7 @@ const Items = () => {
   useEffect(() => {
     setCalcData(box?.Items.filter((i) => i.id === currentId)[0]?.ItemValue);
     ownerId && dispatch(getItemInfo(ownerId));
+    ownerId && dispatch(getItemInfoCalc(ownerId));
   }, [currentId, ownerId]);
 
   useEffect(() => {
@@ -152,8 +155,6 @@ const Items = () => {
   const handleEditChanges = () => {
     dispatch(editItemChanges({ ...changedData, id: currentId }));
   };
-
-  console.log(itemInfo, "changedDatachangedDatachangaaedDatachangedData");
 
   return (
     <div>
@@ -296,7 +297,7 @@ const Items = () => {
                         fullWidth
                         onClick={handleEditChanges}
                       >
-                        Save Changes
+                        {t("savechanges")}
                       </Button>
                     </Box>
                   </Grid>
@@ -310,6 +311,7 @@ const Items = () => {
         open={open}
         handleClose={() => setOpen(false)}
         data={itemInfo}
+        itemInfoCalc={itemInfoCalc}
       />
     </div>
   );

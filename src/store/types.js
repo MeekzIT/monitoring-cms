@@ -22,4 +22,4 @@ export const ADD_OWNER = "ADD_OWNER";
 export const GET_BOXES = "GET_BOXES";
 export const EDIT_ITEM = "EDIT_ITEM";
 export const GET_INFO = "GET_INFO";
-export const CHANGE_INFO = "CHANGE_INFO";
+export const GET_CALC_INFO = "GET_CALC_INFO";

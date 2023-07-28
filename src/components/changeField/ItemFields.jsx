@@ -10,7 +10,13 @@ const ItemField = ({ data, handleChangeData }) => {
       {allFields
         ?.filter((i) => {
           let filed = i.slice(",")[0];
-          return filed !== "DeviceType" || filed !== "P0";
+          console.log(filed, "0000000000000000000");
+          return (
+            filed !== "DeviceType" ||
+            filed !== "p0" ||
+            filed !== "id" ||
+            filed !== "p1"
+          );
         })
         .map((d) => {
           return (

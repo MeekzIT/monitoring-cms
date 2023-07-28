@@ -6,6 +6,7 @@ import {
   EDIT_BOX,
   EDIT_ITEM,
   GET_BOXES,
+  GET_CALC_INFO,
   GET_INFO,
   GET_OWNERS_OF_USER,
   GET_SINGLE_BOX,
@@ -316,6 +317,29 @@ export const editItemInfo = (data) => {
             timer: 1500,
           });
         }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+export const getItemInfoCalc = (id) => {
+  return (dispatch) => {
+    axios
+      .get(`${keys.api}/owner/item-info-calc`, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+        params: {
+          ownerID: id,
+        },
+      })
+      .then((response) => {
+        dispatch({
+          type: GET_CALC_INFO,
+          payload: response.data.data,
+        });
       })
       .catch((error) => {
         console.error(error);

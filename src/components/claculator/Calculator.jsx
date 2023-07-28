@@ -44,24 +44,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("№ 1 wather", "20k", "22k", 0, "4.2k"),
-  createData("№ 2 foam", "5.4k", "5.1k", "166k", "2.0k"),
-  createData("№ 3 wax", "3.0k", "9.1k", "166k", "0.3k"),
-  createData("№ 4 warm", "0", "0", "0", "0"),
-  createData("№ 5 cleaner", "0", "0", "0", "0"),
-  createData("Total", "98.6", "561", "149", "6.5k"),
-];
-
-const Calculator = ({ open, handleClose, data }) => {
+const Calculator = ({ open, handleClose, data, itemInfoCalc }) => {
   const { t } = useTranslation();
   const isMobile = useIsMobile();
   const dispatch = useDispatch();
   const [showSettings, setShowSettings] = useState(false);
+  const [currentFunctionId, setCurrentFunctionID] = useState();
   const [changedData, setChangedData] = useState(null);
   const handleChangeData = (name, value) => {
     changedData[name] = value;
@@ -86,15 +74,17 @@ const Calculator = ({ open, handleClose, data }) => {
     boxShadow: 24,
     p: 4,
     borderRadius: "10px",
-    minHeight: isMobile ? "100vh" : null,
+    minHeight: isMobile ? "100vh" : 400,
+    maxHeight: isMobile ? "100vh" : 600,
     display: isMobile && "flex",
     justifyContent: isMobile && "center",
     alignItems: isMobile && "center",
     flexDirection: isMobile && "column",
     gap: isMobile && "20px",
+    overflowY: "scroll",
   };
 
-  console.log(changedData, "111111111111111111111111");
+  console.log(currentFunctionId, "111111111111111111111111");
   return (
     <Modal
       open={open}
@@ -109,19 +99,15 @@ const Calculator = ({ open, handleClose, data }) => {
         <Typography id="modal-modal-title" variant="h6" component="h2" mb={2}>
           {t("calc")}
         </Typography>
-        <Button
-          variant="outlined"
-          endIcon={
-            showSettings ? (
-              <ReplyIcon sx={{ color: "#21726A" }} />
-            ) : (
-              <SettingsSuggestIcon sx={{ color: "#21726A" }} />
-            )
-          }
-          onClick={() => setShowSettings(!showSettings)}
-        >
-          {t("settings")}
-        </Button>
+        {showSettings && (
+          <Button
+            variant="outlined"
+            endIcon={<ReplyIcon sx={{ color: "#21726A" }} />}
+            onClick={() => setShowSettings(!showSettings)}
+          >
+            {t("settings")}
+          </Button>
+        )}
         {!showSettings ? (
           <Box mt={2}>
             <Box sx={{ overflow: "auto" }}>
@@ -132,36 +118,53 @@ const Calculator = ({ open, handleClose, data }) => {
                   <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                       <TableRow>
-                        <TableCell>Function</TableCell>
-                        <TableCell align="right">
+                        <TableCell align="left">{t("rejim")}</TableCell>
+                        <TableCell align="left">
                           <WaterDropIcon sx={{ color: "#21726A" }} />
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell align="left">
                           <ElectricBoltIcon sx={{ color: "#21726A" }} />
                         </TableCell>{" "}
-                        <TableCell align="right">
+                        <TableCell align="left">
                           <BubbleChartIcon sx={{ color: "#21726A" }} />
                         </TableCell>{" "}
-                        <TableCell align="right">
+                        <TableCell align="left">
                           <TimelapseIcon sx={{ color: "#21726A" }} />
                         </TableCell>
+                        <TableCell align="right">{t("settings")}</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {rows.map((row) => (
+                      {itemInfoCalc?.map((row) => (
                         <TableRow
-                          key={row.name}
+                          key={row.modeName}
                           sx={{
                             "&:last-child td, &:last-child th": { border: 0 },
                           }}
                         >
-                          <TableCell component="th" scope="row">
-                            {row.name}
+                          <TableCell component="th" scope="row" align="left">
+                            {t(row.modeName)}
                           </TableCell>
-                          <TableCell align="right">{row.calories}</TableCell>
-                          <TableCell align="right">{row.fat}</TableCell>
-                          <TableCell align="right">{row.carbs}</TableCell>
-                          <TableCell align="right">{row.protein}</TableCell>
+                          <TableCell align="left">{row.water}</TableCell>
+                          <TableCell align="left">{row.electric}</TableCell>
+                          <TableCell align="left">{row.modeValue}</TableCell>
+                          <TableCell align="left">{row.seconds}</TableCell>
+                          <TableCell align="right">
+                            <Button
+                              variant="outlined"
+                              endIcon={
+                                <SettingsSuggestIcon
+                                  sx={{ color: "#21726A" }}
+                                />
+                              }
+                              onClick={() => {
+                                setShowSettings(!showSettings);
+                                setCurrentFunctionID(row.functionId);
+                              }}
+                            >
+                              {t("settings")}
+                            </Button>
+                          </TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
@@ -183,20 +186,35 @@ const Calculator = ({ open, handleClose, data }) => {
                         <StyledTableCell align="left">
                           Current Data
                         </StyledTableCell>
-                        <StyledTableCell align="left">Edit</StyledTableCell>
+                        <StyledTableCell align="left">
+                          {t("edit")}
+                        </StyledTableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       <StyledTableRow>
                         <StyledTableCell component="th" scope="row">
-                          {changedData?.power} KV
+                          {changedData?.power} KW
                         </StyledTableCell>
                         <StyledTableCell align="left">
                           <ChangeField
                             name="power"
                             value={changedData?.power}
                             handleChangeData={handleChangeData}
-                            title="Power"
+                            title={t("power")}
+                          />
+                        </StyledTableCell>
+                      </StyledTableRow>
+                      <StyledTableRow>
+                        <StyledTableCell component="th" scope="row">
+                          {changedData?.water} dram / m 3
+                        </StyledTableCell>
+                        <StyledTableCell component="th" scope="row">
+                          <ChangeField
+                            name="water"
+                            value={changedData?.water}
+                            handleChangeData={handleChangeData}
+                            title={t("water")}
                           />
                         </StyledTableCell>
                       </StyledTableRow>
@@ -209,7 +227,7 @@ const Calculator = ({ open, handleClose, data }) => {
                             name="modeValue1"
                             value={changedData?.modeValue1}
                             handleChangeData={handleChangeData}
-                            title="modeValue1"
+                            title={`${t("modeValue")} №1`}
                           />
                         </StyledTableCell>
                       </StyledTableRow>
@@ -223,7 +241,7 @@ const Calculator = ({ open, handleClose, data }) => {
                             name="modeValue2"
                             value={changedData?.modeValue2}
                             handleChangeData={handleChangeData}
-                            title="modeValue2"
+                            title={`${t("modeValue")} №2`}
                           />
                         </StyledTableCell>
                       </StyledTableRow>
@@ -237,7 +255,7 @@ const Calculator = ({ open, handleClose, data }) => {
                             name="modeValue3"
                             value={changedData?.modeValue3}
                             handleChangeData={handleChangeData}
-                            title="modeValue3"
+                            title={`${t("modeValue")} №3`}
                           />
                         </StyledTableCell>
                       </StyledTableRow>
@@ -251,7 +269,7 @@ const Calculator = ({ open, handleClose, data }) => {
                             name="modeValue4"
                             value={changedData?.modeValue4}
                             handleChangeData={handleChangeData}
-                            title="modeValue4"
+                            title={`${t("modeValue")} №4`}
                           />
                         </StyledTableCell>
                       </StyledTableRow>
@@ -265,7 +283,7 @@ const Calculator = ({ open, handleClose, data }) => {
                             name="modeValu5"
                             value={changedData?.modeValue5}
                             handleChangeData={handleChangeData}
-                            title="modeValue5"
+                            title={`${t("modeValue")} №5`}
                           />
                         </StyledTableCell>
                       </StyledTableRow>
@@ -279,7 +297,7 @@ const Calculator = ({ open, handleClose, data }) => {
                             name="modeValu6"
                             value={changedData?.modeValue6}
                             handleChangeData={handleChangeData}
-                            title="modeValue6"
+                            title={`${t("modeValue")} №6`}
                           />
                         </StyledTableCell>
                       </StyledTableRow>

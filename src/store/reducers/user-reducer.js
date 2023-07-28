@@ -4,6 +4,7 @@ import {
   EDIT_BOX,
   EDIT_ITEM,
   GET_BOXES,
+  GET_CALC_INFO,
   GET_INFO,
   GET_OWNERS_OF_USER,
   GET_SINGLE_BOX,
@@ -20,6 +21,7 @@ const initialState = {
   owner: null,
   box: null,
   itemInfo: null,
+  calcData: null,
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -91,6 +93,11 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         itemIinfo: action.payload,
+      };
+    case GET_CALC_INFO:
+      return {
+        ...state,
+        calcData: action.payload,
       };
     default:
       return state;
