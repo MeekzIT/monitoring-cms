@@ -29,9 +29,16 @@ const DoubleField = ({
           <TextField
             variant="outlined"
             name={nameFirst}
-            defaultValue={value}
-            value={fieldValue}
-            onChange={(e) => setFieldValue(e.target.value)}
+            defaultValue={fieldValueFirst}
+            value={fieldValueFirst}
+            onChange={(e) => setFieldValueFirst(e.target.value)}
+          />
+          <TextField
+            variant="outlined"
+            name={nameFirst}
+            defaultValue={fieldValueSecond}
+            value={fieldValueSecond}
+            onChange={(e) => setFieldValueSecond(e.target.value)}
           />
           <div>
             <Button

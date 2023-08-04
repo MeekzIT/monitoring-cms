@@ -11,6 +11,8 @@ import {
   getBoxes,
   getItemInfo,
   getItemInfoCalc,
+  getItemInfoModes,
+  getItemInfoPrcent,
   getSingleBox,
   getSingleOwners,
   getSingleUser,
@@ -25,6 +27,8 @@ import CalculateIcon from "@mui/icons-material/Calculate";
 import Calculator from "../../components/claculator/Calculator";
 import ItemField from "../../components/changeField/ItemFields";
 import { useIsMobile } from "../../hooks/useScreenType";
+import DonutChart from "../../components/graphics/Dount";
+import LineChart from "../../components/graphics/LineChart";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -96,10 +100,6 @@ const series1 = [
   },
 ];
 
-const dountOpt = {};
-const dountSeries = [44, 55, 41];
-const dountLables = ["Awedfsdf", "B", "C"];
-
 const Items = () => {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -113,6 +113,8 @@ const Items = () => {
   const box = useSelector((state) => state.user.box);
   const itemInfo = useSelector((state) => state.user.itemIinfo);
   const itemInfoCalc = useSelector((state) => state.user.calcData);
+  const prcemt = useSelector((state) => state.user.infoPrcent);
+  const infoModes = useSelector((state) => state.user.infoByModes);
   const [value, setValue] = useState(0);
   const [changedData, setChangedData] = useState({});
   const [currentId, setCurrent] = useState(null);
@@ -139,6 +141,8 @@ const Items = () => {
     setCalcData(box?.Items.filter((i) => i.id === currentId)[0]?.ItemValue);
     ownerId && dispatch(getItemInfo(ownerId));
     ownerId && dispatch(getItemInfoCalc(ownerId));
+    ownerId && dispatch(getItemInfoPrcent(ownerId));
+    ownerId && dispatch(getItemInfoModes(ownerId));
   }, [currentId, ownerId]);
 
   useEffect(() => {
@@ -155,6 +159,8 @@ const Items = () => {
   const handleEditChanges = () => {
     dispatch(editItemChanges({ ...changedData, id: currentId }));
   };
+
+  console.log(infoModes, "1111111111111111111111111");
 
   return (
     <div>
@@ -242,29 +248,21 @@ const Items = () => {
                 >
                   <Grid item>
                     <div>
-                      <Chart
-                        options={options}
-                        series={series}
-                        type="line"
-                        width={isMobile ? "300" : "500"}
-                      />
+                      {prcemt && (
+                        <DonutChart
+                          benefit={prcemt?.benefit}
+                          expenses={prcemt?.expenses}
+                        />
+                      )}
                     </div>
                     <div>
-                      <Chart
-                        options={dountOpt}
-                        series={dountSeries}
-                        label={dountLables}
-                        type="donut"
-                        width={isMobile ? "300" : "500"}
-                      />
-                    </div>
-                    <div>
-                      <Chart
+                      {/* <Chart
                         options={options1}
                         series={series1}
                         type="line"
                         width={isMobile ? "300" : "500"}
-                      />
+                      /> */}
+                      <LineChart />
                     </div>
                     <div>
                       <Button

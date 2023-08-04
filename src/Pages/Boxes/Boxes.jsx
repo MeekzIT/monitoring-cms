@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import {
   changeBoxSettings,
   getBoxes,
+  getItemInfoBenefits,
   getSingleBox,
   getSingleOwners,
   getSingleUser,
@@ -63,12 +64,13 @@ const Boxes = () => {
   const [currentId, setCurrentId] = useState(null);
   const [name, setName] = useState(null);
   const [geo, setGeo] = useState(null);
+  const [ownerId, setOwnerId] = useState(null);
   const style = {
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: isMobile ? "100%" : 400,
+    width: isMobile ? "100%" : 500,
     bgcolor: "background.paper",
     border: "3px solid #21726A",
     boxShadow: 24,
@@ -89,6 +91,19 @@ const Boxes = () => {
   useEffect(() => {
     user && dispatch(getSingleOwners(id));
   }, [user]);
+
+  useEffect(() => {
+    console.log(ownerId, "888888888888888888888888888888");
+    let items = [];
+    // data?.filter((i) => i.ownerId == ownerId;);
+    data
+      ?.filter((i) => i.ownerId == ownerId)[0]
+      ?.Items?.map((y) => items.push(y.p2));
+    console.log(JSON.stringify(items), "766666666666666666666666");
+    items.length && dispatch(getItemInfoBenefits(JSON.stringify(items)));
+  }, [ownerId]);
+
+  console.log(data);
 
   return (
     <div>
@@ -148,6 +163,7 @@ const Boxes = () => {
                             setName(row.name);
                             setGeo(row.geolocation);
                             setCurrentId(row.id);
+
                             setOpen(true);
                           }}
                         >
@@ -158,6 +174,7 @@ const Boxes = () => {
                         <Button
                           variant="outlined"
                           onClick={() => {
+                            setOwnerId(row.id);
                             setOpenStatistics(true);
                           }}
                         >

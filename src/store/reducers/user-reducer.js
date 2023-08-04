@@ -6,6 +6,9 @@ import {
   GET_BOXES,
   GET_CALC_INFO,
   GET_INFO,
+  GET_INFO_BENREFITS,
+  GET_INFO_MODES,
+  GET_INFO_PRCENT,
   GET_OWNERS_OF_USER,
   GET_SINGLE_BOX,
   GET_SINGLE_OWNER,
@@ -22,6 +25,9 @@ const initialState = {
   box: null,
   itemInfo: null,
   calcData: null,
+  benefits: null,
+  infoPrcent: null,
+  infoByModes: null,
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -98,6 +104,21 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         calcData: action.payload,
+      };
+    case GET_INFO_BENREFITS:
+      return {
+        ...state,
+        benefits: action.payload,
+      };
+    case GET_INFO_MODES:
+      return {
+        ...state,
+        infoByModes: action.payload,
+      };
+    case GET_INFO_PRCENT:
+      return {
+        ...state,
+        infoPrcent: action.payload,
       };
     default:
       return state;

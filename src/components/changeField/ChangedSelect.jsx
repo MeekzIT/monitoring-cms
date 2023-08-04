@@ -22,9 +22,10 @@ const ChangeSelect = ({ name, value, handleChangeData, title, options }) => {
           <FormControl>
             <InputLabel id="select-label">Select a number (couple)</InputLabel>
             <Select
+              fullWidth
               name={name}
               value={value}
-              onChange={setFieldValue(e.target.value)}
+              onChange={(e) => setFieldValue(e.target.value)}
             >
               {options.map((option) => (
                 <MenuItem key={option} value={option}>

@@ -8,6 +8,9 @@ import {
   GET_BOXES,
   GET_CALC_INFO,
   GET_INFO,
+  GET_INFO_BENREFITS,
+  GET_INFO_MODES,
+  GET_INFO_PRCENT,
   GET_OWNERS_OF_USER,
   GET_SINGLE_BOX,
   GET_SINGLE_OWNER,
@@ -338,6 +341,75 @@ export const getItemInfoCalc = (id) => {
       .then((response) => {
         dispatch({
           type: GET_CALC_INFO,
+          payload: response.data.data,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+export const getItemInfoBenefits = (id) => {
+  return (dispatch) => {
+    axios
+      .get(`${keys.api}/owner/item-info-getBenefitsByDate`, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+        params: {
+          ownerID: id,
+        },
+      })
+      .then((response) => {
+        dispatch({
+          type: GET_INFO_BENREFITS,
+          payload: response.data.data,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+export const getItemInfoPrcent = (id) => {
+  return (dispatch) => {
+    axios
+      .get(`${keys.api}/owner/item-info-expensesBenefitPrcent`, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+        params: {
+          ownerID: id,
+        },
+      })
+      .then((response) => {
+        dispatch({
+          type: GET_INFO_PRCENT,
+          payload: response.data.data,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+export const getItemInfoModes = (id) => {
+  return (dispatch) => {
+    axios
+      .get(`${keys.api}/owner/item-info-getBenefitsByModes`, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+        params: {
+          ownerID: id,
+        },
+      })
+      .then((response) => {
+        dispatch({
+          type: GET_INFO_MODES,
           payload: response.data.data,
         });
       })
