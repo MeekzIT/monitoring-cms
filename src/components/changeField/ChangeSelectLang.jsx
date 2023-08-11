@@ -3,8 +3,18 @@ import { Button, TextField, Typography } from "@mui/material";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import CloseIcon from "@mui/icons-material/Close";
+import { useTranslation } from "react-i18next";
 
-const ChangeSelect = ({ name, value, handleChangeData, title, options }) => {
+const ChangeSelectLang = ({
+  name,
+  value,
+  handleChangeData,
+  title,
+  options,
+  show,
+  helper,
+}) => {
+  const { t } = useTranslation();
   const [edit, setEdit] = useState(false);
   const [fieldValue, setFieldValue] = useState(value);
 
@@ -20,18 +30,14 @@ const ChangeSelect = ({ name, value, handleChangeData, title, options }) => {
       {edit ? (
         <div className="change-field">
           <FormControl fullWidth>
-            <InputLabel id="select-label">Select a number (couple)</InputLabel>
             <Select
               fullWidth
               name={name}
-              value={value.value}
               onChange={(e) => setFieldValue(e.target.value)}
             >
-              {options.map((option) => (
-                <MenuItem key={option} value={option}>
-                  {option}
-                </MenuItem>
-              ))}
+              {options.map((i) => {
+                return <MenuItem value={i.value}>{i.name}</MenuItem>;
+              })}
             </Select>
           </FormControl>
           <div>
@@ -58,7 +64,8 @@ const ChangeSelect = ({ name, value, handleChangeData, title, options }) => {
         </div>
       ) : (
         <div className="change-field">
-          <TextField variant="standard" value={fieldValue} disabled />
+          {/* <TextField variant="standard" value={show} disabled /> */}
+          <div>{fieldValue ? t(helper(fieldValue)) : show}</div>
           <Button variant="outlined" onClick={changeFieldState}>
             <EditIcon />
           </Button>
@@ -68,4 +75,4 @@ const ChangeSelect = ({ name, value, handleChangeData, title, options }) => {
   );
 };
 
-export default ChangeSelect;
+export default ChangeSelectLang;

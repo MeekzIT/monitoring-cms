@@ -1,13 +1,19 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import HomeIcon from "@mui/icons-material/Home";
-import { Box, Button, Grid, Modal, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { USERS_PAGE } from "../../routing/pats";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import {
+  editItemChanges,
   getBoxes,
+  getItemInfo,
+  getItemInfoCalc,
+  getItemInfoModes,
+  getItemInfoPrcent,
+  getSingleBox,
   getSingleOwners,
   getSingleUser,
 } from "../../store/actions/users-action";
@@ -16,9 +22,12 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import SwipeableViews from "react-swipeable-views";
 import { useTheme } from "@mui/material/styles";
-import Chart from "react-apexcharts";
-import ChangeField from "../../components/changeField/ChangeField";
+import CalculateIcon from "@mui/icons-material/Calculate";
+import Calculator from "../../components/claculator/Calculator";
+import ItemField from "../../components/changeField/ItemFields";
 import { useIsMobile } from "../../hooks/useScreenType";
+import DonutChart from "../../components/graphics/Dount";
+import LineChart from "../../components/graphics/LineChart";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -90,20 +99,31 @@ const series1 = [
   },
 ];
 
-const OwnerItems = () => {
+const Items = () => {
   const { t } = useTranslation();
   const theme = useTheme();
-  const isMobile = useIsMobile();
+  const navigate = useNavigate();
+  const { id, owner_id, user_id } = useParams();
   const dispatch = useDispatch();
-  const owner = useSelector((state) => state.auth.admin);
-  const data = useSelector((state) => state.user.boxes);
+  const isMobile = useIsMobile();
+  const user = useSelector((state) => state.user.single);
+  const owner = useSelector((state) => state.user.owner);
+  const boxes = useSelector((state) => state.user.boxes);
   const box = useSelector((state) => state.user.box);
+  const itemInfo = useSelector((state) => state.user.itemIinfo);
+  const itemInfoCalc = useSelector((state) => state.user.calcData);
+  const prcemt = useSelector((state) => state.user.infoPrcent);
+  const infoModes = useSelector((state) => state.user.infoByModes);
   const [value, setValue] = useState(0);
   const [changedData, setChangedData] = useState({});
-
-  const dountOpt = {};
-  const dountSeries = [44, 55, 41];
-  const dountLables = ["Awedfsdf", "B", "C"];
+  const [currentId, setCurrent] = useState(null);
+  const [ownerId, setOwnerId] = useState();
+  const [calcData, setCalcData] = useState();
+  const [open, setOpen] = useState(false);
+  const handleChangeData = (name, value) => {
+    changedData[name] = value;
+    setChangedData(changedData);
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -111,18 +131,62 @@ const OwnerItems = () => {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
-
   useEffect(() => {
-    dispatch(getBoxes(owner.id));
+    dispatch(getSingleUser(user_id));
+    dispatch(getBoxes(owner_id));
   }, []);
 
-  const handleChangeData = (name, value) => {
-    changedData[name] = value;
-    setChangedData(changedData);
+  useEffect(() => {
+    setCalcData(box?.Items.filter((i) => i.id === currentId)[0]?.ItemValue);
+    ownerId && dispatch(getItemInfo(ownerId));
+    ownerId && dispatch(getItemInfoCalc(ownerId));
+    ownerId && dispatch(getItemInfoPrcent(ownerId));
+    ownerId && dispatch(getItemInfoModes(ownerId));
+  }, [currentId, ownerId]);
+
+  useEffect(() => {
+    user && dispatch(getSingleOwners(id));
+  }, [user]);
+
+  useEffect(() => {
+    // boxes.length && ;
+    boxes?.length && dispatch(getSingleBox(id));
+    setCurrent(box?.Items[0]?.id);
+    setOwnerId(box?.Items[0]?.p2);
+  }, [boxes]);
+
+  const handleEditChanges = () => {
+    dispatch(editItemChanges({ ...changedData, id: currentId }));
   };
 
   return (
     <div>
+      <Box m={2}>
+        <Breadcrumbs aria-label="breadcrumb">
+          <div>
+            <HomeIcon />
+          </div>
+          <div onClick={() => navigate(USERS_PAGE)} className="steper-item">
+            {t("users")}
+          </div>
+          <div
+            onClick={() => navigate(`/user/${user?.id}`)}
+            className="steper-item"
+          >
+            {t("users").slice(0, t("users").length - 1)} {"  "}
+            {"("} {user?.firstName + " " + user?.lastName} {")"}
+          </div>
+          <div
+            className="steper-item"
+            onClick={() => navigate(`/user/${user_id}/owner/${owner?.id}`)}
+          >
+            {t("owners")} {"("} {owner?.firstName} {owner?.lastName} {")"}
+          </div>
+          <Typography color="text.primary" className="active-steper-item">
+            {t("system")}
+          </Typography>
+        </Breadcrumbs>
+      </Box>
       <Box sx={{ width: "100%" }}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
@@ -133,15 +197,20 @@ const OwnerItems = () => {
             sx={{
               "& .MuiTabs-flexContainer": {
                 flexWrap: "wrap",
+                padding: "0",
               },
             }}
           >
             {box?.Items?.map((i, idx) => {
               return (
                 <Tab
-                  label={`${t("device")} ${idx + 1}`}
-                  {...a11yProps(idx + 1)}
+                  label={`${t("device")} ( ${i.id} )`}
+                  {...a11yProps(i.id)}
                   key={i.id}
+                  onClick={() => {
+                    setCurrent(i.id);
+                    setOwnerId(i.p2s);
+                  }}
                 />
               );
             })}
@@ -159,39 +228,52 @@ const OwnerItems = () => {
                 index={idx}
                 dir={theme.direction}
                 key={i.id}
+                sx={{
+                  root: {
+                    "& .MuiBox": {
+                      padding: 0,
+                    },
+                  },
+                }}
               >
                 <Grid
-                  container
-                  spacing={2}
+                  spacing={1}
                   sx={{
-                    padding: "0px !importants",
+                    padding: "0",
                   }}
+                  container
                 >
                   <Grid item>
                     <div>
-                      <Chart
-                        options={options}
-                        series={series}
-                        type="line"
-                        width={isMobile ? "300" : "500"}
-                      />
+                      {prcemt && (
+                        <DonutChart
+                          benefit={prcemt?.benefit}
+                          expenses={prcemt?.expenses}
+                        />
+                      )}
                     </div>
                     <div>
-                      <Chart
-                        options={dountOpt}
-                        series={dountSeries}
-                        label={dountLables}
-                        type="donut"
-                        width={isMobile ? "300" : "500"}
-                      />
-                    </div>
-                    <div>
-                      <Chart
+                      {/* <Chart
                         options={options1}
                         series={series1}
                         type="line"
                         width={isMobile ? "300" : "500"}
-                      />
+                      /> */}
+                      <LineChart />
+                    </div>
+                    <div>
+                      <Button
+                        variant="contained"
+                        size="large"
+                        sx={{
+                          color: "white",
+                          fontSize: "20px",
+                        }}
+                        onClick={() => setOpen(true)}
+                      >
+                        <CalculateIcon />
+                        {t("calc")}
+                      </Button>
                     </div>
                   </Grid>
                   <Grid item>
@@ -203,112 +285,21 @@ const OwnerItems = () => {
                       {t("device")} №-{i.id}
                     </Typography>
                     <hr style={{ width: "50vw" }} />
-                    <Box m={2}>
-                      <ChangeField
-                        value={i.DeviceType}
-                        name="DeviceType"
+                    {i && (
+                      <ItemField
+                        data={i}
                         handleChangeData={handleChangeData}
-                        title="Device Type"
+                        values={changedData}
                       />
-                    </Box>
-                    <Box m={2}>
-                      <ChangeField
-                        value={i.FreeCard}
-                        name="FreeCard"
-                        handleChangeData={handleChangeData}
-                        title="Free Card"
-                      />
-                    </Box>
-                    <Box m={2}>
-                      <ChangeField
-                        value={i.CoinNominal}
-                        name="CoinNominal"
-                        handleChangeData={handleChangeData}
-                        title="Coin Nominal"
-                      />
-                    </Box>
-                    <Box m={2}>
-                      <ChangeField
-                        value={i.BillNominal}
-                        name="BillNominal"
-                        handleChangeData={handleChangeData}
-                        title="Bill Nominal"
-                      />
-                    </Box>
-                    <Box m={2}>
-                      <ChangeField
-                        value={i.CashLessNominal}
-                        name="CashLessNominal"
-                        handleChangeData={handleChangeData}
-                        title="CashLess Nominal"
-                      />
-                    </Box>
-                    <Box m={2}>
-                      <ChangeField
-                        value={i.CoinCount}
-                        name="CoinCount"
-                        handleChangeData={handleChangeData}
-                        title="Coin Count"
-                      />
-                    </Box>
-                    <Box m={2}>
-                      <ChangeField
-                        value={i.BillCount}
-                        name="BillCount"
-                        handleChangeData={handleChangeData}
-                        title="Bill Count"
-                      />
-                    </Box>
-                    <Box m={2}>
-                      <ChangeField
-                        value={i.CashLessCount}
-                        name="CashLessCount"
-                        handleChangeData={handleChangeData}
-                        title="CashLess Count"
-                      />
-                    </Box>
-                    <Box m={2}>
-                      <ChangeField
-                        value={i.CoinCountTotal}
-                        name="CoinCountTotal"
-                        handleChangeData={handleChangeData}
-                        title="CoinCount Total"
-                      />
-                    </Box>
-                    <Box m={2}>
-                      <ChangeField
-                        value={i.BillCountTotal}
-                        name="BillCountTotal"
-                        handleChangeData={handleChangeData}
-                        title="BillCount Total"
-                      />
-                    </Box>
-                    <Box m={2}>
-                      <ChangeField
-                        value={i.CashLessCountTotal}
-                        name="CashLessCountTotal"
-                        handleChangeData={handleChangeData}
-                        title="CashLess Count Total"
-                      />
-                    </Box>
-                    <Box m={2}>
-                      <ChangeField
-                        value={i.RelayOffTime}
-                        name="RelayOffTime"
-                        handleChangeData={handleChangeData}
-                        title="Relay Off Time"
-                      />
-                    </Box>
-                    {Object.keys(changedData).length > 0 && (
-                      <Box mt={3}>
-                        <Button variant="outlined" fullWidth>
-                          Save Changes
-                        </Button>
-                      </Box>
                     )}
+
                     <Box mt={3}>
-                      <Button variant="outlined" fullWidth>
-                        Save Changes
+                      <Button
+                        variant="outlined"
+                        fullWidth
+                        onClick={handleEditChanges}
+                      >
+                        {t("savechanges")}
                       </Button>
                     </Box>
                   </Grid>
@@ -318,8 +309,14 @@ const OwnerItems = () => {
           })}
         </SwipeableViews>
       </Box>
+      <Calculator
+        open={open}
+        handleClose={() => setOpen(false)}
+        data={itemInfo}
+        itemInfoCalc={itemInfoCalc}
+      />
     </div>
   );
 };
 
-export default OwnerItems;
+export default Items;

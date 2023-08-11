@@ -540,7 +540,7 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc }) => {
                       </StyledTableRow>
                       <StyledTableRow>
                         <StyledTableCell component="th" scope="row">
-                          {changedData?.electricPrice} dram / m 3
+                          {changedData?.electricPrice} ㎥
                         </StyledTableCell>
                         <StyledTableCell component="th" scope="row">
                           <ChangeField
@@ -595,7 +595,7 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc }) => {
 
                       <StyledTableRow>
                         <StyledTableCell align="left">
-                          {changedData?.PrcentOfRegulator}
+                          {changedData?.PrcentOfRegulator} %
                         </StyledTableCell>
                         <StyledTableCell align="left">
                           <ChangeSelect

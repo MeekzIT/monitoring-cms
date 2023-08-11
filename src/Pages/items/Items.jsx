@@ -22,7 +22,6 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import SwipeableViews from "react-swipeable-views";
 import { useTheme } from "@mui/material/styles";
-import Chart from "react-apexcharts";
 import CalculateIcon from "@mui/icons-material/Calculate";
 import Calculator from "../../components/claculator/Calculator";
 import ItemField from "../../components/changeField/ItemFields";
@@ -160,8 +159,6 @@ const Items = () => {
     dispatch(editItemChanges({ ...changedData, id: currentId }));
   };
 
-  console.log(infoModes, "1111111111111111111111111");
-
   return (
     <div>
       <Box m={2}>
@@ -288,7 +285,14 @@ const Items = () => {
                       {t("device")} №-{i.id}
                     </Typography>
                     <hr style={{ width: "50vw" }} />
-                    <ItemField data={i} handleChangeData={handleChangeData} />
+                    {i && (
+                      <ItemField
+                        data={i}
+                        handleChangeData={handleChangeData}
+                        values={changedData}
+                      />
+                    )}
+
                     <Box mt={3}>
                       <Button
                         variant="outlined"
