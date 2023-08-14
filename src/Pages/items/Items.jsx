@@ -61,43 +61,6 @@ function a11yProps(index) {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
-const options = {
-  chart: {
-    id: "basic-bar",
-  },
-  xaxis: {
-    categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
-  },
-};
-
-const options1 = {
-  chart: {
-    id: "basic-bar",
-  },
-  xaxis: {
-    categories: [
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-      22, 23, 24, 25, 26, 27, 28, 29, 30,
-    ],
-  },
-};
-
-const series = [
-  {
-    name: "series-1",
-    data: [30, 40, 45, 50, 49, 60, 70, 91],
-  },
-];
-
-const series1 = [
-  {
-    name: "series-1",
-    data: [
-      10, 25, 30, 30, 30, 35, 37, 38, 38, 40, 45, 45, 45, 50, 52, 55, 70, 75,
-      75, 75, 78, 78, 90, 90, 90, 90, 90, 91, 98, 98,
-    ],
-  },
-];
 
 const Items = () => {
   const { t } = useTranslation();
@@ -157,6 +120,11 @@ const Items = () => {
 
   const handleEditChanges = () => {
     dispatch(editItemChanges({ ...changedData, id: currentId }));
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   return (
@@ -245,21 +213,10 @@ const Items = () => {
                 >
                   <Grid item>
                     <div>
-                      {prcemt && (
-                        <DonutChart
-                          benefit={prcemt?.benefit}
-                          expenses={prcemt?.expenses}
-                        />
-                      )}
-                    </div>
-                    <div>
-                      {/* <Chart
-                        options={options1}
-                        series={series1}
-                        type="line"
-                        width={isMobile ? "300" : "500"}
-                      /> */}
-                      <LineChart />
+                      <DonutChart
+                        benefit={prcemt?.benefit}
+                        expenses={prcemt?.expenses}
+                      />
                     </div>
                     <div>
                       <Button
@@ -293,7 +250,7 @@ const Items = () => {
                       />
                     )}
 
-                    <Box mt={3}>
+                    <Box mt={3} mb={3}>
                       <Button
                         variant="outlined"
                         fullWidth

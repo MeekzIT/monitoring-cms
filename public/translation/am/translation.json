@@ -125,5 +125,19 @@
   "Georgian": "Վրացերեն",
   "Azerbaijani": "ադրբեջան",
   "Kazak": "Ղազախերեն",
-  "Kirgiz": "Կիրգիզերեն"
+  "Kirgiz": "Կիրգիզերեն",
+  "enginePower": "Շարժիչի հզորությունը",
+  "electricPrice": "Հոսանքի գին",
+  "waterPerMinute": "մեկ րոպեում ջրի ծախս",
+  "waterPrice": "Ջրի գին",
+  "modeValuePerLitre": "Հեղուկի գին",
+  "PrcentOfRegulator": "Ռեգուլյատորի տոկոս",
+  "PrcetOfModeValueFirst": "Հեղուկի հարաբերակցություն",
+  "Red": "Կարմիր",
+  "Green": "Կանաչ",
+  "Blue": "Կապույտ",
+  "Yellow": "Դեղին",
+  "Pink": "Վարդագույն",
+  "Cyan": "բաց կապույտ",
+  "White": "Սպիտակ"
 }

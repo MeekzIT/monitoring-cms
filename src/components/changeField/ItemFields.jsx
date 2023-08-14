@@ -72,15 +72,6 @@ const ItemField = ({ data, handleChangeData, values }) => {
     { value: 11, name: t("roll11") },
   ];
 
-  console.log(
-    data.p64,
-    data.p65,
-    data.p66,
-    data.p67,
-    data.p68,
-    data.p69,
-    "00000000000"
-  );
   return (
     <div>
       {data && (
@@ -96,6 +87,7 @@ const ItemField = ({ data, handleChangeData, values }) => {
               options={langOptions}
             />
           </Box>
+
           <Box m={2}>
             <ChangeSelectLang
               name="p72"
@@ -116,6 +108,14 @@ const ItemField = ({ data, handleChangeData, values }) => {
               name="p70"
               handleChangeData={handleChangeData}
               title={t("p70")}
+            />
+          </Box>
+          <Box m={2}>
+            <ChangeField
+              value={data.p71}
+              name="p71"
+              handleChangeData={handleChangeData}
+              title={t("p71")}
             />
           </Box>
           <Box m={2}>
@@ -408,7 +408,6 @@ const ItemField = ({ data, handleChangeData, values }) => {
             <DoubleSelect
               name="p32"
               value1={values.p32 || data.p32}
-              value2={values.p32 || data.p32}
               helper={getColor}
               show={getColor(data.p32)}
               handleChangeData={handleChangeData}
@@ -421,7 +420,6 @@ const ItemField = ({ data, handleChangeData, values }) => {
             <DoubleSelect
               name="p33"
               value1={values.p33 || data.p33}
-              value2={values.p33 || data.p33}
               helper={getColor}
               show={getColor(data.p33)}
               handleChangeData={handleChangeData}
@@ -434,7 +432,6 @@ const ItemField = ({ data, handleChangeData, values }) => {
             <DoubleSelect
               name="p34"
               value1={values.p34 || data.p34}
-              value2={values.p34 || data.p34}
               helper={getColor}
               show={getColor(data.p34)}
               handleChangeData={handleChangeData}
@@ -447,7 +444,6 @@ const ItemField = ({ data, handleChangeData, values }) => {
             <DoubleSelect
               name="p35"
               value1={values.p35 || data.p35}
-              value2={values.p35 || data.p35}
               helper={getColor}
               show={getColor(data.p35)}
               handleChangeData={handleChangeData}
@@ -460,7 +456,6 @@ const ItemField = ({ data, handleChangeData, values }) => {
             <DoubleSelect
               name="p36"
               value1={values.p36 || data.p36}
-              value2={values.p36 || data.p36}
               helper={getColor}
               show={getColor(data.p36)}
               handleChangeData={handleChangeData}
@@ -473,7 +468,6 @@ const ItemField = ({ data, handleChangeData, values }) => {
             <DoubleSelect
               name="p37"
               value1={values.p37 || data.p37}
-              value2={values.p37 || data.p37}
               helper={getColor}
               show={getColor(data.p37)}
               handleChangeData={handleChangeData}

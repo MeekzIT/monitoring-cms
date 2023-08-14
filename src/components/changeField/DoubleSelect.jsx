@@ -4,6 +4,7 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTranslation } from "react-i18next";
+import { splitNumberIntoDigits } from "../../hooks/helpers";
 
 const DoubleSelect = ({
   name,
@@ -18,8 +19,12 @@ const DoubleSelect = ({
 }) => {
   const { t } = useTranslation();
   const [edit, setEdit] = useState(false);
-  const [fieldValue, setFieldValue] = useState(value1);
-  const [secondValue, setSecondValue] = useState(value2);
+  const [fieldValue, setFieldValue] = useState(
+    splitNumberIntoDigits(value1)[0]
+  );
+  const [secondValue, setSecondValue] = useState(
+    splitNumberIntoDigits(value1)[1]
+  );
 
   const changeFieldState = () => {
     setEdit(!edit);
@@ -84,7 +89,7 @@ const DoubleSelect = ({
         <div className="change-field">
           {/* <TextField variant="standard" value={show} disabled /> */}
           <div>
-            {fieldValue && secondValue
+            {fieldValue 
               ? helper(String(fieldValue) + String(secondValue))
               : show}
           </div>

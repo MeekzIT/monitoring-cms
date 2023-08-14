@@ -1,10 +1,20 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import HomeIcon from "@mui/icons-material/Home";
-import { Box, Button, Grid, Modal, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  Grid,
+  Modal,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { USERS_PAGE } from "../../routing/pats";
 import { useDispatch, useSelector } from "react-redux";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import AddIcon from "@mui/icons-material/Add";
 import { useEffect, useState } from "react";
 import {
   changeBoxSettings,
@@ -27,6 +37,13 @@ import EditIcon from "@mui/icons-material/Edit";
 import AutoGraphIcon from "@mui/icons-material/AutoGraph";
 import Chart from "react-apexcharts";
 import { useIsMobile } from "../../hooks/useScreenType";
+import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
+import {
+  addBoxExpenses,
+  destroyBoxExpenses,
+  editBoxExpenses,
+  getBoxExpenses,
+} from "../../store/actions/box";
 
 const options1 = {
   chart: {
@@ -59,12 +76,19 @@ const Boxes = () => {
   const user = useSelector((state) => state.user.single);
   const owner = useSelector((state) => state.user.owner);
   const data = useSelector((state) => state.user.boxes);
+  const boxExpernses = useSelector((state) => state.user.boxExpernses);
   const [open, setOpen] = useState(false);
   const [openStatistics, setOpenStatistics] = useState(false);
+  const [openSettings, setOpenSettings] = useState(false);
   const [currentId, setCurrentId] = useState(null);
   const [name, setName] = useState(null);
   const [geo, setGeo] = useState(null);
   const [ownerId, setOwnerId] = useState(null);
+  const [addField, setAddField] = useState(false);
+  const [addedFieldValueName, setAddedFieldValueName] = useState("");
+  const [addedFieldValuePrice, setAddedFieldValuePrice] = useState("");
+  const [nameExpenses, setNameExpenses] = useState("");
+  const [price, setPrice] = useState("");
   const style = {
     position: "absolute",
     top: "50%",
@@ -93,17 +117,18 @@ const Boxes = () => {
   }, [user]);
 
   useEffect(() => {
-    console.log(ownerId, "888888888888888888888888888888");
     let items = [];
     // data?.filter((i) => i.ownerId == ownerId;);
     data
       ?.filter((i) => i.ownerId == ownerId)[0]
       ?.Items?.map((y) => items.push(y.p2));
-    console.log(JSON.stringify(items), "766666666666666666666666");
     items.length && dispatch(getItemInfoBenefits(JSON.stringify(items)));
   }, [ownerId]);
 
-  console.log(data);
+  useEffect(() => {
+    dispatch(getBoxExpenses(currentId));
+  }, [currentId, setOpenSettings]);
+
 
   return (
     <div>
@@ -144,6 +169,7 @@ const Boxes = () => {
                     <TableCell>{t("name")}</TableCell>
                     <TableCell align="left">{t("geolocation")}</TableCell>
                     <TableCell align="left">{t("edit")}</TableCell>
+                    <TableCell align="left">{t("settings")}</TableCell>
                     <TableCell align="left">{t("statistics")}</TableCell>
                     <TableCell align="left"></TableCell>
                   </TableRow>
@@ -168,6 +194,18 @@ const Boxes = () => {
                           }}
                         >
                           <EditIcon />
+                        </Button>
+                      </TableCell>
+                      <TableCell align="left">
+                        <Button
+                          variant="outlined"
+                          onClick={() => {
+                            setCurrentId(row.id);
+
+                            setOpenSettings(true);
+                          }}
+                        >
+                          <SettingsSuggestIcon />
                         </Button>
                       </TableCell>
                       <TableCell align="left">
@@ -311,6 +349,188 @@ const Boxes = () => {
               type="line"
               width="500"
             />
+          </Box>
+        </Box>
+      </Modal>
+
+      <Modal
+        open={openSettings}
+        onClose={() => {
+          setOpenSettings(false);
+        }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            {t("settings")}
+          </Typography>
+          <div
+            className="mobile-modal-close-btn"
+            onClick={() => {
+              setOpenSettings(false);
+            }}
+          >
+            <CloseIcon fontSize="large" />
+          </div>
+
+          <Box
+            mt={2}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <Box m={2}>
+              <Box m={2}>
+                <Button
+                  variant="contained"
+                  fullWidth
+                  onClick={() => setAddField(!addField)}
+                >
+                  {addField ? <ArrowBackIcon /> : <AddIcon />}
+                </Button>
+              </Box>
+              {addField ? (
+                <Box>
+                  <Box
+                    m={2}
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      gap: "20px",
+                    }}
+                  >
+                    <div>
+                      <TextField
+                        label={t("name")}
+                        name="name"
+                        value={addedFieldValueName}
+                        variant="outlined"
+                        onChange={(e) => setAddedFieldValueName(e.target.value)}
+                        fullWidth
+                      />
+                    </div>
+                    <div>
+                      <TextField
+                        label={t("price")}
+                        name="price"
+                        value={addedFieldValuePrice}
+                        variant="outlined"
+                        onChange={(e) =>
+                          setAddedFieldValuePrice(e.target.value)
+                        }
+                        fullWidth
+                      />
+                    </div>
+                  </Box>
+
+                  <Button
+                    variant="outlined"
+                    fullWidth
+                    onClick={() => {
+                      dispatch(
+                        addBoxExpenses({
+                          boxId: currentId,
+                          name: addedFieldValueName,
+                          price: addedFieldValuePrice,
+                        })
+                      );
+                      setAddField(false);
+                      dispatch(getBoxExpenses(currentId));
+                    }}
+                  >
+                    {t("savechanges")}
+                  </Button>
+                  <Divider />
+                </Box>
+              ) : (
+                boxExpernses?.map((i) => {
+                  return (
+                    <Box>
+                      <Box
+                        m={2}
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          gap: "20px",
+                        }}
+                      >
+                        <div>
+                          <TextField
+                            label={t("name")}
+                            name="name"
+                            defaultValue={i.name}
+                            variant="outlined"
+                            onChange={(e) => setNameExpenses(e.target.value)}
+                            fullWidth
+                          />
+                        </div>
+                        <div>
+                          <TextField
+                            label={t("price")}
+                            name="price"
+                            defaultValue={i.price}
+                            variant="outlined"
+                            onChange={(e) => setPrice(e.target.value)}
+                            fullWidth
+                          />
+                        </div>
+                      </Box>
+                      <Box
+                        m={2}
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          gap: "20px",
+                        }}
+                      >
+                        <div>
+                          <Button
+                            variant="outlined"
+                            fullWidth
+                            onClick={() => {
+                              dispatch(
+                                editBoxExpenses({
+                                  id: i.id,
+                                  name: nameExpenses,
+                                  price,
+                                })
+                              );
+                              dispatch(getBoxExpenses(currentId));
+                            }}
+                          >
+                            {t("savechanges")}
+                          </Button>
+                        </div>
+                        <div>
+                          <Button
+                            variant="outlined"
+                            fullWidth
+                            onClick={() => {
+                              dispatch(
+                                destroyBoxExpenses({
+                                  id: i.id,
+                                })
+                              );
+                              dispatch(getBoxExpenses(currentId));
+                            }}
+                          >
+                            {t("delete")}
+                          </Button>
+                        </div>
+                      </Box>
+                      <Divider />
+                    </Box>
+                  );
+                })
+              )}
+            </Box>
           </Box>
         </Box>
       </Modal>

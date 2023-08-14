@@ -140,7 +140,6 @@ export const getRollColor = (color) => {
   } else if (color == 6) {
     return "White";
   } else return null;
-
 };
 
 export const getRoll = (roll) => {

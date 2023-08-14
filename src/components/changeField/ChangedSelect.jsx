@@ -24,7 +24,7 @@ const ChangeSelect = ({ name, value, handleChangeData, title, options }) => {
             <Select
               fullWidth
               name={name}
-              value={value.value}
+              value={value}
               onChange={(e) => setFieldValue(e.target.value)}
             >
               {options.map((option) => (

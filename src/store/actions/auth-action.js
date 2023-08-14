@@ -39,7 +39,7 @@ export const loginAction = (data) => {
           });
       })
       .catch(function (error) {
-        console.log(error);
+        console.error(error);
       });
   };
 };
@@ -73,7 +73,7 @@ export const logoutAction = () => {
         }
       })
       .catch(function (error) {
-        console.log(error);
+        console.error(error);
       });
   };
 };

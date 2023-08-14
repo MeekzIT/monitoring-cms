@@ -2,6 +2,7 @@ import { Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import CloseIcon from "@mui/icons-material/Close";
+import { useIsMobile } from "../../hooks/useScreenType";
 
 const DoubleField = ({
   nameFirst,
@@ -11,6 +12,7 @@ const DoubleField = ({
   handleChangeData,
   title,
 }) => {
+  const isMobile = useIsMobile();
   const [edit, setEdit] = useState(false);
   const [fieldValueFirst, setFieldValueFirst] = useState(firstValue);
   const [fieldValueSecond, setFieldValueSecond] = useState(secondValue);
@@ -66,13 +68,52 @@ const DoubleField = ({
           </div>
         </div>
       ) : (
-        <div className="change-field">
-          <TextField variant="standard" value={fieldValueFirst} disabled />
-          <div>/</div>
-          <TextField variant="standard" value={fieldValueSecond} disabled />
-          <Button variant="outlined" onClick={changeFieldState}>
-            <EditIcon />
-          </Button>
+        <div className="change-field-double">
+          {isMobile ? (
+            <>
+              <div>
+                <TextField
+                  variant="standard"
+                  value={fieldValueFirst}
+                  disabled
+                />
+              </div>
+              <div>/</div>
+              <div>
+                <TextField
+                  variant="standard"
+                  value={fieldValueSecond}
+                  disabled
+                />
+              </div>
+              <div>
+                <Button variant="outlined" onClick={changeFieldState}>
+                  <EditIcon />
+                </Button>
+              </div>
+            </>
+          ) : (
+            <>
+              <div>
+                <TextField
+                  variant="standard"
+                  value={fieldValueFirst}
+                  disabled
+                />
+              </div>
+              <div>/</div>
+              <div>
+                <TextField
+                  variant="standard"
+                  value={fieldValueSecond}
+                  disabled
+                />
+                <Button variant="outlined" onClick={changeFieldState}>
+                  <EditIcon />
+                </Button>
+              </div>
+            </>
+          )}
         </div>
       )}
     </div>

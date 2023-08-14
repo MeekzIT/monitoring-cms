@@ -1,9 +1,13 @@
 import {
+  ADD_BOX_EXSPENSE,
   ADD_OWNER,
   ADD_USER,
+  DESTROY_BOX_EXSPENSE,
   EDIT_BOX,
+  EDIT_BOX_EXSPENSES,
   EDIT_ITEM,
   GET_BOXES,
+  GET_BOX_EXPENSES,
   GET_CALC_INFO,
   GET_INFO,
   GET_INFO_BENREFITS,
@@ -28,6 +32,7 @@ const initialState = {
   benefits: null,
   infoPrcent: null,
   infoByModes: null,
+  boxExpernses: null,
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -120,6 +125,26 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         infoPrcent: action.payload,
       };
+    case GET_BOX_EXPENSES:
+      return {
+        ...state,
+        boxExpernses: action.payload,
+      };
+    case EDIT_BOX_EXSPENSES:
+      return {
+        ...state,
+        boxExpernses: action.payload,
+      };
+    case ADD_BOX_EXSPENSE:
+      return {
+        ...state,
+        boxExpernses: action.payload,
+      };
+    case DESTROY_BOX_EXSPENSE:
+      let editedExspense = state.boxExpernses?.filter(
+        (i) => i.id !== action.payload
+      );
+      return { ...state, boxExpernses: editedExspense };
     default:
       return state;
   }

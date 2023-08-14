@@ -1,6 +1,6 @@
 export const keys = {
-  // api: "http://localhost:5001/api/v1",
-  api: "http://154.49.137.44:5001/api/v1",
+  api: "http://localhost:5002/api/v1",
+  // api: "http://154.49.137.44:5001/api/v1",
   // api: "https://monitoring-8ea461b62101.herokuapp.com/api/v1",
   token: JSON.parse(localStorage.getItem("token")),
 };
