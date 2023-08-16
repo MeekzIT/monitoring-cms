@@ -158,16 +158,7 @@ export const changePassword = (data) => {
         console.error(error);
       });
   };
-};
-
-export const getOwnersOfUser = (id) => {
-  return (dispatch) => {
-    dispatch({
-      type: GET_OWNERS_OF_USER,
-      payload: id,
-    });
-  };
-};
+}
 
 export const changeBoxSettings = (data) => {
   return (dispatch) => {

@@ -59,6 +59,7 @@
   "wheelpump": "Wheel pump",
   "total": "Total",
   "savechanges": "Save Changes",
+  "save": "Save",
   "power": "Engine power",
   "modeValue": "used product",
   "p7": "Language",
@@ -139,5 +140,7 @@
   "Yellow":"Yellow",
   "Pink":"Pink",
   "Cyan":"Cyan",
-  "White":"White"
+  "White":"White",
+  "online": "Online",
+  "offline": "Offline"
 }

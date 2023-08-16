@@ -169,3 +169,22 @@ export const getRoll = (roll) => {
     return "roll11";
   } else return null;
 };
+
+export function compareWithUTC(inputDateTimeString) {
+  // Convert the given date and time string to a Date object in UTC+0
+  const inputDateTime = new Date(inputDateTimeString + "Z");
+
+  // Get the current time in UTC+0 (UTC)
+  const currentUTC = new Date();
+
+  // Calculate the range for comparison (5 minutes in milliseconds)
+  const timeRange = 2 * 60 * 1000;
+
+  // Calculate the difference between inputDateTime and currentUTC in milliseconds
+  const timeDifference = inputDateTime - currentUTC;
+
+  if (Math.abs(timeDifference) <= timeRange) {
+    return true;
+  }
+  return false;
+}

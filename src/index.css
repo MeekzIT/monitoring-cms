@@ -116,3 +116,13 @@ body {
   position: absolute;
   top: 10%;
 }
+
+.online {
+  color: green;
+  font-size: 25px;
+}
+
+.offline {
+  color: maroon;
+  font-size: 25px;
+}

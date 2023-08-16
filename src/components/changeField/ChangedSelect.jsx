@@ -3,8 +3,10 @@ import { Button, TextField, Typography } from "@mui/material";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import CloseIcon from "@mui/icons-material/Close";
+import { useTranslation } from "react-i18next";
 
 const ChangeSelect = ({ name, value, handleChangeData, title, options }) => {
+  const { t } = useTranslation();
   const [edit, setEdit] = useState(false);
   const [fieldValue, setFieldValue] = useState(value);
 
@@ -42,7 +44,7 @@ const ChangeSelect = ({ name, value, handleChangeData, title, options }) => {
                 changeFieldState();
               }}
             >
-              Save
+              {t("save")}
             </Button>
             <Button
               variant="outlined"

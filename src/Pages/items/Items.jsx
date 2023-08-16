@@ -28,6 +28,7 @@ import ItemField from "../../components/changeField/ItemFields";
 import { useIsMobile } from "../../hooks/useScreenType";
 import DonutChart from "../../components/graphics/Dount";
 import LineChart from "../../components/graphics/LineChart";
+import { compareWithUTC } from "../../hooks/helpers";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -239,7 +240,8 @@ const Items = () => {
                       variant="h3"
                       component="h1"
                     >
-                      {t("device")} №-{i.id}
+                      {t("device")} №-{i.id}{" "}
+                      {compareWithUTC(i.datatime) ? <span className="online">{t("online")}</span> : <span className="offline">{t("offline")}</span>}
                     </Typography>
                     <hr style={{ width: "50vw" }} />
                     {i && (

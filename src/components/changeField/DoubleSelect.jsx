@@ -70,7 +70,7 @@ const DoubleSelect = ({
                 changeFieldState();
               }}
             >
-              Save
+              {t("save")}
             </Button>
             <Button
               variant="outlined"
@@ -89,7 +89,7 @@ const DoubleSelect = ({
         <div className="change-field">
           {/* <TextField variant="standard" value={show} disabled /> */}
           <div>
-            {fieldValue 
+            {fieldValue
               ? helper(String(fieldValue) + String(secondValue))
               : show}
           </div>

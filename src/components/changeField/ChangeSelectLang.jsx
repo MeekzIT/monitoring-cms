@@ -48,7 +48,7 @@ const ChangeSelectLang = ({
                 changeFieldState();
               }}
             >
-              Save
+              {t("save")}
             </Button>
             <Button
               variant="outlined"

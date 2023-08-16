@@ -2,8 +2,10 @@ import { Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import CloseIcon from "@mui/icons-material/Close";
+import { useTranslation } from "react-i18next";
 
 const ChangeField = ({ name, value, handleChangeData, title }) => {
+  const { t } = useTranslation();
   const [edit, setEdit] = useState(false);
   const [fieldValue, setFieldValue] = useState(value);
 
@@ -33,7 +35,7 @@ const ChangeField = ({ name, value, handleChangeData, title }) => {
                 changeFieldState();
               }}
             >
-              Save
+              {t("save")}
             </Button>
             <Button
               variant="outlined"

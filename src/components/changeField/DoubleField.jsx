@@ -3,6 +3,7 @@ import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import CloseIcon from "@mui/icons-material/Close";
 import { useIsMobile } from "../../hooks/useScreenType";
+import { useTranslation } from "react-i18next";
 
 const DoubleField = ({
   nameFirst,
@@ -13,6 +14,7 @@ const DoubleField = ({
   title,
 }) => {
   const isMobile = useIsMobile();
+  const { t } = useTranslation();
   const [edit, setEdit] = useState(false);
   const [fieldValueFirst, setFieldValueFirst] = useState(firstValue);
   const [fieldValueSecond, setFieldValueSecond] = useState(secondValue);
@@ -51,7 +53,7 @@ const DoubleField = ({
                 changeFieldState();
               }}
             >
-              Save
+              {t("save")}
             </Button>
             <Button
               variant="outlined"

@@ -54,14 +54,6 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         single: action.payload,
       };
-    case GET_OWNERS_OF_USER:
-      const userBoxes = state.single?.Owners?.filter(
-        (i) => i.id == action.payload
-      )[0]?.Boxes;
-      return {
-        ...state,
-        boxes: userBoxes,
-      };
     case GET_BOXES:
       return {
         ...state,

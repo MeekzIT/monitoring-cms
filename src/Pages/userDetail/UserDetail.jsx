@@ -8,7 +8,6 @@ import { USERS_PAGE } from "../../routing/pats";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import {
-  getOwnersOfUser,
   getSingleOwners,
   getSingleUser,
 } from "../../store/actions/users-action";
@@ -144,7 +143,6 @@ const UserDetail = () => {
                               <Button
                                 variant="contained"
                                 onClick={() => {
-                                  dispatch(getOwnersOfUser(row.id));
                                   dispatch(getSingleOwners(row.id));
                                   navigate(`/user/${id}/owner/${row.id}`);
                                 }}

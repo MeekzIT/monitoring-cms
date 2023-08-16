@@ -59,6 +59,7 @@
   "wheelpump": "Wheel pumpoxlu",
   "total": "Totaloxlu",
   "savechanges": "Save Changesoxlu",
+  "save": "Save",
   "power": "Engine poweroxlu",
   "modeValue": "used productoxlu",
   "p7": "Langoxlu",
@@ -139,5 +140,7 @@
   "Yellow": "Yellow",
   "Pink": "Pink",
   "Cyan": "Cyan",
-  "White": "White"
+  "White": "White",
+  "online": "OnlineOxlu",
+  "offline": "OfflineOxlu"
 }
