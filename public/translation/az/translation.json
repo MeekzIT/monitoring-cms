@@ -143,5 +143,7 @@
   "White": "White",
   "online": "OnlineOxlu",
   "offline": "OfflineOxlu",
-  "admins": "Adminoxlu"
+  "admins": "Adminoxlu",
+  "activity":"Activeoxlu",
+  "block-requirement":""
 }

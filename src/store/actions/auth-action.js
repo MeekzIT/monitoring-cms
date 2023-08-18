@@ -1,6 +1,13 @@
 import axios from "axios";
 import { keys } from "../../keys";
-import { LOGIN_ACTION, SET_AUTH } from "../types";
+import {
+  CRATE_ADMIN,
+  DESTSROY_ADMIN,
+  EDIT_ADMIN,
+  GET_ADMINS,
+  LOGIN_ACTION,
+  SET_AUTH,
+} from "../types";
 import { HOME_PAGE } from "../../routing/pats";
 import Swal from "sweetalert2";
 
@@ -103,6 +110,86 @@ export const getMe = () => {
         localStorage.setItem("token", JSON.stringify(response.data.data.token));
       })
       .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+export const getAdmins = () => {
+  return (dispatch) => {
+    axios
+      .get(`${keys.api}/admin/`, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+      })
+      .then((response) => {
+        dispatch({
+          type: GET_ADMINS,
+          payload: response.data.data,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+export const addAdmin = (data) => {
+  return (dispatch) => {
+    axios
+      .post(`${keys.api}/admin/create`, data, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+      })
+      .then(function (response) {
+        dispatch({
+          type: CRATE_ADMIN,
+          payload: response.data.data,
+        });
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+};
+
+export const destroyAdmin = (data) => {
+  return (dispatch) => {
+    axios
+      .post(`${keys.api}/admin/destroy`, data, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+      })
+      .then(function (response) {
+        dispatch({
+          type: DESTSROY_ADMIN,
+          payload: data.id,
+        });
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+};
+
+export const activityAdmin = (data) => {
+  return (dispatch) => {
+    axios
+      .post(`${keys.api}/admin/activity`, data, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+      })
+      .then(function (response) {
+        dispatch({
+          type: EDIT_ADMIN,
+          payload: data,
+        });
+      })
+      .catch(function (error) {
         console.error(error);
       });
   };

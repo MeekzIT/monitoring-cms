@@ -143,5 +143,7 @@
   "White": "White",
   "online": "Online",
   "offline": "Offline",
-  "admins": "Admins"
+  "admins": "Admins",
+  "activity":"Activity",
+  "block-requirement":"When activity changes, the activity of all subordinates will also change"
 }

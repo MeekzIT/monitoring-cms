@@ -18,7 +18,7 @@ export const adminReducer = (state = initialState, action) => {
       };
     case EDIT_ADMIN:
       let edited = state.admins?.filter((i) =>
-        i.id == action.payload.id ? (i.block = i.activity) : i
+        i.id == action.payload.id ? { ...i, block: !i.block } : i
       );
       return { ...state, admins: edited };
     case DESTSROY_ADMIN:
