@@ -6,6 +6,7 @@ export const USER_DETAIL = "/user/:id";
 export const COUNTRIES_PAGE = "/countries";
 export const CATEGORIES_PAGE = "/categories";
 export const SETTIGS_PAGE = "/settings";
+export const ADMINS_PAGE = "/admins"
 export const PAYMENT_PAGE = "/payment";
 export const OWNERS_BOXES = "/user/:user_id/owner/:id";
 export const ITEM_PAGE = "/user/:user_id/owner/:owner_id/item/:id";

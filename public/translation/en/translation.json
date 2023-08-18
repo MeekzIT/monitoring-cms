@@ -134,13 +134,14 @@
   "modeValuePerLitre": "Fluid price",
   "PrcentOfRegulator": "Prcent of regulator",
   "PrcetOfModeValueFirst": "Fluid ratio",
-  "Red":"Red",
-  "Green":"Green",
-  "Blue":"Blue",
-  "Yellow":"Yellow",
-  "Pink":"Pink",
-  "Cyan":"Cyan",
-  "White":"White",
+  "Red": "Red",
+  "Green": "Green",
+  "Blue": "Blue",
+  "Yellow": "Yellow",
+  "Pink": "Pink",
+  "Cyan": "Cyan",
+  "White": "White",
   "online": "Online",
-  "offline": "Offline"
+  "offline": "Offline",
+  "admins": "Admins"
 }

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import {
+  ADMINS_PAGE,
   BOXES_PAGE,
   CATEGORIES_PAGE,
   COUNTRIES_PAGE,
@@ -24,11 +25,17 @@ const Sidebar = ({ close, setClose }) => {
   const isAuth = useSelector((state) => state.auth.isAuth);
   const isSuper = useSelector((state) => state.auth.isSuper);
   const admin = useSelector((state) => state.auth.admin);
+
+  const superPages = [
+    { id: 1, path: HOME_PAGE, name: t("home") },
+    { id: 2, path: ADMINS_PAGE, name: t("admins") },
+    { id: 4, path: CATEGORIES_PAGE, name: t("categories") },
+    { id: 3, path: COUNTRIES_PAGE, name: t("countries") },
+  ];
+
   const pages = [
     { id: 1, path: HOME_PAGE, name: t("home") },
     { id: 2, path: USERS_PAGE, name: t("users") },
-    { id: 4, path: CATEGORIES_PAGE, name: t("categories") },
-    { id: 3, path: COUNTRIES_PAGE, name: t("countries") },
   ];
 
   const technicianPages = [
@@ -74,7 +81,24 @@ const Sidebar = ({ close, setClose }) => {
       )}
       <ul>
         {isAuth &&
-          (isSuper == "admin"
+          (isSuper == "superAdmin"
+            ? superPages?.map(({ id, path, name }) => {
+                return (
+                  <div key={id}>
+                    <Link
+                      to={path}
+                      style={{ textDecoration: "none" }}
+                      key={id}
+                      className={
+                        location.pathname === path ? "activeLink" : "pasiveLink"
+                      }
+                    >
+                      <li>{name}</li>
+                    </Link>
+                  </div>
+                );
+              })
+            : isSuper == "admin"
             ? pages?.map(({ id, path, name }) => {
                 return (
                   <div key={id}>
