@@ -4,7 +4,7 @@ import Chart from "react-apexcharts";
 import "../ownerHome/OwnerHome.css";
 import { Box, Card, Typography } from "@mui/material";
 import { useEffect } from "react";
-import { getBoxes, getUsers } from "../../store/actions/users-action";
+import { getUsers } from "../../store/actions/users-action";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import Table from "@mui/material/Table";
@@ -15,7 +15,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router-dom";
-import { BOXES_PAGE, USERS_PAGE } from "../../routing/pats";
+import {  USERS_PAGE } from "../../routing/pats";
 import { getCountries } from "../../store/actions/statistics-action";
 import { useIsMobile } from "../../hooks/useScreenType";
 

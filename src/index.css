@@ -100,7 +100,7 @@ body {
 .mobile-modal-close-btn {
   position: absolute;
   top: 4%;
-  right: 5%;
+  right: 10%;
 }
 
 .mobile-modal-close-btn svg {

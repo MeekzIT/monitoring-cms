@@ -4,7 +4,7 @@ import Breadcrumbs from "@mui/material/Breadcrumbs";
 import HomeIcon from "@mui/icons-material/Home";
 import { Box, Button, CircularProgress } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { USERS_PAGE } from "../../routing/pats";
+import { ADMINS_PAGE, USERS_PAGE } from "../../routing/pats";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import {
@@ -29,6 +29,7 @@ const UserDetail = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const data = useSelector((state) => state.user.single);
+  const isSuper = useSelector((state) => state.auth.isSuper);
 
   useEffect(() => {
     dispatch(getSingleUser(id));
@@ -45,9 +46,16 @@ const UserDetail = () => {
           <div>
             <HomeIcon />
           </div>
-          <div onClick={() => navigate(USERS_PAGE)} className="steper-item">
-            {t("users")}
-          </div>
+          {isSuper == "superAdmin" ? (
+            <div onClick={() => navigate(ADMINS_PAGE)} className="steper-item">
+              {t("admins")}
+            </div>
+          ) : (
+            <div onClick={() => navigate(USERS_PAGE)} className="steper-item">
+              {t("users")}
+            </div>
+          )}
+
           <Typography color="text.primary" className="active-steper-item">
             {t("users").slice(0, t("users").length - 1)} {"  "}
             {"("} {data?.firstName + " " + data?.lastName} {")"}
@@ -144,7 +152,9 @@ const UserDetail = () => {
                                 variant="contained"
                                 onClick={() => {
                                   dispatch(getSingleOwners(row.id));
-                                  navigate(`/user/${id}/owner/${row.id}`);
+                                  navigate(
+                                    `/user/${id}/owner/${row?.deviceOwner}`
+                                  );
                                 }}
                               >
                                 <RemoveRedEyeIcon

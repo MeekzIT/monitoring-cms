@@ -1,15 +1,13 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Box, Button, Grid, Modal, TextField, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { OWNER_ITEMS_PAGE, USERS_PAGE } from "../../routing/pats";
+import { OWNER_ITEMS_PAGE } from "../../routing/pats";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import {
   changeBoxSettings,
   getBoxes,
   getSingleBox,
-  getSingleOwners,
-  getSingleUser,
 } from "../../store/actions/users-action";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -20,6 +18,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import EditIcon from "@mui/icons-material/Edit";
+import GenerateModal from "../../components/generateModal/GenerateModal";
 const style = {
   position: "absolute",
   top: "50%",
@@ -39,14 +38,14 @@ const OwnerBoxes = () => {
   const owner = useSelector((state) => state.auth.admin);
   const data = useSelector((state) => state.user.boxes);
   const [open, setOpen] = useState(false);
+  const [openGenerate, setOpenGenerate] = useState(false);
   const [currentId, setCurrentId] = useState(null);
   const [name, setName] = useState(null);
   const [geo, setGeo] = useState(null);
 
   useEffect(() => {
-    dispatch(getBoxes(owner.id));
+    dispatch(getBoxes(owner?.id));
   }, []);
-
   return (
     <div>
       <Box m={3}>
@@ -55,6 +54,16 @@ const OwnerBoxes = () => {
             {owner?.firstName} {owner?.lastName}
           </h1>
           <h4>{owner?.email}</h4>
+        </Box>
+        <hr />
+        <Box>
+          <Button
+            variant="contained"
+            sx={{ color: "white" }}
+            onClick={() => setOpenGenerate(true)}
+          >
+            {t("add")}
+          </Button>
         </Box>
         <hr />
         <Box>
@@ -94,7 +103,7 @@ const OwnerBoxes = () => {
                         variant="outlined"
                         onClick={() => {
                           dispatch(getSingleBox(row.id));
-                          navigate(OWNER_ITEMS_PAGE);
+                          navigate(`/owner-items/${row.id}`);
                         }}
                       >
                         <RemoveRedEyeIcon />
@@ -178,6 +187,11 @@ const OwnerBoxes = () => {
           </Box>
         </Box>
       </Modal>
+      <GenerateModal
+        open={openGenerate}
+        setOpen={setOpenGenerate}
+        ownerId={4444}
+      />
     </div>
   );
 };

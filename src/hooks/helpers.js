@@ -14,6 +14,24 @@ export const getLang = (lang) => {
   } else return null;
 };
 
+export const getCurrency = (roll) => {
+  if (roll == 1) {
+    return "֏";
+  } else if (roll == 0) {
+    return "₽";
+  } else if (roll == 4) {
+    return "₸";
+  } else if (roll == 2) {
+    return "₾";
+  } else if (roll == 5) {
+    return "Br";
+  } else if (roll == 6) {
+    return "₺";
+  } else if (roll == 3) {
+    return "₼";
+  } else return null;
+};
+
 export const getBonusType = (type) => {
   if (type == 0) {
     return "bonus-for-loyal-cards";
@@ -178,7 +196,7 @@ export function compareWithUTC(inputDateTimeString) {
   const currentUTC = new Date();
 
   // Calculate the range for comparison (5 minutes in milliseconds)
-  const timeRange = 2 * 60 * 1000;
+  const timeRange = 5 * 60 * 1000;
 
   // Calculate the difference between inputDateTime and currentUTC in milliseconds
   const timeDifference = inputDateTime - currentUTC;
@@ -188,3 +206,5 @@ export function compareWithUTC(inputDateTimeString) {
   }
   return false;
 }
+
+

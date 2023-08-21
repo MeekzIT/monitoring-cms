@@ -67,7 +67,6 @@ const Navbar = ({ close, setClose }) => {
                 size="large"
                 onClick={() => navigate(PAYMENT_PAGE)}
               >
-                asdsa
               </Button>
             )}
           </div>

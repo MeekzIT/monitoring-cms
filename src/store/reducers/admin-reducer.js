@@ -18,8 +18,9 @@ export const adminReducer = (state = initialState, action) => {
       };
     case EDIT_ADMIN:
       let edited = state.admins?.filter((i) =>
-        i.id == action.payload.id ? { ...i, block: !i.block } : i
+        i.id == action.payload.id ? { ...i, block: action.payload.activity } : i
       );
+      console.log(edited, "000000000000000");
       return { ...state, admins: edited };
     case DESTSROY_ADMIN:
       let mutable = state.admins?.filter((i) => i.id !== action.payload);

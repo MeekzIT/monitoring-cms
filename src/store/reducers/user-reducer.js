@@ -2,6 +2,7 @@ import {
   ADD_BOX_EXSPENSE,
   ADD_OWNER,
   ADD_USER,
+  CLEAR_DATES,
   DESTROY_BOX_EXSPENSE,
   EDIT_BOX,
   EDIT_BOX_EXSPENSES,
@@ -9,10 +10,14 @@ import {
   GET_BOXES,
   GET_BOX_EXPENSES,
   GET_CALC_INFO,
+  GET_FILTRED_DATA,
+  GET_GENERATED,
   GET_INFO,
   GET_INFO_BENREFITS,
   GET_INFO_MODES,
   GET_INFO_PRCENT,
+  GET_ITEM_CURRENT,
+  GET_ITEM_DAYS,
   GET_OWNERS_OF_USER,
   GET_SINGLE_BOX,
   GET_SINGLE_OWNER,
@@ -25,6 +30,7 @@ const initialState = {
   count: null,
   single: null,
   boxes: null,
+  items: null,
   owner: null,
   box: null,
   itemInfo: null,
@@ -33,10 +39,19 @@ const initialState = {
   infoPrcent: null,
   infoByModes: null,
   boxExpernses: null,
+  generated: null,
+  dates: null,
+  filtredDates: null,
+  currentValues:null
 };
 
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
+    case GET_ITEM_CURRENT:
+      return {
+        ...state,
+        currentValues:action.payload
+      }
     case GET_USERS:
       return {
         ...state,
@@ -57,7 +72,8 @@ export const userReducer = (state = initialState, action) => {
     case GET_BOXES:
       return {
         ...state,
-        boxes: action.payload,
+        boxes: action.payload.paginateData,
+        items: action.payload.items,
       };
     case EDIT_BOX:
       const { id, name, geolocation } = action.payload;
@@ -137,6 +153,14 @@ export const userReducer = (state = initialState, action) => {
         (i) => i.id !== action.payload
       );
       return { ...state, boxExpernses: editedExspense };
+    case GET_GENERATED:
+      return { ...state, generated: action.payload };
+    case GET_ITEM_DAYS:
+      return { ...state, dates: action.payload };
+    case GET_FILTRED_DATA:
+      return { ...state, filtredDates: action.payload };
+    case CLEAR_DATES:
+      return { ...state, filtredDates: action.payload };
     default:
       return state;
   }

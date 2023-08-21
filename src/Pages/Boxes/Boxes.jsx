@@ -126,9 +126,8 @@ const Boxes = () => {
   }, [ownerId]);
 
   useEffect(() => {
-    dispatch(getBoxExpenses(currentId));
+    // dispatch(getBoxExpenses(currentId));
   }, [currentId, setOpenSettings]);
-
 
   return (
     <div>

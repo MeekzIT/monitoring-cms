@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Table from "@mui/material/Table";
+import CloseIcon from "@mui/icons-material/Close";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
@@ -42,7 +43,7 @@ const Admins = () => {
   useEffect(() => {
     dispatch(getAdmins());
     dispatch(getCountries());
-  }, []);
+  }, [openSettings]);
 
   const style = {
     position: "absolute",
@@ -63,7 +64,6 @@ const Admins = () => {
     gap: isMobile && "20px",
   };
 
-  console.log(data, "-----------------");
   return (
     <Box m={3}>
       <Box mb={2}>
@@ -134,7 +134,7 @@ const Admins = () => {
                       <Button
                         variant="contained"
                         onClick={() => {
-                          navigate(`/user/${row.id}`);
+                          navigate(`/admin-user/${row.id}`);
                         }}
                       >
                         <RemoveRedEyeIcon
@@ -160,6 +160,12 @@ const Admins = () => {
         <Box sx={style}>
           <h1>{t("activity")}</h1>
           <Typography>{t("block-requirement")}</Typography>
+          <div
+            className="mobile-modal-close-btn"
+            onClick={() => setOpenSettings(false)}
+          >
+            <CloseIcon fontSize="large" />
+          </div>
           <FormControlLabel
             required
             control={<Switch />}

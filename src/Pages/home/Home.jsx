@@ -7,6 +7,7 @@ import "./home.css";
 import OwnerHome from "../../components/ownerHome/OwnerHome";
 import SuperHome from "../../components/superHome/SuperHome";
 import UserHome from "../../components/userHome/UserHome";
+import AdminHome from "../../components/adminHome/AdminHome";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -18,15 +19,19 @@ const HomePage = () => {
 
   return (
     <div>
+      {/* {
+        isSuper == "superAdmin" && <Maps />
+      } */}
       <Maps />
-      {isSuper == "admin" && (
+      {isSuper == "superAdmin" && (
         <div className="home-results-card">
           {userData?.map((i) => {
             return <ResultCard result={i?.Users?.length} title={i?.name} />;
           })}
         </div>
       )}
-      {isSuper == "admin" && <SuperHome />}
+      {isSuper == "superAdmin" && <SuperHome />}
+      {isSuper == "admin" && <AdminHome />}
       {isSuper == "owner" && <OwnerHome />}
       {isSuper == "user" && <UserHome />}
     </div>

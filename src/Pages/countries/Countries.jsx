@@ -18,20 +18,31 @@ import Paper from "@mui/material/Paper";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  bgcolor: "background.paper",
-  border: "3px solid #21726A",
-  boxShadow: 24,
-  p: 4,
-  borderRadius: "10px",
-};
+import { useIsMobile } from "../../hooks/useScreenType";
+import CloseIcon from "@mui/icons-material/Close";
+
 const Countries = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const isMobile = useIsMobile();
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: isMobile ? "100%" : 400,
+    bgcolor: "background.paper",
+    border: "3px solid #21726A",
+    boxShadow: 24,
+    p: 4,
+    borderRadius: "10px",
+    minHeight: isMobile ? "100vh" : null,
+    display: isMobile && "flex",
+    justifyContent: isMobile && "center",
+    alignItems: isMobile && "center",
+    flexDirection: isMobile && "column",
+    gap: isMobile && "20px",
+  };
   const data = useSelector((state) => state.statistics.countries);
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
@@ -53,54 +64,56 @@ const Countries = () => {
           <AddIcon sx={{ color: "white" }} />
         </Button>
       </Box>
-      <Box>
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell align="left">Short</TableCell>
-                <TableCell align="left">Edit</TableCell>
-                <TableCell align="left">Delete</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data?.map((row) => (
-                <TableRow
-                  key={row.id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell align="left">{row.name}</TableCell>
-                  <TableCell align="left">{row.short}</TableCell>
-                  <TableCell align="left">
-                    <Button
-                      variant="outlined"
-                      onClick={() => {
-                        setActiveName(row.name);
-                        setActiveShort(row.short);
-                        setCurrentId(row.id);
-                        setOpenEdit(true);
-                      }}
-                    >
-                      <EditIcon />
-                    </Button>
-                  </TableCell>
-                  <TableCell align="left">
-                    <Button
-                      variant="contained"
-                      onClick={() => {
-                        setOpenDelete(true);
-                        setCurrentId(row.id);
-                      }}
-                    >
-                      <DeleteIcon sx={{ color: "white" }} />
-                    </Button>
-                  </TableCell>
+      <Box sx={{ overflow: "auto" }}>
+        <Box sx={{ width: "100%", display: "table", tableLayout: "fixed" }}>
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Name</TableCell>
+                  <TableCell align="left">Short</TableCell>
+                  <TableCell align="left">Edit</TableCell>
+                  <TableCell align="left">Delete</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {data?.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell align="left">{row.name}</TableCell>
+                    <TableCell align="left">{row.short}</TableCell>
+                    <TableCell align="left">
+                      <Button
+                        variant="outlined"
+                        onClick={() => {
+                          setActiveName(row.name);
+                          setActiveShort(row.short);
+                          setCurrentId(row.id);
+                          setOpenEdit(true);
+                        }}
+                      >
+                        <EditIcon />
+                      </Button>
+                    </TableCell>
+                    <TableCell align="left">
+                      <Button
+                        variant="contained"
+                        onClick={() => {
+                          setOpenDelete(true);
+                          setCurrentId(row.id);
+                        }}
+                      >
+                        <DeleteIcon sx={{ color: "white" }} />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
       </Box>
       <Modal
         open={openDelete}
@@ -165,6 +178,7 @@ const Countries = () => {
                   onChange={(e) => setActiveName(e.target.value)}
                 />
               </Grid>
+              mobile-modal-close-btn
               <Grid item xs={12}>
                 <TextField
                   label="Short"
@@ -221,6 +235,12 @@ const Countries = () => {
             Add
           </Typography>
           <Box>
+            <div
+              className="mobile-modal-close-btn"
+              onClick={() => setOpenAdd(false)}
+            >
+              <CloseIcon fontSize="large" />
+            </div>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -249,7 +269,10 @@ const Countries = () => {
                   <div>
                     <Button
                       variant="outlined"
-                      onClick={() => setOpenEdit(false)}
+                      onClick={() => {
+                        setOpenEdit(false);
+                        setOpenAdd(false);
+                      }}
                     >
                       {t("cancel")}
                     </Button>
@@ -267,7 +290,7 @@ const Countries = () => {
                         setActiveName("");
                       }}
                     >
-                      Add
+                      {t("add")}
                     </Button>
                   </div>
                 </Typography>

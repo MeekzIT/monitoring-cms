@@ -3,14 +3,19 @@ import { keys } from "../../keys";
 import {
   ADD_OWNER,
   ADD_USER,
+  CLEAR_DATES,
   EDIT_BOX,
   EDIT_ITEM,
   GET_BOXES,
   GET_CALC_INFO,
+  GET_FILTRED_DATA,
+  GET_GENERATED,
   GET_INFO,
   GET_INFO_BENREFITS,
   GET_INFO_MODES,
   GET_INFO_PRCENT,
+  GET_ITEM_CURRENT,
+  GET_ITEM_DAYS,
   GET_OWNERS_OF_USER,
   GET_SINGLE_BOX,
   GET_SINGLE_OWNER,
@@ -19,7 +24,7 @@ import {
 } from "../types";
 import Swal from "sweetalert2";
 
-export const getUsers = (page) => {
+export const getUsers = (page, adminId) => {
   return (dispatch) => {
     axios
       .get(`${keys.api}/users/`, {
@@ -28,6 +33,7 @@ export const getUsers = (page) => {
         },
         params: {
           offset: page,
+          adminId,
         },
       })
       .then((response) => {
@@ -87,7 +93,7 @@ export const getSingleUser = (id) => {
   };
 };
 
-export const getBoxes = (id) => {
+export const getBoxes = (id, boxId) => {
   return (dispatch) => {
     axios
       .get(`${keys.api}/owner/boxes-owners`, {
@@ -96,12 +102,13 @@ export const getBoxes = (id) => {
         },
         params: {
           ownerId: id,
+          boxId,
         },
       })
       .then((response) => {
         dispatch({
           type: GET_BOXES,
-          payload: response.data.paginateData,
+          payload: response.data,
         });
       })
       .catch((error) => {
@@ -158,7 +165,7 @@ export const changePassword = (data) => {
         console.error(error);
       });
   };
-}
+};
 
 export const changeBoxSettings = (data) => {
   return (dispatch) => {
@@ -407,5 +414,108 @@ export const getItemInfoModes = (id) => {
       .catch((error) => {
         console.error(error);
       });
+  };
+};
+
+export const generatedId = (data) => {
+  return (dispatch) => {
+    axios
+      .post(`${keys.api}/owner/generate`, data, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+      })
+      .then((response) => {
+        if (response.data.succes) {
+          dispatch({
+            type: GET_GENERATED,
+            payload: response.data.newId,
+          });
+          Swal.fire({
+            position: "center",
+            iconColor: "#21726A",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+export const getItemDates = (id) => {
+  return (dispatch) => {
+    axios
+      .get(`${keys.api}/owner/item-calc-dates`, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+        params: {
+          ownerID: id,
+        },
+      })
+      .then((response) => {
+        dispatch({
+          type: GET_ITEM_DAYS,
+          payload: response.data.data,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+export const getItemFiltred = (data) => {
+  return (dispatch) => {
+    axios
+      .get(`${keys.api}/owner/item-calc-money`, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+        params: data,
+      })
+      .then((response) => {
+        dispatch({
+          type: GET_FILTRED_DATA,
+          payload: response.data.data,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+export const getItemCurrent = (data) => {
+  return (dispatch) => {
+    axios
+      .get(`${keys.api}/owner/item-calc-current`, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+        params: data,
+      })
+      .then((response) => {
+        dispatch({
+          type: GET_ITEM_CURRENT,
+          payload: response.data,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+export const clearItemFiltred = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: CLEAR_DATES,
+      payload: data,
+    });
   };
 };

@@ -1,6 +1,7 @@
 import HomePage from "../Pages/home/Home";
 import {
   ADMINS_PAGE,
+  ADMIN_USERS,
   BOXES_PAGE,
   CATEGORIES_PAGE,
   COUNTRIES_PAGE,
@@ -26,6 +27,7 @@ import Boxes from "../Pages/Boxes/Boxes";
 import OwnerBoxes from "../Pages/ownerBoxes/OwnerBoxes";
 import OwnerItems from "../Pages/ownerBoxes/OwnerItems";
 import Admins from "../Pages/admins/Admins";
+import AdminUser from "../Pages/admins/AdminUsers";
 
 export const isAuthPages = [
   { id: 1, path: HOME_PAGE, Component: <HomePage /> },
@@ -40,6 +42,7 @@ export const isAuthPages = [
   { id: 10, path: BOXES_PAGE, Component: <OwnerBoxes /> },
   { id: 11, path: OWNER_ITEMS_PAGE, Component: <OwnerItems /> },
   { id: 12, path: ADMINS_PAGE, Component: <Admins /> },
+  { id: 14, path: ADMIN_USERS, Component: <AdminUser /> },
 ];
 
 export const notAuthPages = [{ id: 2, path: LOGIN_PAGE, Component: LoginPage }];

@@ -18,32 +18,38 @@ import {
   editCategories,
   getCategories,
 } from "../../store/actions/category-action";
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  bgcolor: "background.paper",
-  border: "3px solid #21726A",
-  boxShadow: 24,
-  p: 4,
-  borderRadius: "10px",
-};
+import CloseIcon from "@mui/icons-material/Close";
+import { useIsMobile } from "../../hooks/useScreenType";
+
 const Categories = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const isMobile = useIsMobile();
   const data = useSelector((state) => state.category.categories);
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [openAdd, setOpenAdd] = useState(false);
   const [currentId, setCurrentId] = useState(null);
   const [nameHy, setNameHy] = useState(null);
-  const [nameRu, setNameRu] = useState(null);
-  const [nameEn, setNameEn] = useState(null);
-  const [nameGe, setNameGe] = useState(null);
-  const [nameAz, setNameAz] = useState(null);
   const handleCloseDelete = () => setOpenDelete(false);
-
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: isMobile ? "100%" : 400,
+    bgcolor: "background.paper",
+    border: "3px solid #21726A",
+    boxShadow: 24,
+    p: 4,
+    borderRadius: "10px",
+    minHeight: isMobile ? "100vh" : null,
+    display: isMobile && "flex",
+    justifyContent: isMobile && "center",
+    alignItems: isMobile && "center",
+    flexDirection: isMobile && "column",
+    gap: isMobile && "20px",
+  };
   useEffect(() => {
     dispatch(getCategories());
   }, []);
@@ -57,63 +63,51 @@ const Categories = () => {
           <AddIcon sx={{ color: "white" }} />
         </Button>
       </Box>
-      <Box>
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="left">Hy</TableCell>
-                <TableCell align="left">Ru</TableCell>
-                <TableCell align="left">En</TableCell>
-                <TableCell align="left">GE</TableCell>
-                <TableCell align="left">AZ</TableCell>
-                <TableCell align="left">Edit</TableCell>
-                <TableCell align="left">Delete</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data?.map((row) => (
-                <TableRow
-                  key={row.id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell align="left">{row.nameHy}</TableCell>
-                  <TableCell align="left">{row.nameRu}</TableCell>
-                  <TableCell align="left">{row.nameEn}</TableCell>
-                  <TableCell align="left">{row.nameGe}</TableCell>
-                  <TableCell align="left">{row.nameAz}</TableCell>
-                  <TableCell align="left">
-                    <Button
-                      variant="outlined"
-                      onClick={() => {
-                        setNameHy(row.nameHy);
-                        setNameRu(row.nameRu);
-                        setNameEn(row.nameEn);
-                        setNameGe(row.nameGe);
-                        setNameAz(row.nameAz);
-                        setCurrentId(row.id);
-                        setOpenEdit(true);
-                      }}
-                    >
-                      <EditIcon />
-                    </Button>
-                  </TableCell>
-                  <TableCell align="left">
-                    <Button
-                      variant="contained"
-                      onClick={() => {
-                        setOpenDelete(true);
-                        setCurrentId(row.id);
-                      }}
-                    >
-                      <DeleteIcon sx={{ color: "white" }} />
-                    </Button>
-                  </TableCell>
+      <Box sx={{ overflow: "auto" }}>
+        <Box sx={{ width: "100%", display: "table", tableLayout: "fixed" }}>
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="left">{t("name")}</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {data?.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell align="left">{row.name}</TableCell>
+                    <TableCell align="left">
+                      <Button
+                        variant="outlined"
+                        onClick={() => {
+                          setNameHy(row.name);
+                          setCurrentId(row.id);
+                          setOpenEdit(true);
+                        }}
+                      >
+                        <EditIcon />
+                      </Button>
+                    </TableCell>
+                    <TableCell align="left">
+                      <Button
+                        variant="contained"
+                        onClick={() => {
+                          setOpenDelete(true);
+                          setCurrentId(row.id);
+                        }}
+                      >
+                        <DeleteIcon sx={{ color: "white" }} />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
       </Box>
       <Modal
         open={openDelete}
@@ -158,10 +152,6 @@ const Categories = () => {
         onClose={() => {
           setOpenEdit(false);
           setNameHy("");
-          setNameRu("");
-          setNameEn("");
-          setNameGe("");
-          setNameAz("");
         }}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -181,42 +171,7 @@ const Categories = () => {
                   onChange={(e) => setNameHy(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Ru"
-                  variant="outlined"
-                  fullWidth
-                  value={nameRu}
-                  onChange={(e) => setNameRu(e.target.value)}
-                />
-              </Grid>{" "}
-              <Grid item xs={12}>
-                <TextField
-                  label="En"
-                  variant="outlined"
-                  fullWidth
-                  value={nameEn}
-                  onChange={(e) => setNameEn(e.target.value)}
-                />
-              </Grid>{" "}
-              <Grid item xs={12}>
-                <TextField
-                  label="Ge"
-                  variant="outlined"
-                  fullWidth
-                  value={nameGe}
-                  onChange={(e) => setNameGe(e.target.value)}
-                />
-              </Grid>{" "}
-              <Grid item xs={12}>
-                <TextField
-                  label="Az"
-                  variant="outlined"
-                  fullWidth
-                  value={nameAz}
-                  onChange={(e) => setNameAz(e.target.value)}
-                />
-              </Grid>
+
               <Grid item xs={12} sm={6}>
                 <Typography
                   className="btnsBox"
@@ -236,22 +191,9 @@ const Categories = () => {
                       variant="contained"
                       sx={{ color: "white" }}
                       onClick={() => {
-                        dispatch(
-                          editCategories(
-                            currentId,
-                            nameHy,
-                            nameRu,
-                            nameEn,
-                            nameGe,
-                            nameAz
-                          )
-                        );
+                        dispatch(editCategories(currentId, nameHy));
                         setOpenEdit(false);
                         setNameHy("");
-                        setNameRu("");
-                        setNameEn("");
-                        setNameGe("");
-                        setNameAz("");
                       }}
                     >
                       {t("edit")}
@@ -273,6 +215,12 @@ const Categories = () => {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Add
           </Typography>
+          <div
+            className="mobile-modal-close-btn"
+            onClick={() => setOpenAdd(false)}
+          >
+            <CloseIcon fontSize="large" />
+          </div>
           <Box>
             <Grid container spacing={2}>
               <Grid item xs={12}>
@@ -284,42 +232,6 @@ const Categories = () => {
                   onChange={(e) => setNameHy(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Ru"
-                  variant="outlined"
-                  fullWidth
-                  value={nameRu}
-                  onChange={(e) => setNameRu(e.target.value)}
-                />
-              </Grid>{" "}
-              <Grid item xs={12}>
-                <TextField
-                  label="En"
-                  variant="outlined"
-                  fullWidth
-                  value={nameEn}
-                  onChange={(e) => setNameEn(e.target.value)}
-                />
-              </Grid>{" "}
-              <Grid item xs={12}>
-                <TextField
-                  label="Ge"
-                  variant="outlined"
-                  fullWidth
-                  value={nameGe}
-                  onChange={(e) => setNameGe(e.target.value)}
-                />
-              </Grid>{" "}
-              <Grid item xs={12}>
-                <TextField
-                  label="Az"
-                  variant="outlined"
-                  fullWidth
-                  value={nameAz}
-                  onChange={(e) => setNameAz(e.target.value)}
-                />
-              </Grid>
               <Grid item xs={12} sm={6}>
                 <Typography
                   className="btnsBox"
@@ -329,7 +241,10 @@ const Categories = () => {
                   <div>
                     <Button
                       variant="outlined"
-                      onClick={() => setOpenEdit(false)}
+                      onClick={() => {
+                        setOpenEdit(false);
+                        setOpenAdd(false);
+                      }}
                     >
                       {t("cancel")}
                     </Button>
@@ -342,16 +257,12 @@ const Categories = () => {
                         dispatch(
                           addCategories({
                             nameHy,
-                            nameRu,
-                            nameEn,
-                            nameGe,
-                            nameAz,
                           })
                         );
                         setOpenAdd(false);
                       }}
                     >
-                      Add
+                      {t("add")}
                     </Button>
                   </div>
                 </Typography>

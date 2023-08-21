@@ -5,7 +5,9 @@ import "../ownerHome/OwnerHome.css";
 import { Box, Card, Typography } from "@mui/material";
 import { useEffect } from "react";
 import {
+  getBoxes,
   getSingleUser,
+  getUsers,
 } from "../../store/actions/users-action";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
@@ -17,32 +19,22 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router-dom";
-import { USERS_PAGE } from "../../routing/pats";
+import { BOXES_PAGE, USERS_PAGE } from "../../routing/pats";
 import { getCountries } from "../../store/actions/statistics-action";
 
-const UserHome = () => {
+const AdminHome = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const options = {
-    chart: {
-      id: "basic-bar",
-    },
-    xaxis: {
-      categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
-    },
-  };
-  const series = [
-    {
-      name: "series-1",
-      data: [30, 40, 45, 50, 49, 60, 70, 91],
-    },
-  ];
+
   const user = useSelector((state) => state.auth.admin);
   const data = useSelector((state) => state.user.single);
+  const newData = useSelector((state) => state.user.users);
+
   useEffect(() => {
     dispatch(getCountries());
     dispatch(getSingleUser(user.id));
+    dispatch(getUsers(null, user.id));
   }, []);
 
   return (
@@ -53,11 +45,6 @@ const UserHome = () => {
         </div>
         <div>
           <CoinsCounter />
-        </div>
-        <div>
-          <Card sx={{ minHeight: 350 }}>
-            <Chart options={options} series={series} type="line" width="500" />
-          </Card>
         </div>
       </div>
       <Box m={3}>
@@ -73,13 +60,10 @@ const UserHome = () => {
                 <TableCell align="left">{t("email")}</TableCell>
                 <TableCell align="left">{t("country")}</TableCell>
                 <TableCell align="left">{t("active")}</TableCell>
-                <TableCell align="left">
-                  {t("lastPay")} / {t("paymentType")}
-                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.Owners?.map((row) => (
+              {newData?.map((row) => (
                 <TableRow
                   key={row.id}
                   sx={{
@@ -92,15 +76,7 @@ const UserHome = () => {
                   <TableCell align="left">{row.email}</TableCell>
                   <TableCell align="left">{row.Country.name}</TableCell>
                   <TableCell align="left">
-                    {row.subscribe ? (
-                      <span
-                        style={{
-                          color: "green",
-                        }}
-                      >
-                        {t("subscribe")}
-                      </span>
-                    ) : (
+                    {row.block ? (
                       <span
                         style={{
                           color: "red",
@@ -108,11 +84,15 @@ const UserHome = () => {
                       >
                         {t("pasive")}
                       </span>
+                    ) : (
+                      <span
+                        style={{
+                          color: "green",
+                        }}
+                      >
+                        {t("subscribe")}
+                      </span>
                     )}
-                  </TableCell>
-                  <TableCell align="left">
-                    {row.lastPay ? row.lastPay : "-"} /{" "}
-                    {row?.variant?.toUpperCase()}
                   </TableCell>
                 </TableRow>
               ))}
@@ -124,4 +104,4 @@ const UserHome = () => {
   );
 };
 
-export default UserHome;
+export default AdminHome;

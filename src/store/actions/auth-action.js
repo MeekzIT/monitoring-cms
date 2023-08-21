@@ -194,3 +194,23 @@ export const activityAdmin = (data) => {
       });
   };
 };
+
+export const changeItemActivity = (data) => {
+  return (dispatch) => {
+    axios
+      .post(`${keys.api}/owner/item-accessability`, data, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+      })
+      .then(function (response) {
+        dispatch({
+          type: EDIT_ADMIN,
+          payload: data,
+        });
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+};

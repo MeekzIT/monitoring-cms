@@ -12,16 +12,16 @@ import { Box, Button } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import AddIcon from "@mui/icons-material/Add";
-import AddUser from "./AddUser";
 import { getCountries } from "../../store/actions/statistics-action";
 import { makeArray } from "../../hooks/makeArray";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const UserPage = () => {
+const AdminUser = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const { id } = useParams();
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [pages, setPages] = useState([]);
@@ -45,22 +45,13 @@ const UserPage = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getUsers(page));
-  }, [page]);
+    dispatch(getUsers(page, id));
+  }, [page, id]);
 
   return (
     <Box m={3}>
       <Box mb={2}>
         <h1>{t("users")}</h1>
-        {isSuper == "admin" && (
-          <Button variant="contained" onClick={handleOpen}>
-            <AddIcon
-              sx={{
-                color: "white",
-              }}
-            />
-          </Button>
-        )}
       </Box>
       <Box sx={{ overflow: "auto" }}>
         <Box sx={{ width: "100%", display: "table", tableLayout: "fixed" }}>
@@ -172,9 +163,8 @@ const UserPage = () => {
           </div>
         </div>
       </Box>
-      <AddUser open={open} handleClose={handleClose} countries={countries} />
     </Box>
   );
 };
 
-export default UserPage;
+export default AdminUser;

@@ -21,24 +21,11 @@ const OwnerHome = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const options = {
-    chart: {
-      id: "basic-bar",
-    },
-    xaxis: {
-      categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
-    },
-  };
-  const series = [
-    {
-      name: "series-1",
-      data: [30, 40, 45, 50, 49, 60, 70, 91],
-    },
-  ];
+
   const owner = useSelector((state) => state.auth.admin);
   const data = useSelector((state) => state.user.boxes);
   useEffect(() => {
-    dispatch(getBoxes(owner.id));
+    dispatch(getBoxes(owner.deviceOwner));
   }, []);
 
   return (
@@ -46,14 +33,6 @@ const OwnerHome = () => {
       <div className="owner-home">
         <div>
           <SettingCard />
-        </div>
-        <div>
-          <CoinsCounter />
-        </div>
-        <div>
-          <Card sx={{ minHeight: 350 }}>
-            <Chart options={options} series={series} type="line" width="500" />
-          </Card>
         </div>
       </div>
       <Box m={3}>
