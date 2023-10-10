@@ -4,6 +4,7 @@ import {
   ADD_OWNER,
   ADD_USER,
   CLEAR_DATES,
+  DELETE_OWNER,
   EDIT_BOX,
   EDIT_ITEM,
   GET_BOXES,
@@ -236,6 +237,34 @@ export const addOwner = (data) => {
   };
 };
 
+export const deleteOwner = (data) => {
+  return (dispatch) => {
+    axios
+      .post(
+        `${keys.api}/owner/delete-owner`,
+        {
+          id: data,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${keys.token}`,
+          },
+        }
+      )
+      .then((response) => {
+        if (response.data.succes) {
+          dispatch({
+            type: DELETE_OWNER,
+            payload: data,
+          });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
 export const editItemChanges = (data) => {
   return (dispatch) => {
     axios
@@ -269,7 +298,7 @@ export const editItemChanges = (data) => {
   };
 };
 
-export const getItemInfo = (id) => {
+export const getItemInfo = (id, active) => {
   return (dispatch) => {
     axios
       .get(`${keys.api}/owner/item-info`, {
@@ -278,6 +307,7 @@ export const getItemInfo = (id) => {
         },
         params: {
           id,
+          active,
         },
       })
       .then((response) => {
@@ -306,10 +336,11 @@ export const editItemInfo = (data) => {
       )
       .then((response) => {
         if (response.data.succes) {
-          dispatch({
-            type: GET_INFO,
-            payload: response.data.info,
-          });
+          data.active == 1 &&
+            dispatch({
+              type: GET_INFO,
+              payload: response.data.info,
+            });
           Swal.fire({
             position: "center",
             iconColor: "#21726A",
@@ -329,6 +360,28 @@ export const getItemInfoCalc = (id) => {
   return (dispatch) => {
     axios
       .get(`${keys.api}/owner/item-info-calc`, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+        params: {
+          ownerID: id,
+        },
+      })
+      .then((response) => {
+        dispatch({
+          type: GET_CALC_INFO,
+          payload: response.data.data,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+export const getItemInfoCalc2 = (id) => {
+  return (dispatch) => {
+    axios
+      .get(`${keys.api}/owner/item-info-calc2`, {
         headers: {
           Authorization: `Bearer ${keys.token}`,
         },

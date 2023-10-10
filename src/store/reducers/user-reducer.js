@@ -23,6 +23,7 @@ import {
   GET_SINGLE_OWNER,
   GET_SINGLE_USER,
   GET_USERS,
+  DELETE_OWNER,
 } from "../types";
 
 const initialState = {
@@ -42,7 +43,7 @@ const initialState = {
   generated: null,
   dates: null,
   filtredDates: null,
-  currentValues:null
+  currentValues: null,
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -50,8 +51,8 @@ export const userReducer = (state = initialState, action) => {
     case GET_ITEM_CURRENT:
       return {
         ...state,
-        currentValues:action.payload
-      }
+        currentValues: action.payload,
+      };
     case GET_USERS:
       return {
         ...state,
@@ -101,6 +102,17 @@ export const userReducer = (state = initialState, action) => {
         single: {
           ...state.single,
           Owners: [...state.single.Owners, action.payload],
+        },
+      };
+    case DELETE_OWNER:
+      const editedData = state.single.Owners.filter(
+        (i) => i.id !== action.payload
+      );
+      return {
+        ...state,
+        single: {
+          ...state.single,
+          Owners: editedData,
         },
       };
     case EDIT_ITEM:

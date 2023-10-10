@@ -68,7 +68,7 @@ const series1 = [
 ];
 
 const Boxes = () => {
-  const { id, user_id } = useParams();
+  const { id, user_id, owner: ownerParam } = useParams();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -128,7 +128,7 @@ const Boxes = () => {
   useEffect(() => {
     // dispatch(getBoxExpenses(currentId));
   }, [currentId, setOpenSettings]);
-
+  
   return (
     <div>
       <Box m={3}>
@@ -224,7 +224,7 @@ const Boxes = () => {
                           onClick={() => {
                             dispatch(getSingleBox(row.id));
                             navigate(
-                              `/user/${user_id}/owner/${owner?.id}/item/${row.id}`
+                              `/user/${user_id}/owner/${row?.ownerId}/item/${row.id}`
                             );
                           }}
                         >

@@ -19,7 +19,7 @@ import { useState } from "react";
 import { generatePassword } from "../../hooks/generatePassword";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import useCopyToClipboard from "../../hooks/useCopyToClipboard";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUsers } from "../../store/actions/users-action";
 import { useIsMobile } from "../../hooks/useScreenType";
 import CloseIcon from "@mui/icons-material/Close";
@@ -28,6 +28,8 @@ const AddUser = ({ open, handleClose, countries }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const isMobile = useIsMobile();
+  const user = useSelector((state) => state.auth.admin);
+
   const [isCopied, copyToClipboard] = useCopyToClipboard();
   const signupSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -94,7 +96,7 @@ const AddUser = ({ open, handleClose, countries }) => {
             initialValues={initialValues}
             validationSchema={signupSchema}
             onSubmit={(values) => {
-              dispatch(addUsers(values));
+              dispatch(addUsers({ ...values, adminId: user.id }));
               handleClose();
             }}
           >

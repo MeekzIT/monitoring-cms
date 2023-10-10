@@ -18,6 +18,7 @@ import { makeArray } from "../../hooks/makeArray";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useNavigate } from "react-router-dom";
+import { getMe } from "../../store/actions/auth-action";
 
 const UserPage = () => {
   const { t } = useTranslation();
@@ -29,6 +30,7 @@ const UserPage = () => {
   const count = useSelector((state) => state.user.count);
   const countries = useSelector((state) => state.statistics.countries);
   const isSuper = useSelector((state) => state.auth.isSuper);
+  const user = useSelector((state) => state.auth.admin);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -42,11 +44,11 @@ const UserPage = () => {
 
   useEffect(() => {
     dispatch(getCountries());
+    dispatch(getMe());
   }, []);
-
   useEffect(() => {
-    dispatch(getUsers(page));
-  }, [page]);
+    user && dispatch(getUsers(page, user?.id));
+  }, [page, user]);
 
   return (
     <Box m={3}>

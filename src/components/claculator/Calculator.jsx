@@ -22,7 +22,10 @@ import ChangeField from "../changeField/ChangeField";
 import { useIsMobile } from "../../hooks/useScreenType";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch } from "react-redux";
-import { editItemInfo } from "../../store/actions/users-action";
+import {
+  editItemInfo,
+  getItemInfoCalc,
+} from "../../store/actions/users-action";
 import DoubleField from "../changeField/DoubleField";
 import ChangeSelect from "../changeField/ChangedSelect";
 
@@ -36,7 +39,14 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-const Calculator = ({ open, handleClose, data, itemInfoCalc }) => {
+const Calculator = ({
+  open,
+  handleClose,
+  data,
+  itemInfoCalc,
+  active,
+  ownerID,
+}) => {
   const { t } = useTranslation();
   const isMobile = useIsMobile();
   const dispatch = useDispatch();
@@ -53,17 +63,17 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc }) => {
         ...changedData,
         functionId: currentFunctionId,
         ownerID: data[0].ownerID,
+        active,
       })
     );
     setChangedData({});
   };
-
   useEffect(() => {
+        dispatch(getItemInfoCalc(ownerID));
     if (data !== null && data !== undefined && currentFunctionId) {
       setCurrentData(data?.filter((i) => i.functionId == currentFunctionId)[0]);
     }
-  }, [data, currentFunctionId]);
-
+  }, [data, currentFunctionId, ownerID]);
 
   const style = {
     position: "absolute",
@@ -77,7 +87,7 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc }) => {
     p: 4,
     borderRadius: "10px",
     minHeight: isMobile ? "100vh" : 400,
-    maxHeight: isMobile && 600,
+    maxWidth: isMobile ? 600 : 800,
     display: isMobile && "flex",
     justifyContent: isMobile && "center",
     alignItems: isMobile && "center",

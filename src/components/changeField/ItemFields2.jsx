@@ -12,7 +12,7 @@ import {
 } from "../../hooks/helpers";
 import DoubleSelect from "./DoubleSelect";
 
-const ItemField = ({ data, handleChangeData, values }) => {
+const ItemField2 = ({ data, handleChangeData, values }) => {
   const { t } = useTranslation();
 
   const langOptions = [
@@ -341,4 +341,4 @@ const ItemField = ({ data, handleChangeData, values }) => {
   );
 };
 
-export default ItemField;
+export default ItemField2;

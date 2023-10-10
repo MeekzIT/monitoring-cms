@@ -34,19 +34,11 @@ const AdminHome = () => {
   useEffect(() => {
     dispatch(getCountries());
     dispatch(getSingleUser(user.id));
-    dispatch(getUsers(null, user.id));
+    dispatch(getUsers(0, user.id));
   }, []);
 
   return (
     <Box mt={3}>
-      <div className="owner-home">
-        <div>
-          <SettingCard />
-        </div>
-        <div>
-          <CoinsCounter />
-        </div>
-      </div>
       <Box m={3}>
         <Typography gutterBottom variant="h5" component="div">
           {t("users")}
@@ -100,6 +92,14 @@ const AdminHome = () => {
           </Table>
         </TableContainer>
       </Box>
+      <div className="owner-home">
+        <div>
+          <SettingCard />
+        </div>
+        {/* <div>
+          <CoinsCounter />
+        </div> */}
+      </div>
     </Box>
   );
 };

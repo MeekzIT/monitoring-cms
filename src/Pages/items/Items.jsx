@@ -26,6 +26,7 @@ import {
   getItemFiltred,
   getItemInfo,
   getItemInfoCalc,
+  getItemInfoCalc2,
   getItemInfoModes,
   getItemInfoPrcent,
   getSingleBox,
@@ -45,13 +46,15 @@ import DonutChart from "../../components/graphics/Dount";
 import { compareWithUTC, getCurrency } from "../../hooks/helpers";
 import LockIcon from "@mui/icons-material/Lock";
 import { changeItemActivity } from "../../store/actions/auth-action";
-import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
-import LocalAtmIcon from "@mui/icons-material/LocalAtm";
-import CreditScoreIcon from "@mui/icons-material/CreditScore";
+
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ItemsMenu from "./ItemsMenu";
 import ItemField3 from "../../components/changeField/ItemFields3";
+import ItemField2 from "../../components/changeField/ItemFields2";
+import Calculator2 from "../../components/claculator/Calculator2";
+import ItemFilters from "./ItemFilters";
+import HourglassTopIcon from "@mui/icons-material/HourglassTop";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -117,15 +120,10 @@ const Items = () => {
   const [filterOn, setFilterOn] = useState(false);
   const [showMenu, setShowMewnu] = useState(false);
   const [active, setActive] = useState(null);
-  console.log(itemCurrentValue,"111111111111111");
-  useEffect(() => {
-    setData(items?.filter((i) => i.p0 == active));
-  }, [active]);
   const handleChangeData = (name, value) => {
     changedData[name] = value;
     setChangedData(changedData);
   };
-  console.log(items, 1111111111111111);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -138,26 +136,35 @@ const Items = () => {
   }, []);
 
   useEffect(() => {
-    setCalcData(items?.filter((i) => i.id === currentId)[0]?.ItemValue);
-    ownerId && dispatch(getItemCurrent(ownerId))
-    ownerId && dispatch(getItemInfo(ownerId));
-    ownerId && dispatch(getItemInfoCalc(ownerId));
-    ownerId && dispatch(getItemInfoPrcent(ownerId));
-    ownerId && dispatch(getItemInfoModes(ownerId));
-    ownerId && dispatch(getItemDates(ownerId));
-  }, [currentId, ownerId]);
-
-  useEffect(() => {
-    user && dispatch(getSingleOwners(id));
-  }, [user]);
+    setData(items?.filter((i) => i.p0 == active));
+  }, [active]);
 
   useEffect(() => {
     // boxes.length && ;
     boxes?.length && dispatch(getSingleBox(id));
-    setCurrent(items[0]?.id);
-    setOwnerId(items[0]?.p2);
-    setAccess(items[0]?.access);
-  }, [boxes]);
+    data && active && setCurrent(data[0]?.id);
+    data && active && setOwnerId(data[0]?.p2);
+    data && active && setAccess(data[0]?.access);
+  }, [data, boxes, active]);
+
+  useEffect(() => {
+    setCalcData(items?.filter((i) => i.id === currentId)[0]?.ItemValue);
+    active && ownerId && dispatch(getItemCurrent({ ownerId, active }));
+    active && ownerId && dispatch(getItemInfo(ownerId, active));
+    active && ownerId && dispatch(getItemInfoPrcent(ownerId));
+    active && ownerId && dispatch(getItemInfoModes(ownerId));
+    active && ownerId && dispatch(getItemDates(ownerId));
+    return;
+    // if (active && ownerId && active == 1) {
+    //   dispatch(getItemInfoCalc(ownerId));
+    // } else if (active && ownerId && active == 2) {
+    //   dispatch(getItemInfoCalc2(ownerId));
+    // }
+  }, [currentId, ownerId, active]);
+
+  useEffect(() => {
+    user && dispatch(getSingleOwners(id));
+  }, [user]);
 
   const handleEditChanges = () => {
     dispatch(editItemChanges({ ...changedData, id: currentId }));
@@ -213,472 +220,440 @@ const Items = () => {
               {t("back-to-menu")}
             </Button>
           </Box>
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="basic tabs example"
-              TabIndicatorProps={{ sx: { display: "none" } }}
-              sx={{
-                "& .MuiTabs-flexContainer": {
-                  flexWrap: "wrap",
-                  padding: "0",
-                },
-              }}
-            >
-              {data?.map((i, idx) => {
-                return (
-                  <Tab
-                    label={`${t("device")} ( ${i.id} )`}
-                    {...a11yProps(i.id)}
-                    key={i.id}
-                    onClick={() => {
-                      setCurrent(i.id);
-                      setOwnerId(i.p2s);
-                    }}
-                  />
-                );
-              })}
-            </Tabs>
-          </Box>
-          <SwipeableViews
-            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-            index={value}
-            onChangeIndex={handleChangeIndex}
-          >
-            {data?.map((i, idx) => {
-              return (
-                <TabPanel
+          {data ? (
+            <>
+              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                <Tabs
                   value={value}
-                  index={idx}
-                  dir={theme.direction}
-                  key={i.id}
+                  onChange={handleChange}
+                  aria-label="basic tabs example"
+                  TabIndicatorProps={{ sx: { display: "none" } }}
                   sx={{
-                    root: {
-                      "& .MuiBox": {
-                        padding: 0,
-                      },
+                    "& .MuiTabs-flexContainer": {
+                      flexWrap: "wrap",
+                      padding: "0",
                     },
                   }}
                 >
-                  <Grid
-                    spacing={1}
-                    sx={{
-                      padding: "0",
-                    }}
-                    container
-                  >
-                    <Grid item>
-                      {isSuper == "owner" ||
-                        (isSuper == "superAdmin" && (
-                          <>
-                            <div>
-                              <DonutChart
-                                benefit={prcemt?.benefit}
-                                expenses={prcemt?.expenses}
-                              />
-                            </div>
-
-                            <div>
-                              <Button
-                                variant="contained"
-                                size="large"
-                                sx={{
-                                  color: "white",
-                                  fontSize: "20px",
-                                }}
-                                onClick={() => setOpen(true)}
-                              >
-                                <CalculateIcon />
-                                {t("calc")}
-                              </Button>
-                            </div>
-                          </>
-                        ))}
-                      {isSuper !== "owner" &&
-                        isSuper !== "superAdmin" &&
-                        i.access && (
-                          <>
-                            <div>
-                              <DonutChart
-                                benefit={prcemt?.benefit}
-                                expenses={prcemt?.expenses}
-                              />
-                            </div>
-
-                            <div>
-                              <Button
-                                variant="contained"
-                                size="large"
-                                sx={{
-                                  color: "white",
-                                  fontSize: "20px",
-                                }}
-                                onClick={() => setOpen(true)}
-                              >
-                                <CalculateIcon />
-                                {t("calc")}
-                              </Button>
-                            </div>
-                          </>
-                        )}
-                    </Grid>
-                    <Grid item>
-                      <Typography
-                        id="modal-modal-title"
-                        variant="h3"
-                        component="h1"
+                  {data?.map((i, idx) => {
+                    return (
+                      <Tab
+                        label={`${t("device")} ( ${i.id} )`}
+                        {...a11yProps(i.id)}
+                        key={i.id}
+                        onClick={() => {
+                          setCurrent(i.id);
+                          setOwnerId(i.p2);
+                        }}
+                      />
+                    );
+                  })}
+                </Tabs>
+              </Box>
+              <SwipeableViews
+                axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+                index={value}
+                onChangeIndex={handleChangeIndex}
+              >
+                {data?.map((i, idx) => {
+                  return (
+                    <TabPanel
+                      value={value}
+                      index={idx}
+                      dir={theme.direction}
+                      key={i.id}
+                      sx={{
+                        root: {
+                          "& .MuiBox": {
+                            padding: 0,
+                          },
+                        },
+                      }}
+                    >
+                      <Grid
+                        spacing={1}
+                        sx={{
+                          padding: "0",
+                        }}
+                        container
                       >
-                        {t("device")} №-{i.id}{" "}
-                        {compareWithUTC(i.datatime) ? (
-                          <span className="online">{t("online")}</span>
-                        ) : (
-                          <span className="offline">{t("offline")}</span>
-                        )}
-                      </Typography>
-                      {(isSuper == "owner" || isSuper == "superAdmin") && (
-                        <>
-                          <hr style={{ width: "50vw" }} />
-                          <Box
-                            sx={{
-                              display: "flex",
-                              gap: "5px",
-                              flexDirection: "column",
-                            }}
+                        <Grid item>
+                          {isSuper == "owner" ||
+                            (isSuper == "superAdmin" && (
+                              <>
+                                <div>
+                                  <DonutChart
+                                    benefit={prcemt?.benefit}
+                                    expenses={prcemt?.expenses}
+                                  />
+                                </div>
+                                {active !== 3 && (
+                                  <div>
+                                    <Button
+                                      variant="contained"
+                                      size="large"
+                                      sx={{
+                                        color: "white",
+                                        fontSize: "20px",
+                                      }}
+                                      onClick={() => setOpen(true)}
+                                    >
+                                      <CalculateIcon />
+                                      {t("calc")}
+                                    </Button>
+                                  </div>
+                                )}
+                              </>
+                            ))}
+                          {isSuper !== "owner" &&
+                            isSuper !== "superAdmin" &&
+                            i.access && (
+                              <>
+                                <div>
+                                  <DonutChart
+                                    benefit={prcemt?.benefit}
+                                    expenses={prcemt?.expenses}
+                                  />
+                                </div>
+                                {active !== 3 && (
+                                  <div>
+                                    <Button
+                                      variant="contained"
+                                      size="large"
+                                      sx={{
+                                        color: "white",
+                                        fontSize: "20px",
+                                      }}
+                                      onClick={() => setOpen(true)}
+                                    >
+                                      <CalculateIcon />
+                                      {t("calc")}
+                                    </Button>
+                                  </div>
+                                )}
+                              </>
+                            )}
+                        </Grid>
+                        <Grid item>
+                          <Typography
+                            id="modal-modal-title"
+                            variant="h3"
+                            component="h1"
                           >
+                            {t("device")} №-{i.id}{" "}
+                            {compareWithUTC(i.datatime) ? (
+                              <span className="online">{t("online")}</span>
+                            ) : (
+                              <span className="offline">{t("offline")}</span>
+                            )}
+                          </Typography>
+                          {(isSuper == "owner" || isSuper == "superAdmin") && (
+                            <>
+                              <hr style={{ width: "50vw" }} />
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  gap: "5px",
+                                  flexDirection: "column",
+                                }}
+                              >
+                                <Box
+                                  sx={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    gap: "15px",
+                                  }}
+                                >
+                                  <Box
+                                    sx={{
+                                      width: "40%",
+                                    }}
+                                  >
+                                    <FormControl fullWidth>
+                                      <InputLabel id="demo-simple-select-label">
+                                        Start
+                                      </InputLabel>
+                                      <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={start}
+                                        label="Start"
+                                        onChange={(e) =>
+                                          setStart(e.target.value)
+                                        }
+                                      >
+                                        {dates?.map((i) => (
+                                          <MenuItem
+                                            key={i}
+                                            value={
+                                              i.slice(0, 10) +
+                                              " " +
+                                              "00:00:00+04"
+                                            }
+                                          >
+                                            {i.slice(0, 10)}
+                                          </MenuItem>
+                                        ))}
+                                      </Select>
+                                    </FormControl>
+                                  </Box>
+                                  <Box
+                                    sx={{
+                                      width: "40%",
+                                    }}
+                                  >
+                                    <FormControl fullWidth>
+                                      <InputLabel id="demo-simple-select-label">
+                                        End
+                                      </InputLabel>
+                                      <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={end}
+                                        label="End"
+                                        onChange={(e) => setEnd(e.target.value)}
+                                      >
+                                        {dates
+                                          ?.filter(
+                                            (y) => y.slice(0, 10) !== start
+                                          )
+                                          .map((i) => (
+                                            <MenuItem
+                                              key={i}
+                                              value={
+                                                i.slice(0, 10) +
+                                                " " +
+                                                "00:00:00+04"
+                                              }
+                                            >
+                                              {i.slice(0, 10)}
+                                            </MenuItem>
+                                          ))}
+                                      </Select>
+                                    </FormControl>
+                                  </Box>
+                                  <Box>
+                                    <Button
+                                      variant="outlined"
+                                      size="large"
+                                      onClick={() => {
+                                        dispatch(
+                                          getItemFiltred({
+                                            ownerID: i?.p2,
+                                            start,
+                                            end,
+                                            active,
+                                          })
+                                        );
+                                        setFilterOn(true);
+                                      }}
+                                    >
+                                      <FilterAltIcon
+                                        sx={{ color: "#21726A" }}
+                                      />
+                                    </Button>
+                                  </Box>
+
+                                  {(start || end) && (
+                                    <Box>
+                                      <Button
+                                        variant="outlined"
+                                        size="large"
+                                        onClick={() => {
+                                          dispatch(clearItemFiltred(null));
+                                          setFilterOn(false);
+                                          setStart(null);
+                                          setEnd(null);
+                                        }}
+                                      >
+                                        <DeleteIcon sx={{ color: "#21726A" }} />
+                                      </Button>
+                                    </Box>
+                                  )}
+                                </Box>
+                                <ItemFilters
+                                  active={active}
+                                  filtredDates={filtredDates}
+                                  countryId={owner?.countryId}
+                                  item={i}
+                                  itemCurrentValue={itemCurrentValue}
+                                />
+                              </Box>
+                            </>
+                          )}
+                          {isSuper == "owner" && (
                             <Box
                               sx={{
                                 display: "flex",
-                                flexDirection: "row",
-                                gap: "15px",
+                                flexDirection: "column",
+                                gap: "20px",
                               }}
                             >
-                              <Box
-                                sx={{
-                                  width: "40%",
+                              <Typography>{t("change-access")}</Typography>
+                              <FormControlLabel
+                                control={<Switch defaultChecked={access} />}
+                                label={t("change-access-text")}
+                                value={access}
+                                onChange={(e) => {
+                                  dispatch(
+                                    changeItemActivity({
+                                      id: i.p2,
+                                      access: !access,
+                                    })
+                                  );
+                                  setAccess(e.target.checked);
                                 }}
-                              >
-                                <FormControl fullWidth>
-                                  <InputLabel id="demo-simple-select-label">
-                                    Start
-                                  </InputLabel>
-                                  <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={start}
-                                    label="Start"
-                                    onChange={(e) => setStart(e.target.value)}
-                                  >
-                                    {dates?.map((i) => (
-                                      <MenuItem
-                                        key={i}
-                                        value={
-                                          i.slice(0, 10) + " " + "00:00:00+04"
-                                        }
-                                      >
-                                        {i.slice(0, 10)}
-                                      </MenuItem>
-                                    ))}
-                                  </Select>
-                                </FormControl>
-                              </Box>
-                              <Box
-                                sx={{
-                                  width: "40%",
-                                }}
-                              >
-                                <FormControl fullWidth>
-                                  <InputLabel id="demo-simple-select-label">
-                                    End
-                                  </InputLabel>
-                                  <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={end}
-                                    label="End"
-                                    onChange={(e) => setEnd(e.target.value)}
-                                  >
-                                    {dates
-                                      ?.filter((y) => y.slice(0, 10) !== start)
-                                      .map((i) => (
-                                        <MenuItem
-                                          key={i}
-                                          value={
-                                            i.slice(0, 10) + " " + "00:00:00+04"
-                                          }
-                                        >
-                                          {i.slice(0, 10)}
-                                        </MenuItem>
-                                      ))}
-                                  </Select>
-                                </FormControl>
-                              </Box>
-                              <Box>
+                              />
+                              <hr style={{ width: "50vw" }} />
+                            </Box>
+                          )}
+                          <hr style={{ width: "50vw" }} />
+                          {isSuper == "owner" && (
+                            <>
+                              {i &&
+                                (active === 1 ? (
+                                  <ItemField
+                                    data={i}
+                                    handleChangeData={handleChangeData}
+                                    values={changedData}
+                                  />
+                                ) : active === 3 ? (
+                                  <ItemField3
+                                    data={i}
+                                    handleChangeData={handleChangeData}
+                                    values={changedData}
+                                  />
+                                ) : active === 2 ? (
+                                  <ItemField2
+                                    data={i}
+                                    handleChangeData={handleChangeData}
+                                    values={changedData}
+                                  />
+                                ) : null)}
+                              <Box mt={3} mb={3}>
                                 <Button
                                   variant="outlined"
-                                  size="large"
-                                  onClick={() => {
-                                    dispatch(
-                                      getItemFiltred({
-                                        ownerID: i?.p2,
-                                        start,
-                                        end,
-                                      })
-                                    );
-                                    setFilterOn(true);
-                                  }}
+                                  fullWidth
+                                  onClick={handleEditChanges}
                                 >
-                                  <FilterAltIcon sx={{ color: "#21726A" }} />
+                                  {t("savechanges")}
                                 </Button>
                               </Box>
-                              {(start || end) && (
-                                <Box>
-                                  <Button
-                                    variant="outlined"
-                                    size="large"
-                                    onClick={() => {
-                                      dispatch(clearItemFiltred(null));
-                                      setFilterOn(false);
-                                      setStart(null);
-                                      setEnd(null);
-                                    }}
-                                  >
-                                    <DeleteIcon sx={{ color: "#21726A" }} />
-                                  </Button>
-                                </Box>
-                              )}
+                            </>
+                          )}
+                          {isSuper == "superAdmin" && (
+                            <>
+                              {i &&
+                                (active === 1 ? (
+                                  <ItemField
+                                    data={i}
+                                    handleChangeData={handleChangeData}
+                                    values={changedData}
+                                  />
+                                ) : active === 3 ? (
+                                  <ItemField3
+                                    data={i}
+                                    handleChangeData={handleChangeData}
+                                    values={changedData}
+                                  />
+                                ) : active === 2 ? (
+                                  <ItemField2
+                                    data={i}
+                                    handleChangeData={handleChangeData}
+                                    values={changedData}
+                                  />
+                                ) : null)}
+                              <Box mt={3} mb={3}>
+                                <Button
+                                  variant="outlined"
+                                  fullWidth
+                                  onClick={handleEditChanges}
+                                >
+                                  {t("savechanges")}
+                                </Button>
+                              </Box>
+                            </>
+                          )}
+                          {isSuper !== "superAdmin" && !i.access && (
+                            <Box
+                              sx={{
+                                width: "100vh",
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                gap: "20px",
+                              }}
+                            >
+                              <LockIcon sx={{ color: "#21726A" }} />
+                              <h1 style={{ color: "#21726A" }}>{t("block")}</h1>
                             </Box>
-                            {filtredDates ? (
-                              <>
-                                <Box
-                                  sx={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    gap: "15px",
-                                  }}
-                                >
-                                  <MonetizationOnIcon
-                                    sx={{ color: "#21726A" }}
+                          )}
+                          {isSuper !== "superAdmin" && i.access && (
+                            <>
+                              {i &&
+                                (active === 1 ? (
+                                  <ItemField
+                                    data={i}
+                                    handleChangeData={handleChangeData}
+                                    values={changedData}
                                   />
-                                  <Typography>
-                                    {filtredDates?.MonetizationOnIcon}
-                                    {getCurrency(owner?.countryId)}
-                                  </Typography>
-                                </Box>
-                                <Box
-                                  sx={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    gap: "15px",
-                                  }}
-                                >
-                                  <LocalAtmIcon sx={{ color: "#21726A" }} />
-                                  <Typography>
-                                    {filtredDates?.LocalAtmIcon}
-                                    {getCurrency(owner?.countryId)}
-                                  </Typography>
-                                </Box>
-                                <Box
-                                  sx={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    gap: "15px",
-                                  }}
-                                >
-                                  <CreditScoreIcon sx={{ color: "#21726A" }} />
-                                  <Typography>
-                                    {filtredDates?.CreditScoreIcon}
-                                    {getCurrency(owner?.countryId)}
-                                  </Typography>
-                                </Box>
-                              </>
-                            ) : (
-                              <>
-                                <Box
-                                  sx={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    gap: "15px",
-                                  }}
-                                >
-                                  <MonetizationOnIcon
-                                    sx={{ color: "#21726A" }}
+                                ) : active === 3 ? (
+                                  <ItemField3
+                                    data={i}
+                                    handleChangeData={handleChangeData}
+                                    values={changedData}
                                   />
-                                  <Typography>
-                                    {Number(i?.p16) * Number(i?.p10)}
-                                    {getCurrency(owner?.countryId)}
-                                  </Typography>
-                                </Box>
-                                <Box
-                                  sx={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    gap: "15px",
-                                  }}
+                                ) : active === 2 ? (
+                                  <ItemField2
+                                    data={i}
+                                    handleChangeData={handleChangeData}
+                                    values={changedData}
+                                  />
+                                ) : null)}
+                              <Box mt={3} mb={3}>
+                                <Button
+                                  variant="outlined"
+                                  fullWidth
+                                  onClick={handleEditChanges}
                                 >
-                                  <LocalAtmIcon sx={{ color: "#21726A" }} />
-                                  <Typography>
-                                    {Number(i?.p17) * Number(i?.p11)}
-                                    {getCurrency(owner?.countryId)}
-                                  </Typography>
-                                </Box>
-                                <Box
-                                  sx={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    gap: "15px",
-                                  }}
-                                >
-                                  <CreditScoreIcon sx={{ color: "#21726A" }} />
-                                  <Typography>
-                                    {Number(i?.p18) * Number(i?.p12)}
-                                    {getCurrency(owner?.countryId)}
-                                  </Typography>
-                                </Box>
-                              </>
-                            )}
-                          </Box>
-                        </>
-                      )}
-                      {isSuper == "owner" && (
-                        <Box
-                          sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "20px",
-                          }}
-                        >
-                          <Typography>{t("change-access")}</Typography>
-                          <FormControlLabel
-                            control={<Switch defaultChecked={access} />}
-                            label={t("change-access-text")}
-                            value={access}
-                            onChange={(e) => {
-                              dispatch(
-                                changeItemActivity({
-                                  id: i.p2,
-                                  access: !access,
-                                })
-                              );
-                              setAccess(e.target.checked);
-                            }}
-                          />
-                          <hr style={{ width: "50vw" }} />
-                        </Box>
-                      )}
-                      <hr style={{ width: "50vw" }} />
-                      {isSuper == "owner" && (
-                        <>
-                          {i &&
-                            (active === 1 ? (
-                              <ItemField
-                                data={i}
-                                handleChangeData={handleChangeData}
-                                values={changedData}
-                              />
-                            ) : active === 3 ? (
-                              <ItemField3
-                                data={i}
-                                handleChangeData={handleChangeData}
-                                values={changedData}
-                              />
-                            ) : null)}
-                          <Box mt={3} mb={3}>
-                            <Button
-                              variant="outlined"
-                              fullWidth
-                              onClick={handleEditChanges}
-                            >
-                              {t("savechanges")}
-                            </Button>
-                          </Box>
-                        </>
-                      )}
-                      {isSuper == "superAdmin" && (
-                        <>
-                          {i &&
-                            (active === 1 ? (
-                              <ItemField
-                                data={i}
-                                handleChangeData={handleChangeData}
-                                values={changedData}
-                              />
-                            ) : active === 3 ? (
-                              <ItemField3
-                                data={i}
-                                handleChangeData={handleChangeData}
-                                values={changedData}
-                              />
-                            ) : null)}
-                          <Box mt={3} mb={3}>
-                            <Button
-                              variant="outlined"
-                              fullWidth
-                              onClick={handleEditChanges}
-                            >
-                              {t("savechanges")}
-                            </Button>
-                          </Box>
-                        </>
-                      )}
-                      {isSuper !== "superAdmin" && !i.access && (
-                        <Box
-                          sx={{
-                            width: "100vh",
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            gap: "20px",
-                          }}
-                        >
-                          <LockIcon sx={{ color: "#21726A" }} />
-                          <h1 style={{ color: "#21726A" }}>{t("block")}</h1>
-                        </Box>
-                      )}
-                      {isSuper !== "superAdmin" && i.access && (
-                        <>
-                          {i &&
-                            (active === 1 ? (
-                              <ItemField
-                                data={i}
-                                handleChangeData={handleChangeData}
-                                values={changedData}
-                              />
-                            ) : active === 3 ? (
-                              <ItemField3
-                                data={i}
-                                handleChangeData={handleChangeData}
-                                values={changedData}
-                              />
-                            ) : null)}
-                          <Box mt={3} mb={3}>
-                            <Button
-                              variant="outlined"
-                              fullWidth
-                              onClick={handleEditChanges}
-                            >
-                              {t("savechanges")}
-                            </Button>
-                          </Box>
-                        </>
-                      )}
-                    </Grid>
-                  </Grid>
-                </TabPanel>
-              );
-            })}
-          </SwipeableViews>
+                                  {t("savechanges")}
+                                </Button>
+                              </Box>
+                            </>
+                          )}
+                        </Grid>
+                      </Grid>
+                    </TabPanel>
+                  );
+                })}
+              </SwipeableViews>
+            </>
+          ) : (
+            <HourglassTopIcon />
+          )}
         </Box>
       )}
-      {active === 1 && (
+      {active === 1 ? (
         <Calculator
           open={open}
           handleClose={() => setOpen(false)}
           data={itemInfo}
           itemInfoCalc={itemInfoCalc}
+          active={active}
+          ownerID={ownerId}
         />
-      )}
+      ) : active === 2 ? (
+        <Calculator2
+          open={open}
+          handleClose={() => setOpen(false)}
+          data={itemInfo}
+          itemInfoCalc={itemInfoCalc}
+          active={active}
+          countryId={owner?.countryId}
+          ownerID={ownerId}
+        />
+      ) : null}
     </div>
   );
 };

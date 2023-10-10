@@ -8,6 +8,7 @@ import { ADMINS_PAGE, USERS_PAGE } from "../../routing/pats";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import {
+  deleteOwner,
   getSingleOwners,
   getSingleUser,
 } from "../../store/actions/users-action";
@@ -20,6 +21,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import DeleteIcon from "@mui/icons-material/Delete";
 import AddOwner from "./AddModal";
 
 const UserDetail = () => {
@@ -104,6 +106,10 @@ const UserDetail = () => {
                           <TableCell align="left">{t("country")}</TableCell>
                           <TableCell align="left">{t("active")}</TableCell>
                           <TableCell align="left">
+                            {t("Owner Device ID")}
+                          </TableCell>
+                          <TableCell align="left">{t("delete")}</TableCell>
+                          <TableCell align="left">
                             {t("lastPay")} / {t("paymentType")}
                           </TableCell>
                           <TableCell align="left"></TableCell>
@@ -144,9 +150,27 @@ const UserDetail = () => {
                               )}
                             </TableCell>
                             <TableCell align="left">
+                              {row?.deviceOwner}
+                            </TableCell>
+                            <TableCell align="left">
+                              <Button
+                                variant="contained"
+                                onClick={() => {
+                                  dispatch(deleteOwner(row.id));
+                                }}
+                              >
+                                <DeleteIcon
+                                  sx={{
+                                    color: "white",
+                                  }}
+                                />
+                              </Button>
+                            </TableCell>
+                            <TableCell align="left">
                               {row.lastPay ? row.lastPay : "-"} /{" "}
                               {row?.variant?.toUpperCase()}
                             </TableCell>
+
                             <TableCell align="left">
                               <Button
                                 variant="contained"

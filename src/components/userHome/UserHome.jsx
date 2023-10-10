@@ -4,9 +4,7 @@ import Chart from "react-apexcharts";
 import "../ownerHome/OwnerHome.css";
 import { Box, Card, Typography } from "@mui/material";
 import { useEffect } from "react";
-import {
-  getSingleUser,
-} from "../../store/actions/users-action";
+import { getSingleUser } from "../../store/actions/users-action";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import Table from "@mui/material/Table";
@@ -47,19 +45,6 @@ const UserHome = () => {
 
   return (
     <Box mt={3}>
-      <div className="owner-home">
-        <div>
-          <SettingCard />
-        </div>
-        <div>
-          <CoinsCounter />
-        </div>
-        <div>
-          <Card sx={{ minHeight: 350 }}>
-            <Chart options={options} series={series} type="line" width="500" />
-          </Card>
-        </div>
-      </div>
       <Box m={3}>
         <Typography gutterBottom variant="h5" component="div">
           {t("users")}
@@ -120,6 +105,9 @@ const UserHome = () => {
           </Table>
         </TableContainer>
       </Box>
+      <div>
+        <SettingCard />
+      </div>
     </Box>
   );
 };

@@ -134,7 +134,7 @@ const Items = () => {
 
   useEffect(() => {
     setCalcData(box?.Items.filter((i) => i.id === currentId)[0]?.ItemValue);
-    user?.id && dispatch(getItemInfo(user?.id));
+    user?.id && dispatch(getItemInfo(user?.id, active));
     user?.id && dispatch(getItemInfoCalc(user?.id));
     user?.id && dispatch(getItemInfoPrcent(user?.id));
     user?.id && dispatch(getItemInfoModes(user?.id));

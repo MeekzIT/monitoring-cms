@@ -52,6 +52,7 @@ const AddOwner = ({ open, handleClose }) => {
       .min(8, "Password must be at least 8 characters")
       .required("Required"),
     phoneNumber: Yup.string().required("Required"),
+    deviceOwner: Yup.string().required("Required"),
     countryId: Yup.number().integer("Invalid country ID").required("Required"),
   });
 
@@ -81,6 +82,7 @@ const AddOwner = ({ open, handleClose }) => {
     password: "",
     phoneNumber: "",
     countryId: "",
+    deviceOwner: "",
   };
 
   return (
@@ -174,6 +176,17 @@ const AddOwner = ({ open, handleClose }) => {
                           </InputAdornment>
                         ),
                       }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={12}>
+                    <Field
+                      as={TextField}
+                      name="deviceOwner"
+                      label="Owner device ID"
+                      variant="outlined"
+                      fullWidth
+                      error={touched.deviceOwner && Boolean(errors.deviceOwner)}
+                      helperText={touched.deviceOwner && errors.deviceOwner}
                     />
                   </Grid>
                   <Grid item xs={12}>

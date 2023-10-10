@@ -15,15 +15,19 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useNavigate } from "react-router-dom";
-import {  USERS_PAGE } from "../../routing/pats";
+import { USERS_PAGE } from "../../routing/pats";
 import { getCountries } from "../../store/actions/statistics-action";
 import { useIsMobile } from "../../hooks/useScreenType";
+import { getAdmins } from "../../store/actions/auth-action";
 
 const SuperHome = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
   const isMobile = useIsMobile();
+  const data = useSelector((state) => state.admins.admins);
+
+  const user = useSelector((state) => state.auth.admin);
   const options = {
     chart: {
       id: "basic-bar",
@@ -38,34 +42,14 @@ const SuperHome = () => {
       data: [30, 40, 45, 50, 49, 60, 70, 91],
     },
   ];
-  const data = useSelector((state) => state.user.users);
-  const countries = useSelector((state) => state.statistics.countries);
 
   useEffect(() => {
     dispatch(getCountries());
-    dispatch(getUsers(0));
+    dispatch(getAdmins());
   }, []);
 
   return (
     <Box mt={3}>
-      <div className="owner-home">
-        <div>
-          <SettingCard />
-        </div>
-        <div>
-          <CoinsCounter />
-        </div>
-        <div>
-          <Card sx={{ minHeight: 350 }}>
-            <Chart
-              options={options}
-              series={series}
-              type="line"
-              width={isMobile ? "320" : "500"}
-            />
-          </Card>
-        </div>
-      </div>
       {!isMobile && (
         <Box m={3}>
           <Typography gutterBottom variant="h5" component="div">
@@ -80,11 +64,6 @@ const SuperHome = () => {
                 <TableRow>
                   <TableCell>{t("name")}</TableCell>
                   <TableCell align="left">{t("email")}</TableCell>
-                  <TableCell align="left">{t("country")}</TableCell>
-                  <TableCell align="left">{t("active")}</TableCell>
-                  <TableCell align="left">
-                    {t("lastPay")} / {t("paymentType")}
-                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -97,30 +76,6 @@ const SuperHome = () => {
                       {row.firstName} {row.lastName}
                     </TableCell>
                     <TableCell align="left">{row.email}</TableCell>
-                    <TableCell align="left">{row.Country.name}</TableCell>
-                    <TableCell align="left">
-                      {row.subscribe ? (
-                        <span
-                          style={{
-                            color: "green",
-                          }}
-                        >
-                          {t("subscribe")}
-                        </span>
-                      ) : (
-                        <span
-                          style={{
-                            color: "red",
-                          }}
-                        >
-                          {t("pasive")}
-                        </span>
-                      )}
-                    </TableCell>
-                    <TableCell align="left">
-                      {row.lastPay ? row.lastPay : "-"} /{" "}
-                      {row?.variant?.toUpperCase()}
-                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -128,6 +83,9 @@ const SuperHome = () => {
           </TableContainer>
         </Box>
       )}
+      <div>
+        <SettingCard />
+      </div>
     </Box>
   );
 };
