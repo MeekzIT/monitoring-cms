@@ -19,6 +19,7 @@ import {
   GET_ITEM_DAYS,
   GET_OWNERS_OF_USER,
   GET_SINGLE_BOX,
+  GET_SINGLE_ITEM,
   GET_SINGLE_OWNER,
   GET_SINGLE_USER,
   GET_USERS,
@@ -461,6 +462,29 @@ export const getItemInfoModes = (id) => {
       .then((response) => {
         dispatch({
           type: GET_INFO_MODES,
+          payload: response.data.data,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+export const getItemSingle = (id) => {
+  return (dispatch) => {
+    axios
+      .get(`${keys.api}/owner/item-single`, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+        params: {
+          id,
+        },
+      })
+      .then((response) => {
+        dispatch({
+          type: GET_SINGLE_ITEM,
           payload: response.data.data,
         });
       })

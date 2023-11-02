@@ -69,7 +69,7 @@ const Calculator = ({
     setChangedData({});
   };
   useEffect(() => {
-        dispatch(getItemInfoCalc(ownerID));
+    dispatch(getItemInfoCalc(ownerID));
     if (data !== null && data !== undefined && currentFunctionId) {
       setCurrentData(data?.filter((i) => i.functionId == currentFunctionId)[0]);
     }

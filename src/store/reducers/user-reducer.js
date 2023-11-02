@@ -24,6 +24,7 @@ import {
   GET_SINGLE_USER,
   GET_USERS,
   DELETE_OWNER,
+  GET_SINGLE_ITEM,
 } from "../types";
 
 const initialState = {
@@ -44,6 +45,7 @@ const initialState = {
   dates: null,
   filtredDates: null,
   currentValues: null,
+  singleItem: null,
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -173,6 +175,8 @@ export const userReducer = (state = initialState, action) => {
       return { ...state, filtredDates: action.payload };
     case CLEAR_DATES:
       return { ...state, filtredDates: action.payload };
+    case GET_SINGLE_ITEM:
+      return { ...state, singleItem: action.payload };
     default:
       return state;
   }
