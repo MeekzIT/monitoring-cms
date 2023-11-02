@@ -9,6 +9,7 @@ import {
   EDIT_ITEM,
   GET_BOXES,
   GET_CALC_INFO,
+  GET_CALC_INFO2,
   GET_FILTRED_DATA,
   GET_GENERATED,
   GET_INFO,
@@ -392,7 +393,7 @@ export const getItemInfoCalc2 = (id) => {
       })
       .then((response) => {
         dispatch({
-          type: GET_CALC_INFO,
+          type: GET_CALC_INFO2,
           payload: response.data.data,
         });
       })
@@ -579,7 +580,7 @@ export const getItemCurrent = (data) => {
       .then((response) => {
         dispatch({
           type: GET_ITEM_CURRENT,
-          payload: response.data,
+          payload: response.data.data,
         });
       })
       .catch((error) => {

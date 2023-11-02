@@ -66,9 +66,9 @@ const Single = () => {
   const filtredDates = useSelector((state) => state.user.filtredDates);
   const itemInfo = useSelector((state) => state.user.itemIinfo);
   const itemInfoCalc = useSelector((state) => state.user.calcData);
+  const itemInfoCalc2 = useSelector((state) => state.user.calcData2);
   const itemCurrentValue = useSelector((state) => state.user.currentValues);
   const prcemt = useSelector((state) => state.user.infoPrcent);
-  console.log(open, "1111111111111111111111111111111");
   useEffect(() => {
     dispatch(getSingleUser(user_id));
     dispatch(getBoxes(owner_id));
@@ -105,7 +105,6 @@ const Single = () => {
       behavior: "smooth",
     });
   };
-
   return (
     <Box>
       <Button
@@ -127,12 +126,12 @@ const Single = () => {
           {isSuper == "owner" ||
             (isSuper == "superAdmin" && (
               <>
-                <div>
+                {/* <div>
                   <DonutChart
                     benefit={prcemt?.benefit}
                     expenses={prcemt?.expenses}
                   />
-                </div>
+                </div> */}
                 {active !== 3 && (
                   <div>
                     <Button
@@ -153,12 +152,12 @@ const Single = () => {
             ))}
           {isSuper !== "owner" && isSuper !== "superAdmin" && data?.access && (
             <>
-              <div>
+              {/* <div>
                 <DonutChart
                   benefit={prcemt?.benefit}
                   expenses={prcemt?.expenses}
                 />
-              </div>
+              </div> */}
               {active !== 3 && (
                 <div>
                   <Button
@@ -299,7 +298,6 @@ const Single = () => {
                   active={active}
                   filtredDates={filtredDates}
                   countryId={owner?.countryId}
-                  item={data}
                   itemCurrentValue={itemCurrentValue}
                 />
               </Box>
@@ -455,17 +453,15 @@ const Single = () => {
           data={itemInfo}
           itemInfoCalc={itemInfoCalc}
           active={active}
-          ownerID={single}
         />
       ) : active == 2 ? (
         <Calculator2
           open={open}
           handleClose={() => setOpen(false)}
           data={itemInfo}
-          itemInfoCalc={itemInfoCalc}
+          itemInfoCalc={itemInfoCalc2}
           active={active}
           countryId={owner?.countryId}
-          ownerID={single}
         />
       ) : null}
     </Box>

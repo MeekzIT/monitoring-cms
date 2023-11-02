@@ -28,6 +28,7 @@ import {
 } from "../../store/actions/users-action";
 import DoubleField from "../changeField/DoubleField";
 import ChangeSelect from "../changeField/ChangedSelect";
+import { useParams } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -39,15 +40,9 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-const Calculator = ({
-  open,
-  handleClose,
-  data,
-  itemInfoCalc,
-  active,
-  ownerID,
-}) => {
+const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
   const { t } = useTranslation();
+  const { single } = useParams();
   const isMobile = useIsMobile();
   const dispatch = useDispatch();
   const [showSettings, setShowSettings] = useState(false);
@@ -62,18 +57,17 @@ const Calculator = ({
       editItemInfo({
         ...changedData,
         functionId: currentFunctionId,
-        ownerID: data[0].ownerID,
+        ownerID: single,
         active,
       })
     );
     setChangedData({});
   };
   useEffect(() => {
-    dispatch(getItemInfoCalc(ownerID));
     if (data !== null && data !== undefined && currentFunctionId) {
       setCurrentData(data?.filter((i) => i.functionId == currentFunctionId)[0]);
     }
-  }, [data, currentFunctionId, ownerID]);
+  }, [data, currentFunctionId, single]);
 
   const style = {
     position: "absolute",
@@ -86,6 +80,7 @@ const Calculator = ({
     boxShadow: 24,
     p: 4,
     borderRadius: "10px",
+    maxHeight: isMobile ? "100vh" : 600,
     minHeight: isMobile ? "100vh" : 400,
     maxWidth: isMobile ? 600 : 800,
     display: isMobile && "flex",
@@ -94,7 +89,7 @@ const Calculator = ({
     flexDirection: isMobile && "column",
     gap: isMobile && "20px",
     overflowY: "scroll",
-    marginTop: "30px",
+    // marginTop: "30px",
   };
 
   const generateOptions = () => {
@@ -119,7 +114,7 @@ const Calculator = ({
         <Typography id="modal-modal-title" variant="h6" component="h2" mb={2}>
           {t("calc")}
         </Typography>
-        {showSettings && (
+        {/* {showSettings && (
           <Button
             variant="outlined"
             endIcon={<ReplyIcon sx={{ color: "#21726A" }} />}
@@ -128,8 +123,8 @@ const Calculator = ({
           >
             {t("settings")}
           </Button>
-        )}
-        {!showSettings ? (
+        )} */}
+        {itemInfoCalc && !showSettings ? (
           <Box mt={2}>
             <Box sx={{ overflow: "auto" }}>
               <Box
@@ -212,6 +207,15 @@ const Calculator = ({
             <Box m={2}>
               <h1>{t("edit")}</h1>
             </Box>
+
+            <Button
+              variant="outlined"
+              endIcon={<ReplyIcon sx={{ color: "#21726A" }} />}
+              onClick={() => setShowSettings(!showSettings)}
+              className="settings-icon"
+            >
+              {t("settings")}
+            </Button>
 
             <Box m={2}>
               <ChangeField

@@ -25,6 +25,7 @@ import {
   GET_USERS,
   DELETE_OWNER,
   GET_SINGLE_ITEM,
+  GET_CALC_INFO2,
 } from "../types";
 
 const initialState = {
@@ -37,6 +38,7 @@ const initialState = {
   box: null,
   itemInfo: null,
   calcData: null,
+  calcData2: null,
   benefits: null,
   infoPrcent: null,
   infoByModes: null,
@@ -131,6 +133,11 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         calcData: action.payload,
+      };
+    case GET_CALC_INFO2:
+      return {
+        ...state,
+        calcData2: action.payload,
       };
     case GET_INFO_BENREFITS:
       return {

@@ -64,54 +64,47 @@ const ItemFilters = ({
         </>
       ) : (
         <Box>
-          {itemCurrentValue?.MonetizationOnIcon && (
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                gap: "15px",
-              }}
-            >
-              <MonetizationOnIcon sx={{ color: "#21726A" }} />
-              <Typography>
-                {itemCurrentValue?.MonetizationOnIcon}
-                {getCurrency(countryId)}
-              </Typography>
-            </Box>
-          )}
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "15px",
+            }}
+          >
+            <MonetizationOnIcon sx={{ color: "#21726A" }} />
+            <Typography>
+              {itemCurrentValue?.MonetizationOnIcon} {getCurrency(countryId)}
+            </Typography>
+          </Box>
 
-          {itemCurrentValue?.LocalAtmIcon && (
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                gap: "15px",
-              }}
-            >
-              <LocalAtmIcon sx={{ color: "#21726A" }} />
-              <Typography>
-                {itemCurrentValue?.LocalAtmIcon}
-                {/* {Number(item?.p17) * Number(item?.p11)} */}
-                {getCurrency(countryId)}
-              </Typography>
-            </Box>
-          )}
-          {itemCurrentValue?.CreditScoreIcon && (
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                gap: "15px",
-              }}
-            >
-              <CreditScoreIcon sx={{ color: "#21726A" }} />
-              <Typography>
-                {itemCurrentValue?.CreditScoreIcon}
-                {/* {Number(item?.p18) * Number(item?.p12)} */}
-                {getCurrency(countryId)}
-              </Typography>
-            </Box>
-          )}
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "15px",
+            }}
+          >
+            <LocalAtmIcon sx={{ color: "#21726A" }} />
+            <Typography>
+              {itemCurrentValue?.LocalAtmIcon}{" "}
+              {/* {Number(item?.p17) * Number(item?.p11)} */}
+              {getCurrency(countryId)}
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "15px",
+            }}
+          >
+            <CreditScoreIcon sx={{ color: "#21726A" }} />
+            <Typography>
+              {itemCurrentValue?.CreditScoreIcon}{" "}
+              {/* {Number(item?.p18) * Number(item?.p12)} */}
+              {getCurrency(countryId)}
+            </Typography>
+          </Box>
         </Box>
       )}
     </Box>

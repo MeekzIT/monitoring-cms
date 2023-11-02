@@ -23,6 +23,7 @@ export const GET_BOXES = "GET_BOXES";
 export const EDIT_ITEM = "EDIT_ITEM";
 export const GET_INFO = "GET_INFO";
 export const GET_CALC_INFO = "GET_CALC_INFO";
+export const GET_CALC_INFO2 = "GET_CALC_INFO2";
 export const GET_INFO_BENREFITS = "GET_INFO_BENREFITS";
 export const GET_INFO_MODES = "GET_INFO_MODES";
 export const GET_INFO_PRCENT = "GET_INFO_PRCENT";

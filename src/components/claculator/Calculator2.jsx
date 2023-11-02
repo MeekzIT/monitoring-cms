@@ -12,6 +12,7 @@ import {
   getItemInfoCalc2,
 } from "../../store/actions/users-action";
 import { getCurrency } from "../../hooks/helpers";
+import { useParams } from "react-router-dom";
 
 const Calculator2 = ({
   open,
@@ -20,10 +21,10 @@ const Calculator2 = ({
   itemInfoCalc,
   active,
   countryId,
-  ownerID,
 }) => {
   const { t } = useTranslation();
   const isMobile = useIsMobile();
+  const { single } = useParams();
   const dispatch = useDispatch();
   const [changedData, setChangedData] = useState({});
   const handleChangeData = (name, value) => {
@@ -32,16 +33,12 @@ const Calculator2 = ({
     dispatch(
       editItemInfo({
         ...changedData,
-        ownerID: data[0]?.ownerID,
+        ownerID: single,
         active: active,
       })
     );
     setChangedData({});
   };
-
-  useEffect(() => {
-    dispatch(getItemInfoCalc2(ownerID));
-  }, [ownerID]);
 
   const style = {
     position: "absolute",
