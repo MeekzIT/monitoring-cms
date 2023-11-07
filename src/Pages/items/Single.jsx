@@ -109,9 +109,11 @@ const Single = () => {
     <Box>
       <Button
         variant="outlined"
-        onClick={() =>
-          navigate(`/user/${user_id}/owner/${owner_id}/item/${id}`)
-        }
+        onClick={() => {
+          if (user_id == "undefined") {
+            navigate(`/boxes`);
+          } else navigate(`/user/${user_id}/owner/${owner_id}/item/${id}`);
+        }}
       >
         {t("back-to-menu")}
       </Button>

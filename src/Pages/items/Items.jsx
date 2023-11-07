@@ -89,7 +89,11 @@ const Items = () => {
         </Breadcrumbs>
       </Box>
       {!showMenu ? (
-        <ItemsMenu setShowMewnu={setShowMewnu} setActive={setActive} />
+        <ItemsMenu
+          setShowMewnu={setShowMewnu}
+          setActive={setActive}
+          isOwner={true}
+        />
       ) : (
         <div>
           <Button variant="outlined" onClick={() => setShowMewnu(false)}>

@@ -36,6 +36,7 @@ const OwnerBoxes = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const owner = useSelector((state) => state.auth.admin);
+
   const data = useSelector((state) => state.user.boxes);
   const [open, setOpen] = useState(false);
   const [openGenerate, setOpenGenerate] = useState(false);
@@ -44,7 +45,7 @@ const OwnerBoxes = () => {
   const [geo, setGeo] = useState(null);
 
   useEffect(() => {
-    dispatch(getBoxes(owner?.id));
+    dispatch(getBoxes(owner?.deviceOwner));
   }, []);
   return (
     <div>
@@ -103,7 +104,7 @@ const OwnerBoxes = () => {
                         variant="outlined"
                         onClick={() => {
                           dispatch(getSingleBox(row.id));
-                          navigate(`/owner-items/${row.id}`);
+                          navigate(`/owner-items/${owner?.deviceOwner}`);
                         }}
                       >
                         <RemoveRedEyeIcon />

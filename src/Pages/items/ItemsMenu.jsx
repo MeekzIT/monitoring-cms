@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../../store/actions/category-action";
 
-const ItemsMenu = ({ setShowMewnu, setActive }) => {
+const ItemsMenu = ({ setShowMewnu, setActive, isOwner }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const data = useSelector((state) => state.category.categories);
