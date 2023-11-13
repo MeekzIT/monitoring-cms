@@ -55,7 +55,7 @@ const GenerateModal = ({ open, setOpen, ownerId }) => {
             onClick={() =>
               dispatch(
                 generatedId({
-                  ownerId: 4444,
+                  ownerId,
                 })
               )
             }

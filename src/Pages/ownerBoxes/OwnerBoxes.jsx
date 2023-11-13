@@ -191,7 +191,7 @@ const OwnerBoxes = () => {
       <GenerateModal
         open={openGenerate}
         setOpen={setOpenGenerate}
-        ownerId={4444}
+        ownerId={owner.id}
       />
     </div>
   );

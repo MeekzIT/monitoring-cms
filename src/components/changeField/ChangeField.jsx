@@ -12,7 +12,7 @@ const ChangeField = ({ name, value, handleChangeData, title }) => {
   const changeFieldState = () => {
     setEdit(!edit);
   };
-
+  
   return (
     <div>
       <Typography id="modal-modal-title" variant="h6" component="h3">
@@ -24,7 +24,7 @@ const ChangeField = ({ name, value, handleChangeData, title }) => {
             variant="outlined"
             name={name}
             defaultValue={value}
-            value={fieldValue}
+            value={value || fieldValue}
             onChange={(e) => setFieldValue(e.target.value)}
           />
           <div>
@@ -51,7 +51,7 @@ const ChangeField = ({ name, value, handleChangeData, title }) => {
         </div>
       ) : (
         <div className="change-field">
-          <TextField variant="standard" value={fieldValue} disabled />
+          <TextField variant="standard" value={value || fieldValue} disabled />
           <Button variant="outlined" onClick={changeFieldState}>
             <EditIcon />
           </Button>

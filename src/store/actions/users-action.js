@@ -173,7 +173,7 @@ export const changePassword = (data) => {
 export const changeBoxSettings = (data) => {
   return (dispatch) => {
     axios
-      .post(`${keys.api}/users/edit-box`, data, {
+      .post(`${keys.api}/box/edit-box`, data, {
         headers: {
           Authorization: `Bearer ${keys.token}`,
         },
