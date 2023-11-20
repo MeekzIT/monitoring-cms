@@ -67,8 +67,14 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
     if (data !== null && data !== undefined && currentFunctionId) {
       setCurrentData(data?.filter((i) => i.functionId == currentFunctionId)[0]);
     }
-  }, [data, currentFunctionId, single]);
+  }, [data, currentFunctionId, single, showSettings]);
 
+  useEffect(() => {
+    dispatch(getItemInfoCalc(single));
+    // !changedData && setChangedData
+  }, [showSettings]);
+
+  console.log(changedData, currentData, "changedData");
   const style = {
     position: "absolute",
     top: "50%",
@@ -175,11 +181,11 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
                               }
                               onClick={() => {
                                 setShowSettings(!showSettings);
-                                // setChangedData(
-                                //   data?.filter(
-                                //     (i) => i.functionId == row.functionId
-                                //   )[0]
-                                // );
+                                setCurrentData(
+                                  data?.filter(
+                                    (i) => i.functionId == row.functionId
+                                  )[0]
+                                );
                                 setCurrentFunctionID(row.functionId);
                               }}
                             >
@@ -211,7 +217,10 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
             <Button
               variant="outlined"
               endIcon={<ReplyIcon sx={{ color: "#21726A" }} />}
-              onClick={() => setShowSettings(!showSettings)}
+              onClick={() => {
+                setShowSettings(!showSettings);
+                setCurrentFunctionID(null);
+              }}
               className="settings-icon"
             >
               {t("settings")}
@@ -249,7 +258,7 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
                 name="waterPrice"
                 value={changedData?.waterPrice || currentData?.waterPrice}
                 handleChangeData={handleChangeData}
-                title={`${t("waterPrice")} ㎥`}
+                title={`${t("waterPrice")} ( ㎥ )`}
               />
             </Box>
             <Box m={2}>
@@ -260,7 +269,7 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
                   currentData?.modeValuePerLitre
                 }
                 handleChangeData={handleChangeData}
-                title={`${t("modeValuePerLitre")} L.`}
+                title={`${t("modeValuePerLitre")} ( L. )`}
               />
             </Box>
             <Box m={2}>
