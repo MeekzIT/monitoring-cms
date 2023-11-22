@@ -19,6 +19,7 @@ import Paper from "@mui/material/Paper";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import EditIcon from "@mui/icons-material/Edit";
 import GenerateModal from "../../components/generateModal/GenerateModal";
+import { getMe } from "../../store/actions/auth-action";
 const style = {
   position: "absolute",
   top: "50%",
@@ -43,7 +44,9 @@ const OwnerBoxes = () => {
   const [currentId, setCurrentId] = useState(null);
   const [name, setName] = useState(null);
   const [geo, setGeo] = useState(null);
-
+  useEffect(() => {
+    dispatch(getMe());
+  }, []);
   useEffect(() => {
     dispatch(getBoxes(owner?.deviceOwner));
   }, []);
@@ -191,7 +194,7 @@ const OwnerBoxes = () => {
       <GenerateModal
         open={openGenerate}
         setOpen={setOpenGenerate}
-        ownerId={owner.id}
+        ownerId={owner?.deviceOwner}
       />
     </div>
   );

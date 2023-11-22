@@ -136,7 +136,7 @@ const Items = () => {
                             onClick={() => {
                               // navigate(`/admin-user/${row.id}`);
                               navigate(
-                                `/user/${user_id}/owner/${owner_id}/item/${id}/${row.p2}/${active}`
+                                `/owner/${id}/item/${row.id}/${row.p2}/${active}`
                               );
                             }}
                           >

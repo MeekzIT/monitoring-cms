@@ -70,7 +70,7 @@ const Single = () => {
   const itemCurrentValue = useSelector((state) => state.user.currentValues);
   const prcemt = useSelector((state) => state.user.infoPrcent);
   useEffect(() => {
-    dispatch(getSingleUser(user_id));
+    // dispatch(getSingleUser(user_id));
     dispatch(getBoxes(owner_id));
     dispatch(getItemSingle(single));
 
@@ -105,6 +105,8 @@ const Single = () => {
       behavior: "smooth",
     });
   };
+
+  console.log(data);
   return (
     <Box>
       <Button

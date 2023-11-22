@@ -509,13 +509,6 @@ export const generatedId = (data) => {
             type: GET_GENERATED,
             payload: response.data.newId,
           });
-          Swal.fire({
-            position: "center",
-            iconColor: "#21726A",
-            icon: "success",
-            showConfirmButton: false,
-            timer: 1500,
-          });
         }
       })
       .catch((error) => {
