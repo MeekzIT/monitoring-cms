@@ -351,8 +351,8 @@ const Boxes = () => {
           </div>
           <Box>
             <DonutChart
-              benefit={boxInfo?.ratio}
-              expenses={100 - boxInfo?.ratio}
+              benefit={100 - boxInfo?.ratio}
+              expenses={boxInfo?.ratio}
               expensesValue={boxInfo?.expense}
               benefitValue={boxInfo?.benefit}
               countryId={user?.countryId}
