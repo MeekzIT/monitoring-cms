@@ -35,6 +35,34 @@ const DonutChart = ({
           },
         },
       ],
+      plotOptions: {
+        pie: {
+          donut: {
+            labels: {
+              show: true,
+              name: {
+                show: true,
+              },
+              value: {
+                show: true,
+              },
+            },
+            total: {
+              show: true,
+              label: "Total",
+              formatter: function (w) {
+                return w.globals.seriesTotals.reduce((a, b) => {
+                  return a + b;
+                }, 0);
+              },
+            },
+            onClick: function (event, chartContext, config) {
+              // Handle click event here
+              console.log("Clicked on donut slice:", config.dataPointIndex);
+            },
+          },
+        },
+      },
     },
     series: [benefit, expenses],
     colors: ["#ff6384", "#36a2eb"],
