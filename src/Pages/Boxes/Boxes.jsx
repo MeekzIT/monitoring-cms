@@ -18,6 +18,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useEffect, useState } from "react";
 import {
   changeBoxSettings,
+  getBoxInfo,
   getBoxes,
   getItemInfoBenefits,
   getSingleBox,
@@ -44,6 +45,7 @@ import {
   editBoxExpenses,
   getBoxExpenses,
 } from "../../store/actions/box";
+import DonutChart from "../../components/graphics/Dount";
 
 const options1 = {
   chart: {
@@ -76,6 +78,7 @@ const Boxes = () => {
   const user = useSelector((state) => state.user.single);
   const owner = useSelector((state) => state.user.owner);
   const data = useSelector((state) => state.user.boxes);
+  const boxInfo = useSelector((state) => state.user.boxInfo);
   const boxExpernses = useSelector((state) => state.user.boxExpernses);
   const [open, setOpen] = useState(false);
   const [openStatistics, setOpenStatistics] = useState(false);
@@ -110,6 +113,11 @@ const Boxes = () => {
   useEffect(() => {
     dispatch(getSingleUser(user_id));
     dispatch(getBoxes(id));
+    dispatch(
+      getBoxInfo({
+        ownerId: id,
+      })
+    );
   }, []);
 
   useEffect(() => {
@@ -128,7 +136,7 @@ const Boxes = () => {
   useEffect(() => {
     // dispatch(getBoxExpenses(currentId));
   }, [currentId, setOpenSettings]);
-  
+  console.log(boxInfo, "boxInfoboxInfoboxInfoboxInfo");
   return (
     <div>
       <Box m={3}>
@@ -342,11 +350,12 @@ const Boxes = () => {
             <CloseIcon fontSize="large" />
           </div>
           <Box>
-            <Chart
-              options={options1}
-              series={series1}
-              type="line"
-              width="500"
+            <DonutChart
+              benefit={boxInfo?.ratio}
+              expenses={100 - boxInfo?.ratio}
+              expensesValue={100 - boxInfo?.expense}
+              benefitValue={boxInfo?.benefit}
+              countryId={user?.countryId}
             />
           </Box>
         </Box>

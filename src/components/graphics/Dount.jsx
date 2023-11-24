@@ -2,14 +2,23 @@ import Chart from "react-apexcharts";
 
 import React from "react";
 import { useIsMobile } from "../../hooks/useScreenType";
+import { getCurrency } from "../../hooks/helpers";
 // import { Doughnut } from "react-chartjs-2";
 
-const DonutChart = ({ benefit, expenses }) => {
+const DonutChart = ({
+  benefit,
+  expenses,
+  expensesValue,
+  benefitValue,
+  countryId,
+}) => {
   const isMobile = useIsMobile();
-
   const chartData = {
     options: {
-      labels: ["Benefit", "Expenses"],
+      labels: [
+        `Benefit ${benefitValue} ${getCurrency(countryId)}`,
+        `Expenses ${expensesValue} ${getCurrency(countryId)}`,
+      ],
       dataLabels: {
         enabled: false,
       },

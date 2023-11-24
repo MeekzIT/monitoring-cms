@@ -42,3 +42,4 @@ export const CLEAR_DATES = "CLEAR_DATES";
 export const GET_ITEM_CURRENT = "GET_ITEM_CURRENT";
 export const DELETE_OWNER = "DELETE_OWNER";
 export const GET_SINGLE_ITEM = "GET_SINGLE_ITEM";
+export const GET_INFO_BOX = "GET_INFO_BOX";

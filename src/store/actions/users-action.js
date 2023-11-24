@@ -14,6 +14,7 @@ import {
   GET_GENERATED,
   GET_INFO,
   GET_INFO_BENREFITS,
+  GET_INFO_BOX,
   GET_INFO_MODES,
   GET_INFO_PRCENT,
   GET_ITEM_CURRENT,
@@ -573,6 +574,27 @@ export const getItemCurrent = (data) => {
       .then((response) => {
         dispatch({
           type: GET_ITEM_CURRENT,
+          payload: response.data.data,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+export const getBoxInfo = (data) => {
+  return (dispatch) => {
+    axios
+      .get(`${keys.api}/owner/get-info`, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+        params: data,
+      })
+      .then((response) => {
+        dispatch({
+          type: GET_INFO_BOX,
           payload: response.data.data,
         });
       })
