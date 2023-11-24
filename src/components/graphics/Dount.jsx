@@ -11,10 +11,22 @@ const DonutChart = ({
   expensesValue,
   benefitValue,
   countryId,
+  openStatistics,
+  setOpenStatistics,
 }) => {
   const isMobile = useIsMobile();
+
+  const handleClick = () => {
+    // Access information about the clicked segment
+    setOpenStatistics(!openStatistics);
+  };
   const chartData = {
     options: {
+      chart: {
+        events: {
+          click: handleClick,
+        },
+      },
       labels: [
         `Benefit ${benefitValue} ${getCurrency(countryId)}`,
         `Expenses ${expensesValue} ${getCurrency(countryId)}`,
@@ -35,34 +47,6 @@ const DonutChart = ({
           },
         },
       ],
-      plotOptions: {
-        pie: {
-          donut: {
-            labels: {
-              show: true,
-              name: {
-                show: true,
-              },
-              value: {
-                show: true,
-              },
-            },
-            total: {
-              show: true,
-              label: "Total",
-              formatter: function (w) {
-                return w.globals.seriesTotals.reduce((a, b) => {
-                  return a + b;
-                }, 0);
-              },
-            },
-            onClick: function (event, chartContext, config) {
-              // Handle click event here
-              console.log("Clicked on donut slice:", config.dataPointIndex);
-            },
-          },
-        },
-      },
     },
     series: [benefit, expenses],
     colors: ["#ff6384", "#36a2eb"],

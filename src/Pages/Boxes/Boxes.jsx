@@ -133,10 +133,10 @@ const Boxes = () => {
     items.length && dispatch(getItemInfoBenefits(JSON.stringify(items)));
   }, [ownerId]);
 
-  useEffect(() => {
-    // dispatch(getBoxExpenses(currentId));
-  }, [currentId, setOpenSettings]);
-  console.log(boxInfo, "boxInfoboxInfoboxInfoboxInfo");
+  // useEffect(() => {
+  //   // dispatch(getBoxExpenses(currentId));
+  // }, [currentId, setOpenSettings]);
+  console.log(id, user_id, owner, boxInfo, "boxInfoboxInfoboxInfoboxInfo");
   return (
     <div>
       <Box m={3}>
@@ -154,9 +154,9 @@ const Boxes = () => {
             {t("users").slice(0, t("users").length - 1)} {"  "}
             {"("} {user?.firstName + " " + user?.lastName} {")"}
           </div>
-          <Typography color="text.primary" className="active-steper-item">
+          {/* <Typography color="text.primary" className="active-steper-item">
             {t("owners")} {"("} {owner?.firstName} {owner?.lastName} {")"}
-          </Typography>
+          </Typography> */}
         </Breadcrumbs>
       </Box>
       <Box m={3}>
@@ -167,6 +167,19 @@ const Boxes = () => {
           <h4>{owner?.email}</h4>
         </Box>
         <hr />
+        <Box>
+          <DonutChart
+            benefit={100 - boxInfo?.ratio}
+            expenses={boxInfo?.ratio}
+            expensesValue={boxInfo?.expense}
+            benefitValue={boxInfo?.benefit}
+            countryId={user?.countryId}
+            openStatistics={openStatistics}
+            setOpenStatistics={setOpenStatistics}
+          />
+        </Box>
+        <hr />
+
         <Box sx={{ overflow: "auto" }}>
           <Box sx={{ width: "100%", display: "table", tableLayout: "fixed" }}>
             <TableContainer component={Paper}>
@@ -177,7 +190,7 @@ const Boxes = () => {
                     <TableCell align="left">{t("geolocation")}</TableCell>
                     <TableCell align="left">{t("edit")}</TableCell>
                     <TableCell align="left">{t("settings")}</TableCell>
-                    <TableCell align="left">{t("statistics")}</TableCell>
+                    {/* <TableCell align="left">{t("statistics")}</TableCell> */}
                     <TableCell align="left"></TableCell>
                   </TableRow>
                 </TableHead>
@@ -215,7 +228,7 @@ const Boxes = () => {
                           <SettingsSuggestIcon />
                         </Button>
                       </TableCell>
-                      <TableCell align="left">
+                      {/* <TableCell align="left">
                         <Button
                           variant="outlined"
                           onClick={() => {
@@ -225,7 +238,7 @@ const Boxes = () => {
                         >
                           <AutoGraphIcon />
                         </Button>
-                      </TableCell>
+                      </TableCell> */}
                       <TableCell align="left">
                         <Button
                           variant="outlined"
@@ -350,13 +363,46 @@ const Boxes = () => {
             <CloseIcon fontSize="large" />
           </div>
           <Box>
-            <DonutChart
-              benefit={100 - boxInfo?.ratio}
-              expenses={boxInfo?.ratio}
-              expensesValue={boxInfo?.expense}
-              benefitValue={boxInfo?.benefit}
-              countryId={user?.countryId}
-            />
+            <Box sx={{ overflow: "auto" }}>
+              <Box
+                sx={{ width: "100%", display: "table", tableLayout: "fixed" }}
+              >
+                <TableContainer component={Paper}>
+                  <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell align="left">{t("rejim")}</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {boxInfo?.allResult?.map((row) => (
+                        <TableRow
+                          key={row.modeName}
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          <TableCell align="left">{row.id}</TableCell>
+                          <TableCell align="left">
+                            <Button
+                              variant="outlined"
+                              onClick={() => {
+                                navigate(
+                                  `/owner/${id}/item/${user_id}/${row.id}/${row.type}`
+                                  // /owner/:owner_id/item/:id/:single/:active
+                                );
+                              }}
+                            >
+                              <RemoveRedEyeIcon />
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </Box>
+            </Box>
           </Box>
         </Box>
       </Modal>
