@@ -46,6 +46,12 @@ import {
   getBoxExpenses,
 } from "../../store/actions/box";
 import DonutChart from "../../components/graphics/Dount";
+import WaterDropIcon from "@mui/icons-material/WaterDrop";
+import ElectricBoltIcon from "@mui/icons-material/ElectricBolt";
+import BubbleChartIcon from "@mui/icons-material/BubbleChart";
+import TimelapseIcon from "@mui/icons-material/Timelapse";
+import CalculateIcon from "@mui/icons-material/Calculate";
+import { getCurrency } from "../../hooks/helpers";
 
 const options1 = {
   chart: {
@@ -92,12 +98,18 @@ const Boxes = () => {
   const [addedFieldValuePrice, setAddedFieldValuePrice] = useState("");
   const [nameExpenses, setNameExpenses] = useState("");
   const [price, setPrice] = useState("");
+  const [expand, setExpand] = useState(false);
+  const handleNested = (id) => {
+    if (typeof expand == "boolean") {
+      setExpand(id);
+    } else setExpand(false);
+  };
   const style = {
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: isMobile ? "100%" : 500,
+    width: isMobile ? "100%" : 800,
     bgcolor: "background.paper",
     border: "3px solid #21726A",
     boxShadow: 24,
@@ -371,7 +383,13 @@ const Boxes = () => {
                   <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                       <TableRow>
-                        <TableCell align="left">{t("rejim")}</TableCell>
+                        <TableCell align="left">ID</TableCell>
+                        <TableCell align="left">type</TableCell>
+                        <TableCell align="left">benefit</TableCell>
+                        <TableCell align="left">exspence</TableCell>
+                        <TableCell align="left">prcent</TableCell>
+                        <TableCell>Expand</TableCell>
+                        <TableCell></TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -383,6 +401,115 @@ const Boxes = () => {
                           }}
                         >
                           <TableCell align="left">{row.id}</TableCell>
+                          <TableCell align="left">
+                            {row.type == 1 ? t("moika") : t("cux")}
+                          </TableCell>
+                          <TableCell align="left">
+                            {row.result} {getCurrency(user?.countryId)}
+                          </TableCell>
+                          <TableCell align="left">
+                            {row.caxs} {getCurrency(user?.countryId)}
+                          </TableCell>
+                          <TableCell align="left">{row.ratio} %</TableCell>
+                          <TableCell align="left">
+                            {" "}
+                            <Button
+                              onClick={() => handleNested(row.id)}
+                              variant="outlined"
+                            >
+                              <CalculateIcon />
+                            </Button>
+                          </TableCell>
+                          <TableCell align="left"></TableCell>
+
+                          {expand === row.id ? (
+                            <TableRow>
+                              <TableCell colSpan="1">
+                                {row.data ? (
+                                  <Table
+                                    sx={{ minWidth: 650 }}
+                                    aria-label="simple table"
+                                  >
+                                    <TableHead>
+                                      <TableRow>
+                                        <TableCell align="left">
+                                          {t("rejim")}
+                                        </TableCell>
+                                        <TableCell align="left">
+                                          <WaterDropIcon
+                                            sx={{ color: "#21726A" }}
+                                          />
+                                        </TableCell>
+                                        <TableCell align="left">
+                                          <ElectricBoltIcon
+                                            sx={{ color: "#21726A" }}
+                                          />
+                                        </TableCell>{" "}
+                                        <TableCell align="left">
+                                          <BubbleChartIcon
+                                            sx={{ color: "#21726A" }}
+                                          />
+                                        </TableCell>{" "}
+                                        <TableCell align="left">
+                                          <TimelapseIcon
+                                            sx={{ color: "#21726A" }}
+                                          />
+                                        </TableCell>
+                                      </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                      {row.data?.map((row) => (
+                                        <TableRow
+                                          key={row.modeName}
+                                          sx={{
+                                            "&:last-child td, &:last-child th":
+                                              { border: 0 },
+                                          }}
+                                        >
+                                          <TableCell
+                                            component="th"
+                                            scope="row"
+                                            align="left"
+                                          >
+                                            {t(row.modeName)}
+                                          </TableCell>
+                                          <TableCell align="left">
+                                            {row.water}
+                                          </TableCell>
+                                          <TableCell align="left">
+                                            {row.electric}
+                                          </TableCell>
+                                          <TableCell align="left">
+                                            {row.modeValue}
+                                          </TableCell>
+                                          <TableCell align="left">
+                                            {row.seconds}
+                                          </TableCell>
+                                        </TableRow>
+                                      ))}
+                                    </TableBody>
+                                  </Table>
+                                ) : (
+                                  <Table>
+                                    <TableHead>
+                                      <TableRow>
+                                        <TableCell>firstValue</TableCell>
+                                        <TableCell>secondValue</TableCell>
+                                      </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                      <TableRow>
+                                        <TableCell>{row.firstValue1}</TableCell>
+                                        <TableCell>
+                                          {row.secondValue1}
+                                        </TableCell>
+                                      </TableRow>
+                                    </TableBody>
+                                  </Table>
+                                )}
+                              </TableCell>
+                            </TableRow>
+                          ) : null}
                           <TableCell align="left">
                             <Button
                               variant="outlined"
