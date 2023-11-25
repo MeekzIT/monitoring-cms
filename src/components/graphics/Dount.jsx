@@ -3,6 +3,7 @@ import Chart from "react-apexcharts";
 import React from "react";
 import { useIsMobile } from "../../hooks/useScreenType";
 import { getCurrency } from "../../hooks/helpers";
+import { Box, Typography } from "@mui/material";
 // import { Doughnut } from "react-chartjs-2";
 
 const DonutChart = ({
@@ -13,6 +14,7 @@ const DonutChart = ({
   countryId,
   openStatistics,
   setOpenStatistics,
+  name,
 }) => {
   const isMobile = useIsMobile();
 
@@ -24,7 +26,7 @@ const DonutChart = ({
     options: {
       chart: {
         events: {
-          click: handleClick,
+          click: openStatistics !== null && handleClick,
         },
       },
       labels: [
@@ -53,12 +55,26 @@ const DonutChart = ({
   };
 
   return (
-    <Chart
-      options={chartData.options}
-      series={chartData.series}
-      type="donut"
-      width={isMobile ? "300" : "500"}
-    />
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        flexWrap: "wrap",
+        // justifyContent: "space-between",
+      }}
+    >
+      {name && (
+        <Typography variant="h6" component="h2">
+          {name}
+        </Typography>
+      )}
+      <Chart
+        options={chartData.options}
+        series={chartData.series}
+        type="donut"
+        width={isMobile ? "300" : "500"}
+      />
+    </Box>
   );
 };
 

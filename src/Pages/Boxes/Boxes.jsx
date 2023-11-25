@@ -20,6 +20,7 @@ import {
   changeBoxSettings,
   getBoxInfo,
   getBoxes,
+  getBoxesInfo,
   getItemInfoBenefits,
   getSingleBox,
   getSingleOwners,
@@ -85,6 +86,7 @@ const Boxes = () => {
   const owner = useSelector((state) => state.user.owner);
   const data = useSelector((state) => state.user.boxes);
   const boxInfo = useSelector((state) => state.user.boxInfo);
+  const boxesInfo = useSelector((state) => state.user.boxesInfo);
   const boxExpernses = useSelector((state) => state.user.boxExpernses);
   const [open, setOpen] = useState(false);
   const [openStatistics, setOpenStatistics] = useState(false);
@@ -130,6 +132,11 @@ const Boxes = () => {
         ownerId: id,
       })
     );
+    dispatch(
+      getBoxesInfo({
+        ownerId: id,
+      })
+    );
   }, []);
 
   useEffect(() => {
@@ -148,7 +155,7 @@ const Boxes = () => {
   // useEffect(() => {
   //   // dispatch(getBoxExpenses(currentId));
   // }, [currentId, setOpenSettings]);
-  console.log(id, user_id, owner, boxInfo, "boxInfoboxInfoboxInfoboxInfo");
+  console.log(boxesInfo, "boxInfoboxInfoboxInfoboxInfo");
   return (
     <div>
       <Box m={3}>
@@ -256,6 +263,7 @@ const Boxes = () => {
                           variant="outlined"
                           onClick={() => {
                             dispatch(getSingleBox(row.id));
+                            dispatch(getBoxes(id, row.id));
                             navigate(
                               `/user/${user_id}/owner/${row?.ownerId}/item/${row.id}`
                             );
@@ -375,163 +383,26 @@ const Boxes = () => {
             <CloseIcon fontSize="large" />
           </div>
           <Box>
-            <Box sx={{ overflow: "auto" }}>
-              <Box
-                sx={{ width: "100%", display: "table", tableLayout: "fixed" }}
-              >
-                <TableContainer component={Paper}>
-                  <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell align="left">ID</TableCell>
-                        <TableCell align="left">type</TableCell>
-                        <TableCell align="left">benefit</TableCell>
-                        <TableCell align="left">exspence</TableCell>
-                        <TableCell align="left">prcent</TableCell>
-                        <TableCell>Expand</TableCell>
-                        <TableCell></TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {boxInfo?.allResult?.map((row) => (
-                        <TableRow
-                          key={row.modeName}
-                          sx={{
-                            "&:last-child td, &:last-child th": { border: 0 },
-                          }}
-                        >
-                          <TableCell align="left">{row.id}</TableCell>
-                          <TableCell align="left">
-                            {row.type == 1 ? t("moika") : t("cux")}
-                          </TableCell>
-                          <TableCell align="left">
-                            {row.result} {getCurrency(user?.countryId)}
-                          </TableCell>
-                          <TableCell align="left">
-                            {row.caxs} {getCurrency(user?.countryId)}
-                          </TableCell>
-                          <TableCell align="left">
-                            {Math.round(100 - row.ratio)} %
-                          </TableCell>
-                          <TableCell align="left">
-                            {" "}
-                            <Button
-                              onClick={() => handleNested(row.id)}
-                              variant="outlined"
-                            >
-                              <CalculateIcon />
-                            </Button>
-                          </TableCell>
-                          <TableCell align="left"></TableCell>
-
-                          {expand === row.id ? (
-                            <TableRow>
-                              <TableCell colSpan="1">
-                                {row.data ? (
-                                  <Table
-                                    sx={{ minWidth: 650 }}
-                                    aria-label="simple table"
-                                  >
-                                    <TableHead>
-                                      <TableRow>
-                                        <TableCell align="left">
-                                          {t("rejim")}
-                                        </TableCell>
-                                        <TableCell align="left">
-                                          <WaterDropIcon
-                                            sx={{ color: "#21726A" }}
-                                          />
-                                        </TableCell>
-                                        <TableCell align="left">
-                                          <ElectricBoltIcon
-                                            sx={{ color: "#21726A" }}
-                                          />
-                                        </TableCell>{" "}
-                                        <TableCell align="left">
-                                          <BubbleChartIcon
-                                            sx={{ color: "#21726A" }}
-                                          />
-                                        </TableCell>{" "}
-                                        <TableCell align="left">
-                                          <TimelapseIcon
-                                            sx={{ color: "#21726A" }}
-                                          />
-                                        </TableCell>
-                                      </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                      {row.data?.map((row) => (
-                                        <TableRow
-                                          key={row.modeName}
-                                          sx={{
-                                            "&:last-child td, &:last-child th":
-                                              { border: 0 },
-                                          }}
-                                        >
-                                          <TableCell
-                                            component="th"
-                                            scope="row"
-                                            align="left"
-                                          >
-                                            {t(row.modeName)}
-                                          </TableCell>
-                                          <TableCell align="left">
-                                            {row.water}
-                                          </TableCell>
-                                          <TableCell align="left">
-                                            {row.electric}
-                                          </TableCell>
-                                          <TableCell align="left">
-                                            {row.modeValue}
-                                          </TableCell>
-                                          <TableCell align="left">
-                                            {row.seconds}
-                                          </TableCell>
-                                        </TableRow>
-                                      ))}
-                                    </TableBody>
-                                  </Table>
-                                ) : (
-                                  <Table>
-                                    <TableHead>
-                                      <TableRow>
-                                        <TableCell>firstValue</TableCell>
-                                        <TableCell>secondValue</TableCell>
-                                      </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                      <TableRow>
-                                        <TableCell>{row.firstValue1}</TableCell>
-                                        <TableCell>
-                                          {row.secondValue1}
-                                        </TableCell>
-                                      </TableRow>
-                                    </TableBody>
-                                  </Table>
-                                )}
-                              </TableCell>
-                            </TableRow>
-                          ) : null}
-                          <TableCell align="left">
-                            <Button
-                              variant="outlined"
-                              onClick={() => {
-                                navigate(
-                                  `/owner/${id}/item/${user_id}/${row.id}/${row.type}`
-                                  // /owner/:owner_id/item/:id/:single/:active
-                                );
-                              }}
-                            >
-                              <RemoveRedEyeIcon />
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </Box>
-            </Box>
+            {boxesInfo?.map((i) => {
+              return (
+                <>
+                  <hr />
+                  <Box>
+                    <DonutChart
+                      benefit={100 - i?.ratio}
+                      expenses={i?.ratio}
+                      expensesValue={i?.expense}
+                      benefitValue={i?.benefit}
+                      countryId={user?.countryId}
+                      name={i?.box?.geolocation}
+                      openStatistics={null}
+                      // setOpenStatistics={setOpenStatistics}
+                    />
+                  </Box>
+                  <hr />
+                </>
+              );
+            })}
           </Box>
         </Box>
       </Modal>
@@ -722,3 +593,163 @@ const Boxes = () => {
 };
 
 export default Boxes;
+
+{
+  /* <Box sx={{ overflow: "auto" }}>
+<Box
+  sx={{ width: "100%", display: "table", tableLayout: "fixed" }}
+>
+  <TableContainer component={Paper}>
+    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <TableHead>
+        <TableRow>
+          <TableCell align="left">ID</TableCell>
+          <TableCell align="left">type</TableCell>
+          <TableCell align="left">benefit</TableCell>
+          <TableCell align="left">exspence</TableCell>
+          <TableCell align="left">prcent</TableCell>
+          <TableCell>Expand</TableCell>
+          <TableCell></TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {boxInfo?.allResult?.map((row) => (
+          <TableRow
+            key={row.modeName}
+            sx={{
+              "&:last-child td, &:last-child th": { border: 0 },
+            }}
+          >
+            <TableCell align="left">{row.id}</TableCell>
+            <TableCell align="left">
+              {row.type == 1 ? t("moika") : t("cux")}
+            </TableCell>
+            <TableCell align="left">
+              {row.result} {getCurrency(user?.countryId)}
+            </TableCell>
+            <TableCell align="left">
+              {row.caxs} {getCurrency(user?.countryId)}
+            </TableCell>
+            <TableCell align="left">
+              {Math.round(100 - row.ratio)} %
+            </TableCell>
+            <TableCell align="left">
+              {" "}
+              <Button
+                onClick={() => handleNested(row.id)}
+                variant="outlined"
+              >
+                <CalculateIcon />
+              </Button>
+            </TableCell>
+            <TableCell align="left"></TableCell>
+
+            {expand === row.id ? (
+              <TableRow>
+                <TableCell colSpan="1">
+                  {row.data ? (
+                    <Table
+                      sx={{ minWidth: 650 }}
+                      aria-label="simple table"
+                    >
+                      <TableHead>
+                        <TableRow>
+                          <TableCell align="left">
+                            {t("rejim")}
+                          </TableCell>
+                          <TableCell align="left">
+                            <WaterDropIcon
+                              sx={{ color: "#21726A" }}
+                            />
+                          </TableCell>
+                          <TableCell align="left">
+                            <ElectricBoltIcon
+                              sx={{ color: "#21726A" }}
+                            />
+                          </TableCell>{" "}
+                          <TableCell align="left">
+                            <BubbleChartIcon
+                              sx={{ color: "#21726A" }}
+                            />
+                          </TableCell>{" "}
+                          <TableCell align="left">
+                            <TimelapseIcon
+                              sx={{ color: "#21726A" }}
+                            />
+                          </TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {row.data?.map((row) => (
+                          <TableRow
+                            key={row.modeName}
+                            sx={{
+                              "&:last-child td, &:last-child th":
+                                { border: 0 },
+                            }}
+                          >
+                            <TableCell
+                              component="th"
+                              scope="row"
+                              align="left"
+                            >
+                              {t(row.modeName)}
+                            </TableCell>
+                            <TableCell align="left">
+                              {row.water}
+                            </TableCell>
+                            <TableCell align="left">
+                              {row.electric}
+                            </TableCell>
+                            <TableCell align="left">
+                              {row.modeValue}
+                            </TableCell>
+                            <TableCell align="left">
+                              {row.seconds}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  ) : (
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>firstValue</TableCell>
+                          <TableCell>secondValue</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        <TableRow>
+                          <TableCell>{row.firstValue1}</TableCell>
+                          <TableCell>
+                            {row.secondValue1}
+                          </TableCell>
+                        </TableRow>
+                      </TableBody>
+                    </Table>
+                  )}
+                </TableCell>
+              </TableRow>
+            ) : null}
+            <TableCell align="left">
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  navigate(
+                    `/owner/${id}/item/${user_id}/${row.id}/${row.type}`
+                    // /owner/:owner_id/item/:id/:single/:active
+                  );
+                }}
+              >
+                <RemoveRedEyeIcon />
+              </Button>
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  </TableContainer>
+</Box>
+</Box> */
+}

@@ -4,11 +4,7 @@ import Chart from "react-apexcharts";
 import "../ownerHome/OwnerHome.css";
 import { Box, Card, Typography } from "@mui/material";
 import { useEffect } from "react";
-import {
-  getBoxes,
-  getSingleUser,
-  getUsers,
-} from "../../store/actions/users-action";
+import { getSingleUser, getUsers } from "../../store/actions/users-action";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import Table from "@mui/material/Table";

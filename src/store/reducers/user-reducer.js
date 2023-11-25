@@ -27,6 +27,7 @@ import {
   GET_SINGLE_ITEM,
   GET_CALC_INFO2,
   GET_INFO_BOX,
+  GET_BOXES_INFO,
 } from "../types";
 
 const initialState = {
@@ -50,6 +51,7 @@ const initialState = {
   currentValues: null,
   singleItem: null,
   boxInfo: null,
+  boxesInfo: null,
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -63,6 +65,11 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         boxInfo: action.payload,
+      };
+    case GET_BOXES_INFO:
+      return {
+        ...state,
+        boxesInfo: action.payload,
       };
     case GET_USERS:
       return {

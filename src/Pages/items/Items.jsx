@@ -41,7 +41,7 @@ const Items = () => {
   const [active, setActive] = useState(null);
   useEffect(() => {
     dispatch(getSingleUser(user_id));
-    dispatch(getBoxes(owner_id));
+    dispatch(getBoxes(owner_id, id));
   }, []);
 
   useEffect(() => {
