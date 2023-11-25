@@ -410,7 +410,9 @@ const Boxes = () => {
                           <TableCell align="left">
                             {row.caxs} {getCurrency(user?.countryId)}
                           </TableCell>
-                          <TableCell align="left">{row.ratio} %</TableCell>
+                          <TableCell align="left">
+                            {Math.round(100 - row.ratio)} %
+                          </TableCell>
                           <TableCell align="left">
                             {" "}
                             <Button
