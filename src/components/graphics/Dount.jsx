@@ -15,18 +15,30 @@ const DonutChart = ({
   openStatistics,
   setOpenStatistics,
   name,
+  singleId,
+  setSingle,
 }) => {
   const isMobile = useIsMobile();
-
+  console.log(singleId, ":lllllllllll");
   const handleClick = () => {
     // Access information about the clicked segment
     setOpenStatistics(!openStatistics);
+  };
+
+  const handleSingle = () => {
+    // Access information about the clicked segment
+    setSingle(singleId);
   };
   const chartData = {
     options: {
       chart: {
         events: {
-          click: openStatistics !== null && handleClick,
+          click:
+            openStatistics !== null
+              ? handleClick
+              : singleId !== null
+              ? handleSingle
+              : null,
         },
       },
       labels: [
