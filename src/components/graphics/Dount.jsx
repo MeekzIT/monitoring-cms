@@ -42,13 +42,13 @@ const DonutChart = ({
         },
       },
       labels: [
-        `All ${benefitValue + expensesValue} ${
-          countryId !== " undefined" && getCurrency(countryId)
-        }`,
         `Benefit ${benefitValue} ${
           countryId !== " undefined" && getCurrency(countryId)
         }`,
         `Expenses ${expensesValue} ${
+          countryId !== " undefined" && getCurrency(countryId)
+        }`,
+        `All ${benefitValue + expensesValue} ${
           countryId !== " undefined" && getCurrency(countryId)
         }`,
       ],
