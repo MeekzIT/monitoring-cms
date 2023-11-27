@@ -16,6 +16,7 @@ import {
   getItemInfoModes,
   getItemInfoPrcent,
   getItemSingle,
+  getSingleInfo,
   getSingleOwners,
   getSingleUser,
 } from "../../store/actions/users-action";
@@ -44,7 +45,8 @@ import ItemField2 from "../../components/changeField/ItemFields2";
 import ItemField from "../../components/changeField/ItemFields";
 import Calculator from "../../components/claculator/Calculator";
 import Calculator2 from "../../components/claculator/Calculator2";
-
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 const Single = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -67,6 +69,7 @@ const Single = () => {
   const itemInfo = useSelector((state) => state.user.itemIinfo);
   const itemInfoCalc = useSelector((state) => state.user.calcData);
   const itemInfoCalc2 = useSelector((state) => state.user.calcData2);
+  const singleInfo = useSelector((state) => state.user.singleInfo);
   const itemCurrentValue = useSelector((state) => state.user.currentValues);
   const prcemt = useSelector((state) => state.user.infoPrcent);
   useEffect(() => {
@@ -79,6 +82,11 @@ const Single = () => {
     dispatch(getItemInfoPrcent(single));
     dispatch(getItemInfoModes(single));
     dispatch(getItemDates(single));
+    dispatch(
+      getSingleInfo({
+        ownerId: single,
+      })
+    );
     if (active == 1) {
       dispatch(getItemInfoCalc(single));
     } else if (active == 2) {
@@ -105,20 +113,27 @@ const Single = () => {
       behavior: "smooth",
     });
   };
-
+  console.log(
+    singleInfo,
+    user,
+    owner,
+    "singleInfosingleInfosingleInfosingleInfosingleInfosingleInfo"
+  );
   console.log(data);
   return (
-    <Box>
-      <Button
-        variant="outlined"
-        onClick={() => {
-          if (user_id == "undefined") {
-            navigate(`/boxes`);
-          } else navigate(`/user/${user_id}/owner/${owner_id}/item/${id}`);
-        }}
-      >
-        {t("back-to-menu")}
-      </Button>
+    <Box p={2}>
+      <Box p={2}>
+        <Button
+          variant="outlined"
+          onClick={() => {
+            if (user_id == "undefined") {
+              navigate(`/boxes`);
+            } else navigate(`/user/${user_id}/owner/${owner_id}/item/${id}`);
+          }}
+        >
+          {t("back-to-menu")}
+        </Button>
+      </Box>
       <Grid
         spacing={1}
         sx={{
@@ -126,62 +141,7 @@ const Single = () => {
         }}
         container
       >
-        <Grid item>
-          {isSuper == "owner" ||
-            (isSuper == "superAdmin" && (
-              <>
-                {/* <div>
-                  <DonutChart
-                    benefit={prcemt?.benefit}
-                    expenses={prcemt?.expenses}
-                  />
-                </div> */}
-                {active !== 3 && (
-                  <div>
-                    <Button
-                      variant="contained"
-                      size="large"
-                      sx={{
-                        color: "white",
-                        fontSize: "20px",
-                      }}
-                      onClick={() => setOpen(true)}
-                    >
-                      <CalculateIcon />
-                      {t("calc")}
-                    </Button>
-                  </div>
-                )}
-              </>
-            ))}
-          {isSuper !== "owner" && isSuper !== "superAdmin" && data?.access && (
-            <>
-              {/* <div>
-                <DonutChart
-                  benefit={prcemt?.benefit}
-                  expenses={prcemt?.expenses}
-                />
-              </div> */}
-              {active !== 3 && (
-                <div>
-                  <Button
-                    variant="contained"
-                    size="large"
-                    sx={{
-                      color: "white",
-                      fontSize: "20px",
-                    }}
-                    onClick={() => setOpen(true)}
-                  >
-                    <CalculateIcon />
-                    {t("calc")}
-                  </Button>
-                </div>
-              )}
-            </>
-          )}
-        </Grid>
-        <Grid item>
+        <Grid p={2}>
           <Typography id="modal-modal-title" variant="h3" component="h1">
             {t("device")} №-{data?.id}{" "}
             {compareWithUTC(data?.datatime) ? (
@@ -190,123 +150,8 @@ const Single = () => {
               <span className="offline">{t("offline")}</span>
             )}
           </Typography>
-          {(isSuper == "owner" || isSuper == "superAdmin") && (
-            <>
-              <hr style={{ width: "50vw" }} />
-              <Box
-                sx={{
-                  display: "flex",
-                  gap: "5px",
-                  flexDirection: "column",
-                }}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    gap: "15px",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      width: "40%",
-                    }}
-                  >
-                    <FormControl fullWidth>
-                      <InputLabel id="demo-simple-select-label">
-                        Start
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={start}
-                        label="Start"
-                        onChange={(e) => setStart(e.target.value)}
-                      >
-                        {dates?.map((i) => (
-                          <MenuItem
-                            key={i}
-                            value={i.slice(0, 10) + " " + "00:00:00+04"}
-                          >
-                            {i.slice(0, 10)}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Box>
-                  <Box
-                    sx={{
-                      width: "40%",
-                    }}
-                  >
-                    <FormControl fullWidth>
-                      <InputLabel id="demo-simple-select-label">End</InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={end}
-                        label="End"
-                        onChange={(e) => setEnd(e.target.value)}
-                      >
-                        {dates
-                          ?.filter((y) => y.slice(0, 10) !== start)
-                          .map((i) => (
-                            <MenuItem
-                              key={i}
-                              value={i.slice(0, 10) + " " + "00:00:00+04"}
-                            >
-                              {i.slice(0, 10)}
-                            </MenuItem>
-                          ))}
-                      </Select>
-                    </FormControl>
-                  </Box>
-                  <Box>
-                    <Button
-                      variant="outlined"
-                      size="large"
-                      onClick={() => {
-                        dispatch(
-                          getItemFiltred({
-                            ownerID: data?.p2,
-                            start,
-                            end,
-                            active,
-                          })
-                        );
-                        setFilterOn(true);
-                      }}
-                    >
-                      <FilterAltIcon sx={{ color: "#21726A" }} />
-                    </Button>
-                  </Box>
+          {/* { */}
 
-                  {(start || end) && (
-                    <Box>
-                      <Button
-                        variant="outlined"
-                        size="large"
-                        onClick={() => {
-                          dispatch(clearItemFiltred(null));
-                          setFilterOn(false);
-                          setStart(null);
-                          setEnd(null);
-                        }}
-                      >
-                        <DeleteIcon sx={{ color: "#21726A" }} />
-                      </Button>
-                    </Box>
-                  )}
-                </Box>
-                <ItemFilters
-                  active={active}
-                  filtredDates={filtredDates}
-                  countryId={owner?.countryId}
-                  itemCurrentValue={itemCurrentValue}
-                />
-              </Box>
-            </>
-          )}
           {isSuper == "owner" && (
             <Box
               sx={{
@@ -334,28 +179,98 @@ const Single = () => {
             </Box>
           )}
           <hr style={{ width: "50vw" }} />
+
           {isSuper == "owner" && (
             <>
-              {data &&
-                (active == 1 ? (
-                  <ItemField
-                    data={data}
-                    handleChangeData={handleChangeData}
-                    values={changedData}
+              {data && (
+                <>
+                  <DonutChart
+                    benefit={100 - singleInfo?.ratio}
+                    expenses={singleInfo?.ratio}
+                    expensesValue={singleInfo?.expense}
+                    benefitValue={singleInfo?.benefit}
+                    countryId={owner?.countryId}
+                    openStatistics={null}
+                    singleId={null}
                   />
-                ) : active == 3 ? (
-                  <ItemField3
-                    data={data}
-                    handleChangeData={handleChangeData}
-                    values={changedData}
-                  />
-                ) : active == 2 ? (
-                  <ItemField2
-                    data={data}
-                    handleChangeData={handleChangeData}
-                    values={changedData}
-                  />
-                ) : null)}
+                  {isSuper == "owner" ||
+                    (isSuper == "superAdmin" && (
+                      <>
+                        {active !== 3 && (
+                          <div>
+                            <Button
+                              variant="contained"
+                              size="large"
+                              sx={{
+                                color: "white",
+                                fontSize: "20px",
+                              }}
+                              onClick={() => setOpen(true)}
+                            >
+                              <CalculateIcon />
+                              {t("calc")}
+                            </Button>
+                          </div>
+                        )}
+                      </>
+                    ))}
+                  <Box mt={2}>
+                    <Button
+                      variant="contained"
+                      size="large"
+                      sx={{
+                        color: "white",
+                        fontSize: "20px",
+                      }}
+                      onClick={() => setFilterOn(!filterOn)}
+                    >
+                      {filterOn ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                      {filterOn ? t("hide") : t("set-parametrs")}
+                    </Button>
+                  </Box>
+                  {isSuper !== "owner" &&
+                    isSuper !== "superAdmin" &&
+                    data?.access && (
+                      <>
+                        {active !== 3 && (
+                          <div>
+                            <Button
+                              variant="contained"
+                              size="large"
+                              sx={{
+                                color: "white",
+                                fontSize: "20px",
+                              }}
+                              onClick={() => setOpen(true)}
+                            >
+                              <CalculateIcon />
+                              {t("calc")}
+                            </Button>
+                          </div>
+                        )}
+                      </>
+                    )}
+                  {filterOn && active == 1 ? (
+                    <ItemField
+                      data={data}
+                      handleChangeData={handleChangeData}
+                      values={changedData}
+                    />
+                  ) : filterOn && active == 3 ? (
+                    <ItemField3
+                      data={data}
+                      handleChangeData={handleChangeData}
+                      values={changedData}
+                    />
+                  ) : filterOn && active == 2 ? (
+                    <ItemField2
+                      data={data}
+                      handleChangeData={handleChangeData}
+                      values={changedData}
+                    />
+                  ) : null}
+                </>
+              )}
               <Box mt={3} mb={3}>
                 <Button
                   variant="outlined"
@@ -369,35 +284,106 @@ const Single = () => {
           )}
           {isSuper == "superAdmin" && (
             <>
-              {data &&
-                (active == 1 ? (
-                  <ItemField
-                    data={data}
-                    handleChangeData={handleChangeData}
-                    values={changedData}
+              {data && (
+                <>
+                  <DonutChart
+                    benefit={100 - singleInfo?.ratio}
+                    expenses={singleInfo?.ratio}
+                    expensesValue={singleInfo?.expense}
+                    benefitValue={singleInfo?.benefit}
+                    countryId={owner?.countryId}
+                    openStatistics={null}
+                    singleId={null}
                   />
-                ) : active == 3 ? (
-                  <ItemField3
-                    data={data}
-                    handleChangeData={handleChangeData}
-                    values={changedData}
-                  />
-                ) : active == 2 ? (
-                  <ItemField2
-                    data={data}
-                    handleChangeData={handleChangeData}
-                    values={changedData}
-                  />
-                ) : null)}
-              <Box mt={3} mb={3}>
-                <Button
-                  variant="outlined"
-                  fullWidth
-                  onClick={handleEditChanges}
-                >
-                  {t("savechanges")}
-                </Button>
-              </Box>
+                  {isSuper == "owner" ||
+                    (isSuper == "superAdmin" && (
+                      <>
+                        {active !== 3 && (
+                          <div>
+                            <Button
+                              variant="contained"
+                              size="large"
+                              sx={{
+                                color: "white",
+                                fontSize: "20px",
+                              }}
+                              onClick={() => setOpen(true)}
+                            >
+                              <CalculateIcon />
+                              {t("calc")}
+                            </Button>
+                          </div>
+                        )}
+                      </>
+                    ))}
+                  <Box mt={2}>
+                    <Button
+                      variant="contained"
+                      size="large"
+                      sx={{
+                        color: "white",
+                        fontSize: "20px",
+                      }}
+                      onClick={() => setFilterOn(!filterOn)}
+                    >
+                      {filterOn ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                      {filterOn ? t("hide") : t("set-parametrs")}
+                    </Button>
+                  </Box>
+                  {isSuper !== "owner" &&
+                    isSuper !== "superAdmin" &&
+                    data?.access && (
+                      <>
+                        {active !== 3 && (
+                          <div>
+                            <Button
+                              variant="contained"
+                              size="large"
+                              sx={{
+                                color: "white",
+                                fontSize: "20px",
+                              }}
+                              onClick={() => setOpen(true)}
+                            >
+                              <CalculateIcon />
+                              {t("calc")}
+                            </Button>
+                          </div>
+                        )}
+                      </>
+                    )}
+                  {filterOn && active == 1 ? (
+                    <ItemField
+                      data={data}
+                      handleChangeData={handleChangeData}
+                      values={changedData}
+                    />
+                  ) : filterOn && active == 3 ? (
+                    <ItemField3
+                      data={data}
+                      handleChangeData={handleChangeData}
+                      values={changedData}
+                    />
+                  ) : filterOn && active == 2 ? (
+                    <ItemField2
+                      data={data}
+                      handleChangeData={handleChangeData}
+                      values={changedData}
+                    />
+                  ) : null}
+                </>
+              )}
+              {filterOn && (
+                <Box mt={3} mb={3}>
+                  <Button
+                    variant="outlined"
+                    fullWidth
+                    onClick={handleEditChanges}
+                  >
+                    {t("savechanges")}
+                  </Button>
+                </Box>
+              )}
             </>
           )}
           {isSuper !== "superAdmin" && !data?.access && (
@@ -473,3 +459,121 @@ const Single = () => {
 };
 
 export default Single;
+
+// (isSuper == "owner" || isSuper == "superAdmin") && (
+//   <>
+//     <hr style={{ width: "50vw" }} />
+//     <Box
+//       sx={{
+//         display: "flex",
+//         gap: "5px",
+//         flexDirection: "column",
+//       }}
+//     >
+//       <Box
+//         sx={{
+//           display: "flex",
+//           flexDirection: "row",
+//           gap: "15px",
+//         }}
+//       >
+//         <Box
+//           sx={{
+//             width: "40%",
+//           }}
+//         >
+//           <FormControl fullWidth>
+//             <InputLabel id="demo-simple-select-label">
+//               Start
+//             </InputLabel>
+//             <Select
+//               labelId="demo-simple-select-label"
+//               id="demo-simple-select"
+//               value={start}
+//               label="Start"
+//               onChange={(e) => setStart(e.target.value)}
+//             >
+//               {dates?.map((i) => (
+//                 <MenuItem
+//                   key={i}
+//                   value={i.slice(0, 10) + " " + "00:00:00+04"}
+//                 >
+//                   {i.slice(0, 10)}
+//                 </MenuItem>
+//               ))}
+//             </Select>
+//           </FormControl>
+//         </Box>
+//         <Box
+//           sx={{
+//             width: "40%",
+//           }}
+//         >
+//           <FormControl fullWidth>
+//             <InputLabel id="demo-simple-select-label">End</InputLabel>
+//             <Select
+//               labelId="demo-simple-select-label"
+//               id="demo-simple-select"
+//               value={end}
+//               label="End"
+//               onChange={(e) => setEnd(e.target.value)}
+//             >
+//               {dates
+//                 ?.filter((y) => y.slice(0, 10) !== start)
+//                 .map((i) => (
+//                   <MenuItem
+//                     key={i}
+//                     value={i.slice(0, 10) + " " + "00:00:00+04"}
+//                   >
+//                     {i.slice(0, 10)}
+//                   </MenuItem>
+//                 ))}
+//             </Select>
+//           </FormControl>
+//         </Box>
+//         <Box>
+//           <Button
+//             variant="outlined"
+//             size="large"
+//             onClick={() => {
+//               dispatch(
+//                 getItemFiltred({
+//                   ownerID: data?.p2,
+//                   start,
+//                   end,
+//                   active,
+//                 })
+//               );
+//               setFilterOn(true);
+//             }}
+//           >
+//             <FilterAltIcon sx={{ color: "#21726A" }} />
+//           </Button>
+//         </Box>
+
+//         {(start || end) && (
+//           <Box>
+//             <Button
+//               variant="outlined"
+//               size="large"
+//               onClick={() => {
+//                 dispatch(clearItemFiltred(null));
+//                 setFilterOn(false);
+//                 setStart(null);
+//                 setEnd(null);
+//               }}
+//             >
+//               <DeleteIcon sx={{ color: "#21726A" }} />
+//             </Button>
+//           </Box>
+//         )}
+//       </Box>
+//       <ItemFilters
+//         active={active}
+//         filtredDates={filtredDates}
+//         countryId={owner?.countryId}
+//         itemCurrentValue={itemCurrentValue}
+//       />
+//     </Box>
+//   </>
+// )}

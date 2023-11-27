@@ -42,8 +42,15 @@ const DonutChart = ({
         },
       },
       labels: [
-        `Benefit ${benefitValue} ${getCurrency(countryId)}`,
-        `Expenses ${expensesValue} ${getCurrency(countryId)}`,
+        `All ${benefitValue + expensesValue} ${
+          countryId !== " undefined" && getCurrency(countryId)
+        }`,
+        `Benefit ${benefitValue} ${
+          countryId !== " undefined" && getCurrency(countryId)
+        }`,
+        `Expenses ${expensesValue} ${
+          countryId !== " undefined" && getCurrency(countryId)
+        }`,
       ],
       dataLabels: {
         enabled: false,
@@ -65,7 +72,7 @@ const DonutChart = ({
     series: [benefit, expenses],
     colors: ["#ff6384", "#36a2eb"],
   };
-
+  console.log(countryId, "countryIdcountryIdcountryIdcountryId");
   return (
     <Box
       sx={{
@@ -77,7 +84,8 @@ const DonutChart = ({
     >
       {name && (
         <Typography variant="h6" component="h2">
-          {name}
+          {name} {expensesValue + benefitValue}{" "}
+          {countryId !== " undefined" && getCurrency(countryId)}
         </Typography>
       )}
       <Chart

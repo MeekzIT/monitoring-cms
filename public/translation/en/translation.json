@@ -185,5 +185,7 @@
   "calc-value2": "Second process fluid expenses",
   "calc-time2": "Second process time",
   "L": "L․",
-  "sec":"sec․"
+  "sec":"sec․",
+  "set-parametrs":"Set Parametrs",
+  "hide":"Hide"
 }

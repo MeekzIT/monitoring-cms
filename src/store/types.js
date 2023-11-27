@@ -44,3 +44,4 @@ export const DELETE_OWNER = "DELETE_OWNER";
 export const GET_SINGLE_ITEM = "GET_SINGLE_ITEM";
 export const GET_INFO_BOX = "GET_INFO_BOX";
 export const GET_BOXES_INFO = "GET_BOXES_INFO";
+export const GET_ITEM_INFO = "GET_ITEM_INFO";

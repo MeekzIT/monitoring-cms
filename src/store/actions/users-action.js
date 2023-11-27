@@ -20,6 +20,7 @@ import {
   GET_INFO_PRCENT,
   GET_ITEM_CURRENT,
   GET_ITEM_DAYS,
+  GET_ITEM_INFO,
   GET_OWNERS_OF_USER,
   GET_SINGLE_BOX,
   GET_SINGLE_ITEM,
@@ -618,6 +619,27 @@ export const getBoxesInfo = (data) => {
         dispatch({
           type: GET_BOXES_INFO,
           payload: response.data,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+export const getSingleInfo = (data) => {
+  return (dispatch) => {
+    axios
+      .get(`${keys.api}/owner/get-item-info`, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+        params: data,
+      })
+      .then((response) => {
+        dispatch({
+          type: GET_ITEM_INFO,
+          payload: response.data.data,
         });
       })
       .catch((error) => {
