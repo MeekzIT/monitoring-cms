@@ -20,7 +20,6 @@ const DonutChart = ({
   show,
 }) => {
   const isMobile = useIsMobile();
-  console.log(singleId, ":lllllllllll");
   const handleClick = () => {
     // Access information about the clicked segment
     setOpenStatistics(!openStatistics);
@@ -43,18 +42,30 @@ const DonutChart = ({
         },
       },
       labels: [
+        `All ${benefitValue + expensesValue} ${
+          show !== false ? getCurrency(countryId) : ""
+        }`,
         `Benefit ${benefitValue} ${
           show !== false ? getCurrency(countryId) : ""
         }`,
         `Expenses ${expensesValue} ${
           show !== false ? getCurrency(countryId) : ""
         }`,
-        `All ${benefitValue + expensesValue} ${
-          show !== false ? getCurrency(countryId) : ""
-        }`,
       ],
-      dataLabels: {
-        enabled: false,
+      plotOptions: {
+        pie: {
+          donut: {
+            labels: {
+              show: true,
+              name: {
+                show: true,
+              },
+              value: {
+                show: true,
+              },
+            },
+          },
+        },
       },
       responsive: [
         {
@@ -70,10 +81,13 @@ const DonutChart = ({
         },
       ],
     },
-    series: [benefit, expenses],
-    colors: ["#ff6384", "#36a2eb"],
+    dataLabels: {
+      enabled: false,
+    },
+    series: [100, benefit, expenses],
+    colors: ["red", "#ff6384", "#36a2eb"],
   };
-  console.log(countryId, "countryIdcountryIdcountryIdcountryId");
+  console.log(benefit, expenses, "countryIdcountryIdcountryIdcountryId");
   return (
     <Box
       sx={{

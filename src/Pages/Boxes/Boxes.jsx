@@ -136,7 +136,7 @@ const Boxes = () => {
     single !== null && setShowRows(true);
   }, [single]);
 
-  console.log(single, showRows, "boxInfoboxInfoboxInfoboxInfo");
+  console.log(boxInfo, boxesInfo, "boxInfoboxInfoboxInfoboxInfo");
   return (
     <div>
       <Box m={3}>
@@ -191,8 +191,7 @@ const Boxes = () => {
                     <TableCell>{t("name")}</TableCell>
                     <TableCell align="left">{t("geolocation")}</TableCell>
                     <TableCell align="left">{t("edit")}</TableCell>
-                    <TableCell align="left">{t("settings")}</TableCell>
-                    {/* <TableCell align="left">{t("statistics")}</TableCell> */}
+                    <TableCell align="left">{t("difrentExspenses")}</TableCell>
                     <TableCell align="left"></TableCell>
                   </TableRow>
                 </TableHead>
@@ -222,8 +221,8 @@ const Boxes = () => {
                         <Button
                           variant="outlined"
                           onClick={() => {
-                            setCurrentId(row.id);
-
+                            setCurrentId(row.ownerId);
+                            dispatch(getBoxExpenses(row.ownerId));
                             setOpenSettings(true);
                           }}
                         >
@@ -423,13 +422,21 @@ const Boxes = () => {
                                 {Math.round(100 - row.ratio)} %
                               </TableCell>
                               <TableCell align="left">
-                                {" "}
-                                <Button
-                                  onClick={() => handleNested(row.id)}
-                                  variant="outlined"
-                                >
-                                  <CalculateIcon />
-                                </Button>
+                                {!expand ? (
+                                  <Button
+                                    onClick={() => handleNested(row.id)}
+                                    variant="outlined"
+                                  >
+                                    <CalculateIcon />
+                                  </Button>
+                                ) : expand == row.id ? (
+                                  <Button
+                                    onClick={() => handleNested(row.id)}
+                                    variant="outlined"
+                                  >
+                                    <CloseIcon fontSize="large" />
+                                  </Button>
+                                ) : null}
                               </TableCell>
                               <TableCell align="left"></TableCell>
 
@@ -523,7 +530,7 @@ const Boxes = () => {
                                   </TableCell>
                                 </TableRow>
                               ) : null}
-                              <TableCell align="left">
+                              {/* <TableCell align="left">
                                 <Button
                                   variant="outlined"
                                   onClick={() => {
@@ -535,7 +542,7 @@ const Boxes = () => {
                                 >
                                   <RemoveRedEyeIcon />
                                 </Button>
-                              </TableCell>
+                              </TableCell> */}
                             </TableRow>
                           ))}
                         </TableBody>
@@ -583,7 +590,7 @@ const Boxes = () => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            {t("settings")}
+            {t("difrentExspenses")}
           </Typography>
           <div
             className="mobile-modal-close-btn"
@@ -660,6 +667,8 @@ const Boxes = () => {
                         })
                       );
                       setAddField(false);
+                      setAddedFieldValuePrice("");
+                      setAddedFieldValueName("");
                       dispatch(getBoxExpenses(currentId));
                     }}
                   >

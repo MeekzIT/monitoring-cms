@@ -119,21 +119,9 @@ const Single = () => {
     owner,
     "singleInfosingleInfosingleInfosingleInfosingleInfosingleInfo"
   );
-  console.log(data);
   return (
     <Box p={2}>
-      <Box p={2}>
-        <Button
-          variant="outlined"
-          onClick={() => {
-            if (user_id == "undefined") {
-              navigate(`/boxes`);
-            } else navigate(`/user/${user_id}/owner/${owner_id}/item/${id}`);
-          }}
-        >
-          {t("back-to-menu")}
-        </Button>
-      </Box>
+      <Box p={2}>go back</Box>
       <Grid
         spacing={1}
         sx={{
