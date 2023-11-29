@@ -188,5 +188,8 @@
   "sec":"sec․",
   "set-parametrs":"Set Parametrs",
   "hide":"Hide",
-  "difrentExspenses":"Other expenses"
+  "difrentExspenses":"Other expenses",
+  "reset":"Reset",
+  "resetText":"When changing the password, the new password will be test1234 !",
+  "go-back":"Go back"
 }

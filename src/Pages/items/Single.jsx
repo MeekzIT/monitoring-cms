@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useIsMobile } from "../../hooks/useScreenType";
@@ -55,6 +55,7 @@ const Single = () => {
   const { id, owner_id, user_id, single, active } = useParams();
   const dispatch = useDispatch();
   const isMobile = useIsMobile();
+  const location = useLocation();
   const [open, setOpen] = useState(false);
   const [start, setStart] = useState(null);
   const [end, setEnd] = useState(null);

@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import HomeIcon from "@mui/icons-material/Home";
 import { Box, Button, Modal, Typography } from "@mui/material";
@@ -32,6 +32,7 @@ import TimelapseIcon from "@mui/icons-material/Timelapse";
 import CalculateIcon from "@mui/icons-material/Calculate";
 import { getCurrency } from "../../hooks/helpers";
 import TableHead from "@mui/material/TableHead";
+import GoBack from "../../components/goBack/GoBack";
 
 const Items = () => {
   const { t } = useTranslation();
@@ -40,6 +41,7 @@ const Items = () => {
   const { id, owner_id, user_id } = useParams();
   const dispatch = useDispatch();
   const isMobile = useIsMobile();
+  const location = useLocation();
   const [info, setInfo] = useState(null);
   const user = useSelector((state) => state.user.single);
   const owner = useSelector((state) => state.user.owner);

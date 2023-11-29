@@ -140,3 +140,12 @@ body {
 .apexcharts-legend-text {
   font-size: 20px !important;
 }
+
+.swal2-icon.swal2-success [class^="swal2-success-line"][class$="tip"] {
+  left: 1.8125em !important;
+}
+
+.swal2-icon.swal2-error [class^="swal2-x-mark-line"] {
+  width: 3.9375em !important;
+  height: 1.3125em !important;
+}

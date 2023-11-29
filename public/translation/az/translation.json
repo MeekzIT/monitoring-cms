@@ -185,8 +185,11 @@
   "calc-value2": "Second process fluid expenses",
   "calc-time2": "Second process time",
   "L": "L․",
-  "sec":"sec․",
-  "set-parametrs":"Set Parametrs",
-  "hide":"Hide",
-  "difrentExspenses":"Other expenses"
+  "sec": "sec․",
+  "set-parametrs": "Set Parametrs",
+  "hide": "Hide",
+  "difrentExspenses": "Other expenses",
+  "reset": "Reset",
+  "resetText": "When changing the password, the new password will be test1234 !",
+  "go-back":"Go back"
 }

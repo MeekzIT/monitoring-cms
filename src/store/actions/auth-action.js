@@ -51,6 +51,39 @@ export const loginAction = (data) => {
   };
 };
 
+export const resetPassword = (data) => {
+  return (dispatch) => {
+    axios
+      .post(`${keys.api}/admin/reset`, data, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+      })
+      .then(function (response) {
+        if (response.data.succes) {
+          Swal.fire({
+            position: "center",
+            iconColor: "#21726A",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } else
+          Swal.fire({
+            position: "center",
+            iconColor: "#21726A",
+            icon: "error",
+            showConfirmButton: false,
+            timer: 1500,
+            title: "Неправильные Данные",
+          });
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+};
+
 export const setAuthAction = (data) => {
   return (dispatch) => {
     dispatch({ type: SET_AUTH, payload: data });
