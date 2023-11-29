@@ -107,15 +107,15 @@ const DonutChart = ({
         sx={{
           position: "absolute",
         }}
+        className="apexcharts-legend apexcharts-align-center apx-legend-position-right"
       >
         <div
           style={{
             display: "flex",
             alignItems: "center",
             position: "relative",
-            right: "-61%",
-            top: "29px",
           }}
+          className="apexcharts-legend-series"
         >
           <CircleIcon sx={{ color: "red", fontSize: "16px" }} />
           <Typography variant="h6" component="h2">
@@ -123,13 +123,13 @@ const DonutChart = ({
             {show !== false ? getCurrency(countryId) : ""}
           </Typography>
         </div>
-        <Chart
-          options={chartData.options}
-          series={chartData.series}
-          type="donut"
-          width={isMobile ? "300" : "500"}
-        />
       </div>
+      <Chart
+        options={chartData.options}
+        series={chartData.series}
+        type="donut"
+        width={isMobile ? "300" : "500"}
+      />
     </Box>
   );
 };
