@@ -5,6 +5,7 @@ import { useIsMobile } from "../../hooks/useScreenType";
 import { getCurrency } from "../../hooks/helpers";
 import { Box, Typography } from "@mui/material";
 // import { Doughnut } from "react-chartjs-2";
+import CircleIcon from "@mui/icons-material/Circle";
 
 const DonutChart = ({
   benefit,
@@ -42,9 +43,6 @@ const DonutChart = ({
         },
       },
       labels: [
-        `All ${benefitValue + expensesValue} ${
-          show !== false ? getCurrency(countryId) : ""
-        }`,
         `Benefit ${benefitValue} ${
           show !== false ? getCurrency(countryId) : ""
         }`,
@@ -82,10 +80,10 @@ const DonutChart = ({
       ],
     },
     dataLabels: {
-      enabled: false,
+      enabled: true,
     },
-    series: [100, benefit, expenses],
-    colors: ["red", "#ff6384", "#36a2eb"],
+    series: [benefit, expenses],
+    // colors: ["red", "#ff6384", "#36a2eb"],
   };
   console.log(benefit, expenses, "countryIdcountryIdcountryIdcountryId");
   return (
@@ -94,6 +92,7 @@ const DonutChart = ({
         display: "flex",
         alignItems: "center",
         flexWrap: "wrap",
+        position: "relative",
         // justifyContent: "space-between",
       }}
     >
@@ -103,6 +102,21 @@ const DonutChart = ({
           {show !== false ? getCurrency(countryId) : ""}
         </Typography>
       )}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          position: "absolute",
+          right: "69.3%",
+          top: "28%",
+        }}
+      >
+        <CircleIcon sx={{ color: "red", fontSize: "16px" }} />
+        <Typography variant="h6" component="h2">
+          All {benefitValue + expensesValue}
+          {show !== false ? getCurrency(countryId) : ""}
+        </Typography>
+      </div>
       <Chart
         options={chartData.options}
         series={chartData.series}
