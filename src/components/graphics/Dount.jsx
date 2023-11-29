@@ -113,7 +113,7 @@ const DonutChart = ({
             display: "flex",
             alignItems: "center",
             position: "relative",
-            right: "-64%",
+            right: "-61%",
             top: "29px",
           }}
         >
