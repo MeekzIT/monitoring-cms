@@ -16,11 +16,15 @@ import { getCountries } from "../../store/actions/statistics-action";
 import { makeArray } from "../../hooks/makeArray";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import GoBack from "../../components/goBack/GoBack";
+import ResetModal from "../../components/resetModal/ResetModal";
+import LockResetIcon from "@mui/icons-material/LockReset";
 
 const AdminUser = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const location = useLocation();
   const { id } = useParams();
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
@@ -29,6 +33,8 @@ const AdminUser = () => {
   const count = useSelector((state) => state.user.count);
   const countries = useSelector((state) => state.statistics.countries);
   const isSuper = useSelector((state) => state.auth.isSuper);
+  const [openReset, setOpenReset] = useState(false);
+  const [currint, setCurrent] = useState();
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -52,6 +58,7 @@ const AdminUser = () => {
     <Box m={3}>
       <Box mb={2}>
         <h1>{t("users")}</h1>
+        <GoBack prevPath={location.pathname} />
       </Box>
       <Box sx={{ overflow: "auto" }}>
         <Box sx={{ width: "100%", display: "table", tableLayout: "fixed" }}>
@@ -63,9 +70,13 @@ const AdminUser = () => {
                   <TableCell align="left">{t("email")}</TableCell>
                   <TableCell align="left">{t("country")}</TableCell>
                   <TableCell align="left">{t("active")}</TableCell>
+                  {(isSuper == "superAdmin" || isSuper == "admin") && (
+                    <TableCell align="left">{t("reset")}</TableCell>
+                  )}
                   <TableCell align="left">
                     {t("lastPay")} / {t("paymentType")}
                   </TableCell>
+
                   <TableCell align="left"></TableCell>
                 </TableRow>
               </TableHead>
@@ -99,6 +110,19 @@ const AdminUser = () => {
                         </span>
                       )}
                     </TableCell>
+                    {(isSuper == "superAdmin" || isSuper == "admin") && (
+                      <TableCell align="left">
+                        <Button
+                          variant="outlined"
+                          onClick={() => {
+                            setCurrent(row.id);
+                            setOpenReset(true);
+                          }}
+                        >
+                          <LockResetIcon />
+                        </Button>
+                      </TableCell>
+                    )}
                     <TableCell align="left">
                       {row.lastPay ? row.lastPay : "-"} /{" "}
                       {row?.variant?.toUpperCase()}
@@ -163,6 +187,12 @@ const AdminUser = () => {
           </div>
         </div>
       </Box>
+      <ResetModal
+        open={openReset}
+        handleClose={() => setOpenReset(false)}
+        role="user"
+        currint={currint}
+      />
     </Box>
   );
 };

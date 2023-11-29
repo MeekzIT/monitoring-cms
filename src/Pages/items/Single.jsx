@@ -47,6 +47,8 @@ import Calculator from "../../components/claculator/Calculator";
 import Calculator2 from "../../components/claculator/Calculator2";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import GoBack from "../../components/goBack/GoBack";
+
 const Single = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -121,7 +123,9 @@ const Single = () => {
   );
   return (
     <Box p={2}>
-      <Box p={2}>go back</Box>
+      <Box p={2}>
+      <GoBack prevPath={location.pathname} />
+      </Box>
       <Grid
         spacing={1}
         sx={{

@@ -19,19 +19,23 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useIsMobile } from "../../hooks/useScreenType";
 import AddAdmin from "./AddAdmin";
 import { getCountries } from "../../store/actions/statistics-action";
-
+import GoBack from "../../components/goBack/GoBack";
+import LockResetIcon from "@mui/icons-material/LockReset";
+import ResetModal from "../../components/resetModal/ResetModal";
 const Admins = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const isMobile = useIsMobile();
   const [open, setOpen] = useState(false);
+  const [openReset, setOpenReset] = useState(false);
   const [openSettings, setOpenSettings] = useState(false);
   const [activity, setActivity] = useState();
   const [currint, setCurrent] = useState();
@@ -39,7 +43,7 @@ const Admins = () => {
   const handleClose = () => setOpen(false);
   const data = useSelector((state) => state.admins.admins);
   const countries = useSelector((state) => state.statistics.countries);
-
+  const isSuper = useSelector((state) => state.auth.isSuper);
   useEffect(() => {
     dispatch(getAdmins());
     dispatch(getCountries());
@@ -68,6 +72,7 @@ const Admins = () => {
     <Box m={3}>
       <Box mb={2}>
         <h1>{t("admins")}</h1>
+        <GoBack prevPath={location.pathname} />
         <Button variant="contained" onClick={handleOpen}>
           <AddIcon
             sx={{
@@ -86,6 +91,9 @@ const Admins = () => {
                   <TableCell align="left">{t("email")}</TableCell>
                   <TableCell align="left">{t("active")}</TableCell>
                   <TableCell align="left">{t("settings")}</TableCell>
+                  {isSuper == "superAdmin" && (
+                    <TableCell align="left">{t("reset")}</TableCell>
+                  )}
                   <TableCell align="left"></TableCell>
                 </TableRow>
               </TableHead>
@@ -118,6 +126,7 @@ const Admins = () => {
                         </span>
                       )}
                     </TableCell>
+
                     <TableCell align="left">
                       <Button
                         variant="outlined"
@@ -130,6 +139,20 @@ const Admins = () => {
                         <SettingsIcon />
                       </Button>
                     </TableCell>
+
+                    {isSuper == "superAdmin" && (
+                      <TableCell align="left">
+                        <Button
+                          variant="outlined"
+                          onClick={() => {
+                            setCurrent(row.id);
+                            setOpenReset(true);
+                          }}
+                        >
+                          <LockResetIcon />
+                        </Button>
+                      </TableCell>
+                    )}
                     <TableCell align="left">
                       <Button
                         variant="contained"
@@ -183,7 +206,12 @@ const Admins = () => {
           />
         </Box>
       </Modal>
-
+      <ResetModal
+        open={openReset}
+        handleClose={() => setOpenReset(false)}
+        role="admin"
+        currint={currint}
+      />
       <AddAdmin open={open} handleClose={handleClose} countries={countries} />
     </Box>
   );

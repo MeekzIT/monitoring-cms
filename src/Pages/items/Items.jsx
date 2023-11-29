@@ -88,6 +88,7 @@ const Items = () => {
   return (
     <div>
       <Box m={2}>
+        <GoBack prevPath={location.pathname} />
         <Breadcrumbs aria-label="breadcrumb">
           <div>
             <HomeIcon />

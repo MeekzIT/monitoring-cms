@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import HomeIcon from "@mui/icons-material/Home";
@@ -23,16 +23,20 @@ import Paper from "@mui/material/Paper";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddOwner from "./AddModal";
-
+import GoBack from "../../components/goBack/GoBack";
+import LockResetIcon from "@mui/icons-material/LockReset";
+import ResetModal from "../../components/resetModal/ResetModal";
 const UserDetail = () => {
   const { id } = useParams();
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const data = useSelector((state) => state.user.single);
   const isSuper = useSelector((state) => state.auth.isSuper);
-
+  const [openReset, setOpenReset] = useState(false);
+  const [currint, setCurrent] = useState();
   useEffect(() => {
     dispatch(getSingleUser(id));
     setLoading(false);
@@ -44,6 +48,7 @@ const UserDetail = () => {
   return (
     <div>
       <Box m={3}>
+        <GoBack prevPath={location.pathname} />
         <Breadcrumbs aria-label="breadcrumb">
           <div>
             <HomeIcon />
@@ -82,6 +87,7 @@ const UserDetail = () => {
               <h4>{data?.email}</h4>
             </Box>
             <hr />
+
             <Box>
               <Box mb={2}>
                 <h1>{t("owners")}</h1>
@@ -109,6 +115,9 @@ const UserDetail = () => {
                             {t("Owner Device ID")}
                           </TableCell>
                           <TableCell align="left">{t("delete")}</TableCell>
+                          {(isSuper == "superAdmin" || isSuper == "admin") && (
+                            <TableCell align="left">{t("reset")}</TableCell>
+                          )}
                           <TableCell align="left">
                             {t("lastPay")} / {t("paymentType")}
                           </TableCell>
@@ -166,6 +175,20 @@ const UserDetail = () => {
                                 />
                               </Button>
                             </TableCell>
+                            {(isSuper == "superAdmin" ||
+                              isSuper == "admin") && (
+                              <TableCell align="left">
+                                <Button
+                                  variant="outlined"
+                                  onClick={() => {
+                                    setCurrent(row.id);
+                                    setOpenReset(true);
+                                  }}
+                                >
+                                  <LockResetIcon />
+                                </Button>
+                              </TableCell>
+                            )}
                             <TableCell align="left">
                               {row.lastPay ? row.lastPay : "-"} /{" "}
                               {row?.variant?.toUpperCase()}
@@ -200,6 +223,12 @@ const UserDetail = () => {
         )}
       </Box>
       <AddOwner open={open} handleClose={handleClose} />
+      <ResetModal
+        open={openReset}
+        handleClose={() => setOpenReset(false)}
+        role="owner"
+        currint={currint}
+      />
     </div>
   );
 };

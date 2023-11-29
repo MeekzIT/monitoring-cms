@@ -51,6 +51,7 @@ import BubbleChartIcon from "@mui/icons-material/BubbleChart";
 import TimelapseIcon from "@mui/icons-material/Timelapse";
 import CalculateIcon from "@mui/icons-material/Calculate";
 import { getCurrency } from "../../hooks/helpers";
+import GoBack from "../../components/goBack/GoBack";
 
 const Boxes = () => {
   const { id, user_id, owner: ownerParam } = useParams();
@@ -58,6 +59,7 @@ const Boxes = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isMobile = useIsMobile();
+  const location = useLocation();
   const user = useSelector((state) => state.user.single);
   const owner = useSelector((state) => state.user.owner);
   const data = useSelector((state) => state.user.boxes);
@@ -140,6 +142,8 @@ const Boxes = () => {
   return (
     <div>
       <Box m={3}>
+      <GoBack prevPath={location.pathname} />
+
         <Breadcrumbs aria-label="breadcrumb">
           <div>
             <HomeIcon />
