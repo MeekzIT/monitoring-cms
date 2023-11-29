@@ -70,6 +70,7 @@ const Boxes = () => {
   const [openStatistics, setOpenStatistics] = useState(false);
   const [openSettings, setOpenSettings] = useState(false);
   const [currentId, setCurrentId] = useState(null);
+  const [currentOwner, setCurrentOwner] = useState(null);
   const [name, setName] = useState(null);
   const [geo, setGeo] = useState(null);
   const [ownerId, setOwnerId] = useState(null);
@@ -142,7 +143,7 @@ const Boxes = () => {
   return (
     <div>
       <Box m={3}>
-      <GoBack prevPath={location.pathname} />
+        <GoBack prevPath={location.pathname} />
 
         <Breadcrumbs aria-label="breadcrumb">
           <div>
@@ -225,8 +226,14 @@ const Boxes = () => {
                         <Button
                           variant="outlined"
                           onClick={() => {
-                            setCurrentId(row.ownerId);
-                            dispatch(getBoxExpenses(row.ownerId));
+                            setCurrentId(row.id);
+                            setCurrentOwner(row.ownerId);
+                            dispatch(
+                              getBoxExpenses({
+                                boxId: row.id,
+                                ownerId: row.ownerId,
+                              })
+                            );
                             setOpenSettings(true);
                           }}
                         >
@@ -666,6 +673,7 @@ const Boxes = () => {
                       dispatch(
                         addBoxExpenses({
                           boxId: currentId,
+                          ownerId: currentOwner,
                           name: addedFieldValueName,
                           price: addedFieldValuePrice,
                         })
@@ -673,7 +681,12 @@ const Boxes = () => {
                       setAddField(false);
                       setAddedFieldValuePrice("");
                       setAddedFieldValueName("");
-                      dispatch(getBoxExpenses(currentId));
+                      dispatch(
+                        getBoxExpenses({
+                          boxId: currentId,
+                          ownerId: currentOwner,
+                        })
+                      );
                     }}
                   >
                     {t("savechanges")}
@@ -735,7 +748,12 @@ const Boxes = () => {
                                   price,
                                 })
                               );
-                              dispatch(getBoxExpenses(currentId));
+                              // dispatch(
+                              //   getBoxExpenses({
+                              //     boxId: i.ownerId,
+                              //     ownerId: currentOwner,
+                              //   })
+                              // );
                             }}
                           >
                             {t("savechanges")}
@@ -751,7 +769,6 @@ const Boxes = () => {
                                   id: i.id,
                                 })
                               );
-                              dispatch(getBoxExpenses(currentId));
                             }}
                           >
                             {t("delete")}

@@ -155,13 +155,13 @@ const Items = () => {
                       }}
                     >
                       <TableCell align="left">ID-{row.p2}</TableCell>
-                      <TableCell align="left">
+                      {/* <TableCell align="left">
                         {row.active == 1
                           ? t("moika")
                           : row.active == 2
                           ? t("cux")
                           : t("change")}
-                      </TableCell>
+                      </TableCell> */}
                       <TableCell align="left">
                         {compareWithUTC(row.datatime) ? (
                           <span className="online">

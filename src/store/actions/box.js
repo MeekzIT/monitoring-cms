@@ -8,16 +8,14 @@ import {
 } from "../types";
 import Swal from "sweetalert2";
 
-export const getBoxExpenses = (boxId) => {
+export const getBoxExpenses = (data) => {
   return (dispatch) => {
     axios
       .get(`${keys.api}/box`, {
         headers: {
           Authorization: `Bearer ${keys.token}`,
         },
-        params: {
-          boxId,
-        },
+        params: data,
       })
       .then((response) => {
         dispatch({
