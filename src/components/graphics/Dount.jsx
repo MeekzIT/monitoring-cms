@@ -92,7 +92,7 @@ const DonutChart = ({
         display: "flex",
         alignItems: "center",
         flexWrap: "wrap",
-        position: "relative",
+        // position: "relative",
         // justifyContent: "space-between",
       }}
     >
@@ -102,27 +102,34 @@ const DonutChart = ({
           {show !== false ? getCurrency(countryId) : ""}
         </Typography>
       )}
+
       <div
-        style={{
-          display: "flex",
-          alignItems: "center",
+        sx={{
           position: "absolute",
-          right: "69.3%",
-          top: "28%",
         }}
       >
-        <CircleIcon sx={{ color: "red", fontSize: "16px" }} />
-        <Typography variant="h6" component="h2">
-          All {benefitValue + expensesValue}
-          {show !== false ? getCurrency(countryId) : ""}
-        </Typography>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            position: "relative",
+            right: "-64%",
+            top: "29px",
+          }}
+        >
+          <CircleIcon sx={{ color: "red", fontSize: "16px" }} />
+          <Typography variant="h6" component="h2">
+            All {benefitValue + expensesValue}
+            {show !== false ? getCurrency(countryId) : ""}
+          </Typography>
+        </div>
+        <Chart
+          options={chartData.options}
+          series={chartData.series}
+          type="donut"
+          width={isMobile ? "300" : "500"}
+        />
       </div>
-      <Chart
-        options={chartData.options}
-        series={chartData.series}
-        type="donut"
-        width={isMobile ? "300" : "500"}
-      />
     </Box>
   );
 };
