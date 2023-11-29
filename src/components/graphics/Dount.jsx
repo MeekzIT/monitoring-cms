@@ -17,6 +17,7 @@ const DonutChart = ({
   name,
   singleId,
   setSingle,
+  show,
 }) => {
   const isMobile = useIsMobile();
   console.log(singleId, ":lllllllllll");
@@ -43,13 +44,13 @@ const DonutChart = ({
       },
       labels: [
         `Benefit ${benefitValue} ${
-          countryId !== " undefined" && getCurrency(countryId)
+          show !== false ? getCurrency(countryId) : ""
         }`,
         `Expenses ${expensesValue} ${
-          countryId !== " undefined" && getCurrency(countryId)
+          show !== false ? getCurrency(countryId) : ""
         }`,
         `All ${benefitValue + expensesValue} ${
-          countryId !== " undefined" && getCurrency(countryId)
+          show !== false ? getCurrency(countryId) : ""
         }`,
       ],
       dataLabels: {
@@ -85,7 +86,7 @@ const DonutChart = ({
       {name && (
         <Typography variant="h6" component="h2">
           {name} {expensesValue + benefitValue}{" "}
-          {countryId !== " undefined" && getCurrency(countryId)}
+          {show !== false ? getCurrency(countryId) : ""}
         </Typography>
       )}
       <Chart

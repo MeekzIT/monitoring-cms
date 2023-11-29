@@ -192,6 +192,7 @@ const Single = () => {
                     countryId={owner?.countryId}
                     openStatistics={null}
                     singleId={null}
+                    show={false}
                   />
                   {isSuper == "owner" ||
                     (isSuper == "superAdmin" && (
@@ -294,6 +295,7 @@ const Single = () => {
                     countryId={owner?.countryId}
                     openStatistics={null}
                     singleId={null}
+                    show={false}
                   />
                   {isSuper == "owner" ||
                     (isSuper == "superAdmin" && (

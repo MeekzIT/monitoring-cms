@@ -16,45 +16,45 @@ const ItemField = ({ data, handleChangeData, values }) => {
   const { t } = useTranslation();
 
   const langOptions = [
-    { value: 0, name: t("Russian") },
-    { value: 1, name: t("Armenian") },
-    { value: 2, name: t("Georgian") },
-    { value: 3, name: t("Azerbaijani") },
-    { value: 4, name: t("Kazak") },
-    { value: 5, name: t("Kirgiz") },
+    { value: "0", name: t("Russian") },
+    { value: "1", name: t("Armenian") },
+    { value: "2", name: t("Georgian") },
+    { value: "3", name: t("Azerbaijani") },
+    { value: "4", name: t("Kazak") },
+    { value: "5", name: t("Kirgiz") },
   ];
 
   const colorOptions = [
-    { value: 0, name: t("Red") },
-    { value: 1, name: t("Green") },
-    { value: 2, name: t("Blue") },
-    { value: 3, name: t("Yellow") },
-    { value: 4, name: t("Pink") },
-    { value: 5, name: t("Cyan") },
-    { value: 6, name: t("White") },
+    { value: "0", name: t("Red") },
+    { value: "1", name: t("Green") },
+    { value: "2", name: t("Blue") },
+    { value: "3", name: t("Yellow") },
+    { value: "4", name: t("Pink") },
+    { value: "5", name: t("Cyan") },
+    { value: "6", name: t("White") },
   ];
 
   const modeOptions = [
-    { value: 0, name: t("wax") },
-    { value: 1, name: t("water") },
-    { value: 2, name: t("talinwater") },
-    { value: 3, name: t("smoking") },
-    { value: 4, name: t("tapwater") },
-    { value: 5, name: t("milk") },
-    { value: 6, name: t("hoover") },
-    { value: 7, name: t("foam") },
-    { value: 8, name: t("enginefluid") },
-    { value: 9, name: t("blackening") },
-    { value: 10, name: t("air") },
-    { value: 11, name: t("drycleaning") },
-    { value: 12, name: t("osmosis") },
-    { value: 13, name: t("hotwater") },
-    { value: 14, name: t("payer") },
-    { value: 15, name: t("distilledwater") },
-    { value: 16, name: t("lowpressurewater") },
-    { value: 17, name: t("doublefoam") },
-    { value: 18, name: t("hotair") },
-    { value: 19, name: t("wheelpump") },
+    { value: "0", name: t("wax") },
+    { value: "1", name: t("water") },
+    { value: "2", name: t("talinwater") },
+    { value: "3", name: t("smoking") },
+    { value: "4", name: t("tapwater") },
+    { value: "5", name: t("milk") },
+    { value: "6", name: t("hoover") },
+    { value: "7", name: t("foam") },
+    { value: "8", name: t("enginefluid") },
+    { value: "9", name: t("blackening") },
+    { value: "10", name: t("air") },
+    { value: "11", name: t("drycleaning") },
+    { value: "12", name: t("osmosis") },
+    { value: "13", name: t("hotwater") },
+    { value: "14", name: t("payer") },
+    { value: "15", name: t("distilledwater") },
+    { value: "16", name: t("lowpressurewater") },
+    { value: "17", name: t("doublefoam") },
+    { value: "18", name: t("hotair") },
+    { value: "19", name: t("wheelpump") },
   ];
 
   const rollOptions = [
@@ -147,7 +147,7 @@ const ItemField = ({ data, handleChangeData, values }) => {
               name="p26"
               value={values.p26 || data.p26}
               helper={getMode}
-              show={getLang(data.p26)}
+              show={getMode(values.p26 || data.p26)}
               handleChangeData={handleChangeData}
               title={t("p26")}
               options={modeOptions}
@@ -158,7 +158,7 @@ const ItemField = ({ data, handleChangeData, values }) => {
               name="p27"
               value={values.p27 || data.p27}
               helper={getMode}
-              show={getLang(data.p27)}
+              show={getMode(values.p27 || data.p27)}
               handleChangeData={handleChangeData}
               title={t("p27")}
               options={modeOptions}
@@ -169,7 +169,7 @@ const ItemField = ({ data, handleChangeData, values }) => {
               name="p28"
               value={values.p28 || data.p28}
               helper={getMode}
-              show={getLang(data.p28)}
+              show={getMode(values.p28 || data.p28)}
               handleChangeData={handleChangeData}
               title={t("p28")}
               options={modeOptions}
@@ -180,7 +180,7 @@ const ItemField = ({ data, handleChangeData, values }) => {
               name="p29"
               value={values.p29 || data.p29}
               helper={getMode}
-              show={getLang(data.p29)}
+              show={getMode(values.p29 || data.p29)}
               handleChangeData={handleChangeData}
               title={t("p29")}
               options={modeOptions}
@@ -191,7 +191,7 @@ const ItemField = ({ data, handleChangeData, values }) => {
               name="p30"
               value={values.p30 || data.p30}
               helper={getMode}
-              show={getLang(data.p30)}
+              show={getMode(values.p30 || data.p30)}
               handleChangeData={handleChangeData}
               title={t("p30")}
               options={modeOptions}
@@ -202,7 +202,7 @@ const ItemField = ({ data, handleChangeData, values }) => {
               name="p31"
               value={values.p31 || data.p31}
               helper={getMode}
-              show={getLang(data.p31)}
+              show={getMode(values.p31 || data.p31)}
               handleChangeData={handleChangeData}
               title={t("p31")}
               options={modeOptions}

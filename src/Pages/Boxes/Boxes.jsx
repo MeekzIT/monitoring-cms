@@ -177,6 +177,7 @@ const Boxes = () => {
             openStatistics={openStatistics}
             setOpenStatistics={setOpenStatistics}
             singleId={null}
+            show={true}
           />
         </Box>
         <hr />
@@ -559,6 +560,7 @@ const Boxes = () => {
                         openStatistics={null}
                         singleId={i.box.id}
                         setSingle={setSingle}
+                        show={true}
                         // setOpenStatistics={setOpenStatistics}
                       />
                     </Box>

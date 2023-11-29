@@ -132,6 +132,7 @@ const Items = () => {
             countryId={user?.countryId}
             openStatistics={openStatistics}
             setOpenStatistics={setOpenStatistics}
+            show={true}
           />
         )}
       </Box>
