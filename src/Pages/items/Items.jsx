@@ -74,19 +74,24 @@ const Items = () => {
     gap: isMobile && "20px",
   };
   useEffect(() => {
-    dispatch(getSingleUser(user_id));
-    dispatch(getBoxes(owner_id, id));
     dispatch(
       getBoxesInfo({
         ownerId: owner_id,
+        boxId: id,
       })
     );
+    dispatch(getSingleUser(user_id));
+    dispatch(getBoxes(owner_id, id));
   }, []);
 
   useEffect(() => {
     user && dispatch(getSingleOwners(id));
-    boxesInfo && setInfo(boxesInfo?.filter((i) => i.box.id == id)[0]);
-  }, [user, boxesInfo]);
+    // boxesInfo.length && setInfo(boxesInfo[0]);
+  }, [user]);
+  console.log(
+    boxesInfo[0],
+    "boxesInfoboxesInfoboxesInfoboxesInfoboxesInfoboxesInfoboxesInfoboxesInfo"
+  );
   return (
     <div>
       <Box m={2}>
@@ -126,12 +131,12 @@ const Items = () => {
       </Box>
       <hr />
       <Box>
-        {info && (
+        {boxesInfo && boxesInfo?.length && (
           <DonutChart
-            benefit={100 - info?.ratio}
-            expenses={info?.ratio}
-            expensesValue={info?.expense}
-            benefitValue={info?.benefit}
+            benefit={100 - boxesInfo[0]?.ratio}
+            expenses={boxesInfo[0]?.ratio}
+            expensesValue={boxesInfo[0]?.expense}
+            benefitValue={boxesInfo[0]?.benefit}
             countryId={user?.countryId}
             openStatistics={openStatistics}
             setOpenStatistics={setOpenStatistics}
