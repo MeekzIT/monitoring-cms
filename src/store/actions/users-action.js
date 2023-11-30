@@ -9,6 +9,7 @@ import {
   EDIT_ITEM,
   GET_BOXES,
   GET_BOXES_INFO,
+  GET_BOX_INFO,
   GET_CALC_INFO,
   GET_CALC_INFO2,
   GET_FILTRED_DATA,
@@ -619,6 +620,27 @@ export const getBoxesInfo = (data) => {
         dispatch({
           type: GET_BOXES_INFO,
           payload: response.data,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+export const getSingleBoxInfo = (data) => {
+  return (dispatch) => {
+    axios
+      .get(`${keys.api}/owner/get-boxes-info`, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+        params: data,
+      })
+      .then((response) => {
+        dispatch({
+          type: GET_BOX_INFO,
+          payload: response.data[0],
         });
       })
       .catch((error) => {

@@ -85,7 +85,6 @@ const DonutChart = ({
     series: [benefit, expenses],
     // colors: ["red", "#ff6384", "#36a2eb"],
   };
-  console.log(benefit, expenses, "countryIdcountryIdcountryIdcountryId");
   return (
     <Box
       sx={{

@@ -52,6 +52,7 @@ import TimelapseIcon from "@mui/icons-material/Timelapse";
 import CalculateIcon from "@mui/icons-material/Calculate";
 import { getCurrency } from "../../hooks/helpers";
 import GoBack from "../../components/goBack/GoBack";
+import LineChart from "../../components/graphics/LineChart";
 
 const Boxes = () => {
   const { id, user_id, owner: ownerParam } = useParams();
@@ -139,30 +140,10 @@ const Boxes = () => {
     single !== null && setShowRows(true);
   }, [single]);
 
-  console.log(boxInfo, boxesInfo, "boxInfoboxInfoboxInfoboxInfo");
   return (
     <div>
       <Box m={3}>
         <GoBack prevPath={location.pathname} />
-
-        <Breadcrumbs aria-label="breadcrumb">
-          <div>
-            <HomeIcon />
-          </div>
-          <div onClick={() => navigate(USERS_PAGE)} className="steper-item">
-            {t("users")}
-          </div>
-          <div
-            onClick={() => navigate(`/user/${user?.id}`)}
-            className="steper-item"
-          >
-            {t("users").slice(0, t("users").length - 1)} {"  "}
-            {"("} {user?.firstName + " " + user?.lastName} {")"}
-          </div>
-          {/* <Typography color="text.primary" className="active-steper-item">
-            {t("owners")} {"("} {owner?.firstName} {owner?.lastName} {")"}
-          </Typography> */}
-        </Breadcrumbs>
       </Box>
       <Box m={3}>
         <Box>
@@ -172,18 +153,36 @@ const Boxes = () => {
           <h4>{owner?.email}</h4>
         </Box>
         <hr />
-        <Box>
-          <DonutChart
-            benefit={100 - boxInfo?.ratio}
-            expenses={boxInfo?.ratio}
-            expensesValue={boxInfo?.expense}
-            benefitValue={boxInfo?.benefit}
-            countryId={user?.countryId}
-            openStatistics={openStatistics}
-            setOpenStatistics={setOpenStatistics}
-            singleId={null}
-            show={true}
-          />
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+          }}
+        >
+          <Box
+            sx={{
+              width: "50%",
+            }}
+          >
+            <DonutChart
+              benefit={100 - boxInfo?.ratio}
+              expenses={boxInfo?.ratio}
+              expensesValue={boxInfo?.expense}
+              benefitValue={boxInfo?.benefit}
+              countryId={user?.countryId}
+              openStatistics={openStatistics}
+              setOpenStatistics={setOpenStatistics}
+              singleId={null}
+              show={true}
+            />
+          </Box>
+          <Box
+            sx={{
+              width: "50%",
+            }}
+          >
+            <LineChart />
+          </Box>
         </Box>
         <hr />
 

@@ -49,25 +49,6 @@ const UserDetail = () => {
     <div>
       <Box m={3}>
         <GoBack prevPath={location.pathname} />
-        <Breadcrumbs aria-label="breadcrumb">
-          <div>
-            <HomeIcon />
-          </div>
-          {isSuper == "superAdmin" ? (
-            <div onClick={() => navigate(ADMINS_PAGE)} className="steper-item">
-              {t("admins")}
-            </div>
-          ) : (
-            <div onClick={() => navigate(USERS_PAGE)} className="steper-item">
-              {t("users")}
-            </div>
-          )}
-
-          <Typography color="text.primary" className="active-steper-item">
-            {t("users").slice(0, t("users").length - 1)} {"  "}
-            {"("} {data?.firstName + " " + data?.lastName} {")"}
-          </Typography>
-        </Breadcrumbs>
       </Box>
       <Box>
         {loading ? (

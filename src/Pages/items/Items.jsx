@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import {
   getBoxes,
   getBoxesInfo,
+  getSingleBoxInfo,
   getSingleOwners,
   getSingleUser,
 } from "../../store/actions/users-action";
@@ -33,6 +34,7 @@ import CalculateIcon from "@mui/icons-material/Calculate";
 import { getCurrency } from "../../hooks/helpers";
 import TableHead from "@mui/material/TableHead";
 import GoBack from "../../components/goBack/GoBack";
+import LineChart from "../../components/graphics/LineChart";
 
 const Items = () => {
   const { t } = useTranslation();
@@ -48,6 +50,7 @@ const Items = () => {
   const items = useSelector((state) => state.user.items);
   const isSuper = useSelector((state) => state.auth.isSuper);
   const boxesInfo = useSelector((state) => state.user.boxesInfo);
+  const singleBoxInfo = useSelector((state) => state.user.singleBoxInfo);
   const [openStatistics, setOpenStatistics] = useState(false);
   const [expand, setExpand] = useState(false);
   const handleNested = (id) => {
@@ -75,7 +78,7 @@ const Items = () => {
   };
   useEffect(() => {
     dispatch(
-      getBoxesInfo({
+      getSingleBoxInfo({
         ownerId: owner_id,
         boxId: id,
       })
@@ -89,60 +92,46 @@ const Items = () => {
     // boxesInfo.length && setInfo(boxesInfo[0]);
   }, [user]);
   console.log(
-    boxesInfo[0],
+    singleBoxInfo,
     "boxesInfoboxesInfoboxesInfoboxesInfoboxesInfoboxesInfoboxesInfoboxesInfo"
   );
   return (
     <div>
       <Box m={2}>
         <GoBack prevPath={location.pathname} />
-        <Breadcrumbs aria-label="breadcrumb">
-          <div>
-            <HomeIcon />
-          </div>
-          {isSuper == "superAdmin" ? (
-            <div onClick={() => navigate(ADMINS_PAGE)} className="steper-item">
-              {t("admins")}
-            </div>
-          ) : (
-            <div onClick={() => navigate(USERS_PAGE)} className="steper-item">
-              {t("users")}
-            </div>
-          )}
-          <div
-            onClick={() => navigate(`/user/${user?.id}`)}
-            className="steper-item"
-          >
-            {t("users").slice(0, t("users").length - 1)} {"  "}
-            {"("} {user?.firstName + " " + user?.lastName} {")"}
-          </div>
-          <div
-            className="steper-item"
-            onClick={() =>
-              navigate(`/user/${user_id}/owner/${owner?.deviceOwner}`)
-            }
-          >
-            {t("owners")} {"("} {owner?.firstName} {owner?.lastName} {")"}
-          </div>
-          <Typography color="text.primary" className="active-steper-item">
-            {t("system")}
-          </Typography>
-        </Breadcrumbs>
       </Box>
       <hr />
-      <Box>
-        {boxesInfo && boxesInfo?.length && (
-          <DonutChart
-            benefit={100 - boxesInfo[0]?.ratio}
-            expenses={boxesInfo[0]?.ratio}
-            expensesValue={boxesInfo[0]?.expense}
-            benefitValue={boxesInfo[0]?.benefit}
-            countryId={user?.countryId}
-            openStatistics={openStatistics}
-            setOpenStatistics={setOpenStatistics}
-            show={true}
-          />
-        )}
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+        }}
+      >
+        <Box
+          sx={{
+            width: "50%",
+          }}
+        >
+          {singleBoxInfo && (
+            <DonutChart
+              benefit={100 - singleBoxInfo?.ratio}
+              expenses={singleBoxInfo?.ratio}
+              expensesValue={singleBoxInfo?.expense}
+              benefitValue={singleBoxInfo?.benefit}
+              countryId={user?.countryId}
+              openStatistics={openStatistics}
+              setOpenStatistics={setOpenStatistics}
+              show={true}
+            />
+          )}
+        </Box>
+        <Box
+          sx={{
+            width: "50%",
+          }}
+        >
+          <LineChart />
+        </Box>
       </Box>
 
       <hr />

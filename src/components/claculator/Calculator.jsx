@@ -74,7 +74,6 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
     // !changedData && setChangedData
   }, [showSettings]);
 
-  console.log(changedData, currentData, "changedData");
   const style = {
     position: "absolute",
     top: "50%",

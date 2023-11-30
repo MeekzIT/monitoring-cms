@@ -116,12 +116,6 @@ const Single = () => {
       behavior: "smooth",
     });
   };
-  console.log(
-    singleInfo,
-    user,
-    owner,
-    "singleInfosingleInfosingleInfosingleInfosingleInfosingleInfo"
-  );
   return (
     <Box p={2}>
       <Box p={2}>
