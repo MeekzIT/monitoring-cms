@@ -38,6 +38,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useIsMobile } from "../../hooks/useScreenType";
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 import {
+  addBox,
   addBoxExpenses,
   destroyBoxExpenses,
   editBoxExpenses,
@@ -53,6 +54,7 @@ import CalculateIcon from "@mui/icons-material/Calculate";
 import { getCurrency } from "../../hooks/helpers";
 import GoBack from "../../components/goBack/GoBack";
 import LineChart from "../../components/graphics/LineChart";
+import GenerateModal from "../../components/generateModal/GenerateModal";
 
 const Boxes = () => {
   const { id, user_id, owner: ownerParam } = useParams();
@@ -83,6 +85,8 @@ const Boxes = () => {
   const [single, setSingle] = useState(null);
   const [showRows, setShowRows] = useState(false);
   const [info, setInfo] = useState(null);
+  const [openAdd, setOpenAdd] = useState(false);
+  const [openGenerate, setOpenGenerate] = useState(false);
   const [expand, setExpand] = useState(false);
   const handleNested = (id) => {
     if (typeof expand == "boolean") {
@@ -139,12 +143,12 @@ const Boxes = () => {
     single !== null && setInfo(boxesInfo?.filter((i) => i.box.id == single)[0]);
     single !== null && setShowRows(true);
   }, [single]);
-
   return (
     <div>
       <Box m={3}>
         <GoBack prevPath={location.pathname} />
       </Box>
+
       <Box m={3}>
         <Box>
           <h1>
@@ -185,7 +189,28 @@ const Boxes = () => {
           </Box>
         </Box>
         <hr />
-
+        <Box
+          sx={{
+            display: "flex",
+            gap: "10px",
+          }}
+        >
+          <Button
+            variant="contained"
+            sx={{ color: "white" }}
+            onClick={() => setOpenAdd(true)}
+          >
+            {t("add")}
+          </Button>
+          <Button
+            variant="contained"
+            sx={{ color: "white" }}
+            onClick={() => setOpenGenerate(true)}
+          >
+            {t("Generate")}
+          </Button>
+        </Box>
+        <hr />
         <Box sx={{ overflow: "auto" }}>
           <Box sx={{ width: "100%", display: "table", tableLayout: "fixed" }}>
             <TableContainer component={Paper}>
@@ -783,6 +808,83 @@ const Boxes = () => {
           </Box>
         </Box>
       </Modal>
+      <Modal
+        open={openAdd}
+        onClose={() => {
+          setOpenAdd(false);
+        }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            {t("add")}
+          </Typography>
+          <Box>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  label={t("name")}
+                  variant="outlined"
+                  fullWidth
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label={t("geolocation")}
+                  variant="outlined"
+                  fullWidth
+                  value={geo}
+                  onChange={(e) => setGeo(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography
+                  className="btnsBox"
+                  id="modal-modal-description"
+                  sx={{ mt: 2 }}
+                >
+                  <div>
+                    <Button
+                      variant="outlined"
+                      onClick={() => setOpenAdd(false)}
+                    >
+                      {t("cancel")}
+                    </Button>
+                  </div>
+                  <div>
+                    <Button
+                      variant="contained"
+                      sx={{ color: "white" }}
+                      onClick={() => {
+                        dispatch(
+                          addBox({
+                            ownerId: id,
+                            name,
+                            geolocation: geo,
+                          })
+                        );
+                        setOpenAdd(false);
+                        setGeo("");
+                        setName("");
+                      }}
+                    >
+                      {t("add")}
+                    </Button>
+                  </div>
+                </Typography>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </Modal>
+      <GenerateModal
+        open={openGenerate}
+        setOpen={setOpenGenerate}
+        ownerId={id}
+      />
     </div>
   );
 };

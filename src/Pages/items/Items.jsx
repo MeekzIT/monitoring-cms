@@ -91,10 +91,7 @@ const Items = () => {
     user && dispatch(getSingleOwners(id));
     // boxesInfo.length && setInfo(boxesInfo[0]);
   }, [user]);
-  console.log(
-    singleBoxInfo,
-    "boxesInfoboxesInfoboxesInfoboxesInfoboxesInfoboxesInfoboxesInfoboxesInfo"
-  );
+
   return (
     <div>
       <Box m={2}>
@@ -112,18 +109,16 @@ const Items = () => {
             width: "50%",
           }}
         >
-          {singleBoxInfo && (
-            <DonutChart
-              benefit={100 - singleBoxInfo?.ratio}
-              expenses={singleBoxInfo?.ratio}
-              expensesValue={singleBoxInfo?.expense}
-              benefitValue={singleBoxInfo?.benefit}
-              countryId={user?.countryId}
-              openStatistics={openStatistics}
-              setOpenStatistics={setOpenStatistics}
-              show={true}
-            />
-          )}
+          <DonutChart
+            benefit={100 - singleBoxInfo?.ratio}
+            expenses={singleBoxInfo?.ratio}
+            expensesValue={singleBoxInfo?.expense}
+            benefitValue={singleBoxInfo?.benefit}
+            countryId={user?.countryId}
+            openStatistics={openStatistics}
+            setOpenStatistics={setOpenStatistics}
+            show={true}
+          />
         </Box>
         <Box
           sx={{
@@ -175,7 +170,7 @@ const Items = () => {
                           onClick={() => {
                             // navigate(`/admin-user/${row.id}`);
                             navigate(
-                              `/owner/${owner_id}/item/${id}/${row.p2}/${row.active}`
+                              `/owner/${owner_id}/item/${id}/${row.p2}/${row.p0}`
                             );
                           }}
                         >
@@ -232,7 +227,7 @@ const Items = () => {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {info?.allResult?.map((row) => (
+                        {singleBoxInfo?.allResult?.map((row) => (
                           <TableRow
                             key={row.modeName}
                             sx={{
@@ -353,19 +348,19 @@ const Items = () => {
                                 </TableCell>
                               </TableRow>
                             ) : null}
-                            <TableCell align="left">
+                            {/* <TableCell align="left">
                               <Button
                                 variant="outlined"
                                 onClick={() => {
                                   navigate(
-                                    `/owner/${id}/item/${user_id}/${row.id}/${row.type}`
+                                    `/owner/${id}/item/${user_id}/${row.id}/${row.p0}`
                                     // /owner/:owner_id/item/:id/:single/:active
                                   );
                                 }}
                               >
                                 <RemoveRedEyeIcon />
                               </Button>
-                            </TableCell>
+                            </TableCell> */}
                           </TableRow>
                         ))}
                       </TableBody>

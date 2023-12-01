@@ -95,7 +95,7 @@ const Single = () => {
     } else if (active == 2) {
       dispatch(getItemInfoCalc2(single));
     }
-  }, []);
+  }, [access]);
 
   useEffect(() => {
     user && dispatch(getSingleOwners(id));
@@ -116,10 +116,11 @@ const Single = () => {
       behavior: "smooth",
     });
   };
+
   return (
     <Box p={2}>
       <Box p={2}>
-      <GoBack prevPath={location.pathname} />
+        <GoBack prevPath={location.pathname} />
       </Box>
       <Grid
         spacing={1}
@@ -166,216 +167,112 @@ const Single = () => {
             </Box>
           )}
           <hr style={{ width: "50vw" }} />
-
-          {isSuper == "owner" && (
-            <>
-              {data && (
-                <>
-                  <DonutChart
-                    benefit={100 - singleInfo?.ratio}
-                    expenses={singleInfo?.ratio}
-                    expensesValue={singleInfo?.expense}
-                    benefitValue={singleInfo?.benefit}
-                    countryId={owner?.countryId}
-                    openStatistics={null}
-                    singleId={null}
-                    show={false}
-                  />
-                  {isSuper == "owner" ||
-                    (isSuper == "superAdmin" && (
-                      <>
-                        {active !== 3 && (
-                          <div>
-                            <Button
-                              variant="contained"
-                              size="large"
-                              sx={{
-                                color: "white",
-                                fontSize: "20px",
-                              }}
-                              onClick={() => setOpen(true)}
-                            >
-                              <CalculateIcon />
-                              {t("calc")}
-                            </Button>
-                          </div>
-                        )}
-                      </>
-                    ))}
-                  <Box mt={2}>
+          {(isSuper !== "owner" || isSuper !== "superAdmin") &&
+            data?.access && (
+              <>
+                {data && (
+                  <>
+                    <DonutChart
+                      benefit={100 - singleInfo?.ratio}
+                      expenses={singleInfo?.ratio}
+                      expensesValue={singleInfo?.expense}
+                      benefitValue={singleInfo?.benefit}
+                      countryId={owner?.countryId}
+                      openStatistics={null}
+                      singleId={null}
+                      show={false}
+                    />
+                    {(isSuper == "owner" || isSuper == "superAdmin") && (
+                        <>
+                          {active !== 3 && (
+                            <div>
+                              <Button
+                                variant="contained"
+                                size="large"
+                                sx={{
+                                  color: "white",
+                                  fontSize: "20px",
+                                }}
+                                onClick={() => setOpen(true)}
+                              >
+                                <CalculateIcon />
+                                {t("calc")}
+                              </Button>
+                            </div>
+                          )}
+                        </>
+                      )}
+                    <Box mt={2}>
+                      <Button
+                        variant="contained"
+                        size="large"
+                        sx={{
+                          color: "white",
+                          fontSize: "20px",
+                        }}
+                        onClick={() => setFilterOn(!filterOn)}
+                      >
+                        {filterOn ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                        {filterOn ? t("hide") : t("set-parametrs")}
+                      </Button>
+                    </Box>
+                    {isSuper !== "owner" &&
+                      isSuper !== "superAdmin" &&
+                      data?.access && (
+                        <>
+                          {active !== 3 && (
+                            <div>
+                              <Button
+                                variant="contained"
+                                size="large"
+                                sx={{
+                                  color: "white",
+                                  fontSize: "20px",
+                                }}
+                                onClick={() => setOpen(true)}
+                              >
+                                <CalculateIcon />
+                                {t("calc")}
+                              </Button>
+                            </div>
+                          )}
+                        </>
+                      )}
+                    {filterOn && active == 1 ? (
+                      <ItemField
+                        data={data}
+                        handleChangeData={handleChangeData}
+                        values={changedData}
+                      />
+                    ) : filterOn && active == 3 ? (
+                      <ItemField3
+                        data={data}
+                        handleChangeData={handleChangeData}
+                        values={changedData}
+                      />
+                    ) : filterOn && active == 2 ? (
+                      <ItemField2
+                        data={data}
+                        handleChangeData={handleChangeData}
+                        values={changedData}
+                      />
+                    ) : null}
+                  </>
+                )}
+                {filterOn && (
+                  <Box mt={3} mb={3}>
                     <Button
-                      variant="contained"
-                      size="large"
-                      sx={{
-                        color: "white",
-                        fontSize: "20px",
-                      }}
-                      onClick={() => setFilterOn(!filterOn)}
+                      variant="outlined"
+                      fullWidth
+                      onClick={handleEditChanges}
                     >
-                      {filterOn ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                      {filterOn ? t("hide") : t("set-parametrs")}
+                      {t("savechanges")}
                     </Button>
                   </Box>
-                  {isSuper !== "owner" &&
-                    isSuper !== "superAdmin" &&
-                    data?.access && (
-                      <>
-                        {active !== 3 && (
-                          <div>
-                            <Button
-                              variant="contained"
-                              size="large"
-                              sx={{
-                                color: "white",
-                                fontSize: "20px",
-                              }}
-                              onClick={() => setOpen(true)}
-                            >
-                              <CalculateIcon />
-                              {t("calc")}
-                            </Button>
-                          </div>
-                        )}
-                      </>
-                    )}
-                  {filterOn && active == 1 ? (
-                    <ItemField
-                      data={data}
-                      handleChangeData={handleChangeData}
-                      values={changedData}
-                    />
-                  ) : filterOn && active == 3 ? (
-                    <ItemField3
-                      data={data}
-                      handleChangeData={handleChangeData}
-                      values={changedData}
-                    />
-                  ) : filterOn && active == 2 ? (
-                    <ItemField2
-                      data={data}
-                      handleChangeData={handleChangeData}
-                      values={changedData}
-                    />
-                  ) : null}
-                </>
-              )}
-              <Box mt={3} mb={3}>
-                <Button
-                  variant="outlined"
-                  fullWidth
-                  onClick={handleEditChanges}
-                >
-                  {t("savechanges")}
-                </Button>
-              </Box>
-            </>
-          )}
-          {isSuper == "superAdmin" && (
-            <>
-              {data && (
-                <>
-                  <DonutChart
-                    benefit={100 - singleInfo?.ratio}
-                    expenses={singleInfo?.ratio}
-                    expensesValue={singleInfo?.expense}
-                    benefitValue={singleInfo?.benefit}
-                    countryId={owner?.countryId}
-                    openStatistics={null}
-                    singleId={null}
-                    show={false}
-                  />
-                  {isSuper == "owner" ||
-                    (isSuper == "superAdmin" && (
-                      <>
-                        {active !== 3 && (
-                          <div>
-                            <Button
-                              variant="contained"
-                              size="large"
-                              sx={{
-                                color: "white",
-                                fontSize: "20px",
-                              }}
-                              onClick={() => setOpen(true)}
-                            >
-                              <CalculateIcon />
-                              {t("calc")}
-                            </Button>
-                          </div>
-                        )}
-                      </>
-                    ))}
-                  <Box mt={2}>
-                    <Button
-                      variant="contained"
-                      size="large"
-                      sx={{
-                        color: "white",
-                        fontSize: "20px",
-                      }}
-                      onClick={() => setFilterOn(!filterOn)}
-                    >
-                      {filterOn ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                      {filterOn ? t("hide") : t("set-parametrs")}
-                    </Button>
-                  </Box>
-                  {isSuper !== "owner" &&
-                    isSuper !== "superAdmin" &&
-                    data?.access && (
-                      <>
-                        {active !== 3 && (
-                          <div>
-                            <Button
-                              variant="contained"
-                              size="large"
-                              sx={{
-                                color: "white",
-                                fontSize: "20px",
-                              }}
-                              onClick={() => setOpen(true)}
-                            >
-                              <CalculateIcon />
-                              {t("calc")}
-                            </Button>
-                          </div>
-                        )}
-                      </>
-                    )}
-                  {filterOn && active == 1 ? (
-                    <ItemField
-                      data={data}
-                      handleChangeData={handleChangeData}
-                      values={changedData}
-                    />
-                  ) : filterOn && active == 3 ? (
-                    <ItemField3
-                      data={data}
-                      handleChangeData={handleChangeData}
-                      values={changedData}
-                    />
-                  ) : filterOn && active == 2 ? (
-                    <ItemField2
-                      data={data}
-                      handleChangeData={handleChangeData}
-                      values={changedData}
-                    />
-                  ) : null}
-                </>
-              )}
-              {filterOn && (
-                <Box mt={3} mb={3}>
-                  <Button
-                    variant="outlined"
-                    fullWidth
-                    onClick={handleEditChanges}
-                  >
-                    {t("savechanges")}
-                  </Button>
-                </Box>
-              )}
-            </>
-          )}
-          {isSuper !== "superAdmin" && !data?.access && (
+                )}
+              </>
+            )}
+          {isSuper !== "owner" && isSuper !== "superAdmin" && !data?.access && (
             <Box
               sx={{
                 width: "100vh",
@@ -390,39 +287,48 @@ const Single = () => {
               <h1 style={{ color: "#21726A" }}>{t("block")}</h1>
             </Box>
           )}
-          {isSuper !== "superAdmin" && data?.access && (
-            <>
-              {data &&
-                (active == 1 ? (
-                  <ItemField
-                    data={data}
-                    handleChangeData={handleChangeData}
-                    values={changedData}
-                  />
-                ) : active == 3 ? (
-                  <ItemField3
-                    data={data}
-                    handleChangeData={handleChangeData}
-                    values={changedData}
-                  />
-                ) : active == 2 ? (
-                  <ItemField2
-                    data={data}
-                    handleChangeData={handleChangeData}
-                    values={changedData}
-                  />
-                ) : null)}
-              <Box mt={3} mb={3}>
-                <Button
-                  variant="outlined"
-                  fullWidth
-                  onClick={handleEditChanges}
-                >
-                  {t("savechanges")}
-                </Button>
-              </Box>
-            </>
-          )}
+          {(isSuper !== "owner" || isSuper !== "superAdmin") &&
+            data?.access && (
+              <>
+                {data &&
+                  (active == 1
+                    ? filterOn && (
+                        <ItemField
+                          data={data}
+                          handleChangeData={handleChangeData}
+                          values={changedData}
+                        />
+                      )
+                    : active == 3
+                    ? filterOn && (
+                        <ItemField3
+                          data={data}
+                          handleChangeData={handleChangeData}
+                          values={changedData}
+                        />
+                      )
+                    : active == 2
+                    ? filterOn && (
+                        <ItemField2
+                          data={data}
+                          handleChangeData={handleChangeData}
+                          values={changedData}
+                        />
+                      )
+                    : null)}
+                <Box mt={3} mb={3}>
+                  {filterOn && (
+                    <Button
+                      variant="outlined"
+                      fullWidth
+                      onClick={handleEditChanges}
+                    >
+                      {t("savechanges")}
+                    </Button>
+                  )}
+                </Box>
+              </>
+            )}
         </Grid>
       </Grid>
       {active == 1 ? (

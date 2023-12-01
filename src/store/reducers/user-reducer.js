@@ -30,6 +30,7 @@ import {
   GET_BOXES_INFO,
   GET_ITEM_INFO,
   GET_BOX_INFO,
+  ADD_BOX,
 } from "../types";
 
 const initialState = {
@@ -114,6 +115,11 @@ export const userReducer = (state = initialState, action) => {
         item.id === id ? { ...item, name, geolocation } : item
       );
       return { ...state, boxes: updatedItems };
+    case ADD_BOX:
+      return {
+        ...state,
+        boxes: [...state.boxes, action.payload],
+      };
     case GET_SINGLE_OWNER:
       let singleOwner = state.single?.Owners?.filter(
         (i) => i.id == action.payload

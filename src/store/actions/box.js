@@ -1,6 +1,7 @@
 import axios from "axios";
 import { keys } from "../../keys";
 import {
+  ADD_BOX,
   ADD_BOX_EXSPENSE,
   DESTROY_BOX_EXSPENSE,
   EDIT_BOX_EXSPENSES,
@@ -70,6 +71,35 @@ export const addBoxExpenses = (data) => {
         if (response.data.succes) {
           dispatch({
             type: ADD_BOX_EXSPENSE,
+            payload: response.data.data,
+          });
+          Swal.fire({
+            position: "center",
+            iconColor: "#21726A",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+export const addBox = (data) => {
+  return (dispatch) => {
+    axios
+      .post(`${keys.api}/box`, data, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+      })
+      .then((response) => {
+        if (response.data.succes) {
+          dispatch({
+            type: ADD_BOX,
             payload: response.data.data,
           });
           Swal.fire({
