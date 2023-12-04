@@ -17,6 +17,7 @@ import {
   getItemInfoPrcent,
   getItemSingle,
   getSingleInfo,
+  getSingleLinear,
   getSingleOwners,
   getSingleUser,
 } from "../../store/actions/users-action";
@@ -48,6 +49,7 @@ import Calculator2 from "../../components/claculator/Calculator2";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import GoBack from "../../components/goBack/GoBack";
+import LineChart from "../../components/graphics/LineChart";
 
 const Single = () => {
   const { t } = useTranslation();
@@ -70,10 +72,10 @@ const Single = () => {
   const dates = useSelector((state) => state.user.dates);
   const filtredDates = useSelector((state) => state.user.filtredDates);
   const itemInfo = useSelector((state) => state.user.itemIinfo);
+  const singleLinear = useSelector((state) => state.user.singleLinear);
   const itemInfoCalc = useSelector((state) => state.user.calcData);
   const itemInfoCalc2 = useSelector((state) => state.user.calcData2);
   const singleInfo = useSelector((state) => state.user.singleInfo);
-  const itemCurrentValue = useSelector((state) => state.user.currentValues);
   const prcemt = useSelector((state) => state.user.infoPrcent);
   useEffect(() => {
     // dispatch(getSingleUser(user_id));
@@ -87,6 +89,11 @@ const Single = () => {
     dispatch(getItemDates(single));
     dispatch(
       getSingleInfo({
+        ownerId: single,
+      })
+    );
+    dispatch(
+      getSingleLinear({
         ownerId: single,
       })
     );
@@ -116,7 +123,6 @@ const Single = () => {
       behavior: "smooth",
     });
   };
-
   return (
     <Box p={2}>
       <Box p={2}>
@@ -172,36 +178,66 @@ const Single = () => {
               <>
                 {data && (
                   <>
-                    <DonutChart
-                      benefit={100 - singleInfo?.ratio}
-                      expenses={singleInfo?.ratio}
-                      expensesValue={singleInfo?.expense}
-                      benefitValue={singleInfo?.benefit}
-                      countryId={owner?.countryId}
-                      openStatistics={null}
-                      singleId={null}
-                      show={false}
-                    />
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          width: "50%",
+                        }}
+                      >
+                        <DonutChart
+                          benefit={100 - singleInfo?.ratio}
+                          expenses={singleInfo?.ratio}
+                          expensesValue={singleInfo?.expense}
+                          benefitValue={singleInfo?.benefit}
+                          countryId={owner?.countryId}
+                          openStatistics={null}
+                          singleId={null}
+                          show={false}
+                        />
+                      </Box>
+                      <Box
+                        sx={{
+                          width: "50%",
+                        }}
+                      >
+                        <LineChart
+                          benefit={singleLinear?.map((i) => {
+                            return i.result;
+                          })}
+                          expense={singleLinear?.map((i) => {
+                            return i.caxs;
+                          })}
+                          all={singleLinear?.map((i) => {
+                            return i.all;
+                          })}
+                        />
+                      </Box>
+                    </Box>
                     {(isSuper == "owner" || isSuper == "superAdmin") && (
-                        <>
-                          {active !== 3 && (
-                            <div>
-                              <Button
-                                variant="contained"
-                                size="large"
-                                sx={{
-                                  color: "white",
-                                  fontSize: "20px",
-                                }}
-                                onClick={() => setOpen(true)}
-                              >
-                                <CalculateIcon />
-                                {t("calc")}
-                              </Button>
-                            </div>
-                          )}
-                        </>
-                      )}
+                      <>
+                        {active !== 3 && (
+                          <div>
+                            <Button
+                              variant="contained"
+                              size="large"
+                              sx={{
+                                color: "white",
+                                fontSize: "20px",
+                              }}
+                              onClick={() => setOpen(true)}
+                            >
+                              <CalculateIcon />
+                              {t("calc")}
+                            </Button>
+                          </div>
+                        )}
+                      </>
+                    )}
                     <Box mt={2}>
                       <Button
                         variant="contained"

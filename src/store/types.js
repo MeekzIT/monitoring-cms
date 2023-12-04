@@ -47,3 +47,4 @@ export const GET_INFO_BOX = "GET_INFO_BOX";
 export const GET_BOXES_INFO = "GET_BOXES_INFO";
 export const GET_BOX_INFO = "GET_BOX_INFO";
 export const GET_ITEM_INFO = "GET_ITEM_INFO";
+export const GET_ITEM_LINEAR = "GET_ITEM_LINEAR";

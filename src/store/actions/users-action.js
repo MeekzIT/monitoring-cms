@@ -22,6 +22,7 @@ import {
   GET_ITEM_CURRENT,
   GET_ITEM_DAYS,
   GET_ITEM_INFO,
+  GET_ITEM_LINEAR,
   GET_OWNERS_OF_USER,
   GET_SINGLE_BOX,
   GET_SINGLE_ITEM,
@@ -661,6 +662,27 @@ export const getSingleInfo = (data) => {
       .then((response) => {
         dispatch({
           type: GET_ITEM_INFO,
+          payload: response.data.data,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+export const getSingleLinear = (data) => {
+  return (dispatch) => {
+    axios
+      .get(`${keys.api}/owner/get-item-days`, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+        params: data,
+      })
+      .then((response) => {
+        dispatch({
+          type: GET_ITEM_LINEAR,
           payload: response.data.data,
         });
       })
