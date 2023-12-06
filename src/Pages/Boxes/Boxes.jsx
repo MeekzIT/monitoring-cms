@@ -19,6 +19,7 @@ import { useEffect, useState } from "react";
 import {
   changeBoxSettings,
   getBoxInfo,
+  getBoxLinear,
   getBoxes,
   getBoxesInfo,
   getItemInfoBenefits,
@@ -69,6 +70,7 @@ const Boxes = () => {
   const boxInfo = useSelector((state) => state.user.boxInfo);
   const boxesInfo = useSelector((state) => state.user.boxesInfo);
   const boxExpernses = useSelector((state) => state.user.boxExpernses);
+  const boxLinear = useSelector((state) => state.user.boxLinear);
   const [open, setOpen] = useState(false);
   const [openStatistics, setOpenStatistics] = useState(false);
   const [openSettings, setOpenSettings] = useState(false);
@@ -121,6 +123,11 @@ const Boxes = () => {
     );
     dispatch(
       getBoxesInfo({
+        ownerId: id,
+      })
+    );
+    dispatch(
+      getBoxLinear({
         ownerId: id,
       })
     );
@@ -185,7 +192,17 @@ const Boxes = () => {
               width: "50%",
             }}
           >
-            <LineChart />
+            <LineChart
+              benefit={boxLinear?.map((i) => {
+                return i.result;
+              })}
+              expense={boxLinear?.map((i) => {
+                return i.caxs;
+              })}
+              all={boxLinear?.map((i) => {
+                return i.all;
+              })}
+            />
           </Box>
         </Box>
         <hr />

@@ -19,6 +19,7 @@ import { USERS_PAGE, ADMINS_PAGE, BOXES_PAGE } from "../../routing/pats";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import {
+  getBoxLinear,
   getBoxes,
   getSingleBoxInfo,
   getSingleOwners,
@@ -59,7 +60,7 @@ const Items = () => {
   const owner = useSelector((state) => state.user.owner);
   const items = useSelector((state) => state.user.items);
   const isSuper = useSelector((state) => state.auth.isSuper);
-
+  const boxLinear = useSelector((state) => state.user.boxLinear);
   const location = useLocation();
   const [info, setInfo] = useState(null);
   const [openAdd, setOpenAdd] = useState(false);
@@ -94,6 +95,12 @@ const Items = () => {
   useEffect(() => {
     dispatch(
       getSingleBoxInfo({
+        ownerId: id,
+        boxId: box_id,
+      })
+    );
+    dispatch(
+      getBoxLinear({
         ownerId: id,
         boxId: box_id,
       })
@@ -140,7 +147,17 @@ const Items = () => {
             width: "50%",
           }}
         >
-          <LineChart />
+          <LineChart
+            benefit={boxLinear?.map((i) => {
+              return i.result;
+            })}
+            expense={boxLinear?.map((i) => {
+              return i.caxs;
+            })}
+            all={boxLinear?.map((i) => {
+              return i.all;
+            })}
+          />
         </Box>
       </Box>
 

@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useEffect, useState } from "react";
 import {
+  getBoxLinear,
   getBoxes,
   getBoxesInfo,
   getSingleBoxInfo,
@@ -44,13 +45,12 @@ const Items = () => {
   const dispatch = useDispatch();
   const isMobile = useIsMobile();
   const location = useLocation();
-  const [info, setInfo] = useState(null);
   const user = useSelector((state) => state.user.single);
   const owner = useSelector((state) => state.user.owner);
   const items = useSelector((state) => state.user.items);
   const isSuper = useSelector((state) => state.auth.isSuper);
-  const boxesInfo = useSelector((state) => state.user.boxesInfo);
   const singleBoxInfo = useSelector((state) => state.user.singleBoxInfo);
+  const boxLinear = useSelector((state) => state.user.boxLinear);
   const [openStatistics, setOpenStatistics] = useState(false);
   const [expand, setExpand] = useState(false);
   const handleNested = (id) => {
@@ -83,15 +83,23 @@ const Items = () => {
         boxId: id,
       })
     );
+    dispatch(
+      getBoxLinear({
+        ownerId: owner_id,
+        boxId: id,
+      })
+    );
     dispatch(getSingleUser(user_id));
     dispatch(getBoxes(owner_id, id));
   }, []);
 
   useEffect(() => {
     user && dispatch(getSingleOwners(id));
-    // boxesInfo.length && setInfo(boxesInfo[0]);
   }, [user]);
-
+  console.log(
+    boxLinear,
+    "boxLinearboxLinearboxLinearboxLinearboxLinearboxLinearboxLinear"
+  );
   return (
     <div>
       <Box m={2}>
@@ -125,7 +133,17 @@ const Items = () => {
             width: "50%",
           }}
         >
-          <LineChart />
+          <LineChart
+            benefit={boxLinear?.map((i) => {
+              return i.result;
+            })}
+            expense={boxLinear?.map((i) => {
+              return i.caxs;
+            })}
+            all={boxLinear?.map((i) => {
+              return i.all;
+            })}
+          />
         </Box>
       </Box>
 

@@ -6,7 +6,6 @@ import { useIsMobile } from "../../hooks/useScreenType";
 const LineChart = ({ benefit, expense, all }) => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
-  console.log(benefit, expense, all, "datadata");
   function getDaysInCurrentMonth() {
     // Get current date
     const currentDate = new Date();
@@ -45,21 +44,7 @@ const LineChart = ({ benefit, expense, all }) => {
     return daysAndMonthsArray;
   }
   const days = getDaysInCurrentMonth();
-  console.log(days);
   const chartData = {
-    // options: {
-    //   xaxis: {
-    //     categories: getDaysInCurrentMonth(),
-    //   },
-    //   yaxis: {
-    //     title: {
-    //       text: "Expenses",
-    //     },
-    //   },
-    //   legend: {
-    //     position: "top",
-    //   },
-    // },
     series: [
       {
         name: "benefit",
@@ -74,20 +59,6 @@ const LineChart = ({ benefit, expense, all }) => {
         data: all,
       },
     ],
-    // series: [
-    //   {
-    //     name: "Benefit",
-    //     data: [45, 52, 38, 24, 33, 26, 21, 20, 6, 8, 15, 10],
-    //   },
-    //   {
-    //     name: "Expenses",
-    //     data: [35, 41, 62, 42, 13, 18, 29, 37, 36, 51, 32, 35],
-    //   },
-    //   {
-    //     name: "All",
-    //     data: [87, 57, 74, 99, 75, 38, 62, 47, 82, 56, 45, 47],
-    //   },
-    // ],
     options: {
       chart: {
         height: 350,

@@ -18,6 +18,7 @@ import {
   getSingleBox,
   getBoxInfo,
   getBoxesInfo,
+  getBoxLinear,
 } from "../../store/actions/users-action";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -71,7 +72,7 @@ const OwnerBoxes = () => {
   const boxInfo = useSelector((state) => state.user.boxInfo);
   const boxesInfo = useSelector((state) => state.user.boxesInfo);
   const boxExpernses = useSelector((state) => state.user.boxExpernses);
-
+  const boxLinear = useSelector((state) => state.user.boxLinear);
   const [open, setOpen] = useState(false);
   const [addField, setAddField] = useState(false);
   const [addedFieldValueName, setAddedFieldValueName] = useState("");
@@ -107,6 +108,11 @@ const OwnerBoxes = () => {
     );
     dispatch(
       getBoxesInfo({
+        ownerId: owner?.deviceOwner,
+      })
+    );
+    dispatch(
+      getBoxLinear({
         ownerId: owner?.deviceOwner,
       })
     );
@@ -150,7 +156,17 @@ const OwnerBoxes = () => {
               width: "50%",
             }}
           >
-            <LineChart />
+            <LineChart
+              benefit={boxLinear?.map((i) => {
+                return i.result;
+              })}
+              expense={boxLinear?.map((i) => {
+                return i.caxs;
+              })}
+              all={boxLinear?.map((i) => {
+                return i.all;
+              })}
+            />
           </Box>
         </Box>
         <hr />

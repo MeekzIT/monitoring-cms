@@ -10,6 +10,7 @@ import {
   GET_BOXES,
   GET_BOXES_INFO,
   GET_BOX_INFO,
+  GET_BOX_LINEAR,
   GET_CALC_INFO,
   GET_CALC_INFO2,
   GET_FILTRED_DATA,
@@ -683,6 +684,27 @@ export const getSingleLinear = (data) => {
       .then((response) => {
         dispatch({
           type: GET_ITEM_LINEAR,
+          payload: response.data.data,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+export const getBoxLinear = (data) => {
+  return (dispatch) => {
+    axios
+      .get(`${keys.api}/owner/get-box-days`, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+        params: data,
+      })
+      .then((response) => {
+        dispatch({
+          type: GET_BOX_LINEAR,
           payload: response.data.data,
         });
       })
