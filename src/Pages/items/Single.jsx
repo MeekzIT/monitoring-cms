@@ -28,16 +28,10 @@ import {
   Typography,
   FormControlLabel,
   Switch,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
+
 } from "@mui/material";
-import ItemFilters from "./ItemFilters";
 import { compareWithUTC } from "../../hooks/helpers";
 import CalculateIcon from "@mui/icons-material/Calculate";
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import DeleteIcon from "@mui/icons-material/Delete";
 import LockIcon from "@mui/icons-material/Lock";
 import DonutChart from "../../components/graphics/Dount";
 import { changeItemActivity } from "../../store/actions/auth-action";
@@ -50,6 +44,11 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import GoBack from "../../components/goBack/GoBack";
 import LineChart from "../../components/graphics/LineChart";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 
 const Single = () => {
   const { t } = useTranslation();
@@ -64,7 +63,7 @@ const Single = () => {
   const [filterOn, setFilterOn] = useState(false);
   const [changedData, setChangedData] = useState({});
   const [access, setAccess] = useState();
-
+  const [selectedDate, handleDateChange] = useState();
   const data = useSelector((state) => state.user.singleItem);
   const isSuper = useSelector((state) => state.auth.isSuper);
   const user = useSelector((state) => state.user.single);
@@ -202,9 +201,28 @@ const Single = () => {
                       </Box>
                       <Box
                         sx={{
-                          width: "50%",
+                          width: "45%",
+                          padding: "0 10px",
                         }}
                       >
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                          <DemoContainer
+                            components={[
+                              "DatePicker",
+                              "DatePicker",
+                              "DatePicker",
+                            ]}
+                          >
+                            <DatePicker
+                              label={"date"}
+                              views={["month", "year"]}
+                              format="YYYY-MM"
+                              onChange={(date) =>
+                                handleDateChange(dayjs(date).format("YYYY-MM"))
+                              }
+                            />
+                          </DemoContainer>
+                        </LocalizationProvider>
                         <LineChart
                           benefit={singleLinear?.map((i) => {
                             return i.result;

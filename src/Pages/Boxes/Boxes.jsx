@@ -56,6 +56,11 @@ import { getCurrency } from "../../hooks/helpers";
 import GoBack from "../../components/goBack/GoBack";
 import LineChart from "../../components/graphics/LineChart";
 import GenerateModal from "../../components/generateModal/GenerateModal";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 
 const Boxes = () => {
   const { id, user_id, owner: ownerParam } = useParams();
@@ -83,6 +88,7 @@ const Boxes = () => {
   const [addedFieldValueName, setAddedFieldValueName] = useState("");
   const [addedFieldValuePrice, setAddedFieldValuePrice] = useState("");
   const [nameExpenses, setNameExpenses] = useState("");
+  const [selectedDate, handleDateChange] = useState();
   const [price, setPrice] = useState("");
   const [single, setSingle] = useState(null);
   const [showRows, setShowRows] = useState(false);
@@ -129,9 +135,10 @@ const Boxes = () => {
     dispatch(
       getBoxLinear({
         ownerId: id,
+        date: selectedDate,
       })
     );
-  }, []);
+  }, [selectedDate]);
 
   useEffect(() => {
     user && dispatch(getSingleOwners(id));
@@ -150,6 +157,10 @@ const Boxes = () => {
     single !== null && setInfo(boxesInfo?.filter((i) => i.box.id == single)[0]);
     single !== null && setShowRows(true);
   }, [single]);
+  console.log(
+    selectedDate,
+    "selectedDateselectedDateselectedDateselectedDateselectedDate"
+  );
   return (
     <div>
       <Box m={3}>
@@ -189,9 +200,24 @@ const Boxes = () => {
           </Box>
           <Box
             sx={{
-              width: "50%",
+              width: "45%",
+              padding: "0 10px",
             }}
           >
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer
+                components={["DatePicker", "DatePicker", "DatePicker"]}
+              >
+                <DatePicker
+                  label={"date"}
+                  views={["month", "year"]}
+                  format="YYYY-MM"
+                  onChange={(date) =>
+                    handleDateChange(dayjs(date).format("YYYY-MM"))
+                  }
+                />
+              </DemoContainer>
+            </LocalizationProvider>
             <LineChart
               benefit={boxLinear?.map((i) => {
                 return i.result;

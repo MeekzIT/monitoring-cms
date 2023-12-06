@@ -36,6 +36,11 @@ import { getCurrency } from "../../hooks/helpers";
 import TableHead from "@mui/material/TableHead";
 import GoBack from "../../components/goBack/GoBack";
 import LineChart from "../../components/graphics/LineChart";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 
 const Items = () => {
   const { t } = useTranslation();
@@ -53,6 +58,8 @@ const Items = () => {
   const boxLinear = useSelector((state) => state.user.boxLinear);
   const [openStatistics, setOpenStatistics] = useState(false);
   const [expand, setExpand] = useState(false);
+  const [selectedDate, handleDateChange] = useState();
+
   const handleNested = (id) => {
     if (typeof expand == "boolean") {
       setExpand(id);
@@ -130,9 +137,24 @@ const Items = () => {
         </Box>
         <Box
           sx={{
-            width: "50%",
+            width: "45%",
+            padding: "0 10px",
           }}
         >
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer
+              components={["DatePicker", "DatePicker", "DatePicker"]}
+            >
+              <DatePicker
+                label={"date"}
+                views={["month", "year"]}
+                format="YYYY-MM"
+                onChange={(date) =>
+                  handleDateChange(dayjs(date).format("YYYY-MM"))
+                }
+              />
+            </DemoContainer>
+          </LocalizationProvider>
           <LineChart
             benefit={boxLinear?.map((i) => {
               return i.result;

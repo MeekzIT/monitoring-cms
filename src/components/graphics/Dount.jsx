@@ -65,6 +65,9 @@ const DonutChart = ({
           },
         },
       },
+      tooltip: {
+        enabled: false, // Set this to false to disable tooltips
+      },
       responsive: [
         {
           breakpoint: 480,
