@@ -323,7 +323,7 @@ const Single = () => {
               <h1 style={{ color: "#21726A" }}>{t("block")}</h1>
             </Box>
           )}
-          {(isSuper !== "owner" || isSuper !== "superAdmin") &&
+          {/* {(isSuper !== "owner" || isSuper !== "superAdmin") &&
             data?.access && (
               <>
                 {data &&
@@ -364,7 +364,7 @@ const Single = () => {
                   )}
                 </Box>
               </>
-            )}
+            )} */}
         </Grid>
       </Grid>
       {active == 1 ? (

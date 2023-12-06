@@ -26,6 +26,7 @@ import {
   editItemInfo,
   getItemInfoCalc,
 } from "../../store/actions/users-action";
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import DoubleField from "../changeField/DoubleField";
 import ChangeSelect from "../changeField/ChangedSelect";
 import { useParams } from "react-router-dom";
@@ -152,6 +153,9 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
                         <TableCell align="left">
                           <TimelapseIcon sx={{ color: "#21726A" }} />
                         </TableCell>
+                        <TableCell align="left">
+                          <PlayCircleIcon sx={{ color: "#21726A" }} />
+                        </TableCell>
                         <TableCell align="right">{t("settings")}</TableCell>
                       </TableRow>
                     </TableHead>
@@ -170,6 +174,7 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
                           <TableCell align="left">{row.electric}</TableCell>
                           <TableCell align="left">{row.modeValue}</TableCell>
                           <TableCell align="left">{row.seconds}</TableCell>
+                          <TableCell align="left">{row.used}</TableCell>
                           <TableCell align="right">
                             <Button
                               variant="outlined"

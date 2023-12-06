@@ -43,10 +43,10 @@ const DonutChart = ({
         },
       },
       labels: [
-        `Benefit ${benefitValue} ${
+        `Benefit ${Math.abs(benefitValue)} ${
           show !== false ? getCurrency(countryId) : ""
         }`,
-        `Expenses ${expensesValue} ${
+        `Expenses ${Math.abs(expensesValue)} ${
           show !== false ? getCurrency(countryId) : ""
         }`,
       ],
@@ -82,7 +82,7 @@ const DonutChart = ({
     dataLabels: {
       enabled: true,
     },
-    series: [benefit, expenses],
+    series: [Math.abs(benefit), Math.abs(expenses)],
     // colors: ["red", "#ff6384", "#36a2eb"],
   };
   return (
@@ -118,7 +118,7 @@ const DonutChart = ({
         >
           <CircleIcon sx={{ color: "red", fontSize: "16px" }} />
           <Typography variant="h6" component="h2">
-            All {benefitValue + expensesValue}
+            All {Math.abs(benefitValue) + Math.abs(expensesValue)}
             {show !== false ? getCurrency(countryId) : ""}
           </Typography>
         </div>
