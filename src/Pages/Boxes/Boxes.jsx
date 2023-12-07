@@ -89,6 +89,7 @@ const Boxes = () => {
   const [addedFieldValuePrice, setAddedFieldValuePrice] = useState("");
   const [nameExpenses, setNameExpenses] = useState("");
   const [selectedDate, handleDateChange] = useState();
+  const [dountDate, handleDountDateChange] = useState();
   const [price, setPrice] = useState("");
   const [single, setSingle] = useState(null);
   const [showRows, setShowRows] = useState(false);
@@ -130,6 +131,7 @@ const Boxes = () => {
     dispatch(
       getBoxesInfo({
         ownerId: id,
+        date: dountDate,
       })
     );
     dispatch(
@@ -138,7 +140,7 @@ const Boxes = () => {
         date: selectedDate,
       })
     );
-  }, [selectedDate]);
+  }, [selectedDate, dountDate]);
 
   useEffect(() => {
     user && dispatch(getSingleOwners(id));
@@ -157,10 +159,7 @@ const Boxes = () => {
     single !== null && setInfo(boxesInfo?.filter((i) => i.box.id == single)[0]);
     single !== null && setShowRows(true);
   }, [single]);
-  console.log(
-    selectedDate,
-    "selectedDateselectedDateselectedDateselectedDateselectedDate"
-  );
+
   return (
     <div>
       <Box m={3}>
@@ -183,9 +182,21 @@ const Boxes = () => {
         >
           <Box
             sx={{
-              width: "50%",
+              width: "45%",
+              padding: "0 10px",
             }}
           >
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={["DatePicker"]}>
+                <DatePicker
+                  label="date"
+                  format="YYYY-MM-DD"
+                  onChange={(date) =>
+                    handleDountDateChange(dayjs(date).format("YYYY-MM-DD"))
+                  }
+                />
+              </DemoContainer>
+            </LocalizationProvider>
             <DonutChart
               benefit={100 - boxInfo?.ratio}
               expenses={boxInfo?.ratio}

@@ -51,6 +51,11 @@ import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 import { getCurrency } from "../../hooks/helpers";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AddIcon from "@mui/icons-material/Add";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 const style = {
   position: "absolute",
   top: "50%",
@@ -91,6 +96,8 @@ const OwnerBoxes = () => {
   const [showRows, setShowRows] = useState(false);
   const [info, setInfo] = useState(null);
   const [expand, setExpand] = useState(false);
+  const [selectedDate, handleDateChange] = useState();
+  const [dountDate, handleDountDateChange] = useState();
   const handleNested = (id) => {
     if (typeof expand == "boolean") {
       setExpand(id);
@@ -109,14 +116,16 @@ const OwnerBoxes = () => {
     dispatch(
       getBoxesInfo({
         ownerId: owner?.deviceOwner,
+        date: dountDate,
       })
     );
     dispatch(
       getBoxLinear({
         ownerId: owner?.deviceOwner,
+        date: selectedDate,
       })
     );
-  }, [owner]);
+  }, [owner, selectedDate, dountDate]);
   return (
     <div>
       <Box m={3}>
@@ -136,9 +145,21 @@ const OwnerBoxes = () => {
         >
           <Box
             sx={{
-              width: "50%",
+              width: "45%",
+              padding: "0 10px",
             }}
           >
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={["DatePicker"]}>
+                <DatePicker
+                  label="date"
+                  format="YYYY-MM-DD"
+                  onChange={(date) =>
+                    handleDountDateChange(dayjs(date).format("YYYY-MM-DD"))
+                  }
+                />
+              </DemoContainer>
+            </LocalizationProvider>
             <DonutChart
               benefit={100 - boxInfo?.ratio}
               expenses={boxInfo?.ratio}
@@ -153,9 +174,24 @@ const OwnerBoxes = () => {
           </Box>
           <Box
             sx={{
-              width: "50%",
+              width: "45%",
+              padding: "0 10px",
             }}
           >
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer
+                components={["DatePicker", "DatePicker", "DatePicker"]}
+              >
+                <DatePicker
+                  label={"date"}
+                  views={["month", "year"]}
+                  format="YYYY-MM"
+                  onChange={(date) =>
+                    handleDateChange(dayjs(date).format("YYYY-MM"))
+                  }
+                />
+              </DemoContainer>
+            </LocalizationProvider>
             <LineChart
               benefit={boxLinear?.map((i) => {
                 return i.result;

@@ -48,7 +48,11 @@ import ElectricBoltIcon from "@mui/icons-material/ElectricBolt";
 import BubbleChartIcon from "@mui/icons-material/BubbleChart";
 import TimelapseIcon from "@mui/icons-material/Timelapse";
 import CalculateIcon from "@mui/icons-material/Calculate";
-
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 const Items = () => {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -63,8 +67,8 @@ const Items = () => {
   const boxLinear = useSelector((state) => state.user.boxLinear);
   const location = useLocation();
   const [info, setInfo] = useState(null);
-  const [openAdd, setOpenAdd] = useState(false);
-  const [openGenerate, setOpenGenerate] = useState(false);
+  const [selectedDate, handleDateChange] = useState();
+  const [dountDate, handleDountDateChange] = useState();
   const boxesInfo = useSelector((state) => state.user.boxesInfo);
   const singleBoxInfo = useSelector((state) => state.user.singleBoxInfo);
   const [openStatistics, setOpenStatistics] = useState(false);
@@ -97,12 +101,14 @@ const Items = () => {
       getSingleBoxInfo({
         ownerId: id,
         boxId: box_id,
+        date: dountDate,
       })
     );
     dispatch(
       getBoxLinear({
         ownerId: id,
         boxId: box_id,
+        date: selectedDate,
       })
     );
     // dispatch(getSingleUser(user_id));
@@ -112,7 +118,7 @@ const Items = () => {
   useEffect(() => {
     user && dispatch(getSingleOwners(id));
     // boxesInfo.length && setInfo(boxesInfo[0]);
-  }, [user]);
+  }, [user, selectedDate, dountDate]);
 
   return (
     <div>
@@ -128,9 +134,21 @@ const Items = () => {
       >
         <Box
           sx={{
-            width: "50%",
+            width: "45%",
+            padding: "0 10px",
           }}
         >
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={["DatePicker"]}>
+              <DatePicker
+                label="date"
+                format="YYYY-MM-DD"
+                onChange={(date) =>
+                  handleDountDateChange(dayjs(date).format("YYYY-MM-DD"))
+                }
+              />
+            </DemoContainer>
+          </LocalizationProvider>
           <DonutChart
             benefit={100 - singleBoxInfo?.ratio}
             expenses={singleBoxInfo?.ratio}
@@ -144,9 +162,24 @@ const Items = () => {
         </Box>
         <Box
           sx={{
-            width: "50%",
+            width: "45%",
+            padding: "0 10px",
           }}
         >
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer
+              components={["DatePicker", "DatePicker", "DatePicker"]}
+            >
+              <DatePicker
+                label={"date"}
+                views={["month", "year"]}
+                format="YYYY-MM"
+                onChange={(date) =>
+                  handleDateChange(dayjs(date).format("YYYY-MM"))
+                }
+              />
+            </DemoContainer>
+          </LocalizationProvider>
           <LineChart
             benefit={boxLinear?.map((i) => {
               return i.result;

@@ -28,7 +28,6 @@ import {
   Typography,
   FormControlLabel,
   Switch,
-
 } from "@mui/material";
 import { compareWithUTC } from "../../hooks/helpers";
 import CalculateIcon from "@mui/icons-material/Calculate";
@@ -64,6 +63,7 @@ const Single = () => {
   const [changedData, setChangedData] = useState({});
   const [access, setAccess] = useState();
   const [selectedDate, handleDateChange] = useState();
+  const [dountDate, handleDountDateChange] = useState();
   const data = useSelector((state) => state.user.singleItem);
   const isSuper = useSelector((state) => state.auth.isSuper);
   const user = useSelector((state) => state.user.single);
@@ -89,11 +89,13 @@ const Single = () => {
     dispatch(
       getSingleInfo({
         ownerId: single,
+        date: dountDate,
       })
     );
     dispatch(
       getSingleLinear({
         ownerId: single,
+        date: selectedDate,
       })
     );
     if (active == 1) {
@@ -101,7 +103,7 @@ const Single = () => {
     } else if (active == 2) {
       dispatch(getItemInfoCalc2(single));
     }
-  }, [access]);
+  }, [access, selectedDate, dountDate]);
 
   useEffect(() => {
     user && dispatch(getSingleOwners(id));
@@ -185,9 +187,23 @@ const Single = () => {
                     >
                       <Box
                         sx={{
-                          width: "50%",
+                          width: "45%",
+                          padding: "0 10px",
                         }}
                       >
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                          <DemoContainer components={["DatePicker"]}>
+                            <DatePicker
+                              label="date"
+                              format="YYYY-MM-DD"
+                              onChange={(date) =>
+                                handleDountDateChange(
+                                  dayjs(date).format("YYYY-MM-DD")
+                                )
+                              }
+                            />
+                          </DemoContainer>
+                        </LocalizationProvider>
                         <DonutChart
                           benefit={100 - singleInfo?.ratio}
                           expenses={singleInfo?.ratio}
