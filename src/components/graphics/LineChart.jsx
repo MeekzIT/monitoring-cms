@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Chart from "react-apexcharts";
 import { useTranslation } from "react-i18next";
 import { useIsMobile } from "../../hooks/useScreenType";
 
-const LineChart = ({ benefit, expense, all }) => {
+const LineChart = ({ benefit, expense, all, mont }) => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
-  function getDaysInCurrentMonth() {
-    // Get current date
-    const currentDate = new Date();
+  function getDaysInGivenMonth(givenMonth) {
+    console.log(
+      givenMonth,
+      "1111111111111111111111111111111111111111111111111111111111111111111"
+    );
+    // Use the current date if givenMonth is undefined
+    const currentDate = givenMonth
+      ? new Date(new Date().getFullYear(), parseInt(givenMonth, 10), 1)
+      : new Date();
 
     // Get the year and month
     const year = currentDate.getFullYear();
@@ -19,31 +25,36 @@ const LineChart = ({ benefit, expense, all }) => {
 
     // Generate an array of strings in the format "DD Mon" for each day in the month
     const daysAndMonthsArray = [];
-    const monthNames = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
+    // const monthNames = [
+    //   "Jan",
+    //   "Feb",
+    //   "Mar",
+    //   "Apr",
+    //   "May",
+    //   "Jun",
+    //   "Jul",
+    //   "Aug",
+    //   "Sep",
+    //   "Oct",
+    //   "Nov",
+    //   "Dec",
+    // ];
 
     for (let day = 1; day <= lastDayOfMonth.getDate(); day++) {
-      const formattedDate = `${(day < 10 ? "0" : "") + day.toString()} ${
-        monthNames[month - 1]
-      }`;
+      const formattedDate = `${(day < 10 ? "0" : "") + day.toString()}`;
       daysAndMonthsArray.push(formattedDate);
     }
 
     return daysAndMonthsArray;
   }
-  const days = getDaysInCurrentMonth();
+
+  const days = useMemo(() => {
+    return mont !== undefined
+      ? getDaysInGivenMonth(11)
+      : getDaysInGivenMonth(11);
+  }, [mont]);
+  console.log(mont?.slice(5, 8), days, "montmontmontmontmontmontmont");
+
   const chartData = {
     series: [
       {

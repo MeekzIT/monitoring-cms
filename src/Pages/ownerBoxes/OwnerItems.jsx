@@ -69,6 +69,7 @@ const Items = () => {
   const [info, setInfo] = useState(null);
   const [selectedDate, handleDateChange] = useState();
   const [dountDate, handleDountDateChange] = useState();
+  const [dountDate2, handleDountDateChange2] = useState();
   const boxesInfo = useSelector((state) => state.user.boxesInfo);
   const singleBoxInfo = useSelector((state) => state.user.singleBoxInfo);
   const [openStatistics, setOpenStatistics] = useState(false);
@@ -138,17 +139,30 @@ const Items = () => {
             padding: "0 10px",
           }}
         >
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer components={["DatePicker"]}>
-              <DatePicker
-                label="date"
-                format="YYYY-MM-DD"
-                onChange={(date) =>
-                  handleDountDateChange(dayjs(date).format("YYYY-MM-DD"))
-                }
-              />
-            </DemoContainer>
-          </LocalizationProvider>
+          <Box style={{ display: "flex", gap: "10px" }}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={["DatePicker"]}>
+                <DatePicker
+                  label="start"
+                  format="YYYY-MM-DD"
+                  onChange={(date) =>
+                    handleDountDateChange(dayjs(date).format("YYYY-MM-DD"))
+                  }
+                />
+              </DemoContainer>
+            </LocalizationProvider>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={["DatePicker"]}>
+                <DatePicker
+                  label="end"
+                  format="YYYY-MM-DD"
+                  onChange={(date) =>
+                    handleDountDateChange2(dayjs(date).format("YYYY-MM-DD"))
+                  }
+                />
+              </DemoContainer>
+            </LocalizationProvider>
+          </Box>
           <DonutChart
             benefit={100 - singleBoxInfo?.ratio}
             expenses={singleBoxInfo?.ratio}
@@ -190,6 +204,7 @@ const Items = () => {
             all={boxLinear?.map((i) => {
               return i.all;
             })}
+            mont={selectedDate}
           />
         </Box>
       </Box>
