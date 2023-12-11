@@ -119,6 +119,7 @@ const OwnerBoxes = () => {
       getBoxesInfo({
         ownerId: owner?.deviceOwner,
         date: dountDate,
+        endDate: dountDate2,
       })
     );
     dispatch(
@@ -127,7 +128,7 @@ const OwnerBoxes = () => {
         date: selectedDate,
       })
     );
-  }, [owner, selectedDate, dountDate]);
+  }, [owner, selectedDate, dountDate, dountDate2]);
   return (
     <div>
       <Box m={3}>
@@ -151,7 +152,7 @@ const OwnerBoxes = () => {
               padding: "0 10px",
             }}
           >
-             <Box style={{ display: "flex", gap: "10px" }}>
+            <Box style={{ display: "flex", gap: "10px" }}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={["DatePicker"]}>
                   <DatePicker

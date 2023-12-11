@@ -7,10 +7,7 @@ const LineChart = ({ benefit, expense, all, mont }) => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
   function getDaysInGivenMonth(givenMonth) {
-    console.log(
-      givenMonth,
-      "1111111111111111111111111111111111111111111111111111111111111111111"
-    );
+
     // Use the current date if givenMonth is undefined
     const currentDate = givenMonth
       ? new Date(new Date().getFullYear(), parseInt(givenMonth, 10), 1)
@@ -53,7 +50,6 @@ const LineChart = ({ benefit, expense, all, mont }) => {
       ? getDaysInGivenMonth(11)
       : getDaysInGivenMonth(11);
   }, [mont]);
-  console.log(mont?.slice(5, 8), days, "montmontmontmontmontmontmont");
 
   const chartData = {
     series: [
@@ -80,31 +76,6 @@ const LineChart = ({ benefit, expense, all, mont }) => {
       },
       dataLabels: {
         enabled: false,
-      },
-      stroke: {
-        width: [5, 7, 5],
-        curve: "straight",
-        dashArray: [0, 8, 5],
-      },
-      title: {
-        text: "Page Statistics",
-        align: "left",
-      },
-      legend: {
-        tooltipHoverFormatter: function (val, opts) {
-          return (
-            val +
-            " - " +
-            opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] +
-            ""
-          );
-        },
-      },
-      markers: {
-        size: 0,
-        hover: {
-          sizeOffset: 6,
-        },
       },
       xaxis: {
         categories: days,

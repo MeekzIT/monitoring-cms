@@ -103,6 +103,7 @@ const Items = () => {
         ownerId: id,
         boxId: box_id,
         date: dountDate,
+        endDate: dountDate2,
       })
     );
     dispatch(
@@ -119,7 +120,7 @@ const Items = () => {
   useEffect(() => {
     user && dispatch(getSingleOwners(id));
     // boxesInfo.length && setInfo(boxesInfo[0]);
-  }, [user, selectedDate, dountDate]);
+  }, [user, selectedDate, dountDate, dountDate2]);
 
   return (
     <div>

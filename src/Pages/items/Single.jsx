@@ -91,6 +91,7 @@ const Single = () => {
       getSingleInfo({
         ownerId: single,
         date: dountDate,
+        endDate: dountDate2,
       })
     );
     dispatch(
@@ -104,7 +105,7 @@ const Single = () => {
     } else if (active == 2) {
       dispatch(getItemInfoCalc2(single));
     }
-  }, [access, selectedDate, dountDate]);
+  }, [access, selectedDate, dountDate, dountDate2]);
 
   useEffect(() => {
     user && dispatch(getSingleOwners(id));

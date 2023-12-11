@@ -62,7 +62,6 @@ const Items = () => {
   const [dountDate, handleDountDateChange] = useState();
   const [dountDate2, handleDountDateChange2] = useState();
 
-
   const handleNested = (id) => {
     if (typeof expand == "boolean") {
       setExpand(id);
@@ -92,6 +91,7 @@ const Items = () => {
         ownerId: owner_id,
         boxId: id,
         date: dountDate,
+        endDate: dountDate2,
       })
     );
     dispatch(
@@ -103,7 +103,7 @@ const Items = () => {
     );
     dispatch(getSingleUser(user_id));
     dispatch(getBoxes(owner_id, id));
-  }, [selectedDate, dountDate]);
+  }, [selectedDate, dountDate, dountDate2]);
 
   useEffect(() => {
     user && dispatch(getSingleOwners(id));
@@ -130,30 +130,30 @@ const Items = () => {
             padding: "0 10px",
           }}
         >
-         <Box style={{ display: "flex", gap: "10px" }}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={["DatePicker"]}>
-                  <DatePicker
-                    label="start"
-                    format="YYYY-MM-DD"
-                    onChange={(date) =>
-                      handleDountDateChange(dayjs(date).format("YYYY-MM-DD"))
-                    }
-                  />
-                </DemoContainer>
-              </LocalizationProvider>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={["DatePicker"]}>
-                  <DatePicker
-                    label="end"
-                    format="YYYY-MM-DD"
-                    onChange={(date) =>
-                      handleDountDateChange2(dayjs(date).format("YYYY-MM-DD"))
-                    }
-                  />
-                </DemoContainer>
-              </LocalizationProvider>
-            </Box>
+          <Box style={{ display: "flex", gap: "10px" }}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={["DatePicker"]}>
+                <DatePicker
+                  label="start"
+                  format="YYYY-MM-DD"
+                  onChange={(date) =>
+                    handleDountDateChange(dayjs(date).format("YYYY-MM-DD"))
+                  }
+                />
+              </DemoContainer>
+            </LocalizationProvider>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={["DatePicker"]}>
+                <DatePicker
+                  label="end"
+                  format="YYYY-MM-DD"
+                  onChange={(date) =>
+                    handleDountDateChange2(dayjs(date).format("YYYY-MM-DD"))
+                  }
+                />
+              </DemoContainer>
+            </LocalizationProvider>
+          </Box>
           <DonutChart
             benefit={100 - singleBoxInfo?.ratio}
             expenses={singleBoxInfo?.ratio}
