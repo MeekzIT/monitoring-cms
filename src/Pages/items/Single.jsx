@@ -220,6 +220,16 @@ const Single = () => {
                               />
                             </DemoContainer>
                           </LocalizationProvider>
+                          {(dountDate || dountDate2) && (
+                            <Button
+                              onClick={() => {
+                                handleDountDateChange();
+                                handleDountDateChange2();
+                              }}
+                            >
+                              clear filtres
+                            </Button>
+                          )}
                         </Box>
                         <DonutChart
                           benefit={100 - singleInfo?.ratio}
@@ -256,6 +266,15 @@ const Single = () => {
                             />
                           </DemoContainer>
                         </LocalizationProvider>
+                        {selectedDate && (
+                          <Button
+                            onClick={() => {
+                              handleDateChange();
+                            }}
+                          >
+                            clear filtres
+                          </Button>
+                        )}
                         <LineChart
                           benefit={singleLinear?.map((i) => {
                             return i.result;

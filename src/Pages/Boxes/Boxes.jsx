@@ -194,6 +194,7 @@ const Boxes = () => {
                   <DatePicker
                     label="start"
                     format="YYYY-MM-DD"
+                    value={dountDate}
                     onChange={(date) =>
                       handleDountDateChange(dayjs(date).format("YYYY-MM-DD"))
                     }
@@ -204,6 +205,7 @@ const Boxes = () => {
                 <DemoContainer components={["DatePicker"]}>
                   <DatePicker
                     label="end"
+                    value={dountDate2}
                     format="YYYY-MM-DD"
                     onChange={(date) =>
                       handleDountDateChange2(dayjs(date).format("YYYY-MM-DD"))
@@ -211,6 +213,16 @@ const Boxes = () => {
                   />
                 </DemoContainer>
               </LocalizationProvider>
+              {(dountDate || dountDate2) && (
+                <Button
+                  onClick={() => {
+                    handleDountDateChange();
+                    handleDountDateChange2();
+                  }}
+                >
+                  clear filtres
+                </Button>
+              )}
             </Box>
 
             <DonutChart
@@ -245,6 +257,15 @@ const Boxes = () => {
                 />
               </DemoContainer>
             </LocalizationProvider>
+            {selectedDate && (
+              <Button
+                onClick={() => {
+                  handleDateChange();
+                }}
+              >
+                clear filtres
+              </Button>
+            )}
             <LineChart
               benefit={boxLinear?.map((i) => {
                 return i.result;
