@@ -236,6 +236,8 @@ const OwnerBoxes = () => {
                 return i.all;
               })}
               mont={selectedDate}
+              startDate={dountDate}
+              endDate={dountDate2}
             />
           </Box>
         </div>

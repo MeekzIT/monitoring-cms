@@ -3,11 +3,10 @@ import Chart from "react-apexcharts";
 import { useTranslation } from "react-i18next";
 import { useIsMobile } from "../../hooks/useScreenType";
 
-const LineChart = ({ benefit, expense, all, mont }) => {
+const LineChart = ({ benefit, expense, all, mont, startDate, endDate }) => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
   function getDaysInGivenMonth(givenMonth) {
-
     // Use the current date if givenMonth is undefined
     const currentDate = givenMonth
       ? new Date(new Date().getFullYear(), parseInt(givenMonth, 10), 1)
@@ -45,12 +44,27 @@ const LineChart = ({ benefit, expense, all, mont }) => {
     return daysAndMonthsArray;
   }
 
+  function getDatesInRange(startDate, endDate) {
+    const dateArray = [];
+    let currentDate = new Date(startDate);
+
+    // If endDate is not provided, set it to the current date
+    const finalDate = endDate ? new Date(endDate) : new Date();
+
+    while (currentDate <= finalDate) {
+      dateArray.push(currentDate.toISOString().slice(8, 10));
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    return dateArray;
+  }
   const days = useMemo(() => {
     return mont !== undefined
       ? getDaysInGivenMonth(11)
       : getDaysInGivenMonth(11);
   }, [mont]);
-
+  const showDates = getDatesInRange(startDate, endDate);
+  console.log(showDates, days);
   const chartData = {
     series: [
       {
