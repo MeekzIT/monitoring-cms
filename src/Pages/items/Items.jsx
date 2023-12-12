@@ -94,13 +94,22 @@ const Items = () => {
         endDate: dountDate2,
       })
     );
-    dispatch(
-      getBoxLinear({
-        ownerId: owner_id,
-        boxId: id,
-        date: selectedDate,
-      })
-    );
+    if (!dountDate || !dountDate2) {
+      dispatch(
+        getBoxLinear({
+          ownerId: id,
+          date: selectedDate,
+        })
+      );
+    } else {
+      dispatch(
+        getBoxLinear({
+          ownerId: id,
+          date: dountDate,
+          endDate: dountDate2,
+        })
+      );
+    }
     dispatch(getSingleUser(user_id));
     dispatch(getBoxes(owner_id, id));
   }, [selectedDate, dountDate, dountDate2]);
@@ -118,19 +127,15 @@ const Items = () => {
         <GoBack prevPath={location.pathname} />
       </Box>
       <hr />
-      <Box
+      <div
         sx={{
           display: "flex",
           flexWrap: "wrap",
         }}
+        className="grapsBox"
       >
-        <Box
-          sx={{
-            width: "45%",
-            padding: "0 10px",
-          }}
-        >
-          <Box style={{ display: "flex", gap: "10px" }}>
+        <div className="grap">
+          <div className="grapsBox">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer components={["DatePicker"]}>
                 <DatePicker
@@ -139,6 +144,7 @@ const Items = () => {
                   onChange={(date) =>
                     handleDountDateChange(dayjs(date).format("YYYY-MM-DD"))
                   }
+                  sx={{ width: "250px" }}
                 />
               </DemoContainer>
             </LocalizationProvider>
@@ -150,20 +156,21 @@ const Items = () => {
                   onChange={(date) =>
                     handleDountDateChange2(dayjs(date).format("YYYY-MM-DD"))
                   }
+                  sx={{ width: "250px" }}
                 />
               </DemoContainer>
             </LocalizationProvider>
             {(dountDate || dountDate2) && (
-                <Button
-                  onClick={() => {
-                    handleDountDateChange();
-                    handleDountDateChange2();
-                  }}
-                >
-                  clear filtres
-                </Button>
-              )}
-          </Box>
+              <Button
+                onClick={() => {
+                  handleDountDateChange();
+                  handleDountDateChange2();
+                }}
+              >
+                clear filtres
+              </Button>
+            )}
+          </div>
           <DonutChart
             benefit={100 - singleBoxInfo?.ratio}
             expenses={singleBoxInfo?.ratio}
@@ -174,13 +181,8 @@ const Items = () => {
             setOpenStatistics={setOpenStatistics}
             show={true}
           />
-        </Box>
-        <Box
-          sx={{
-            width: "45%",
-            padding: "0 10px",
-          }}
-        >
+        </div>
+        <Box className="grap">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer
               components={["DatePicker", "DatePicker", "DatePicker"]}
@@ -192,18 +194,19 @@ const Items = () => {
                 onChange={(date) =>
                   handleDateChange(dayjs(date).format("YYYY-MM"))
                 }
+                sx={{ width: "250px" }}
               />
             </DemoContainer>
           </LocalizationProvider>
           {selectedDate && (
-              <Button
-                onClick={() => {
-                  handleDateChange();
-                }}
-              >
-                clear filtres
-              </Button>
-            )}
+            <Button
+              onClick={() => {
+                handleDateChange();
+              }}
+            >
+              clear filtres
+            </Button>
+          )}
           <LineChart
             benefit={boxLinear?.map((i) => {
               return i.result;
@@ -217,7 +220,7 @@ const Items = () => {
             mont={selectedDate}
           />
         </Box>
-      </Box>
+      </div>
 
       <hr />
       <div>

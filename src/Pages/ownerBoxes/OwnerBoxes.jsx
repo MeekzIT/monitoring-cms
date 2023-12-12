@@ -122,12 +122,22 @@ const OwnerBoxes = () => {
         endDate: dountDate2,
       })
     );
-    dispatch(
-      getBoxLinear({
-        ownerId: owner?.deviceOwner,
-        date: selectedDate,
-      })
-    );
+    if (!dountDate || !dountDate2) {
+      dispatch(
+        getBoxLinear({
+          ownerId: owner?.deviceOwner,
+          date: selectedDate,
+        })
+      );
+    } else {
+      dispatch(
+        getBoxLinear({
+          ownerId: owner?.deviceOwner,
+          date: dountDate,
+          endDate: dountDate2,
+        })
+      );
+    }
   }, [owner, selectedDate, dountDate, dountDate2]);
   return (
     <div>
@@ -140,19 +150,9 @@ const OwnerBoxes = () => {
           <h4>{owner?.email}</h4>
         </Box>
         <hr />
-        <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-          }}
-        >
-          <Box
-            sx={{
-              width: "45%",
-              padding: "0 10px",
-            }}
-          >
-            <Box style={{ display: "flex", gap: "10px" }}>
+        <div className="grapsBox">
+          <div className="grap">
+            <div className="grapsBox">
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={["DatePicker"]}>
                   <DatePicker
@@ -161,6 +161,7 @@ const OwnerBoxes = () => {
                     onChange={(date) =>
                       handleDountDateChange(dayjs(date).format("YYYY-MM-DD"))
                     }
+                    sx={{ width: "250px" }}
                   />
                 </DemoContainer>
               </LocalizationProvider>
@@ -172,6 +173,7 @@ const OwnerBoxes = () => {
                     onChange={(date) =>
                       handleDountDateChange2(dayjs(date).format("YYYY-MM-DD"))
                     }
+                    sx={{ width: "250px" }}
                   />
                 </DemoContainer>
               </LocalizationProvider>
@@ -185,7 +187,7 @@ const OwnerBoxes = () => {
                   clear filtres
                 </Button>
               )}
-            </Box>
+            </div>
             <DonutChart
               benefit={100 - boxInfo?.ratio}
               expenses={boxInfo?.ratio}
@@ -197,13 +199,8 @@ const OwnerBoxes = () => {
               singleId={null}
               show={true}
             />
-          </Box>
-          <Box
-            sx={{
-              width: "45%",
-              padding: "0 10px",
-            }}
-          >
+          </div>
+          <Box className="grap">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer
                 components={["DatePicker", "DatePicker", "DatePicker"]}
@@ -215,6 +212,7 @@ const OwnerBoxes = () => {
                   onChange={(date) =>
                     handleDateChange(dayjs(date).format("YYYY-MM"))
                   }
+                  sx={{ width: "250px" }}
                 />
               </DemoContainer>
             </LocalizationProvider>
@@ -240,7 +238,7 @@ const OwnerBoxes = () => {
               mont={selectedDate}
             />
           </Box>
-        </Box>
+        </div>
         <hr />
         <Box
           sx={{

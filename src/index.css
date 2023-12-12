@@ -89,6 +89,10 @@ body {
     display: flex;
     justify-content: unset;
   }
+
+  .grap {
+    width: 100%;
+  }
 }
 
 .indications-box {
@@ -148,4 +152,25 @@ body {
 .swal2-icon.swal2-error [class^="swal2-x-mark-line"] {
   width: 3.9375em !important;
   height: 1.3125em !important;
+}
+
+.grapsBox {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.grap {
+  width: 45%;
+}
+
+@media only screen and (max-width: 900px) {
+  .grap {
+    width: 100%;
+  }
+
+  .grapsBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }

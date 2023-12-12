@@ -106,13 +106,22 @@ const Items = () => {
         endDate: dountDate2,
       })
     );
-    dispatch(
-      getBoxLinear({
-        ownerId: id,
-        boxId: box_id,
-        date: selectedDate,
-      })
-    );
+    if (!dountDate || !dountDate2) {
+      dispatch(
+        getBoxLinear({
+          ownerId: id,
+          date: selectedDate,
+        })
+      );
+    } else {
+      dispatch(
+        getBoxLinear({
+          ownerId: id,
+          date: dountDate,
+          endDate: dountDate2,
+        })
+      );
+    }
     // dispatch(getSingleUser(user_id));
     dispatch(getBoxes(id, box_id));
   }, []);
@@ -124,23 +133,13 @@ const Items = () => {
 
   return (
     <div>
-      <Box m={2}>
+      <Box>
         <GoBack prevPath={location.pathname} />
       </Box>
       <hr />
-      <Box
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-        }}
-      >
-        <Box
-          sx={{
-            width: "45%",
-            padding: "0 10px",
-          }}
-        >
-          <Box style={{ display: "flex", gap: "10px" }}>
+      <div className="grapsBox">
+        <div className="grap">
+          <div className="grapsBox">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer components={["DatePicker"]}>
                 <DatePicker
@@ -149,6 +148,7 @@ const Items = () => {
                   onChange={(date) =>
                     handleDountDateChange(dayjs(date).format("YYYY-MM-DD"))
                   }
+                  sx={{ width: "250px" }}
                 />
               </DemoContainer>
             </LocalizationProvider>
@@ -160,6 +160,7 @@ const Items = () => {
                   onChange={(date) =>
                     handleDountDateChange2(dayjs(date).format("YYYY-MM-DD"))
                   }
+                  sx={{ width: "250px" }}
                 />
               </DemoContainer>
             </LocalizationProvider>
@@ -173,7 +174,7 @@ const Items = () => {
                 clear filtres
               </Button>
             )}
-          </Box>
+          </div>
           <DonutChart
             benefit={100 - singleBoxInfo?.ratio}
             expenses={singleBoxInfo?.ratio}
@@ -184,13 +185,8 @@ const Items = () => {
             setOpenStatistics={setOpenStatistics}
             show={true}
           />
-        </Box>
-        <Box
-          sx={{
-            width: "45%",
-            padding: "0 10px",
-          }}
-        >
+        </div>
+        <Box className="grap">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer
               components={["DatePicker", "DatePicker", "DatePicker"]}
@@ -202,6 +198,7 @@ const Items = () => {
                 onChange={(date) =>
                   handleDateChange(dayjs(date).format("YYYY-MM"))
                 }
+                sx={{ width: "250px" }}
               />
             </DemoContainer>
           </LocalizationProvider>
@@ -227,7 +224,7 @@ const Items = () => {
             mont={selectedDate}
           />
         </Box>
-      </Box>
+      </div>
 
       <hr />
       <div>

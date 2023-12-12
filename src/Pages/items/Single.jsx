@@ -100,6 +100,22 @@ const Single = () => {
         date: selectedDate,
       })
     );
+    if (!dountDate || !dountDate2) {
+      dispatch(
+        getSingleLinear({
+          ownerId: single,
+          date: selectedDate,
+        })
+      );
+    } else {
+      dispatch(
+        getSingleLinear({
+          ownerId: single,
+          date: dountDate,
+          endDate: dountDate2,
+        })
+      );
+    }
     if (active == 1) {
       dispatch(getItemInfoCalc(single));
     } else if (active == 2) {
@@ -181,19 +197,9 @@ const Single = () => {
               <>
                 {data && (
                   <>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                      }}
-                    >
-                      <Box
-                        sx={{
-                          width: "45%",
-                          padding: "0 10px",
-                        }}
-                      >
-                        <Box style={{ display: "flex", gap: "10px" }}>
+                    <div className="grapsBox">
+                      <div className="grap">
+                        <div className="grapsBox">
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DemoContainer components={["DatePicker"]}>
                               <DatePicker
@@ -230,7 +236,7 @@ const Single = () => {
                               clear filtres
                             </Button>
                           )}
-                        </Box>
+                        </div>
                         <DonutChart
                           benefit={100 - singleInfo?.ratio}
                           expenses={singleInfo?.ratio}
@@ -241,13 +247,8 @@ const Single = () => {
                           singleId={null}
                           show={false}
                         />
-                      </Box>
-                      <Box
-                        sx={{
-                          width: "45%",
-                          padding: "0 10px",
-                        }}
-                      >
+                      </div>
+                      <Box className="grap">
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                           <DemoContainer
                             components={[
@@ -263,6 +264,7 @@ const Single = () => {
                               onChange={(date) =>
                                 handleDateChange(dayjs(date).format("YYYY-MM"))
                               }
+                              sx={{ width: "250px" }}
                             />
                           </DemoContainer>
                         </LocalizationProvider>
@@ -288,7 +290,7 @@ const Single = () => {
                           mont={selectedDate}
                         />
                       </Box>
-                    </Box>
+                    </div>
                     {(isSuper == "owner" || isSuper == "superAdmin") && (
                       <>
                         {active !== 3 && (
