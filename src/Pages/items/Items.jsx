@@ -97,16 +97,18 @@ const Items = () => {
     if (!dountDate || !dountDate2) {
       dispatch(
         getBoxLinear({
-          ownerId: id,
+          ownerId: owner_id,
           date: selectedDate,
+          boxId: id,
         })
       );
     } else {
       dispatch(
         getBoxLinear({
-          ownerId: id,
+          ownerId: owner_id,
           date: dountDate,
           endDate: dountDate2,
+          boxId: id,
         })
       );
     }

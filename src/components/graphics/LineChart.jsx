@@ -92,7 +92,7 @@ const LineChart = ({ benefit, expense, all, mont, startDate, endDate }) => {
         enabled: false,
       },
       xaxis: {
-        categories: days,
+        categories: showDates.length ? showDates : days,
       },
       tooltip: {
         y: [
