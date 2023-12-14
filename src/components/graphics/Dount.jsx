@@ -43,10 +43,10 @@ const DonutChart = ({
         },
       },
       labels: [
-        `Benefit ${Math.abs(benefitValue)} ${
+        `Benefit ${benefitValue} ${
           show !== false ? getCurrency(countryId) : ""
         }`,
-        `Expenses ${Math.abs(expensesValue)} ${
+        `Expenses ${expensesValue} ${
           show !== false ? getCurrency(countryId) : ""
         }`,
       ],
