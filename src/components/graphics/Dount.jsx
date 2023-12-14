@@ -100,8 +100,7 @@ const DonutChart = ({
     >
       {name && (
         <Typography variant="h6" component="h2">
-          {name} {expensesValue + benefitValue}{" "}
-          {show !== false ? getCurrency(countryId) : ""}
+          {name}
         </Typography>
       )}
 
@@ -121,7 +120,7 @@ const DonutChart = ({
         >
           <CircleIcon sx={{ color: "red", fontSize: "16px" }} />
           <Typography variant="h6" component="h2">
-            All {Math.abs(benefitValue) + Math.abs(expensesValue)}
+            All {benefitValue + expensesValue}
             {show !== false ? getCurrency(countryId) : ""}
           </Typography>
         </div>
