@@ -85,7 +85,7 @@ const DonutChart = ({
     dataLabels: {
       enabled: true,
     },
-    series: [Math.abs(benefit), Math.abs(expenses)],
+    series: [benefit, expenses],
     // colors: ["red", "#ff6384", "#36a2eb"],
   };
   return (
