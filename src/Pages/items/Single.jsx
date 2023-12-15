@@ -47,6 +47,9 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import PaymentIcon from "@mui/icons-material/Payment";
+import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import dayjs from "dayjs";
 
 const Single = () => {
@@ -142,6 +145,7 @@ const Single = () => {
       behavior: "smooth",
     });
   };
+
   return (
     <Box p={2}>
       <Box p={2}>
@@ -156,7 +160,7 @@ const Single = () => {
       >
         <Grid p={2}>
           <Typography id="modal-modal-title" variant="h3" component="h1">
-            {t("device")} №-{data?.id}{" "}
+            {t("device")}
             {compareWithUTC(data?.datatime) ? (
               <span className="online">{t("online")}</span>
             ) : (
@@ -247,6 +251,27 @@ const Single = () => {
                           singleId={null}
                           show={false}
                         />
+
+                        <div>
+                          <hr />
+                          <Typography className="coint-show-heading">
+                            {" "}
+                            <MonetizationOnIcon sx={{ color: "#21726A" }} />
+                            <div> Coin - {singleInfo?.coin}</div>
+                          </Typography>
+                          <hr />
+                          <Typography className="coint-show-heading">
+                            {" "}
+                            <LocalAtmIcon sx={{ color: "#21726A" }} />
+                            <div> Cash - {singleInfo?.cash}</div>
+                          </Typography>
+                          <hr />
+                          <Typography className="coint-show-heading">
+                            <PaymentIcon sx={{ color: "#21726A" }} />
+                            <div> Bill - {singleInfo?.bill}</div>
+                          </Typography>
+                          <hr />
+                        </div>
                       </div>
                       <Box className="grap">
                         <LocalizationProvider dateAdapter={AdapterDayjs}>

@@ -174,3 +174,11 @@ body {
     align-items: center;
   }
 }
+
+.coint-show-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #21726a;
+  padding-left: 10px;
+}

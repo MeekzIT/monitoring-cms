@@ -64,7 +64,6 @@ const LineChart = ({ benefit, expense, all, mont, startDate, endDate }) => {
       : getDaysInGivenMonth(11);
   }, [mont]);
   const showDates = getDatesInRange(startDate, endDate);
-  console.log(showDates, days);
   const chartData = {
     series: [
       {

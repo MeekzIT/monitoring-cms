@@ -40,6 +40,9 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import PaymentIcon from "@mui/icons-material/Payment";
+import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import dayjs from "dayjs";
 
 const Items = () => {
@@ -119,10 +122,6 @@ const Items = () => {
   useEffect(() => {
     user && dispatch(getSingleOwners(id));
   }, [user]);
-  console.log(
-    boxLinear,
-    "boxLinearboxLinearboxLinearboxLinearboxLinearboxLinearboxLinear"
-  );
   return (
     <div>
       <Box m={2}>
@@ -183,6 +182,26 @@ const Items = () => {
             setOpenStatistics={setOpenStatistics}
             show={true}
           />
+          <div>
+            <hr />
+            <Typography className="coint-show-heading">
+              {" "}
+              <MonetizationOnIcon sx={{ color: "#21726A" }} />
+              <div> Coin - {singleBoxInfo?.coin}</div>
+            </Typography>
+            <hr />
+            <Typography className="coint-show-heading">
+              {" "}
+              <LocalAtmIcon sx={{ color: "#21726A" }} />
+              <div> Cash - {singleBoxInfo?.cash}</div>
+            </Typography>
+            <hr />
+            <Typography className="coint-show-heading">
+              <PaymentIcon sx={{ color: "#21726A" }} />
+              <div> Bill - {singleBoxInfo?.bill}</div>
+            </Typography>
+            <hr />
+          </div>
         </div>
         <Box className="grap">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
