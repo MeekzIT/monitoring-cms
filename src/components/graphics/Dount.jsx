@@ -43,10 +43,10 @@ const DonutChart = ({
         },
       },
       labels: [
-        `Benefit ${benefitValue} ${
+        `Expenses ${expensesValue} ${
           show !== false ? getCurrency(countryId) : ""
         }`,
-        `Expenses ${expensesValue} ${
+        `Benefit ${benefitValue} ${
           show !== false ? getCurrency(countryId) : ""
         }`,
       ],
@@ -85,8 +85,7 @@ const DonutChart = ({
     dataLabels: {
       enabled: true,
     },
-    series: [benefit, expenses],
-    // colors: ["red", "#ff6384", "#36a2eb"],
+    series: [expenses, benefit],
   };
   return (
     <Box
@@ -94,8 +93,6 @@ const DonutChart = ({
         display: "flex",
         alignItems: "center",
         flexWrap: "wrap",
-        // position: "relative",
-        // justifyContent: "space-between",
       }}
     >
       {name && (
@@ -118,7 +115,7 @@ const DonutChart = ({
           }}
           className="apexcharts-legend-series"
         >
-          <CircleIcon sx={{ color: "red", fontSize: "16px" }} />
+          <CircleIcon sx={{ color: "rgb(254, 176, 25)", fontSize: "16px" }} />
           <Typography variant="h6" component="h2">
             All {benefitValue + expensesValue}
             {show !== false ? getCurrency(countryId) : ""}
