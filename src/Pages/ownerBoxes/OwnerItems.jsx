@@ -56,6 +56,7 @@ import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import PaymentIcon from "@mui/icons-material/Payment";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import dayjs from "dayjs";
+import GenerateModal from "../../components/generateModal/GenerateModal";
 
 const Items = () => {
   const { t } = useTranslation();
@@ -78,6 +79,8 @@ const Items = () => {
   const singleBoxInfo = useSelector((state) => state.user.singleBoxInfo);
   const [openStatistics, setOpenStatistics] = useState(false);
   const [expand, setExpand] = useState(false);
+  const [openGenerate, setOpenGenerate] = useState(false);
+
   const handleNested = (id) => {
     if (typeof expand == "boolean") {
       setExpand(id);
@@ -254,6 +257,16 @@ const Items = () => {
 
       <hr />
       <div>
+      <Box m={2}>
+        <Button
+            variant="contained"
+            sx={{ color: "white" }}
+            onClick={() => setOpenGenerate(true)}
+          >
+            {t("Generate")}
+          </Button>
+        </Box>
+        <hr />
         <Box sx={{ overflow: "auto" }}>
           <Box sx={{ width: "100%", display: "table", tableLayout: "fixed" }}>
             <TableContainer component={Paper}>
@@ -481,7 +494,11 @@ const Items = () => {
           </Box>
         </Modal>
       </div>
-      {/* )} */}
+      <GenerateModal
+        open={openGenerate}
+        setOpen={setOpenGenerate}
+        ownerId={id}
+      />
     </div>
   );
 };

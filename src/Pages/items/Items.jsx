@@ -1,7 +1,7 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import HomeIcon from "@mui/icons-material/Home";
-import { Box, Button, Modal, Typography } from "@mui/material";
+import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -20,6 +20,7 @@ import {
   getSingleBoxInfo,
   getSingleOwners,
   getSingleUser,
+  changeName,
 } from "../../store/actions/users-action";
 import { useTheme } from "@mui/material/styles";
 import { useIsMobile } from "../../hooks/useScreenType";
@@ -43,6 +44,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import PaymentIcon from "@mui/icons-material/Payment";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
+import GenerateModal from "../../components/generateModal/GenerateModal"
 import dayjs from "dayjs";
 
 const Items = () => {
@@ -64,6 +66,11 @@ const Items = () => {
   const [selectedDate, handleDateChange] = useState();
   const [dountDate, handleDountDateChange] = useState();
   const [dountDate2, handleDountDateChange2] = useState();
+  const [openGenerate, setOpenGenerate] = useState(false);
+  const [current,setCurrent] = useState(null)
+  const [name,setName] = useState("")
+  const [openName,setOpenName] = useState(false)
+
 
   const handleNested = (id) => {
     if (typeof expand == "boolean") {
@@ -76,6 +83,25 @@ const Items = () => {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: isMobile ? "100%" : 800,
+    bgcolor: "background.paper",
+    border: "3px solid #21726A",
+    boxShadow: 24,
+    p: 4,
+    borderRadius: "10px",
+    minHeight: isMobile ? "100vh" : null,
+    display: isMobile && "flex",
+    justifyContent: isMobile && "center",
+    alignItems: isMobile && "center",
+    flexDirection: isMobile && "column",
+    gap: isMobile && "20px",
+  };
+
+  const styleName = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: isMobile ? "100%" : 400,
     bgcolor: "background.paper",
     border: "3px solid #21726A",
     boxShadow: 24,
@@ -126,6 +152,7 @@ const Items = () => {
     <div>
       <Box m={2}>
         <GoBack prevPath={location.pathname} />
+        
       </Box>
       <hr />
       <div
@@ -247,6 +274,16 @@ const Items = () => {
 
       <hr />
       <div>
+        <Box m={2}>
+        <Button
+            variant="contained"
+            sx={{ color: "white" }}
+            onClick={() => setOpenGenerate(true)}
+          >
+            {t("Generate")}
+          </Button>
+        </Box>
+        <hr />
         <Box sx={{ overflow: "auto" }}>
           <Box sx={{ width: "100%", display: "table", tableLayout: "fixed" }}>
             <TableContainer component={Paper}>
@@ -259,14 +296,19 @@ const Items = () => {
                         "&:last-child td, &:last-child th": { border: 0 },
                       }}
                     >
+                      <TableCell align="left">{row.name}</TableCell>
                       <TableCell align="left">ID-{row.p2}</TableCell>
-                      {/* <TableCell align="left">
-                        {row.active == 1
-                          ? t("moika")
-                          : row.active == 2
-                          ? t("cux")
-                          : t("change")}
-                      </TableCell> */}
+                      <TableCell align="left">
+                      <Button
+                          variant="contained"
+                          onClick={() => {
+                            setCurrent(row.p2)
+                            setName(row.name)
+                            setOpenName(true)
+                          }}
+                        >{t("edit")}</Button>
+                        </TableCell>
+                  
                       <TableCell align="left">
                         {compareWithUTC(row.datatime) ? (
                           <span className="online">
@@ -487,8 +529,45 @@ const Items = () => {
             </Box>
           </Box>
         </Modal>
+        <Modal
+          open={openName}
+          onClose={() => {
+            setOpenName(false);
+          }}
+        >
+          <Box sx={styleName}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              {t("name")}
+            </Typography>
+            <div
+              className="mobile-modal-close-btn"
+              onClick={() => {
+                setOpenName(false);
+              }}
+            >
+              <CloseIcon fontSize="large" />
+            </div>
+            <Box>
+            <TextField value={name} onChange={e=>setName(e.target.value)}/>
+            </Box>
+            <Box mt={2}>
+            <Button variant="contained" onClick={()=>{
+              dispatch(changeName({name,ownerId:current}))
+              dispatch(getBoxes(owner_id, id));
+              setName("")
+              setOpenName(false);
+            }}>{t("save")}</Button>
+            </Box>
+              
+                  
+          </Box>
+        </Modal>
       </div>
-      {/* )} */}
+      <GenerateModal
+        open={openGenerate}
+        setOpen={setOpenGenerate}
+        ownerId={owner_id}
+      />
     </div>
   );
 };

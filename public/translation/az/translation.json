@@ -191,5 +191,7 @@
   "difrentExspenses": "Other expenses",
   "reset": "Reset",
   "resetText": "When changing the password, the new password will be test1234 !",
-  "go-back":"Go back"
+  "go-back":"Go back",
+  "Generate":"Generate new device",
+  "add-object":"Add new location"
 }

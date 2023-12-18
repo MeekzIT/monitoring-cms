@@ -314,14 +314,7 @@ const Boxes = () => {
             sx={{ color: "white" }}
             onClick={() => setOpenAdd(true)}
           >
-            {t("add")}
-          </Button>
-          <Button
-            variant="contained"
-            sx={{ color: "white" }}
-            onClick={() => setOpenGenerate(true)}
-          >
-            {t("Generate")}
+            {t("add-object")}
           </Button>
         </Box>
         <hr />
@@ -932,7 +925,7 @@ const Boxes = () => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            {t("add")}
+            {t("add-object")}
           </Typography>
           <Box>
             <Grid container spacing={2}>
@@ -994,11 +987,6 @@ const Boxes = () => {
           </Box>
         </Box>
       </Modal>
-      <GenerateModal
-        open={openGenerate}
-        setOpen={setOpenGenerate}
-        ownerId={id}
-      />
     </div>
   );
 };

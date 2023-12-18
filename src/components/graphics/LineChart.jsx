@@ -7,35 +7,16 @@ const LineChart = ({ benefit, expense, all, mont, startDate, endDate }) => {
   const isMobile = useIsMobile();
   const { t } = useTranslation();
   function getDaysInGivenMonth(givenMonth) {
-    // Use the current date if givenMonth is undefined
     const currentDate = givenMonth
       ? new Date(new Date().getFullYear(), parseInt(givenMonth, 10), 1)
       : new Date();
 
-    // Get the year and month
     const year = currentDate.getFullYear();
-    const month = currentDate.getMonth() + 1; // Months are zero-based, so we add 1
+    const month = currentDate.getMonth() + 1;
 
-    // Get the last day of the month
     const lastDayOfMonth = new Date(year, month, 0);
 
-    // Generate an array of strings in the format "DD Mon" for each day in the month
     const daysAndMonthsArray = [];
-    // const monthNames = [
-    //   "Jan",
-    //   "Feb",
-    //   "Mar",
-    //   "Apr",
-    //   "May",
-    //   "Jun",
-    //   "Jul",
-    //   "Aug",
-    //   "Sep",
-    //   "Oct",
-    //   "Nov",
-    //   "Dec",
-    // ];
-
     for (let day = 1; day <= lastDayOfMonth.getDate(); day++) {
       const formattedDate = `${(day < 10 ? "0" : "") + day.toString()}`;
       daysAndMonthsArray.push(formattedDate);
@@ -48,7 +29,6 @@ const LineChart = ({ benefit, expense, all, mont, startDate, endDate }) => {
     const dateArray = [];
     let currentDate = new Date(startDate);
 
-    // If endDate is not provided, set it to the current date
     const finalDate = endDate ? new Date(endDate) : new Date();
 
     while (currentDate <= finalDate) {
@@ -123,7 +103,7 @@ const LineChart = ({ benefit, expense, all, mont, startDate, endDate }) => {
       },
     },
   };
-
+  console.log(days);
   return (
     <div>
       <Chart

@@ -276,15 +276,9 @@ const OwnerBoxes = () => {
             sx={{ color: "white" }}
             onClick={() => setOpenAdd(true)}
           >
-            {t("add")}
+            {t("add-object")}
           </Button>
-          <Button
-            variant="contained"
-            sx={{ color: "white" }}
-            onClick={() => setOpenGenerate(true)}
-          >
-            {t("Generate")}
-          </Button>
+        
         </Box>
         <hr />
         <Box>
@@ -440,7 +434,7 @@ const OwnerBoxes = () => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            {t("add")}
+            {t("add-object")}
           </Typography>
           <Box>
             <Grid container spacing={2}>
@@ -930,11 +924,6 @@ const OwnerBoxes = () => {
           </Box>
         </Box>
       </Modal>
-      <GenerateModal
-        open={openGenerate}
-        setOpen={setOpenGenerate}
-        ownerId={owner?.deviceOwner}
-      />
     </div>
   );
 };

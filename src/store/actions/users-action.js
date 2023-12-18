@@ -715,6 +715,25 @@ export const getBoxLinear = (data) => {
   };
 };
 
+export const changeName = (data) => {
+
+
+  return (dispatch) => {
+    axios
+      .post(`${keys.api}/owner/item-edit-name`, data, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+      })
+      .then((response) => {
+       
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
 export const clearItemFiltred = (data) => {
   return (dispatch) => {
     dispatch({
