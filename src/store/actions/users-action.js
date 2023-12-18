@@ -364,7 +364,7 @@ export const editItemInfo = (data) => {
   };
 };
 
-export const getItemInfoCalc = (id) => {
+export const getItemInfoCalc = (id, date) => {
   return (dispatch) => {
     axios
       .get(`${keys.api}/owner/item-info-calc`, {
@@ -373,6 +373,7 @@ export const getItemInfoCalc = (id) => {
         },
         params: {
           ownerID: id,
+          date,
         },
       })
       .then((response) => {

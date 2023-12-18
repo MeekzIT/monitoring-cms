@@ -120,7 +120,7 @@ const Single = () => {
       );
     }
     if (active == 1) {
-      dispatch(getItemInfoCalc(single));
+      dispatch(getItemInfoCalc(single, dountDate));
     } else if (active == 2) {
       dispatch(getItemInfoCalc2(single));
     }

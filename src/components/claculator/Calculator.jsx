@@ -71,7 +71,7 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
   }, [data, currentFunctionId, single, showSettings]);
 
   useEffect(() => {
-    dispatch(getItemInfoCalc(single));
+    // dispatch(getItemInfoCalc(single));
     // !changedData && setChangedData
   }, [showSettings]);
 
