@@ -193,12 +193,12 @@ const Items = () => {
             <Typography className="coint-show-heading">
               {" "}
               <LocalAtmIcon sx={{ color: "#21726A" }} />
-              <div> Cash - {singleBoxInfo?.cash}</div>
+              <div> Bill - {singleBoxInfo?.cash}</div>
             </Typography>
             <hr />
             <Typography className="coint-show-heading">
               <PaymentIcon sx={{ color: "#21726A" }} />
-              <div> Bill - {singleBoxInfo?.bill}</div>
+              <div> Cash Less  - {singleBoxInfo?.bill}</div>
             </Typography>
             <hr />
           </div>

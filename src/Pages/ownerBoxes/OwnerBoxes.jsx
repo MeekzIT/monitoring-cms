@@ -213,12 +213,12 @@ const OwnerBoxes = () => {
               <Typography className="coint-show-heading">
                 {" "}
                 <LocalAtmIcon sx={{ color: "#21726A" }} />
-                <div> Cash - {boxInfo?.cash}</div>
+                <div> Bill - {boxInfo?.cash}</div>
               </Typography>
               <hr />
               <Typography className="coint-show-heading">
                 <PaymentIcon sx={{ color: "#21726A" }} />
-                <div> Bill - {boxInfo?.bill}</div>
+                <div> Cash Less - {boxInfo?.bill}</div>
               </Typography>
               <hr />
             </div>
