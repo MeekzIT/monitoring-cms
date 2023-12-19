@@ -182,7 +182,7 @@ const Items = () => {
               </Button>
             )}
           </div>
-          {singleBoxInfo?.ratio && (
+          {singleBoxInfo?.ratio !== null && (
             <>
               <DonutChart
                 benefit={100 - singleBoxInfo?.ratio}
