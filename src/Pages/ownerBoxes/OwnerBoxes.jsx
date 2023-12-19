@@ -191,7 +191,7 @@ const OwnerBoxes = () => {
                 </Button>
               )}
             </div>
-            {boxInfo.ratio && (
+            {boxInfo?.ratio && (
               <>
                 <DonutChart
                   benefit={100 - boxInfo?.ratio}
@@ -711,7 +711,7 @@ const OwnerBoxes = () => {
                 return (
                   <>
                     <hr />
-                    {i.ratio && (
+                    {i?.ratio && (
                       <Box>
                         <DonutChart
                           benefit={100 - i?.ratio}
