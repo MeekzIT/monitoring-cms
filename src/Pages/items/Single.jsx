@@ -241,37 +241,41 @@ const Single = () => {
                             </Button>
                           )}
                         </div>
-                        <DonutChart
-                          benefit={100 - singleInfo?.ratio}
-                          expenses={singleInfo?.ratio}
-                          expensesValue={singleInfo?.expense}
-                          benefitValue={singleInfo?.benefit}
-                          countryId={owner?.countryId}
-                          openStatistics={null}
-                          singleId={null}
-                          show={false}
-                        />
+                        {singleInfo.ratio && (
+                          <>
+                            <DonutChart
+                              benefit={100 - singleInfo?.ratio}
+                              expenses={singleInfo?.ratio}
+                              expensesValue={singleInfo?.expense}
+                              benefitValue={singleInfo?.benefit}
+                              countryId={owner?.countryId}
+                              openStatistics={null}
+                              singleId={null}
+                              show={false}
+                            />
 
-                        <div>
-                          <hr />
-                          <Typography className="coint-show-heading">
-                            {" "}
-                            <MonetizationOnIcon sx={{ color: "#21726A" }} />
-                            <div> Coin - {singleInfo?.coin}</div>
-                          </Typography>
-                          <hr />
-                          <Typography className="coint-show-heading">
-                            {" "}
-                            <LocalAtmIcon sx={{ color: "#21726A" }} />
-                            <div> Bill - {singleInfo?.cash}</div>
-                          </Typography>
-                          <hr />
-                          <Typography className="coint-show-heading">
-                            <PaymentIcon sx={{ color: "#21726A" }} />
-                            <div> Cash Less - {singleInfo?.bill}</div>
-                          </Typography>
-                          <hr />
-                        </div>
+                            <div>
+                              <hr />
+                              <Typography className="coint-show-heading">
+                                {" "}
+                                <MonetizationOnIcon sx={{ color: "#21726A" }} />
+                                <div> Coin - {singleInfo?.coin}</div>
+                              </Typography>
+                              <hr />
+                              <Typography className="coint-show-heading">
+                                {" "}
+                                <LocalAtmIcon sx={{ color: "#21726A" }} />
+                                <div> Bill - {singleInfo?.cash}</div>
+                              </Typography>
+                              <hr />
+                              <Typography className="coint-show-heading">
+                                <PaymentIcon sx={{ color: "#21726A" }} />
+                                <div> Cash Less - {singleInfo?.bill}</div>
+                              </Typography>
+                              <hr />
+                            </div>
+                          </>
+                        )}
                       </div>
                       <Box className="grap">
                         <LocalizationProvider dateAdapter={AdapterDayjs}>

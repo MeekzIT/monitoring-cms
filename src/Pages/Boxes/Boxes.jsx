@@ -228,38 +228,41 @@ const Boxes = () => {
                 </Button>
               )}
             </div>
-
-            <DonutChart
-              benefit={100 - boxInfo?.ratio}
-              expenses={boxInfo?.ratio}
-              expensesValue={boxInfo?.expense}
-              benefitValue={boxInfo?.benefit}
-              countryId={user?.countryId}
-              openStatistics={openStatistics}
-              setOpenStatistics={setOpenStatistics}
-              singleId={null}
-              show={true}
-            />
-            <div>
-              <hr />
-              <Typography className="coint-show-heading">
-                {" "}
-                <MonetizationOnIcon sx={{ color: "#21726A" }} />
-                <div> Coin - {boxInfo?.coin}</div>
-              </Typography>
-              <hr />
-              <Typography className="coint-show-heading">
-                {" "}
-                <LocalAtmIcon sx={{ color: "#21726A" }} />
-                <div> Bill - {boxInfo?.cash}</div>
-              </Typography>
-              <hr />
-              <Typography className="coint-show-heading">
-                <PaymentIcon sx={{ color: "#21726A" }} />
-                <div> Cash Less - {boxInfo?.bill}</div>
-              </Typography>
-              <hr />
-            </div>
+            {boxInfo.ratio && (
+              <>
+                <DonutChart
+                  benefit={100 - boxInfo?.ratio}
+                  expenses={boxInfo?.ratio}
+                  expensesValue={boxInfo?.expense}
+                  benefitValue={boxInfo?.benefit}
+                  countryId={user?.countryId}
+                  openStatistics={openStatistics}
+                  setOpenStatistics={setOpenStatistics}
+                  singleId={null}
+                  show={true}
+                />
+                <div>
+                  <hr />
+                  <Typography className="coint-show-heading">
+                    {" "}
+                    <MonetizationOnIcon sx={{ color: "#21726A" }} />
+                    <div> Coin - {boxInfo?.coin}</div>
+                  </Typography>
+                  <hr />
+                  <Typography className="coint-show-heading">
+                    {" "}
+                    <LocalAtmIcon sx={{ color: "#21726A" }} />
+                    <div> Bill - {boxInfo?.cash}</div>
+                  </Typography>
+                  <hr />
+                  <Typography className="coint-show-heading">
+                    <PaymentIcon sx={{ color: "#21726A" }} />
+                    <div> Cash Less - {boxInfo?.bill}</div>
+                  </Typography>
+                  <hr />
+                </div>
+              </>
+            )}
           </div>
           <Box className="grap">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -698,21 +701,23 @@ const Boxes = () => {
                 return (
                   <>
                     <hr />
-                    <Box>
-                      <DonutChart
-                        benefit={100 - i?.ratio}
-                        expenses={i?.ratio}
-                        expensesValue={i?.expense}
-                        benefitValue={i?.benefit}
-                        countryId={user?.countryId}
-                        name={i?.box?.geolocation}
-                        openStatistics={null}
-                        singleId={i.box.id}
-                        setSingle={setSingle}
-                        show={true}
-                        // setOpenStatistics={setOpenStatistics}
-                      />
-                    </Box>
+                    {i.ratio && (
+                      <Box>
+                        <DonutChart
+                          benefit={100 - i?.ratio}
+                          expenses={i?.ratio}
+                          expensesValue={i?.expense}
+                          benefitValue={i?.benefit}
+                          countryId={user?.countryId}
+                          name={i?.box?.geolocation}
+                          openStatistics={null}
+                          singleId={i.box.id}
+                          setSingle={setSingle}
+                          show={true}
+                          // setOpenStatistics={setOpenStatistics}
+                        />
+                      </Box>
+                    )}
                     <hr />
                   </>
                 );

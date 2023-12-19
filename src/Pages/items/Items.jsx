@@ -44,7 +44,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import PaymentIcon from "@mui/icons-material/Payment";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
-import GenerateModal from "../../components/generateModal/GenerateModal"
+import GenerateModal from "../../components/generateModal/GenerateModal";
 import dayjs from "dayjs";
 
 const Items = () => {
@@ -67,10 +67,9 @@ const Items = () => {
   const [dountDate, handleDountDateChange] = useState();
   const [dountDate2, handleDountDateChange2] = useState();
   const [openGenerate, setOpenGenerate] = useState(false);
-  const [current,setCurrent] = useState(null)
-  const [name,setName] = useState("")
-  const [openName,setOpenName] = useState(false)
-
+  const [current, setCurrent] = useState(null);
+  const [name, setName] = useState("");
+  const [openName, setOpenName] = useState(false);
 
   const handleNested = (id) => {
     if (typeof expand == "boolean") {
@@ -152,7 +151,6 @@ const Items = () => {
     <div>
       <Box m={2}>
         <GoBack prevPath={location.pathname} />
-        
       </Box>
       <hr />
       <div
@@ -199,36 +197,40 @@ const Items = () => {
               </Button>
             )}
           </div>
-          <DonutChart
-            benefit={100 - singleBoxInfo?.ratio}
-            expenses={singleBoxInfo?.ratio}
-            expensesValue={singleBoxInfo?.expense}
-            benefitValue={singleBoxInfo?.benefit}
-            countryId={user?.countryId}
-            openStatistics={openStatistics}
-            setOpenStatistics={setOpenStatistics}
-            show={true}
-          />
-          <div>
-            <hr />
-            <Typography className="coint-show-heading">
-              {" "}
-              <MonetizationOnIcon sx={{ color: "#21726A" }} />
-              <div> Coin - {singleBoxInfo?.coin}</div>
-            </Typography>
-            <hr />
-            <Typography className="coint-show-heading">
-              {" "}
-              <LocalAtmIcon sx={{ color: "#21726A" }} />
-              <div> Bill - {singleBoxInfo?.cash}</div>
-            </Typography>
-            <hr />
-            <Typography className="coint-show-heading">
-              <PaymentIcon sx={{ color: "#21726A" }} />
-              <div> Cash Less  - {singleBoxInfo?.bill}</div>
-            </Typography>
-            <hr />
-          </div>
+          {singleBoxInfo.ratio && (
+            <>
+              <DonutChart
+                benefit={100 - singleBoxInfo?.ratio}
+                expenses={singleBoxInfo?.ratio}
+                expensesValue={singleBoxInfo?.expense}
+                benefitValue={singleBoxInfo?.benefit}
+                countryId={user?.countryId}
+                openStatistics={openStatistics}
+                setOpenStatistics={setOpenStatistics}
+                show={true}
+              />
+              <div>
+                <hr />
+                <Typography className="coint-show-heading">
+                  {" "}
+                  <MonetizationOnIcon sx={{ color: "#21726A" }} />
+                  <div> Coin - {singleBoxInfo?.coin}</div>
+                </Typography>
+                <hr />
+                <Typography className="coint-show-heading">
+                  {" "}
+                  <LocalAtmIcon sx={{ color: "#21726A" }} />
+                  <div> Bill - {singleBoxInfo?.cash}</div>
+                </Typography>
+                <hr />
+                <Typography className="coint-show-heading">
+                  <PaymentIcon sx={{ color: "#21726A" }} />
+                  <div> Cash Less - {singleBoxInfo?.bill}</div>
+                </Typography>
+                <hr />
+              </div>
+            </>
+          )}
         </div>
         <Box className="grap">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -275,7 +277,7 @@ const Items = () => {
       <hr />
       <div>
         <Box m={2}>
-        <Button
+          <Button
             variant="contained"
             sx={{ color: "white" }}
             onClick={() => setOpenGenerate(true)}
@@ -299,16 +301,18 @@ const Items = () => {
                       <TableCell align="left">{row.name}</TableCell>
                       <TableCell align="left">ID-{row.p2}</TableCell>
                       <TableCell align="left">
-                      <Button
+                        <Button
                           variant="contained"
                           onClick={() => {
-                            setCurrent(row.p2)
-                            setName(row.name)
-                            setOpenName(true)
+                            setCurrent(row.p2);
+                            setName(row.name);
+                            setOpenName(true);
                           }}
-                        >{t("edit")}</Button>
-                        </TableCell>
-                  
+                        >
+                          {t("edit")}
+                        </Button>
+                      </TableCell>
+
                       <TableCell align="left">
                         {compareWithUTC(row.datatime) ? (
                           <span className="online">
@@ -548,18 +552,24 @@ const Items = () => {
               <CloseIcon fontSize="large" />
             </div>
             <Box>
-            <TextField value={name} onChange={e=>setName(e.target.value)}/>
+              <TextField
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </Box>
             <Box mt={2}>
-            <Button variant="contained" onClick={()=>{
-              dispatch(changeName({name,ownerId:current}))
-              dispatch(getBoxes(owner_id, id));
-              setName("")
-              setOpenName(false);
-            }}>{t("save")}</Button>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  dispatch(changeName({ name, ownerId: current }));
+                  dispatch(getBoxes(owner_id, id));
+                  setName("");
+                  setOpenName(false);
+                }}
+              >
+                {t("save")}
+              </Button>
             </Box>
-              
-                  
           </Box>
         </Modal>
       </div>

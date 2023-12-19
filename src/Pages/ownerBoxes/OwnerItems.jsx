@@ -182,36 +182,40 @@ const Items = () => {
               </Button>
             )}
           </div>
-          <DonutChart
-            benefit={100 - singleBoxInfo?.ratio}
-            expenses={singleBoxInfo?.ratio}
-            expensesValue={singleBoxInfo?.expense}
-            benefitValue={singleBoxInfo?.benefit}
-            countryId={owner?.countryId}
-            openStatistics={openStatistics}
-            setOpenStatistics={setOpenStatistics}
-            show={true}
-          />
-          <div>
-            <hr />
-            <Typography className="coint-show-heading">
-              {" "}
-              <MonetizationOnIcon sx={{ color: "#21726A" }} />
-              <div> Coin - {singleBoxInfo?.coin}</div>
-            </Typography>
-            <hr />
-            <Typography className="coint-show-heading">
-              {" "}
-              <LocalAtmIcon sx={{ color: "#21726A" }} />
-              <div> Bill - {singleBoxInfo?.cash}</div>
-            </Typography>
-            <hr />
-            <Typography className="coint-show-heading">
-              <PaymentIcon sx={{ color: "#21726A" }} />
-              <div> Cash Less - {singleBoxInfo?.bill}</div>
-            </Typography>
-            <hr />
-          </div>
+          {singleBoxInfo.ratio && (
+            <>
+              <DonutChart
+                benefit={100 - singleBoxInfo?.ratio}
+                expenses={singleBoxInfo?.ratio}
+                expensesValue={singleBoxInfo?.expense}
+                benefitValue={singleBoxInfo?.benefit}
+                countryId={owner?.countryId}
+                openStatistics={openStatistics}
+                setOpenStatistics={setOpenStatistics}
+                show={true}
+              />
+              <div>
+                <hr />
+                <Typography className="coint-show-heading">
+                  {" "}
+                  <MonetizationOnIcon sx={{ color: "#21726A" }} />
+                  <div> Coin - {singleBoxInfo?.coin}</div>
+                </Typography>
+                <hr />
+                <Typography className="coint-show-heading">
+                  {" "}
+                  <LocalAtmIcon sx={{ color: "#21726A" }} />
+                  <div> Bill - {singleBoxInfo?.cash}</div>
+                </Typography>
+                <hr />
+                <Typography className="coint-show-heading">
+                  <PaymentIcon sx={{ color: "#21726A" }} />
+                  <div> Cash Less - {singleBoxInfo?.bill}</div>
+                </Typography>
+                <hr />
+              </div>
+            </>
+          )}
         </div>
         <Box className="grap">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -257,8 +261,8 @@ const Items = () => {
 
       <hr />
       <div>
-      <Box m={2}>
-        <Button
+        <Box m={2}>
+          <Button
             variant="contained"
             sx={{ color: "white" }}
             onClick={() => setOpenGenerate(true)}
