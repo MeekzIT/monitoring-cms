@@ -88,13 +88,13 @@ const Admins = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>{t("name")}</TableCell>
+                  <TableCell align="left"></TableCell>
                   <TableCell align="left">{t("email")}</TableCell>
                   <TableCell align="left">{t("active")}</TableCell>
                   <TableCell align="left">{t("settings")}</TableCell>
                   {isSuper == "superAdmin" && (
                     <TableCell align="left">{t("reset")}</TableCell>
                   )}
-                  <TableCell align="left"></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -105,6 +105,20 @@ const Admins = () => {
                   >
                     <TableCell component="th" scope="row">
                       {row.firstName} {row.lastName}
+                    </TableCell>
+                    <TableCell align="left">
+                      <Button
+                        variant="contained"
+                        onClick={() => {
+                          navigate(`/admin-user/${row.id}`);
+                        }}
+                      >
+                        <RemoveRedEyeIcon
+                          sx={{
+                            color: "white",
+                          }}
+                        />
+                      </Button>
                     </TableCell>
                     <TableCell align="left">{row.email}</TableCell>
                     <TableCell align="left">
@@ -153,20 +167,7 @@ const Admins = () => {
                         </Button>
                       </TableCell>
                     )}
-                    <TableCell align="left">
-                      <Button
-                        variant="contained"
-                        onClick={() => {
-                          navigate(`/admin-user/${row.id}`);
-                        }}
-                      >
-                        <RemoveRedEyeIcon
-                          sx={{
-                            color: "white",
-                          }}
-                        />
-                      </Button>
-                    </TableCell>
+                   
                   </TableRow>
                 ))}
               </TableBody>

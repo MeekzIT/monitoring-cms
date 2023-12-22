@@ -299,6 +299,23 @@ const Items = () => {
                       }}
                     >
                       <TableCell align="left">{row.name}</TableCell>
+                      <TableCell align="left">
+                        <Button
+                          variant="contained"
+                          onClick={() => {
+                            // navigate(`/admin-user/${row.id}`);
+                            navigate(
+                              `/owner/${owner_id}/item/${id}/${row.p2}/${row.p0}`
+                            );
+                          }}
+                        >
+                          <RemoveRedEyeIcon
+                            sx={{
+                              color: "white",
+                            }}
+                          />
+                        </Button>
+                      </TableCell>
                       <TableCell align="left">ID-{row.p2}</TableCell>
                       <TableCell align="left">
                         <Button
@@ -326,23 +343,7 @@ const Items = () => {
                           </span>
                         )}
                       </TableCell>
-                      <TableCell align="left">
-                        <Button
-                          variant="contained"
-                          onClick={() => {
-                            // navigate(`/admin-user/${row.id}`);
-                            navigate(
-                              `/owner/${owner_id}/item/${id}/${row.p2}/${row.p0}`
-                            );
-                          }}
-                        >
-                          <RemoveRedEyeIcon
-                            sx={{
-                              color: "white",
-                            }}
-                          />
-                        </Button>
-                      </TableCell>
+                     
                     </TableRow>
                   ))}
                 </TableBody>

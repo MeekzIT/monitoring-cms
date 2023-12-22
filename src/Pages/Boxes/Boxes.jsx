@@ -328,10 +328,11 @@ const Boxes = () => {
                 <TableHead>
                   <TableRow>
                     <TableCell>{t("name")}</TableCell>
+                    <TableCell align="left"></TableCell>
+
                     <TableCell align="left">{t("geolocation")}</TableCell>
                     <TableCell align="left">{t("edit")}</TableCell>
                     <TableCell align="left">{t("difrentExspenses")}</TableCell>
-                    <TableCell align="left"></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -341,6 +342,20 @@ const Boxes = () => {
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell align="left">{row.name}</TableCell>
+                      <TableCell align="left">
+                        <Button
+                          variant="outlined"
+                          onClick={() => {
+                            dispatch(getSingleBox(row.id));
+                            dispatch(getBoxes(id, row.id));
+                            navigate(
+                              `/user/${user_id}/owner/${row?.ownerId}/item/${row.id}`
+                            );
+                          }}
+                        >
+                          <RemoveRedEyeIcon />
+                        </Button>
+                      </TableCell>
                       <TableCell align="left">{row.geolocation}</TableCell>
                       <TableCell align="left">
                         <Button
@@ -385,20 +400,7 @@ const Boxes = () => {
                           <AutoGraphIcon />
                         </Button>
                       </TableCell> */}
-                      <TableCell align="left">
-                        <Button
-                          variant="outlined"
-                          onClick={() => {
-                            dispatch(getSingleBox(row.id));
-                            dispatch(getBoxes(id, row.id));
-                            navigate(
-                              `/user/${user_id}/owner/${row?.ownerId}/item/${row.id}`
-                            );
-                          }}
-                        >
-                          <RemoveRedEyeIcon />
-                        </Button>
-                      </TableCell>
+                    
                     </TableRow>
                   ))}
                 </TableBody>

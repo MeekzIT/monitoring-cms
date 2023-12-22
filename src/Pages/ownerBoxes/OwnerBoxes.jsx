@@ -290,10 +290,10 @@ const OwnerBoxes = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>{t("name")}</TableCell>
+                  <TableCell align="left"></TableCell>
                   <TableCell align="left">{t("geolocation")}</TableCell>
                   <TableCell align="left">{t("edit")}</TableCell>
                   <TableCell align="left">{t("difrentExspenses")}</TableCell>
-                  <TableCell align="left"></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -303,6 +303,19 @@ const OwnerBoxes = () => {
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell align="left">{row.name}</TableCell>
+                    <TableCell align="left">
+                      <Button
+                        variant="outlined"
+                        onClick={() => {
+                          dispatch(getSingleBox(row.id));
+                          navigate(
+                            `/owner-items/${owner?.deviceOwner}/${row.id}`
+                          );
+                        }}
+                      >
+                        <RemoveRedEyeIcon />
+                      </Button>
+                    </TableCell>
                     <TableCell align="left">{row.geolocation}</TableCell>
                     <TableCell align="left">
                       <Button
@@ -335,19 +348,7 @@ const OwnerBoxes = () => {
                         <SettingsSuggestIcon />
                       </Button>
                     </TableCell>
-                    <TableCell align="left">
-                      <Button
-                        variant="outlined"
-                        onClick={() => {
-                          dispatch(getSingleBox(row.id));
-                          navigate(
-                            `/owner-items/${owner?.deviceOwner}/${row.id}`
-                          );
-                        }}
-                      >
-                        <RemoveRedEyeIcon />
-                      </Button>
-                    </TableCell>
+                   
                   </TableRow>
                 ))}
               </TableBody>

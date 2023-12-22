@@ -284,26 +284,6 @@ const Items = () => {
                       }}
                     >
                       <TableCell align="left">ID-{row.p2}</TableCell>
-                      {/* <TableCell align="left">
-                        {row.active == 1
-                          ? t("moika")
-                          : row.active == 2
-                          ? t("cux")
-                          : t("change")}
-                      </TableCell> */}
-                      <TableCell align="left">
-                        {compareWithUTC(row.datatime) ? (
-                          <span className="online">
-                            <CircleIcon />
-                            {t("online")}
-                          </span>
-                        ) : (
-                          <span className="offline">
-                            <CircleIcon />
-                            {t("offline")}
-                          </span>
-                        )}
-                      </TableCell>
                       <TableCell align="left">
                         <Button
                           variant="contained"
@@ -320,6 +300,21 @@ const Items = () => {
                           />
                         </Button>
                       </TableCell>
+                      <TableCell align="left"></TableCell>
+                      <TableCell align="left">
+                        {compareWithUTC(row.datatime) ? (
+                          <span className="online">
+                            <CircleIcon />
+                            {t("online")}
+                          </span>
+                        ) : (
+                          <span className="offline">
+                            <CircleIcon />
+                            {t("offline")}
+                          </span>
+                        )}
+                      </TableCell>
+                      
                     </TableRow>
                   ))}
                 </TableBody>

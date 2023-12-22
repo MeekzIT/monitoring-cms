@@ -89,6 +89,8 @@ const UserDetail = () => {
                       <TableHead>
                         <TableRow>
                           <TableCell>{t("name")}</TableCell>
+                          <TableCell align="left"></TableCell>
+
                           <TableCell align="left">{t("email")}</TableCell>
                           <TableCell align="left">{t("country")}</TableCell>
                           <TableCell align="left">{t("active")}</TableCell>
@@ -102,7 +104,6 @@ const UserDetail = () => {
                           <TableCell align="left">
                             {t("lastPay")} / {t("paymentType")}
                           </TableCell>
-                          <TableCell align="left"></TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -115,6 +116,23 @@ const UserDetail = () => {
                           >
                             <TableCell component="th" scope="row">
                               {row.firstName} {row.lastName}
+                            </TableCell>
+                            <TableCell align="left">
+                              <Button
+                                variant="contained"
+                                onClick={() => {
+                                  dispatch(getSingleOwners(row.id));
+                                  navigate(
+                                    `/user/${id}/owner/${row?.deviceOwner}`
+                                  );
+                                }}
+                              >
+                                <RemoveRedEyeIcon
+                                  sx={{
+                                    color: "white",
+                                  }}
+                                />
+                              </Button>
                             </TableCell>
                             <TableCell align="left">{row.email}</TableCell>
                             <TableCell align="left">
@@ -175,23 +193,7 @@ const UserDetail = () => {
                               {row?.variant?.toUpperCase()}
                             </TableCell>
 
-                            <TableCell align="left">
-                              <Button
-                                variant="contained"
-                                onClick={() => {
-                                  dispatch(getSingleOwners(row.id));
-                                  navigate(
-                                    `/user/${id}/owner/${row?.deviceOwner}`
-                                  );
-                                }}
-                              >
-                                <RemoveRedEyeIcon
-                                  sx={{
-                                    color: "white",
-                                  }}
-                                />
-                              </Button>
-                            </TableCell>
+                           
                           </TableRow>
                         ))}
                       </TableBody>

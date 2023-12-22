@@ -67,6 +67,7 @@ const AdminUser = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>{t("name")}</TableCell>
+                  <TableCell align="left"></TableCell>
                   <TableCell align="left">{t("email")}</TableCell>
                   <TableCell align="left">{t("country")}</TableCell>
                   <TableCell align="left">{t("active")}</TableCell>
@@ -77,7 +78,6 @@ const AdminUser = () => {
                     {t("lastPay")} / {t("paymentType")}
                   </TableCell>
 
-                  <TableCell align="left"></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -88,6 +88,20 @@ const AdminUser = () => {
                   >
                     <TableCell component="th" scope="row">
                       {row.firstName} {row.lastName}
+                    </TableCell>
+                    <TableCell align="left">
+                      <Button
+                        variant="contained"
+                        onClick={() => {
+                          navigate(`/user/${row.id}`);
+                        }}
+                      >
+                        <RemoveRedEyeIcon
+                          sx={{
+                            color: "white",
+                          }}
+                        />
+                      </Button>
                     </TableCell>
                     <TableCell align="left">{row.email}</TableCell>
                     <TableCell align="left">{row.Country.name}</TableCell>
@@ -127,20 +141,7 @@ const AdminUser = () => {
                       {row.lastPay ? row.lastPay : "-"} /{" "}
                       {row?.variant?.toUpperCase()}
                     </TableCell>
-                    <TableCell align="left">
-                      <Button
-                        variant="contained"
-                        onClick={() => {
-                          navigate(`/user/${row.id}`);
-                        }}
-                      >
-                        <RemoveRedEyeIcon
-                          sx={{
-                            color: "white",
-                          }}
-                        />
-                      </Button>
-                    </TableCell>
+                   
                   </TableRow>
                 ))}
               </TableBody>
