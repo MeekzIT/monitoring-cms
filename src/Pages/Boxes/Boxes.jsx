@@ -117,7 +117,7 @@ const Boxes = () => {
     boxShadow: 24,
     p: 4,
     borderRadius: "10px",
-    minHeight: isMobile && "100vh",
+    height: isMobile && "100vh",
     display: isMobile && "flex",
     justifyContent: isMobile && "center",
     alignItems: isMobile && "center",
