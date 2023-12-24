@@ -117,12 +117,13 @@ const Boxes = () => {
     boxShadow: 24,
     p: 4,
     borderRadius: "10px",
-    minHeight: isMobile ? "100vh" : null,
+    minHeight: isMobile && "100vh",
     display: isMobile && "flex",
     justifyContent: isMobile && "center",
     alignItems: isMobile && "center",
     flexDirection: isMobile && "column",
     gap: isMobile && "20px",
+    overflowY: "scroll",
   };
   useEffect(() => {
     dispatch(getSingleUser(user_id));

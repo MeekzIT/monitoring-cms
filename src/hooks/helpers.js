@@ -81,6 +81,10 @@ export const getMode = (mode) => {
     return "hotair";
   } else if (mode == 19) {
     return "wheelpump";
+  } else if (mode == 20) {
+    return "foam pressure";
+  } else if (mode == 21) {
+    return "fan";
   } else return null;
 };
 
@@ -206,5 +210,3 @@ export function compareWithUTC(inputDateTimeString) {
   }
   return false;
 }
-
-
