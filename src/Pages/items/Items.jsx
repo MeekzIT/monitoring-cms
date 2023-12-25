@@ -298,7 +298,22 @@ const Items = () => {
                         "&:last-child td, &:last-child th": { border: 0 },
                       }}
                     >
-                      <TableCell align="left">{row.name}</TableCell>
+                      <TableCell align="left" sx={{
+                        display:"flex",
+                        alignItems:"center"
+                      }}>
+                      {compareWithUTC(row.datatime) ? (
+                          <span className="online">
+                            <CircleIcon />
+                            {/* {t("online")} */}
+                          </span>
+                        ) : (
+                          <span className="offline">
+                            <CircleIcon />
+                            {/* {t("offline")} */}
+                          </span>
+                        )}
+                        {row.name}</TableCell>
                       <TableCell align="left">
                         <Button
                           variant="contained"
@@ -316,7 +331,6 @@ const Items = () => {
                           />
                         </Button>
                       </TableCell>
-                      <TableCell align="left">ID-{row.p2}</TableCell>
                       <TableCell align="left">
                         <Button
                           variant="contained"
@@ -329,20 +343,9 @@ const Items = () => {
                           {t("edit")}
                         </Button>
                       </TableCell>
+                      <TableCell align="left">ID-{row.p2}</TableCell>
 
-                      <TableCell align="left">
-                        {compareWithUTC(row.datatime) ? (
-                          <span className="online">
-                            <CircleIcon />
-                            {t("online")}
-                          </span>
-                        ) : (
-                          <span className="offline">
-                            <CircleIcon />
-                            {t("offline")}
-                          </span>
-                        )}
-                      </TableCell>
+                    
                      
                     </TableRow>
                   ))}
