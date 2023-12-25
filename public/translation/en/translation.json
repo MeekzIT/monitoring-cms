@@ -193,5 +193,8 @@
   "resetText":"When changing the password, the new password will be test1234 !",
   "go-back":"Go back",
   "Generate":"Generate new device",
-  "add-object":"Add new location"
+  "add-object":"Add new location",
+  "benefit":"Benefit",
+  "expenses":"Expenses",
+  "all":"All"
 }

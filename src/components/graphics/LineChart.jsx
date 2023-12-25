@@ -47,15 +47,15 @@ const LineChart = ({ benefit, expense, all, mont, startDate, endDate }) => {
   const chartData = {
     series: [
       {
-        name: "benefit",
+        name: t("benefit"),
         data: benefit,
       },
       {
-        name: "expense",
+        name: t("expenses"),
         data: expense,
       },
       {
-        name: "all",
+        name: t("all"),
         data: all,
       },
     ],

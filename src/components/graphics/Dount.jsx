@@ -6,6 +6,7 @@ import { getCurrency } from "../../hooks/helpers";
 import { Box, Typography } from "@mui/material";
 // import { Doughnut } from "react-chartjs-2";
 import CircleIcon from "@mui/icons-material/Circle";
+import { useTranslation } from "react-i18next";
 
 const DonutChart = ({
   benefit,
@@ -21,6 +22,7 @@ const DonutChart = ({
   show,
 }) => {
   const isMobile = useIsMobile();
+  const {t} = useTranslation()
   const handleClick = () => {
     // Access information about the clicked segment
     setOpenStatistics(!openStatistics);
@@ -43,10 +45,10 @@ const DonutChart = ({
         },
       },
       labels: [
-        `Expenses ${expensesValue} ${
+        `${t("expenses")} ${expensesValue} ${
           show !== false ? getCurrency(countryId) : ""
         }`,
-        `Benefit ${benefitValue} ${
+        `${t("benefit")} ${benefitValue} ${
           show !== false ? getCurrency(countryId) : ""
         }`,
       ],
@@ -117,7 +119,7 @@ const DonutChart = ({
         >
           <CircleIcon sx={{ color: "rgb(254, 176, 25)", fontSize: "16px" }} />
           <Typography variant="h6" component="h2">
-            All {benefitValue + expensesValue}
+            {t("all")} {benefitValue + expensesValue}
             {show !== false ? getCurrency(countryId) : ""}
           </Typography>
         </div>
