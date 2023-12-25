@@ -138,7 +138,7 @@ export const changeCredentials = (data) => {
         if (response.data.succes) {
           Swal.fire({
             position: "center",
-            iconColor: "#21726A",
+            iconColor: "#008491",
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
@@ -163,7 +163,7 @@ export const changePassword = (data) => {
         if (response.data.succes) {
           Swal.fire({
             position: "center",
-            iconColor: "#21726A",
+            iconColor: "#008491",
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
@@ -192,7 +192,7 @@ export const changeBoxSettings = (data) => {
           });
           Swal.fire({
             position: "center",
-            iconColor: "#21726A",
+            iconColor: "#008491",
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
@@ -293,7 +293,7 @@ export const editItemChanges = (data) => {
           });
           Swal.fire({
             position: "center",
-            iconColor: "#21726A",
+            iconColor: "#008491",
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
@@ -351,7 +351,7 @@ export const editItemInfo = (data) => {
             });
           Swal.fire({
             position: "center",
-            iconColor: "#21726A",
+            iconColor: "#008491",
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
@@ -716,8 +716,6 @@ export const getBoxLinear = (data) => {
 };
 
 export const changeName = (data) => {
-
-
   return (dispatch) => {
     axios
       .post(`${keys.api}/owner/item-edit-name`, data, {
@@ -725,9 +723,7 @@ export const changeName = (data) => {
           Authorization: `Bearer ${keys.token}`,
         },
       })
-      .then((response) => {
-       
-      })
+      .then((response) => {})
       .catch((error) => {
         console.error(error);
       });

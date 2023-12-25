@@ -36,8 +36,8 @@ body {
 .ActivePagItem {
   width: 21px;
   height: 21px;
-  border: 1px solid #21726a;
-  color: #21726a;
+  border: 1px solid #008491;
+  color: #008491;
   border-radius: 50%;
   padding: 5px;
   margin-left: 15px;
@@ -69,7 +69,7 @@ body {
 }
 
 .active-steper-item {
-  color: #21726a !important;
+  color: #008491 !important;
 }
 
 .change-field {
@@ -108,7 +108,7 @@ body {
 }
 
 .mobile-modal-close-btn svg {
-  fill: #21726a;
+  fill: #008491;
 }
 
 .css-19kzrtu {
@@ -179,6 +179,6 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #21726a;
+  color: #008491;
   padding-left: 10px;
 }

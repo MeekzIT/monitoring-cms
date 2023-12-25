@@ -47,7 +47,7 @@ const Calculator2 = ({
     transform: "translate(-50%, -50%)",
     width: isMobile ? "100%" : 800,
     bgcolor: "background.paper",
-    border: "3px solid #21726A",
+    border: "3px solid #008491",
     boxShadow: 24,
     p: 4,
     borderRadius: "10px",

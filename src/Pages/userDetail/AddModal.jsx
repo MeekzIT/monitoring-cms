@@ -63,7 +63,7 @@ const AddOwner = ({ open, handleClose }) => {
     transform: "translate(-50%, -50%)",
     width: isMobile ? "100%" : 400,
     bgcolor: "background.paper",
-    border: "3px solid #21726A",
+    border: "3px solid #008491",
     boxShadow: 24,
     p: 4,
     borderRadius: "10px",

@@ -25,7 +25,7 @@ const ItemFilters = ({
                   gap: "15px",
                 }}
               >
-                <MonetizationOnIcon sx={{ color: "#21726A" }} />
+                <MonetizationOnIcon sx={{ color: "#008491" }} />
                 <Typography>
                   {filtredDates?.MonetizationOnIcon}
                   {getCurrency(countryId)}
@@ -38,7 +38,7 @@ const ItemFilters = ({
                   gap: "15px",
                 }}
               >
-                <LocalAtmIcon sx={{ color: "#21726A" }} />
+                <LocalAtmIcon sx={{ color: "#008491" }} />
                 <Typography>
                   {filtredDates?.LocalAtmIcon}
                   {getCurrency(countryId)}
@@ -51,7 +51,7 @@ const ItemFilters = ({
                   gap: "15px",
                 }}
               >
-                <CreditScoreIcon sx={{ color: "#21726A" }} />
+                <CreditScoreIcon sx={{ color: "#008491" }} />
                 <Typography>
                   {filtredDates?.CreditScoreIcon}
                   {getCurrency(countryId)}
@@ -71,7 +71,7 @@ const ItemFilters = ({
               gap: "15px",
             }}
           >
-            <MonetizationOnIcon sx={{ color: "#21726A" }} />
+            <MonetizationOnIcon sx={{ color: "#008491" }} />
             <Typography>
               {itemCurrentValue?.MonetizationOnIcon} {getCurrency(countryId)}
             </Typography>
@@ -84,7 +84,7 @@ const ItemFilters = ({
               gap: "15px",
             }}
           >
-            <LocalAtmIcon sx={{ color: "#21726A" }} />
+            <LocalAtmIcon sx={{ color: "#008491" }} />
             <Typography>
               {itemCurrentValue?.LocalAtmIcon}{" "}
               {/* {Number(item?.p17) * Number(item?.p11)} */}
@@ -98,7 +98,7 @@ const ItemFilters = ({
               gap: "15px",
             }}
           >
-            <CreditScoreIcon sx={{ color: "#21726A" }} />
+            <CreditScoreIcon sx={{ color: "#008491" }} />
             <Typography>
               {itemCurrentValue?.CreditScoreIcon}{" "}
               {/* {Number(item?.p18) * Number(item?.p12)} */}

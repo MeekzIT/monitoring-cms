@@ -33,7 +33,7 @@ import { useParams } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#21726A",
+    backgroundColor: "#008491",
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -82,7 +82,7 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
     transform: "translate(-50%, -50%)",
     width: isMobile ? "100%" : 800,
     bgcolor: "background.paper",
-    border: "3px solid #21726A",
+    border: "3px solid #008491",
     boxShadow: 24,
     p: 4,
     borderRadius: "10px",
@@ -123,7 +123,7 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
         {/* {showSettings && (
           <Button
             variant="outlined"
-            endIcon={<ReplyIcon sx={{ color: "#21726A" }} />}
+            endIcon={<ReplyIcon sx={{ color: "#008491" }} />}
             onClick={() => setShowSettings(!showSettings)}
             className="settings-icon"
           >
@@ -142,19 +142,19 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
                       <TableRow>
                         <TableCell align="left">{t("rejim")}</TableCell>
                         <TableCell align="left">
-                          <WaterDropIcon sx={{ color: "#21726A" }} />
+                          <WaterDropIcon sx={{ color: "#008491" }} />
                         </TableCell>
                         <TableCell align="left">
-                          <ElectricBoltIcon sx={{ color: "#21726A" }} />
+                          <ElectricBoltIcon sx={{ color: "#008491" }} />
                         </TableCell>{" "}
                         <TableCell align="left">
-                          <BubbleChartIcon sx={{ color: "#21726A" }} />
+                          <BubbleChartIcon sx={{ color: "#008491" }} />
                         </TableCell>{" "}
                         <TableCell align="left">
-                          <TimelapseIcon sx={{ color: "#21726A" }} />
+                          <TimelapseIcon sx={{ color: "#008491" }} />
                         </TableCell>
                         <TableCell align="left">
-                          <PlayCircleIcon sx={{ color: "#21726A" }} />
+                          <PlayCircleIcon sx={{ color: "#008491" }} />
                         </TableCell>
                         <TableCell align="right">{t("settings")}</TableCell>
                       </TableRow>
@@ -180,7 +180,7 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
                               variant="outlined"
                               endIcon={
                                 <SettingsSuggestIcon
-                                  sx={{ color: "#21726A" }}
+                                  sx={{ color: "#008491" }}
                                 />
                               }
                               onClick={() => {
@@ -220,7 +220,7 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
 
             <Button
               variant="outlined"
-              endIcon={<ReplyIcon sx={{ color: "#21726A" }} />}
+              endIcon={<ReplyIcon sx={{ color: "#008491" }} />}
               onClick={() => {
                 setShowSettings(!showSettings);
                 setCurrentFunctionID(null);

@@ -258,18 +258,18 @@ const Single = () => {
                               <hr />
                               <Typography className="coint-show-heading">
                                 {" "}
-                                <MonetizationOnIcon sx={{ color: "#21726A" }} />
+                                <MonetizationOnIcon sx={{ color: "#008491" }} />
                                 <div> Coin - {singleInfo?.coin}</div>
                               </Typography>
                               <hr />
                               <Typography className="coint-show-heading">
                                 {" "}
-                                <LocalAtmIcon sx={{ color: "#21726A" }} />
+                                <LocalAtmIcon sx={{ color: "#008491" }} />
                                 <div> Bill - {singleInfo?.cash}</div>
                               </Typography>
                               <hr />
                               <Typography className="coint-show-heading">
-                                <PaymentIcon sx={{ color: "#21726A" }} />
+                                <PaymentIcon sx={{ color: "#008491" }} />
                                 <div> Cash Less - {singleInfo?.bill}</div>
                               </Typography>
                               <hr />
@@ -423,8 +423,8 @@ const Single = () => {
                 gap: "20px",
               }}
             >
-              <LockIcon sx={{ color: "#21726A" }} />
-              <h1 style={{ color: "#21726A" }}>{t("block")}</h1>
+              <LockIcon sx={{ color: "#008491" }} />
+              <h1 style={{ color: "#008491" }}>{t("block")}</h1>
             </Box>
           )}
           {/* {(isSuper !== "owner" || isSuper !== "superAdmin") &&
@@ -582,7 +582,7 @@ export default Single;
 //               setFilterOn(true);
 //             }}
 //           >
-//             <FilterAltIcon sx={{ color: "#21726A" }} />
+//             <FilterAltIcon sx={{ color: "#008491" }} />
 //           </Button>
 //         </Box>
 
@@ -598,7 +598,7 @@ export default Single;
 //                 setEnd(null);
 //               }}
 //             >
-//               <DeleteIcon sx={{ color: "#21726A" }} />
+//               <DeleteIcon sx={{ color: "#008491" }} />
 //             </Button>
 //           </Box>
 //         )}

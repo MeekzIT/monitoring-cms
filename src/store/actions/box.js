@@ -46,7 +46,7 @@ export const editBoxExpenses = (data) => {
           });
           Swal.fire({
             position: "center",
-            iconColor: "#21726A",
+            iconColor: "#008491",
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
@@ -75,7 +75,7 @@ export const addBoxExpenses = (data) => {
           });
           Swal.fire({
             position: "center",
-            iconColor: "#21726A",
+            iconColor: "#008491",
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
@@ -104,7 +104,7 @@ export const addBox = (data) => {
           });
           Swal.fire({
             position: "center",
-            iconColor: "#21726A",
+            iconColor: "#008491",
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
@@ -133,7 +133,7 @@ export const destroyBoxExpenses = (data) => {
           });
           Swal.fire({
             position: "center",
-            iconColor: "#21726A",
+            iconColor: "#008491",
             icon: "success",
             showConfirmButton: false,
             timer: 1500,

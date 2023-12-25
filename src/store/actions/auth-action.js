@@ -38,7 +38,7 @@ export const loginAction = (data) => {
         } else
           Swal.fire({
             position: "center",
-            iconColor: "#21726A",
+            iconColor: "#008491",
             icon: "error",
             showConfirmButton: false,
             timer: 1500,
@@ -63,7 +63,7 @@ export const resetPassword = (data) => {
         if (response.data.succes) {
           Swal.fire({
             position: "center",
-            iconColor: "#21726A",
+            iconColor: "#008491",
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
@@ -71,7 +71,7 @@ export const resetPassword = (data) => {
         } else
           Swal.fire({
             position: "center",
-            iconColor: "#21726A",
+            iconColor: "#008491",
             icon: "error",
             showConfirmButton: false,
             timer: 1500,
@@ -110,7 +110,6 @@ export const logoutAction = () => {
         window.location.href = "/";
         if (response.data.succes) {
           // dispatch({ type: SET_AUTH, payload: false });
-         
         }
       })
       .catch(function (error) {

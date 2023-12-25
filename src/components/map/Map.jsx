@@ -8,7 +8,7 @@ let mapData = {
   AZ: 200,
   BY: 200,
   KZ: 200,
-  TR: 200,
+  KG: 200,
 };
 
 const regionStyle = {
@@ -23,7 +23,7 @@ const series = {
   regions: [
     {
       values: mapData,
-      scale: ["#21726A"],
+      scale: ["#008491"],
       normalizeFunction: "polynomial",
     },
   ],

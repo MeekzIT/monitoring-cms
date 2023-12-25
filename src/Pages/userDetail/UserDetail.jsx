@@ -55,7 +55,7 @@ const UserDetail = () => {
           <div className="loading-box">
             <CircularProgress
               sx={{
-                color: "#21726A",
+                color: "#008491",
               }}
             />
           </div>
@@ -192,8 +192,6 @@ const UserDetail = () => {
                               {row.lastPay ? row.lastPay : "-"} /{" "}
                               {row?.variant?.toUpperCase()}
                             </TableCell>
-
-                           
                           </TableRow>
                         ))}
                       </TableBody>

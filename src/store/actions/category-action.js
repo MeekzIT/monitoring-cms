@@ -45,7 +45,7 @@ export const delCategories = (id) => {
           });
           Swal.fire({
             position: "center",
-            iconColor: "#21726A",
+            iconColor: "#008491",
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
@@ -78,7 +78,7 @@ export const editCategories = (id, nameHy, nameRu, nameEn, nameGe, nameAz) => {
           });
           Swal.fire({
             position: "center",
-            iconColor: "#21726A",
+            iconColor: "#008491",
             icon: "success",
             showConfirmButton: false,
             timer: 1500,
@@ -107,7 +107,7 @@ export const addCategories = (data) => {
           });
           Swal.fire({
             position: "center",
-            iconColor: "#21726A",
+            iconColor: "#008491",
             icon: "success",
             showConfirmButton: false,
             timer: 1500,

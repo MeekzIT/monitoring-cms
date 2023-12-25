@@ -113,7 +113,7 @@ const Boxes = () => {
     transform: "translate(-50%, -50%)",
     width: isMobile ? "100%" : 800,
     bgcolor: "background.paper",
-    border: "3px solid #21726A",
+    border: "3px solid #008491",
     boxShadow: 24,
     p: 4,
     borderRadius: "10px",
@@ -246,18 +246,18 @@ const Boxes = () => {
                   <hr />
                   <Typography className="coint-show-heading">
                     {" "}
-                    <MonetizationOnIcon sx={{ color: "#21726A" }} />
+                    <MonetizationOnIcon sx={{ color: "#008491" }} />
                     <div> Coin - {boxInfo?.coin}</div>
                   </Typography>
                   <hr />
                   <Typography className="coint-show-heading">
                     {" "}
-                    <LocalAtmIcon sx={{ color: "#21726A" }} />
+                    <LocalAtmIcon sx={{ color: "#008491" }} />
                     <div> Bill - {boxInfo?.cash}</div>
                   </Typography>
                   <hr />
                   <Typography className="coint-show-heading">
-                    <PaymentIcon sx={{ color: "#21726A" }} />
+                    <PaymentIcon sx={{ color: "#008491" }} />
                     <div> Cash Less - {boxInfo?.bill}</div>
                   </Typography>
                   <hr />
@@ -401,7 +401,6 @@ const Boxes = () => {
                           <AutoGraphIcon />
                         </Button>
                       </TableCell> */}
-                    
                     </TableRow>
                   ))}
                 </TableBody>
@@ -603,22 +602,22 @@ const Boxes = () => {
                                             </TableCell>
                                             <TableCell align="left">
                                               <WaterDropIcon
-                                                sx={{ color: "#21726A" }}
+                                                sx={{ color: "#008491" }}
                                               />
                                             </TableCell>
                                             <TableCell align="left">
                                               <ElectricBoltIcon
-                                                sx={{ color: "#21726A" }}
+                                                sx={{ color: "#008491" }}
                                               />
                                             </TableCell>{" "}
                                             <TableCell align="left">
                                               <BubbleChartIcon
-                                                sx={{ color: "#21726A" }}
+                                                sx={{ color: "#008491" }}
                                               />
                                             </TableCell>{" "}
                                             <TableCell align="left">
                                               <TimelapseIcon
-                                                sx={{ color: "#21726A" }}
+                                                sx={{ color: "#008491" }}
                                               />
                                             </TableCell>
                                           </TableRow>

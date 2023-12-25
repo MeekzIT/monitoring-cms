@@ -83,7 +83,7 @@ const Items = () => {
     transform: "translate(-50%, -50%)",
     width: isMobile ? "100%" : 800,
     bgcolor: "background.paper",
-    border: "3px solid #21726A",
+    border: "3px solid #008491",
     boxShadow: 24,
     p: 4,
     borderRadius: "10px",
@@ -102,7 +102,7 @@ const Items = () => {
     transform: "translate(-50%, -50%)",
     width: isMobile ? "100%" : 400,
     bgcolor: "background.paper",
-    border: "3px solid #21726A",
+    border: "3px solid #008491",
     boxShadow: 24,
     p: 4,
     borderRadius: "10px",
@@ -213,18 +213,18 @@ const Items = () => {
                 <hr />
                 <Typography className="coint-show-heading">
                   {" "}
-                  <MonetizationOnIcon sx={{ color: "#21726A" }} />
+                  <MonetizationOnIcon sx={{ color: "#008491" }} />
                   <div> Coin - {singleBoxInfo?.coin}</div>
                 </Typography>
                 <hr />
                 <Typography className="coint-show-heading">
                   {" "}
-                  <LocalAtmIcon sx={{ color: "#21726A" }} />
+                  <LocalAtmIcon sx={{ color: "#008491" }} />
                   <div> Bill - {singleBoxInfo?.cash}</div>
                 </Typography>
                 <hr />
                 <Typography className="coint-show-heading">
-                  <PaymentIcon sx={{ color: "#21726A" }} />
+                  <PaymentIcon sx={{ color: "#008491" }} />
                   <div> Cash Less - {singleBoxInfo?.bill}</div>
                 </Typography>
                 <hr />
@@ -298,11 +298,14 @@ const Items = () => {
                         "&:last-child td, &:last-child th": { border: 0 },
                       }}
                     >
-                      <TableCell align="left" sx={{
-                        display:"flex",
-                        alignItems:"center"
-                      }}>
-                      {compareWithUTC(row.datatime) ? (
+                      <TableCell
+                        align="left"
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        {compareWithUTC(row.datatime) ? (
                           <span className="online">
                             <CircleIcon />
                             {/* {t("online")} */}
@@ -313,7 +316,8 @@ const Items = () => {
                             {/* {t("offline")} */}
                           </span>
                         )}
-                        {row.name}</TableCell>
+                        {row.name}
+                      </TableCell>
                       <TableCell align="left">
                         <Button
                           variant="contained"
@@ -344,9 +348,6 @@ const Items = () => {
                         </Button>
                       </TableCell>
                       <TableCell align="left">ID-{row.p2}</TableCell>
-
-                    
-                     
                     </TableRow>
                   ))}
                 </TableBody>
@@ -439,22 +440,22 @@ const Items = () => {
                                           </TableCell>
                                           <TableCell align="left">
                                             <WaterDropIcon
-                                              sx={{ color: "#21726A" }}
+                                              sx={{ color: "#008491" }}
                                             />
                                           </TableCell>
                                           <TableCell align="left">
                                             <ElectricBoltIcon
-                                              sx={{ color: "#21726A" }}
+                                              sx={{ color: "#008491" }}
                                             />
                                           </TableCell>{" "}
                                           <TableCell align="left">
                                             <BubbleChartIcon
-                                              sx={{ color: "#21726A" }}
+                                              sx={{ color: "#008491" }}
                                             />
                                           </TableCell>{" "}
                                           <TableCell align="left">
                                             <TimelapseIcon
-                                              sx={{ color: "#21726A" }}
+                                              sx={{ color: "#008491" }}
                                             />
                                           </TableCell>
                                         </TableRow>
