@@ -124,12 +124,14 @@ const DonutChart = ({
           </Typography>
         </div>
       </div>
-      <Chart
-        options={chartData.options}
-        series={chartData.series}
-        type="donut"
-        width={isMobile ? "300" : "500"}
-      />
+    {
+      chartData.options && chartData.series &&  <Chart
+      options={chartData.options}
+      series={chartData.series}
+      type="donut"
+      width={isMobile ? "300" : "500"}
+    />
+    } 
     </Box>
   );
 };

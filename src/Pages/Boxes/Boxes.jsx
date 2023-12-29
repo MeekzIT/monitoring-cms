@@ -175,6 +175,8 @@ const Boxes = () => {
     single !== null && setInfo(boxesInfo?.filter((i) => i.box.id == single)[0]);
     single !== null && setShowRows(true);
   }, [single]);
+
+  console.log(boxInfo,"boxInfoboxInfoboxInfoboxInfoboxInfo");
   return (
     <div>
       <Box m={3}>
@@ -229,7 +231,7 @@ const Boxes = () => {
                 </Button>
               )}
             </div>
-            {boxInfo?.ratio !== null && (
+            {boxInfo !== null && (
               <>
                 <DonutChart
                   benefit={100 - boxInfo?.ratio}
@@ -703,7 +705,7 @@ const Boxes = () => {
                 return (
                   <>
                     <hr />
-                    {i?.ratio !== null && (
+                    {i !== null && (
                       <Box>
                         <DonutChart
                           benefit={100 - i?.ratio}

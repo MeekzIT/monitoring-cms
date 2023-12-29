@@ -241,7 +241,7 @@ const Single = () => {
                             </Button>
                           )}
                         </div>
-                        {singleInfo?.ratio !== null && (
+                        {singleInfo !== null && (
                           <>
                             <DonutChart
                               benefit={100 - singleInfo?.ratio}

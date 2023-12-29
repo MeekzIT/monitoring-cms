@@ -103,15 +103,15 @@ const LineChart = ({ benefit, expense, all, mont, startDate, endDate }) => {
       },
     },
   };
-  console.log(days);
   return (
     <div>
-      <Chart
+      { chartData.options && chartData.series &&  <Chart
         options={chartData.options}
         series={chartData.series}
         type="line"
         width={isMobile ? "300" : "500"}
-      />
+      />}
+     
     </div>
   );
 };
