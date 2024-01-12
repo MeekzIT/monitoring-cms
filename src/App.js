@@ -1,15 +1,20 @@
 import React, { useEffect } from "react";
 import MainLayout from "./containers/layout/layout";
 import { useDispatch } from "react-redux";
-import { getMe, setAuthAction } from "./store/actions/auth-action";
+import {
+  getMe,
+  logoutAction,
+  setAuthAction,
+} from "./store/actions/auth-action";
 import { useNavigate } from "react-router-dom";
 import { LOGIN_PAGE } from "./routing/pats";
 
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isAuth = JSON.parse(localStorage.getItem("isAuth"));
+
   useEffect(() => {
-    const isAuth = JSON.parse(localStorage.getItem("isAuth"));
     if (!localStorage.getItem("language")) {
       localStorage.setItem("language", "ru");
     }
@@ -17,6 +22,18 @@ function App() {
       dispatch(setAuthAction(true));
       dispatch(getMe());
     } else navigate(LOGIN_PAGE);
+    console.clear();
+  }, []);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      dispatch(logoutAction());
+      console.log("1 hour has passed!");
+    }, 3600000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   return (
