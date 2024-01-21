@@ -261,15 +261,6 @@ const Items = () => {
 
       <hr />
       <div>
-        <Box m={2}>
-          <Button
-            variant="contained"
-            sx={{ color: "white" }}
-            onClick={() => setOpenGenerate(true)}
-          >
-            {t("Generate")}
-          </Button>
-        </Box>
         <hr />
         <Box sx={{ overflow: "auto" }}>
           <Box sx={{ width: "100%", display: "table", tableLayout: "fixed" }}>
