@@ -7,6 +7,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useIsMobile } from "../../hooks/useScreenType";
 import { useDispatch } from "react-redux";
 import { resetPassword } from "../../store/actions/auth-action";
+import { themePallete } from "../..";
 
 const ResetModal = ({ open, handleClose, role, currint }) => {
   const { t } = useTranslation();
@@ -20,7 +21,8 @@ const ResetModal = ({ open, handleClose, role, currint }) => {
     transform: "translate(-50%, -50%)",
     width: isMobile ? "100%" : 400,
     bgcolor: "background.paper",
-    border: "3px solid #008491",
+    border: `3px solid ${themePallete}`,
+
     boxShadow: 24,
     p: 4,
     borderRadius: "10px",

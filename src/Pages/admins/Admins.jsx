@@ -28,6 +28,7 @@ import { getCountries } from "../../store/actions/statistics-action";
 import GoBack from "../../components/goBack/GoBack";
 import LockResetIcon from "@mui/icons-material/LockReset";
 import ResetModal from "../../components/resetModal/ResetModal";
+import { themePallete } from "../..";
 const Admins = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -56,7 +57,7 @@ const Admins = () => {
     transform: "translate(-50%, -50%)",
     width: isMobile ? "100%" : 400,
     bgcolor: "background.paper",
-    border: "3px solid #008491",
+    border: `3px solid ${themePallete}`,
     boxShadow: 24,
     p: 4,
     borderRadius: "10px",

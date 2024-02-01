@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../../store/actions/category-action";
+import { themePallete } from "../..";
 
 const ItemsMenu = ({ setShowMewnu, setActive }) => {
   const { t } = useTranslation();
@@ -42,9 +43,9 @@ const ItemsMenu = ({ setShowMewnu, setActive }) => {
                       <Typography
                         variant="h6"
                         component="h2"
-                        className="active-steper-item"
                         sx={{
                           cursor: "pointer",
+                          color: `${themePallete} !important`,
                         }}
                         onClick={() => {
                           setShowMewnu(true);

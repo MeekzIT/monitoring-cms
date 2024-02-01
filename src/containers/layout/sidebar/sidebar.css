@@ -7,7 +7,6 @@
     rgba(0, 93, 83, 1) 0%,
     rgba(255, 255, 255, 1) 100%
   ); */
-  background: #008491;
   border-right: 4px solid white;
   padding-top: 60px;
 }
@@ -32,20 +31,6 @@
   margin: 0;
   transition: 300ms;
   padding: 10px 0;
-}
-
-.top {
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* background: rgb(178, 255, 247);
-  background: radial-gradient(
-    circle,
-    rgba(178, 255, 247, 1) 0%,
-    rgba(3, 126, 113, 1) 100%
-  ); */
-  background: #008491;
 }
 
 .logo {
@@ -143,7 +128,7 @@ span {
 }
 
 .pasiveLink {
-  color: #082723;
+  color: white;
   font-weight: bold;
 }
 

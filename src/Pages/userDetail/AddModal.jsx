@@ -25,6 +25,7 @@ import { addOwner } from "../../store/actions/users-action";
 import { getCountries } from "../../store/actions/statistics-action";
 import { useParams } from "react-router-dom";
 import { useIsMobile } from "../../hooks/useScreenType";
+import { themePallete } from "../..";
 
 const AddOwner = ({ open, handleClose }) => {
   const { t } = useTranslation();
@@ -63,7 +64,7 @@ const AddOwner = ({ open, handleClose }) => {
     transform: "translate(-50%, -50%)",
     width: isMobile ? "100%" : 400,
     bgcolor: "background.paper",
-    border: "3px solid #008491",
+    border: `3px solid ${themePallete}`,
     boxShadow: 24,
     p: 4,
     borderRadius: "10px",

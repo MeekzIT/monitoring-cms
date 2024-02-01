@@ -36,8 +36,7 @@ body {
 .ActivePagItem {
   width: 21px;
   height: 21px;
-  border: 1px solid #008491;
-  color: #008491;
+ 
   border-radius: 50%;
   padding: 5px;
   margin-left: 15px;
@@ -66,10 +65,6 @@ body {
 
 .steper-item {
   cursor: pointer;
-}
-
-.active-steper-item {
-  color: #008491 !important;
 }
 
 .change-field {
@@ -179,6 +174,5 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #008491;
   padding-left: 10px;
 }

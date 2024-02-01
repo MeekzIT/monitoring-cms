@@ -5,6 +5,7 @@ import useCopyToClipboard from "../../hooks/useCopyToClipboard";
 import { useDispatch, useSelector } from "react-redux";
 import { generatedId } from "../../store/actions/users-action";
 import { getMe } from "../../store/actions/auth-action";
+import { themePallete } from "../..";
 
 const GenerateModal = ({ open, setOpen, ownerId }) => {
   const isMobile = useIsMobile();
@@ -19,7 +20,7 @@ const GenerateModal = ({ open, setOpen, ownerId }) => {
     transform: "translate(-50%, -50%)",
     width: isMobile ? "100%" : 400,
     bgcolor: "background.paper",
-    border: "3px solid #008491",
+    border: `3px solid ${themePallete}`,
     boxShadow: 24,
     p: 4,
     borderRadius: "10px",

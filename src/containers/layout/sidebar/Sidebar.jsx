@@ -16,6 +16,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Tooltip } from "@mui/material";
 import { useIsMobile } from "../../../hooks/useScreenType";
 import { useEffect, useState } from "react";
+import { themePallete } from "../../..";
 
 const Sidebar = ({ close, setClose }) => {
   let location = useLocation();
@@ -54,7 +55,12 @@ const Sidebar = ({ close, setClose }) => {
   }, [window.location.pathname]);
 
   return (
-    <div className="sidebar">
+    <div
+      className="sidebar"
+      style={{
+        background: themePallete,
+      }}
+    >
       {isMobile && (
         <div className="sidebar-close">
           <Tooltip title="Sidebar" arrow>

@@ -4,6 +4,7 @@ import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import CreditScoreIcon from "@mui/icons-material/CreditScore";
 import { getCurrency } from "../../hooks/helpers";
 import Filters3 from "./components/Filters3";
+import { themePallete } from "../..";
 const ItemFilters = ({
   active,
   filtredDates,
@@ -25,7 +26,7 @@ const ItemFilters = ({
                   gap: "15px",
                 }}
               >
-                <MonetizationOnIcon sx={{ color: "#008491" }} />
+                <MonetizationOnIcon sx={{ color: themePallete }} />
                 <Typography>
                   {filtredDates?.MonetizationOnIcon}
                   {getCurrency(countryId)}
@@ -38,7 +39,7 @@ const ItemFilters = ({
                   gap: "15px",
                 }}
               >
-                <LocalAtmIcon sx={{ color: "#008491" }} />
+                <LocalAtmIcon sx={{ color: themePallete }} />
                 <Typography>
                   {filtredDates?.LocalAtmIcon}
                   {getCurrency(countryId)}
@@ -51,7 +52,7 @@ const ItemFilters = ({
                   gap: "15px",
                 }}
               >
-                <CreditScoreIcon sx={{ color: "#008491" }} />
+                <CreditScoreIcon sx={{ color: themePallete }} />
                 <Typography>
                   {filtredDates?.CreditScoreIcon}
                   {getCurrency(countryId)}
@@ -71,7 +72,7 @@ const ItemFilters = ({
               gap: "15px",
             }}
           >
-            <MonetizationOnIcon sx={{ color: "#008491" }} />
+            <MonetizationOnIcon sx={{ color: themePallete }} />
             <Typography>
               {itemCurrentValue?.MonetizationOnIcon} {getCurrency(countryId)}
             </Typography>
@@ -84,7 +85,7 @@ const ItemFilters = ({
               gap: "15px",
             }}
           >
-            <LocalAtmIcon sx={{ color: "#008491" }} />
+            <LocalAtmIcon sx={{ color: themePallete }} />
             <Typography>
               {itemCurrentValue?.LocalAtmIcon}{" "}
               {/* {Number(item?.p17) * Number(item?.p11)} */}
@@ -98,7 +99,7 @@ const ItemFilters = ({
               gap: "15px",
             }}
           >
-            <CreditScoreIcon sx={{ color: "#008491" }} />
+            <CreditScoreIcon sx={{ color: themePallete }} />
             <Typography>
               {itemCurrentValue?.CreditScoreIcon}{" "}
               {/* {Number(item?.p18) * Number(item?.p12)} */}

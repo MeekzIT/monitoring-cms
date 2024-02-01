@@ -14,6 +14,7 @@ import { logoutAction } from "../../../store/actions/auth-action";
 import { LOGIN_PAGE, PAYMENT_PAGE, SETTIGS_PAGE } from "../../../routing/pats";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useTranslation } from "react-i18next";
+import { themePallete } from "../../..";
 
 const Navbar = ({ close, setClose }) => {
   const dispatch = useDispatch();
@@ -35,7 +36,12 @@ const Navbar = ({ close, setClose }) => {
     navigate(LOGIN_PAGE);
   };
   return (
-    <div className="navbar">
+    <div
+      className="navbar"
+      style={{
+        background: themePallete,
+      }}
+    >
       <div className="wrapper">
         <div className="search">
           <Tooltip title="Sidebar" arrow>
@@ -66,8 +72,7 @@ const Navbar = ({ close, setClose }) => {
                 sx={{ borderColor: "maroon", color: "maroon" }}
                 size="large"
                 onClick={() => navigate(PAYMENT_PAGE)}
-              >
-              </Button>
+              ></Button>
             )}
           </div>
           <div className="item">

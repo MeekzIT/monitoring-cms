@@ -22,7 +22,7 @@ function App() {
       dispatch(setAuthAction(true));
       dispatch(getMe());
     } else navigate(LOGIN_PAGE);
-    console.clear();
+    // console.clear();
   }, []);
 
   useEffect(() => {

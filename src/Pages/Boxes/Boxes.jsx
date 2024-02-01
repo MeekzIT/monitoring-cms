@@ -64,6 +64,7 @@ import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import PaymentIcon from "@mui/icons-material/Payment";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import dayjs from "dayjs";
+import { themePallete } from "../..";
 
 const Boxes = () => {
   const { id, user_id, owner: ownerParam } = useParams();
@@ -113,7 +114,7 @@ const Boxes = () => {
     transform: "translate(-50%, -50%)",
     width: isMobile ? "100%" : 800,
     bgcolor: "background.paper",
-    border: "3px solid #008491",
+    border: `3px solid ${themePallete}`,
     boxShadow: 24,
     p: 4,
     borderRadius: "10px",
@@ -176,7 +177,7 @@ const Boxes = () => {
     single !== null && setShowRows(true);
   }, [single]);
 
-  console.log(boxInfo,"boxInfoboxInfoboxInfoboxInfoboxInfo");
+  console.log(boxInfo, "boxInfoboxInfoboxInfoboxInfoboxInfo");
   return (
     <div>
       <Box m={3}>
@@ -246,20 +247,29 @@ const Boxes = () => {
                 />
                 <div>
                   <hr />
-                  <Typography className="coint-show-heading">
+                  <Typography
+                    className="coint-show-heading"
+                    sx={{ color: themePallete }}
+                  >
                     {" "}
-                    <MonetizationOnIcon sx={{ color: "#008491" }} />
+                    <MonetizationOnIcon sx={{ color: themePallete }} />
                     <div> Coin - {boxInfo?.coin}</div>
                   </Typography>
                   <hr />
-                  <Typography className="coint-show-heading">
+                  <Typography
+                    className="coint-show-heading"
+                    sx={{ color: themePallete }}
+                  >
                     {" "}
-                    <LocalAtmIcon sx={{ color: "#008491" }} />
+                    <LocalAtmIcon sx={{ color: themePallete }} />
                     <div> Bill - {boxInfo?.cash}</div>
                   </Typography>
                   <hr />
-                  <Typography className="coint-show-heading">
-                    <PaymentIcon sx={{ color: "#008491" }} />
+                  <Typography
+                    className="coint-show-heading"
+                    sx={{ color: themePallete }}
+                  >
+                    <PaymentIcon sx={{ color: themePallete }} />
                     <div> Cash Less - {boxInfo?.bill}</div>
                   </Typography>
                   <hr />
@@ -604,22 +614,22 @@ const Boxes = () => {
                                             </TableCell>
                                             <TableCell align="left">
                                               <WaterDropIcon
-                                                sx={{ color: "#008491" }}
+                                                sx={{ color: themePallete }}
                                               />
                                             </TableCell>
                                             <TableCell align="left">
                                               <ElectricBoltIcon
-                                                sx={{ color: "#008491" }}
+                                                sx={{ color: themePallete }}
                                               />
                                             </TableCell>{" "}
                                             <TableCell align="left">
                                               <BubbleChartIcon
-                                                sx={{ color: "#008491" }}
+                                                sx={{ color: themePallete }}
                                               />
                                             </TableCell>{" "}
                                             <TableCell align="left">
                                               <TimelapseIcon
-                                                sx={{ color: "#008491" }}
+                                                sx={{ color: themePallete }}
                                               />
                                             </TableCell>
                                           </TableRow>

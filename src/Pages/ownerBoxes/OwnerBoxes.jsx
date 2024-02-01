@@ -59,17 +59,7 @@ import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import PaymentIcon from "@mui/icons-material/Payment";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import dayjs from "dayjs";
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  bgcolor: "background.paper",
-  border: "3px solid #008491",
-  boxShadow: 24,
-  p: 4,
-  borderRadius: "10px",
-};
+import { themePallete } from "../..";
 
 const OwnerBoxes = () => {
   const { t } = useTranslation();
@@ -102,7 +92,17 @@ const OwnerBoxes = () => {
   const [selectedDate, handleDateChange] = useState();
   const [dountDate, handleDountDateChange] = useState();
   const [dountDate2, handleDountDateChange2] = useState();
-
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    bgcolor: "background.paper",
+    border: `3px solid ${themePallete}`,
+    boxShadow: 24,
+    p: 4,
+    borderRadius: "10px",
+  };
   const handleNested = (id) => {
     if (typeof expand == "boolean") {
       setExpand(id);
@@ -206,20 +206,29 @@ const OwnerBoxes = () => {
                 />
                 <div>
                   <hr />
-                  <Typography className="coint-show-heading">
+                  <Typography
+                    className="coint-show-heading"
+                    sx={{ color: themePallete }}
+                  >
                     {" "}
-                    <MonetizationOnIcon sx={{ color: "#008491" }} />
+                    <MonetizationOnIcon sx={{ color: themePallete }} />
                     <div> Coin - {boxInfo?.coin}</div>
                   </Typography>
                   <hr />
-                  <Typography className="coint-show-heading">
+                  <Typography
+                    className="coint-show-heading"
+                    sx={{ color: themePallete }}
+                  >
                     {" "}
-                    <LocalAtmIcon sx={{ color: "#008491" }} />
+                    <LocalAtmIcon sx={{ color: themePallete }} />
                     <div> Bill - {boxInfo?.cash}</div>
                   </Typography>
                   <hr />
-                  <Typography className="coint-show-heading">
-                    <PaymentIcon sx={{ color: "#008491" }} />
+                  <Typography
+                    className="coint-show-heading"
+                    sx={{ color: themePallete }}
+                  >
+                    <PaymentIcon sx={{ color: themePallete }} />
                     <div> Cash Less - {boxInfo?.bill}</div>
                   </Typography>
                   <hr />
@@ -610,22 +619,22 @@ const OwnerBoxes = () => {
                                             </TableCell>
                                             <TableCell align="left">
                                               <WaterDropIcon
-                                                sx={{ color: "#008491" }}
+                                                sx={{ color: themePallete }}
                                               />
                                             </TableCell>
                                             <TableCell align="left">
                                               <ElectricBoltIcon
-                                                sx={{ color: "#008491" }}
+                                                sx={{ color: themePallete }}
                                               />
                                             </TableCell>{" "}
                                             <TableCell align="left">
                                               <BubbleChartIcon
-                                                sx={{ color: "#008491" }}
+                                                sx={{ color: themePallete }}
                                               />
                                             </TableCell>{" "}
                                             <TableCell align="left">
                                               <TimelapseIcon
-                                                sx={{ color: "#008491" }}
+                                                sx={{ color: themePallete }}
                                               />
                                             </TableCell>
                                           </TableRow>

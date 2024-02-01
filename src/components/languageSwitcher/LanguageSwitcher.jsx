@@ -39,7 +39,6 @@ export function LanguageSwitcher() {
   useEffect(() => {
     dispatch(getMe());
   }, []);
-
   const selectLange = (e) => {
     i18next.changeLanguage(e.target.value);
     localStorage.setItem("language", e.target.value);
@@ -52,9 +51,10 @@ export function LanguageSwitcher() {
         value={activeLang}
         onChange={selectLange}
         displayEmpty
+        sx={{ color: "white" }}
         inputProps={{ "aria-label": "Without label" }}
       >
-        {data?.Country?.short == "AZ"
+        {data?.countryId == 7
           ? [
               ...languages,
               {

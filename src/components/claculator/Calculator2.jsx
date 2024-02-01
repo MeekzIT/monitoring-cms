@@ -13,6 +13,7 @@ import {
 } from "../../store/actions/users-action";
 import { getCurrency } from "../../hooks/helpers";
 import { useParams } from "react-router-dom";
+import { themePallete } from "../..";
 
 const Calculator2 = ({
   open,
@@ -47,7 +48,7 @@ const Calculator2 = ({
     transform: "translate(-50%, -50%)",
     width: isMobile ? "100%" : 800,
     bgcolor: "background.paper",
-    border: "3px solid #008491",
+    border: `3px solid ${themePallete}`,
     boxShadow: 24,
     p: 4,
     borderRadius: "10px",

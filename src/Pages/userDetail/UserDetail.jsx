@@ -26,6 +26,7 @@ import AddOwner from "./AddModal";
 import GoBack from "../../components/goBack/GoBack";
 import LockResetIcon from "@mui/icons-material/LockReset";
 import ResetModal from "../../components/resetModal/ResetModal";
+import { themePallete } from "../..";
 const UserDetail = () => {
   const { id } = useParams();
   const { t } = useTranslation();
@@ -55,7 +56,7 @@ const UserDetail = () => {
           <div className="loading-box">
             <CircularProgress
               sx={{
-                color: "#008491",
+                color: themePallete,
               }}
             />
           </div>

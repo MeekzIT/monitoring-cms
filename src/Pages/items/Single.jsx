@@ -51,6 +51,7 @@ import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import PaymentIcon from "@mui/icons-material/Payment";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import dayjs from "dayjs";
+import { themePallete } from "../..";
 
 const Single = () => {
   const { t } = useTranslation();
@@ -256,20 +257,31 @@ const Single = () => {
 
                             <div>
                               <hr />
-                              <Typography className="coint-show-heading">
+                              <Typography
+                                className="coint-show-heading"
+                                sx={{ color: themePallete }}
+                              >
                                 {" "}
-                                <MonetizationOnIcon sx={{ color: "#008491" }} />
+                                <MonetizationOnIcon
+                                  sx={{ color: themePallete }}
+                                />
                                 <div> Coin - {singleInfo?.coin}</div>
                               </Typography>
                               <hr />
-                              <Typography className="coint-show-heading">
+                              <Typography
+                                className="coint-show-heading"
+                                sx={{ color: themePallete }}
+                              >
                                 {" "}
-                                <LocalAtmIcon sx={{ color: "#008491" }} />
+                                <LocalAtmIcon sx={{ color: themePallete }} />
                                 <div> Bill - {singleInfo?.cash}</div>
                               </Typography>
                               <hr />
-                              <Typography className="coint-show-heading">
-                                <PaymentIcon sx={{ color: "#008491" }} />
+                              <Typography
+                                className="coint-show-heading"
+                                sx={{ color: themePallete }}
+                              >
+                                <PaymentIcon sx={{ color: themePallete }} />
                                 <div> Cash Less - {singleInfo?.bill}</div>
                               </Typography>
                               <hr />
@@ -423,8 +435,8 @@ const Single = () => {
                 gap: "20px",
               }}
             >
-              <LockIcon sx={{ color: "#008491" }} />
-              <h1 style={{ color: "#008491" }}>{t("block")}</h1>
+              <LockIcon sx={{ color: themePallete }} />
+              <h1 style={{ color: themePallete }}>{t("block")}</h1>
             </Box>
           )}
           {/* {(isSuper !== "owner" || isSuper !== "superAdmin") &&
@@ -582,7 +594,7 @@ export default Single;
 //               setFilterOn(true);
 //             }}
 //           >
-//             <FilterAltIcon sx={{ color: "#008491" }} />
+//             <FilterAltIcon sx={{ color: themePallete }} />
 //           </Button>
 //         </Box>
 
@@ -598,7 +610,7 @@ export default Single;
 //                 setEnd(null);
 //               }}
 //             >
-//               <DeleteIcon sx={{ color: "#008491" }} />
+//               <DeleteIcon sx={{ color: themePallete }} />
 //             </Button>
 //           </Box>
 //         )}

@@ -13,11 +13,18 @@ import { initReactI18next } from "react-i18next";
 
 import "./index.css";
 import ScrollToTop from "./components/scroll-to-top/ScrollToTop";
+console.log(window.location.href);
 
+export let themePallete;
+if (window.location.href == "https://monitoring.jsxmachines.com/") {
+  themePallete = "#008491";
+} else if (window.location.href == "http://localhost:3000/") {
+  themePallete = "#800000";
+}
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#008491",
+      main: themePallete,
     },
   },
 });

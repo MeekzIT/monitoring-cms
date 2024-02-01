@@ -24,6 +24,7 @@ import { addUsers } from "../../store/actions/users-action";
 import { useIsMobile } from "../../hooks/useScreenType";
 import CloseIcon from "@mui/icons-material/Close";
 import { addAdmin } from "../../store/actions/auth-action";
+import { themePallete } from "../..";
 
 const AddAdmin = ({ open, handleClose, countries }) => {
   const { t } = useTranslation();
@@ -53,7 +54,7 @@ const AddAdmin = ({ open, handleClose, countries }) => {
     transform: "translate(-50%, -50%)",
     width: isMobile ? "100%" : 400,
     bgcolor: "background.paper",
-    border: "3px solid #008491",
+    border: `3px solid ${themePallete}`,
     boxShadow: 24,
     p: 4,
     borderRadius: "10px",

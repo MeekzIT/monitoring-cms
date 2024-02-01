@@ -57,6 +57,7 @@ import PaymentIcon from "@mui/icons-material/Payment";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import dayjs from "dayjs";
 import GenerateModal from "../../components/generateModal/GenerateModal";
+import { themePallete } from "../..";
 
 const Items = () => {
   const { t } = useTranslation();
@@ -93,7 +94,7 @@ const Items = () => {
     transform: "translate(-50%, -50%)",
     width: isMobile ? "100%" : 800,
     bgcolor: "background.paper",
-    border: "3px solid #008491",
+    border: `3px solid ${themePallete}`,
     boxShadow: 24,
     p: 4,
     borderRadius: "10px",
@@ -196,20 +197,29 @@ const Items = () => {
               />
               <div>
                 <hr />
-                <Typography className="coint-show-heading">
+                <Typography
+                  className="coint-show-heading"
+                  sx={{ color: themePallete }}
+                >
                   {" "}
-                  <MonetizationOnIcon sx={{ color: "#008491" }} />
+                  <MonetizationOnIcon sx={{ color: themePallete }} />
                   <div> Coin - {singleBoxInfo?.coin}</div>
                 </Typography>
                 <hr />
-                <Typography className="coint-show-heading">
+                <Typography
+                  className="coint-show-heading"
+                  sx={{ color: themePallete }}
+                >
                   {" "}
-                  <LocalAtmIcon sx={{ color: "#008491" }} />
+                  <LocalAtmIcon sx={{ color: themePallete }} />
                   <div> Bill - {singleBoxInfo?.cash}</div>
                 </Typography>
                 <hr />
-                <Typography className="coint-show-heading">
-                  <PaymentIcon sx={{ color: "#008491" }} />
+                <Typography
+                  className="coint-show-heading"
+                  sx={{ color: themePallete }}
+                >
+                  <PaymentIcon sx={{ color: themePallete }} />
                   <div> Cash Less - {singleBoxInfo?.bill}</div>
                 </Typography>
                 <hr />
@@ -397,22 +407,22 @@ const Items = () => {
                                           </TableCell>
                                           <TableCell align="left">
                                             <WaterDropIcon
-                                              sx={{ color: "#008491" }}
+                                              sx={{ color: themePallete }}
                                             />
                                           </TableCell>
                                           <TableCell align="left">
                                             <ElectricBoltIcon
-                                              sx={{ color: "#008491" }}
+                                              sx={{ color: themePallete }}
                                             />
                                           </TableCell>{" "}
                                           <TableCell align="left">
                                             <BubbleChartIcon
-                                              sx={{ color: "#008491" }}
+                                              sx={{ color: themePallete }}
                                             />
                                           </TableCell>{" "}
                                           <TableCell align="left">
                                             <TimelapseIcon
-                                              sx={{ color: "#008491" }}
+                                              sx={{ color: themePallete }}
                                             />
                                           </TableCell>
                                         </TableRow>

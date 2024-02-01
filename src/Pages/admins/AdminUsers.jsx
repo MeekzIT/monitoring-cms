@@ -20,6 +20,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import GoBack from "../../components/goBack/GoBack";
 import ResetModal from "../../components/resetModal/ResetModal";
 import LockResetIcon from "@mui/icons-material/LockReset";
+import { themePallete } from "../..";
 
 const AdminUser = () => {
   const { t } = useTranslation();
@@ -77,7 +78,6 @@ const AdminUser = () => {
                   <TableCell align="left">
                     {t("lastPay")} / {t("paymentType")}
                   </TableCell>
-
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -141,7 +141,6 @@ const AdminUser = () => {
                       {row.lastPay ? row.lastPay : "-"} /{" "}
                       {row?.variant?.toUpperCase()}
                     </TableCell>
-                   
                   </TableRow>
                 ))}
               </TableBody>
@@ -166,11 +165,13 @@ const AdminUser = () => {
                 <div
                   key={index}
                   className={page === s ? "ActivePagItem" : "pagItem"}
+                  style={{
+                    border: `1px solid ${themePallete}`,
+                    color: themePallete,
+                    cursor: "pointer",
+                  }}
                   onClick={() => {
                     setPage(s);
-                  }}
-                  style={{
-                    cursor: "pointer",
                   }}
                 >
                   {s + 1}

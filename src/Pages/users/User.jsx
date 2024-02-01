@@ -19,6 +19,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useNavigate } from "react-router-dom";
 import { getMe } from "../../store/actions/auth-action";
+import { themePallete } from "../..";
 
 const UserPage = () => {
   const { t } = useTranslation();
@@ -128,7 +129,6 @@ const UserPage = () => {
                       {row.lastPay ? row.lastPay : "-"} /{" "}
                       {row?.variant?.toUpperCase()}
                     </TableCell>
-                   
                   </TableRow>
                 ))}
               </TableBody>
@@ -157,6 +157,8 @@ const UserPage = () => {
                     setPage(s);
                   }}
                   style={{
+                    border: `1px solid ${themePallete}`,
+                    color: themePallete,
                     cursor: "pointer",
                   }}
                 >
