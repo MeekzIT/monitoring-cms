@@ -4,8 +4,8 @@
   "display": "fullscreen",
   "scope": "/",
   "start_url": ".",
-  "name": "JSX Monitoring",
-  "short_name": "JSX",
+  "name": "TAHA",
+  "short_name": "TAHA",
   "description": "monitoring system",
   "icons": [
     {
