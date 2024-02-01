@@ -15,7 +15,7 @@ import "./index.css";
 import ScrollToTop from "./components/scroll-to-top/ScrollToTop";
 console.log(window.location.href, "href");
 
-export let themePallete;
+export let themePallete = "#008491";
 if (window.location.href == "https://monitoring.jsxmachines.com/") {
   themePallete = "#008491";
 } else if (window.location.href == "https://online.tahateknik.az/") {
