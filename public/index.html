@@ -2,7 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/jsInovations.svg" />
+    <script>
+      var manifestUrl =
+        window.location.href == "https://monitoring.jsxmachines.com/"
+          ? "/jsInovations.svg"
+          : null;
+      document.write(
+        '<link rel="icon" href="%PUBLIC_URL%' + manifestUrl + '" />'
+      );
+    </script>
+    <!-- <link rel="icon" href="%PUBLIC_URL%/jsInovations.svg" /> -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/jvectormap/2.0.4/jquery-jvectormap.css"
