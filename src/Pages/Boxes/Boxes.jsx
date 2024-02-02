@@ -224,8 +224,8 @@ const Boxes = () => {
               {(dountDate || dountDate2) && (
                 <Button
                   onClick={() => {
-                    handleDountDateChange();
-                    handleDountDateChange2();
+                    handleDountDateChange(null);
+                    handleDountDateChange2(null);
                   }}
                 >
                   clear filtres
@@ -278,7 +278,7 @@ const Boxes = () => {
             )}
           </div>
           <Box className="grap">
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer
                 components={["DatePicker", "DatePicker", "DatePicker"]}
               >
@@ -292,7 +292,7 @@ const Boxes = () => {
                   sx={{ width: "250px" }}
                 />
               </DemoContainer>
-            </LocalizationProvider>
+            </LocalizationProvider> */}
             {selectedDate && (
               <Button
                 onClick={() => {

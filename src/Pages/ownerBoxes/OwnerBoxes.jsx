@@ -161,6 +161,7 @@ const OwnerBoxes = () => {
                   <DatePicker
                     label="start"
                     format="YYYY-MM-DD"
+                    value={dountDate}
                     onChange={(date) =>
                       handleDountDateChange(dayjs(date).format("YYYY-MM-DD"))
                     }
@@ -173,6 +174,7 @@ const OwnerBoxes = () => {
                   <DatePicker
                     label="end"
                     format="YYYY-MM-DD"
+                    value={dountDate2}
                     onChange={(date) =>
                       handleDountDateChange2(dayjs(date).format("YYYY-MM-DD"))
                     }
@@ -183,8 +185,8 @@ const OwnerBoxes = () => {
               {(dountDate || dountDate2) && (
                 <Button
                   onClick={() => {
-                    handleDountDateChange();
-                    handleDountDateChange2();
+                    handleDountDateChange(null);
+                    handleDountDateChange2(null);
                   }}
                 >
                   clear filtres
@@ -237,7 +239,7 @@ const OwnerBoxes = () => {
             )}
           </div>
           <Box className="grap">
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer
                 components={["DatePicker", "DatePicker", "DatePicker"]}
               >
@@ -251,7 +253,7 @@ const OwnerBoxes = () => {
                   sx={{ width: "250px" }}
                 />
               </DemoContainer>
-            </LocalizationProvider>
+            </LocalizationProvider> */}
             {selectedDate && (
               <Button
                 onClick={() => {
