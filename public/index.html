@@ -27,6 +27,8 @@
           ? "/manifest.json"
           : window.location.href == "https://online.tahateknik.az/"
           ? "/manifestAz.json"
+          : window.location.href == "https://online.sanyu.az/"
+          ? "/manifestSanYu.json"
           : "/manifest.json";
       document.write(
         '<link rel="manifest" href="%PUBLIC_URL%' + manifestUrl + '" />'

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "../../store/actions/users-action";
+import { getSingleUser, getUsers } from "../../store/actions/users-action";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -48,22 +48,20 @@ const UserPage = () => {
     dispatch(getMe());
   }, []);
   useEffect(() => {
-    user && dispatch(getUsers(page, user?.id));
+    user && dispatch(getUsers(page));
   }, [page, user]);
 
   return (
     <Box m={3}>
       <Box mb={2}>
         <h1>{t("users")}</h1>
-        {isSuper == "admin" && (
-          <Button variant="contained" onClick={handleOpen}>
-            <AddIcon
-              sx={{
-                color: "white",
-              }}
-            />
-          </Button>
-        )}
+        <Button variant="contained" onClick={handleOpen}>
+          <AddIcon
+            sx={{
+              color: "white",
+            }}
+          />
+        </Button>
       </Box>
       <Box sx={{ overflow: "auto" }}>
         <Box sx={{ width: "100%", display: "table", tableLayout: "fixed" }}>
@@ -75,10 +73,7 @@ const UserPage = () => {
                   <TableCell align="left"></TableCell>
                   <TableCell align="left">{t("email")}</TableCell>
                   <TableCell align="left">{t("country")}</TableCell>
-                  <TableCell align="left">{t("active")}</TableCell>
-                  <TableCell align="left">
-                    {t("lastPay")} / {t("paymentType")}
-                  </TableCell>
+                  <TableCell align="left">{t("edit")}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -106,29 +101,7 @@ const UserPage = () => {
                     </TableCell>
                     <TableCell align="left">{row.email}</TableCell>
                     <TableCell align="left">{row.Country.name}</TableCell>
-                    <TableCell align="left">
-                      {row.subscribe ? (
-                        <span
-                          style={{
-                            color: "green",
-                          }}
-                        >
-                          {t("subscribe")}
-                        </span>
-                      ) : (
-                        <span
-                          style={{
-                            color: "red",
-                          }}
-                        >
-                          {t("pasive")}
-                        </span>
-                      )}
-                    </TableCell>
-                    <TableCell align="left">
-                      {row.lastPay ? row.lastPay : "-"} /{" "}
-                      {row?.variant?.toUpperCase()}
-                    </TableCell>
+                   
                   </TableRow>
                 ))}
               </TableBody>

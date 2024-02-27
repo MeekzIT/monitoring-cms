@@ -7,6 +7,7 @@ import {
   DELETE_OWNER,
   EDIT_BOX,
   EDIT_ITEM,
+  EDIT_OWNER,
   GET_BOXES,
   GET_BOXES_INFO,
   GET_BOX_INFO,
@@ -25,6 +26,7 @@ import {
   GET_ITEM_INFO,
   GET_ITEM_LINEAR,
   GET_OWNERS_OF_USER,
+  GET_OWNER_STASTICS,
   GET_SINGLE_BOX,
   GET_SINGLE_ITEM,
   GET_SINGLE_OWNER,
@@ -93,7 +95,11 @@ export const getSingleUser = (id) => {
       .then((response) => {
         dispatch({
           type: GET_SINGLE_USER,
-          payload: response.data,
+          payload: response.data.data,
+        });
+        dispatch({
+          type: GET_OWNER_STASTICS,
+          payload: response.data.actives,
         });
       })
       .catch((error) => {
@@ -235,6 +241,28 @@ export const addOwner = (data) => {
         if (response.data.succes) {
           dispatch({
             type: ADD_OWNER,
+            payload: response.data.data,
+          });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+export const editOwner = (data) => {
+  return (dispatch) => {
+    axios
+      .post(`${keys.api}/owner/edit`, data, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+      })
+      .then((response) => {
+        if (response.data.succes) {
+          dispatch({
+            type: EDIT_OWNER,
             payload: response.data.data,
           });
         }

@@ -20,6 +20,8 @@ if (window.location.href == "https://monitoring.jsxmachines.com/") {
   themePallete = "#008491";
 } else if (window.location.href == "https://online.tahateknik.az/") {
   themePallete = "#800000";
+} else if (window.location.href == "http://localhost:3000/") {
+  themePallete = "#FFA500";
 }
 const theme = createTheme({
   palette: {

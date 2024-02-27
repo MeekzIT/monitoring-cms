@@ -3,6 +3,7 @@ import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import HomeIcon from "@mui/icons-material/Home";
 import { Box, Button, CircularProgress } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
 import { useTranslation } from "react-i18next";
 import { ADMINS_PAGE, USERS_PAGE } from "../../routing/pats";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,6 +28,8 @@ import GoBack from "../../components/goBack/GoBack";
 import LockResetIcon from "@mui/icons-material/LockReset";
 import ResetModal from "../../components/resetModal/ResetModal";
 import { themePallete } from "../..";
+import EditUser from "./EditUser";
+import { getCountries } from "../../store/actions/statistics-action";
 const UserDetail = () => {
   const { id } = useParams();
   const { t } = useTranslation();
@@ -36,9 +39,16 @@ const UserDetail = () => {
   const [loading, setLoading] = useState(true);
   const data = useSelector((state) => state.user.single);
   const isSuper = useSelector((state) => state.auth.isSuper);
+  const singleData = useSelector((state) => state.user.owner);
+  const countries = useSelector((state) => state.statistics.countries);
+  const ownerActives = useSelector((state) => state.user.ownerStatistics);
+
   const [openReset, setOpenReset] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+
   const [currint, setCurrent] = useState();
   useEffect(() => {
+    dispatch(getCountries());
     dispatch(getSingleUser(id));
     setLoading(false);
   }, []);
@@ -46,6 +56,8 @@ const UserDetail = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  console.log(ownerActives);
   return (
     <div>
       <Box m={3}>
@@ -73,6 +85,12 @@ const UserDetail = () => {
             <Box>
               <Box mb={2}>
                 <h1>{t("owners")}</h1>
+                <h4 style={{ color: "green" }}>
+                  {t("active")} - {ownerActives?.active?.length}
+                </h4>
+                <h4 style={{ color: "red" }}>
+                  {t("pasive")} - {ownerActives?.pasiveve?.length}
+                </h4>
                 <Button variant="contained" onClick={handleOpen}>
                   <AddIcon
                     sx={{
@@ -98,6 +116,7 @@ const UserDetail = () => {
                           <TableCell align="left">
                             {t("Owner Device ID")}
                           </TableCell>
+                          <TableCell align="left">{t("edit")}</TableCell>
                           <TableCell align="left">{t("delete")}</TableCell>
                           {(isSuper == "superAdmin" || isSuper == "admin") && (
                             <TableCell align="left">{t("reset")}</TableCell>
@@ -163,6 +182,17 @@ const UserDetail = () => {
                             </TableCell>
                             <TableCell align="left">
                               <Button
+                                variant="outlined"
+                                onClick={() => {
+                                  dispatch(getSingleOwners(row.id));
+                                  setOpenEdit(true);
+                                }}
+                              >
+                                <EditIcon />
+                              </Button>
+                            </TableCell>
+                            <TableCell align="left">
+                              <Button
                                 variant="contained"
                                 onClick={() => {
                                   dispatch(deleteOwner(row.id));
@@ -211,6 +241,14 @@ const UserDetail = () => {
         role="owner"
         currint={currint}
       />
+      {singleData && (
+        <EditUser
+          open={openEdit}
+          handleClose={() => setOpenEdit(false)}
+          countries={countries}
+          data={singleData}
+        />
+      )}
     </div>
   );
 };

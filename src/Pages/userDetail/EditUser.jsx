@@ -20,12 +20,12 @@ import { generatePassword } from "../../hooks/generatePassword";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import useCopyToClipboard from "../../hooks/useCopyToClipboard";
 import { useDispatch, useSelector } from "react-redux";
-import { addUsers } from "../../store/actions/users-action";
+import { addUsers, editOwner } from "../../store/actions/users-action";
 import { useIsMobile } from "../../hooks/useScreenType";
 import CloseIcon from "@mui/icons-material/Close";
 import { themePallete } from "../..";
 
-const AddUser = ({ open, handleClose, countries }) => {
+const EditUser = ({ open, handleClose, countries, data }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const isMobile = useIsMobile();
@@ -42,9 +42,6 @@ const AddUser = ({ open, handleClose, countries }) => {
       .max(50, "Too Long!")
       .required("Required"),
     email: Yup.string().email("Invalid email").required("Required"),
-    password: Yup.string()
-      .min(8, "Password must be at least 8 characters")
-      .required("Required"),
     phoneNumber: Yup.string().required("Required"),
     variant: Yup.string().required("Required"),
     countryId: Yup.number().integer("Invalid country ID").required("Required"),
@@ -70,13 +67,12 @@ const AddUser = ({ open, handleClose, countries }) => {
   };
 
   const initialValues = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    phoneNumber: "",
-    countryId: "",
-    variant: "",
+    firstName: data.firstName,
+    lastName: data.lastName,
+    email: data.email,
+    phoneNumber: data.phoneNumber,
+    countryId: data.countryId,
+    variant: data.variant,
   };
 
   return (
@@ -88,7 +84,7 @@ const AddUser = ({ open, handleClose, countries }) => {
     >
       <Box sx={style}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Add New User
+          Edit Owner
         </Typography>
 
         <div className="mobile-modal-close-btn" onClick={handleClose}>
@@ -99,7 +95,7 @@ const AddUser = ({ open, handleClose, countries }) => {
             initialValues={initialValues}
             validationSchema={signupSchema}
             onSubmit={(values) => {
-              dispatch(addUsers({ ...values, adminId: user.id }));
+              dispatch(editOwner({ ...values, id: data.id }));
               handleClose();
             }}
           >
@@ -113,6 +109,7 @@ const AddUser = ({ open, handleClose, countries }) => {
             }) => (
               <Form style={{ padding: "10px" }}>
                 <Grid container spacing={2}>
+                  {console.log(errors)}
                   <Grid item xs={12} sm={6}>
                     <Field
                       as={TextField}
@@ -155,33 +152,6 @@ const AddUser = ({ open, handleClose, countries }) => {
                       fullWidth
                       error={touched.variant && Boolean(errors.variant)}
                       helperText={touched.variant && errors.variant}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Field
-                      as={TextField}
-                      name="password"
-                      label="Password"
-                      type="text"
-                      variant="outlined"
-                      fullWidth
-                      error={touched.password && Boolean(errors.password)}
-                      helperText={touched.password && errors.password}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            {values.password.length > 7 && (
-                              <IconButton
-                                onClick={() => {
-                                  copyToClipboard(values.password);
-                                }}
-                              >
-                                <ContentCopyIcon />
-                              </IconButton>
-                            )}
-                          </InputAdornment>
-                        ),
-                      }}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -262,4 +232,4 @@ const AddUser = ({ open, handleClose, countries }) => {
   );
 };
 
-export default AddUser;
+export default EditUser;

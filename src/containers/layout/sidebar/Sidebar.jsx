@@ -29,7 +29,7 @@ const Sidebar = ({ close, setClose }) => {
 
   const superPages = [
     { id: 1, path: HOME_PAGE, name: t("home") },
-    { id: 2, path: ADMINS_PAGE, name: t("admins") },
+    { id: 2, path: USERS_PAGE, name: t("users") },
     { id: 4, path: CATEGORIES_PAGE, name: t("categories") },
     { id: 3, path: COUNTRIES_PAGE, name: t("countries") },
   ];

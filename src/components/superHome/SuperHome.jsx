@@ -25,27 +25,11 @@ const SuperHome = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const isMobile = useIsMobile();
-  const data = useSelector((state) => state.admins.admins);
-
-  const user = useSelector((state) => state.auth.admin);
-  const options = {
-    chart: {
-      id: "basic-bar",
-    },
-    xaxis: {
-      categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
-    },
-  };
-  const series = [
-    {
-      name: "series-1",
-      data: [30, 40, 45, 50, 49, 60, 70, 91],
-    },
-  ];
+  const data = useSelector((state) => state.user.users);
 
   useEffect(() => {
     dispatch(getCountries());
-    dispatch(getAdmins());
+    dispatch(getUsers());
   }, []);
 
   return (

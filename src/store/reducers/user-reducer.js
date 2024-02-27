@@ -33,6 +33,8 @@ import {
   ADD_BOX,
   GET_ITEM_LINEAR,
   GET_BOX_LINEAR,
+  EDIT_OWNER,
+  GET_OWNER_STASTICS,
 } from "../types";
 
 const initialState = {
@@ -61,6 +63,7 @@ const initialState = {
   singleInfo: null,
   singleLinear: null,
   boxLinear: null,
+  ownerStatistics: null,
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -70,6 +73,7 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         currentValues: action.payload,
       };
+
     case GET_INFO_BOX:
       return {
         ...state,
@@ -117,6 +121,11 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         single: action.payload,
       };
+    case GET_OWNER_STASTICS:
+      return {
+        ...state,
+        ownerStatistics: action.payload,
+      };
     case GET_BOXES:
       return {
         ...state,
@@ -155,6 +164,11 @@ export const userReducer = (state = initialState, action) => {
           ...state.single,
           Owners: [...state.single.Owners, action.payload],
         },
+      };
+    case EDIT_OWNER:
+      return {
+        ...state,
+        owner: action.payload,
       };
     case DELETE_OWNER:
       const editedData = state.single.Owners.filter(
