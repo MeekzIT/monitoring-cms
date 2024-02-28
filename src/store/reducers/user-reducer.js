@@ -35,6 +35,8 @@ import {
   GET_BOX_LINEAR,
   EDIT_OWNER,
   GET_OWNER_STASTICS,
+  GET_OWNER_SYSTEM,
+  EDIT_OWNER_SYSTEM,
 } from "../types";
 
 const initialState = {
@@ -64,6 +66,7 @@ const initialState = {
   singleLinear: null,
   boxLinear: null,
   ownerStatistics: null,
+  ownerSystem: null,
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -125,6 +128,16 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         ownerStatistics: action.payload,
+      };
+    case GET_OWNER_SYSTEM:
+      return {
+        ...state,
+        ownerSystem: action.payload,
+      };
+    case EDIT_OWNER_SYSTEM:
+      return {
+        ...state,
+        ownerSystem: action.payload,
       };
     case GET_BOXES:
       return {

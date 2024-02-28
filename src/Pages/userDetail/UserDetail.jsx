@@ -2,6 +2,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import HomeIcon from "@mui/icons-material/Home";
+import AddCardIcon from "@mui/icons-material/AddCard";
 import { Box, Button, CircularProgress } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { useTranslation } from "react-i18next";
@@ -10,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import {
   deleteOwner,
+  getOwnerSystem,
   getSingleOwners,
   getSingleUser,
 } from "../../store/actions/users-action";
@@ -30,6 +32,7 @@ import ResetModal from "../../components/resetModal/ResetModal";
 import { themePallete } from "../..";
 import EditUser from "./EditUser";
 import { getCountries } from "../../store/actions/statistics-action";
+import OwnerSystemModal from "./OwnerSystemModal";
 const UserDetail = () => {
   const { id } = useParams();
   const { t } = useTranslation();
@@ -42,9 +45,11 @@ const UserDetail = () => {
   const singleData = useSelector((state) => state.user.owner);
   const countries = useSelector((state) => state.statistics.countries);
   const ownerActives = useSelector((state) => state.user.ownerStatistics);
+  const ownerSystem = useSelector((state) => state.user.ownerSystem);
 
   const [openReset, setOpenReset] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
+  const [openSystem, setOpenSystem] = useState(false);
 
   const [currint, setCurrent] = useState();
   useEffect(() => {
@@ -57,7 +62,7 @@ const UserDetail = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  console.log(ownerActives);
+  console.log(ownerSystem);
   return (
     <div>
       <Box m={3}>
@@ -117,6 +122,9 @@ const UserDetail = () => {
                             {t("Owner Device ID")}
                           </TableCell>
                           <TableCell align="left">{t("edit")}</TableCell>
+                          {isSuper == "superAdmin" && (
+                            <TableCell align="left"></TableCell>
+                          )}
                           <TableCell align="left">{t("delete")}</TableCell>
                           {(isSuper == "superAdmin" || isSuper == "admin") && (
                             <TableCell align="left">{t("reset")}</TableCell>
@@ -191,6 +199,20 @@ const UserDetail = () => {
                                 <EditIcon />
                               </Button>
                             </TableCell>
+                            {isSuper == "superAdmin" && (
+                              <TableCell align="left">
+                                <Button
+                                  variant="outlined"
+                                  onClick={() => {
+                                    dispatch(getOwnerSystem(row.id));
+                                    setOpenSystem(true);
+                                  }}
+                                >
+                                  <AddCardIcon />
+                                </Button>
+                              </TableCell>
+                            )}
+
                             <TableCell align="left">
                               <Button
                                 variant="contained"
@@ -247,6 +269,13 @@ const UserDetail = () => {
           handleClose={() => setOpenEdit(false)}
           countries={countries}
           data={singleData}
+        />
+      )}
+      {ownerSystem && (
+        <OwnerSystemModal
+          open={openSystem}
+          handleClose={() => setOpenSystem(false)}
+          data={ownerSystem}
         />
       )}
     </div>

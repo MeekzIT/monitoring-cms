@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import MainLayout from "./containers/layout/layout";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getMe,
   logoutAction,
@@ -35,7 +35,7 @@ function App() {
       clearTimeout(timeoutId);
     };
   }, []);
-
+  
   return (
     <div>
       <MainLayout />

@@ -8,6 +8,7 @@ import {
   EDIT_BOX,
   EDIT_ITEM,
   EDIT_OWNER,
+  EDIT_OWNER_SYSTEM,
   GET_BOXES,
   GET_BOXES_INFO,
   GET_BOX_INFO,
@@ -27,6 +28,7 @@ import {
   GET_ITEM_LINEAR,
   GET_OWNERS_OF_USER,
   GET_OWNER_STASTICS,
+  GET_OWNER_SYSTEM,
   GET_SINGLE_BOX,
   GET_SINGLE_ITEM,
   GET_SINGLE_OWNER,
@@ -125,6 +127,58 @@ export const getBoxes = (id, boxId) => {
           type: GET_BOXES,
           payload: response.data,
         });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+export const getOwnerSystem = (id) => {
+  return (dispatch) => {
+    axios
+      .get(`${keys.api}/owner/system`, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+        params: {
+          id,
+        },
+      })
+      .then((response) => {
+        dispatch({
+          type: GET_OWNER_SYSTEM,
+          payload: response.data.data,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+export const editOwnerSystem = (data) => {
+  return (dispatch) => {
+    axios
+      .post(`${keys.api}/owner/edit-system`, data, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+      })
+      .then((response) => {
+        if (response.data.succes) {
+          dispatch({
+            type: EDIT_OWNER_SYSTEM,
+            payload: response.data.data,
+          });
+          Swal.fire({
+            position: "center",
+            iconColor: "#008491",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
       })
       .catch((error) => {
         console.error(error);

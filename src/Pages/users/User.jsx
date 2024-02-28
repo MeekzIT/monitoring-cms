@@ -73,7 +73,6 @@ const UserPage = () => {
                   <TableCell align="left"></TableCell>
                   <TableCell align="left">{t("email")}</TableCell>
                   <TableCell align="left">{t("country")}</TableCell>
-                  <TableCell align="left">{t("edit")}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -101,7 +100,6 @@ const UserPage = () => {
                     </TableCell>
                     <TableCell align="left">{row.email}</TableCell>
                     <TableCell align="left">{row.Country.name}</TableCell>
-                   
                   </TableRow>
                 ))}
               </TableBody>
