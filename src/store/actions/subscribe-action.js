@@ -12,7 +12,7 @@ export const registrateOrder = (data) => {
       })
       .then((response) => {
         if (response.data.succes) {
-          // window.location.href = `/payment/${response.data.data.mdOrder}`;
+          window.location.href = response.data.data;
         }
       })
       .catch((error) => {
@@ -29,9 +29,7 @@ export const createOrder = (data) => {
           Authorization: `Bearer ${keys.token}`,
         },
       })
-      .then((response) => {
-        
-      })
+      .then((response) => {})
       .catch((error) => {
         console.error(error);
       });
