@@ -12,7 +12,7 @@ export const registrateOrder = (data) => {
       })
       .then((response) => {
         if (response.data.succes) {
-          window.location.href = `/payment/${response.data.data.mdOrder}`;
+          // window.location.href = `/payment/${response.data.data.mdOrder}`;
         }
       })
       .catch((error) => {
