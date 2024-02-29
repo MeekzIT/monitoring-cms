@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { useIsMobile } from "../../hooks/useScreenType";
 import { useParams } from "react-router-dom";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
+import { createOrder } from "../../store/actions/subscribe-action";
 
 const Payment = () => {
   const { mdOrder } = useParams();
@@ -28,8 +29,8 @@ const Payment = () => {
 
     expiry: Yup.string()
       .required("Необходим срок действия карты")
-      .min(4, "Cрок действия карты должен содержать 4 цифр")
-      .max(4, "Cрок действия карты должен содержать 4 цифр"),
+      .min(6, "Cрок действия карты должен содержать 4 цифр")
+      .max(6, "Cрок действия карты должен содержать 4 цифр"),
 
     cvc: Yup.string()
       .required("Необходим код CVC")
@@ -46,6 +47,7 @@ const Payment = () => {
     },
     validationSchema,
     onSubmit: (values) => {
+      dispatch(createOrder({ ...values, mdOrder }));
       console.log(values);
     },
   });
@@ -69,6 +71,7 @@ const Payment = () => {
                 id="number"
                 label="Номер карты"
                 variant="outlined"
+                placeholder="4444444444444444"
                 fullWidth
                 margin="normal"
                 onChange={formik.handleChange}
@@ -87,6 +90,7 @@ const Payment = () => {
                 variant="outlined"
                 fullWidth
                 margin="normal"
+                placeholder="Ivan Ivanov"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.name}
@@ -101,6 +105,7 @@ const Payment = () => {
                 id="expiry"
                 label="Срок действия"
                 variant="outlined"
+                placeholder="202712"
                 fullWidth
                 margin="normal"
                 onChange={formik.handleChange}
@@ -119,6 +124,7 @@ const Payment = () => {
                 variant="outlined"
                 fullWidth
                 margin="normal"
+                placeholder="987"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.cvc}

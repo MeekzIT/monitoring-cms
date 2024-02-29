@@ -20,3 +20,20 @@ export const registrateOrder = (data) => {
       });
   };
 };
+
+export const createOrder = (data) => {
+  return (dispatch) => {
+    axios
+      .post(`${keys.api}/order/`, data, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+      })
+      .then((response) => {
+        
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};

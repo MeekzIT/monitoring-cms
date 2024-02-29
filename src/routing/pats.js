@@ -14,3 +14,4 @@ export const ITEM_SINGLE_PAGE = "/owner/:owner_id/item/:id/:single/:active";
 export const BOXES_PAGE = "/boxes";
 export const OWNER_ITEMS_PAGE = "/owner-items/:id/:box_id";
 export const ADMIN_USERS = "/admin-user/:id";
+export const PAYMENT_RESULT = "/result"

@@ -10,7 +10,8 @@ import { Box } from "@mui/material";
 import "./layout.css";
 import Subscribe from "../../components/Subscribe/Subscribe";
 import Payment from "../../Pages/payment/Payment";
-import { PAYMENT_PAGE } from "../../routing/pats";
+import { PAYMENT_PAGE, PAYMENT_RESULT } from "../../routing/pats";
+import Result from "../../Pages/result/Result";
 
 export default function MainLayout() {
   const isMobile = useIsMobile();
@@ -69,6 +70,7 @@ export default function MainLayout() {
                 <Routes>
                   <Route path="/" element={<Subscribe />} />
                   <Route path={PAYMENT_PAGE} element={<Payment />} />
+                  <Route path={PAYMENT_RESULT} element={<Result />} />
                 </Routes>
               </Box>
             )
