@@ -22,7 +22,6 @@ export default function MainLayout() {
   useEffect(() => {
     setClose(!isMobile);
   }, [isMobile]);
-  console.log(data);
   return (
     <div className="home">
       {data?.role == "owner" ? (

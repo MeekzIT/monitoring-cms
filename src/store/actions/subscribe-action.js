@@ -21,15 +21,22 @@ export const registrateOrder = (data) => {
   };
 };
 
-export const createOrder = (data) => {
+export const getOrderStatus = (data) => {
   return (dispatch) => {
     axios
-      .post(`${keys.api}/order/`, data, {
+      .post(`${keys.api}/order`, data, {
         headers: {
           Authorization: `Bearer ${keys.token}`,
         },
       })
-      .then((response) => {})
+      .then((response) => {
+        if (response.data.succes) {
+          dispatch({
+            type: REGISTRATE_ORDER,
+            payload: response.data.data,
+          });
+        }
+      })
       .catch((error) => {
         console.error(error);
       });

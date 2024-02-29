@@ -47,7 +47,7 @@ const Payment = () => {
     },
     validationSchema,
     onSubmit: (values) => {
-      dispatch(createOrder({ ...values, mdOrder }));
+      // dispatch(createOrder({ ...values, mdOrder }));
       console.log(values);
     },
   });
