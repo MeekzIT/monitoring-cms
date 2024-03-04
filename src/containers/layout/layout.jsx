@@ -38,7 +38,7 @@ export default function MainLayout() {
       >
         <Navbar close={close} setClose={setClose} />
         <Box>
-          {data?.role == "owner" && data?.variant == 0 ? (
+          {data?.role == "owner" && data?.variant !== 0 ? (
             data?.subscribe ? (
               <Routes>
                 {auth
