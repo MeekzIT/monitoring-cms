@@ -18,7 +18,7 @@ export default function MainLayout() {
   const [close, setClose] = useState(!isMobile);
   const auth = useSelector((state) => state.auth.isAuth);
   const data = useSelector((state) => state.auth.admin);
-
+  console.log(data, data?.role == "owner" && data?.variant == "0", "====");
   useEffect(() => {
     setClose(!isMobile);
   }, [isMobile]);
@@ -38,8 +38,26 @@ export default function MainLayout() {
       >
         <Navbar close={close} setClose={setClose} />
         <Box>
-          {data?.role == "owner" && data?.variant !== 0 ? (
+          {data?.role == "owner" ? (
             data?.subscribe ? (
+              <Routes>
+                {auth
+                  ? isAuthPages.map((i) => {
+                      return (
+                        <Route path={i.path} element={i.Component} key={i.id} />
+                      );
+                    })
+                  : notAuthPages.map((i) => {
+                      return (
+                        <Route
+                          path={i.path}
+                          element={<i.Component />}
+                          key={i.id}
+                        />
+                      );
+                    })}
+              </Routes>
+            ) : data?.variant == "0" ? (
               <Routes>
                 {auth
                   ? isAuthPages.map((i) => {
@@ -67,7 +85,7 @@ export default function MainLayout() {
                 }}
               >
                 <Routes>
-                  <Route path="/" element={<Subscribe />} />
+                  <Route path="/home" element={<Subscribe />} />
                   <Route path={PAYMENT_PAGE} element={<Payment />} />
                   <Route path={PAYMENT_RESULT} element={<Result />} />
                 </Routes>
