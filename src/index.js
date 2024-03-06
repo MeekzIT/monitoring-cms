@@ -16,11 +16,13 @@ import ScrollToTop from "./components/scroll-to-top/ScrollToTop";
 console.log(window.location.href, "href");
 
 export let themePallete = "#008491";
-if (window.location.href == "https://monitoring.jsxmachines.com/") {
+const type = localStorage.getItem("type");
+console.log(type);
+if (type == "jsx") {
   themePallete = "#008491";
-} else if (window.location.href == "https://online.tahateknik.az/") {
+} else if (type == "taha") {
   themePallete = "#800000";
-} else if (window.location.href == "http://localhost:3000/") {
+} else if (type == "senyu") {
   themePallete = "#FFA500";
 }
 const theme = createTheme({

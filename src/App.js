@@ -6,25 +6,34 @@ import {
   logoutAction,
   setAuthAction,
 } from "./store/actions/auth-action";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { LOGIN_PAGE } from "./routing/pats";
 
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isAuth = JSON.parse(localStorage.getItem("isAuth"));
-
   useEffect(() => {
     if (!localStorage.getItem("language")) {
       localStorage.setItem("language", "ru");
     }
+    if (window.location.pathname == "/taha") {
+      localStorage.setItem("type", "taha");
+    }
+    if (window.location.pathname == "/") {
+      localStorage.setItem("type", "jsx");
+    }
+
+    if (window.location.pathname == "/senyu") {
+      localStorage.setItem("type", "senyu");
+    }
     if (isAuth) {
       dispatch(setAuthAction(true));
       dispatch(getMe());
-    } else navigate(LOGIN_PAGE);
-    // console.clear();
+    } else {
+      navigate(LOGIN_PAGE);
+    }
   }, []);
-
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       dispatch(logoutAction());

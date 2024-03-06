@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <script>
       var manifestUrl =
-        window.location.href == "https://monitoring.jsxmachines.com/"
+        type == "https://monitoring.jsxmachines.com/"
           ? "/jsInovations.svg"
           : null;
       document.write(
@@ -22,12 +22,14 @@
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Online Monitoring" />
     <script>
+      const type = localStorage.getItem("type");
+      console.log(type, "[[[]]]");
       var manifestUrl =
-        window.location.href == "https://monitoring.jsxmachines.com/"
+        type == "jsx"
           ? "/manifest.json"
-          : window.location.href == "https://online.tahateknik.az/"
+          : type == "taha"
           ? "/manifestAz.json"
-          : window.location.href == "https://online.sanyu.az/"
+          : type == "senyu"
           ? "/manifestSanYu.json"
           : "/manifest.json";
       document.write(
@@ -35,7 +37,7 @@
       );
     </script>
     <!-- <link rel="apple-touch-icon" href="%PUBLIC_URL%/jsInovations.svg" /> -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!-- <link rel="manifest" href="%PUBLIC_URL%/manifest.json" /> -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://cdn.jsdelivr.net/npm/react-apexcharts"></script>
     <title>Monitoring</title>

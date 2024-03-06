@@ -26,26 +26,27 @@ const Sidebar = ({ close, setClose }) => {
   const isAuth = useSelector((state) => state.auth.isAuth);
   const isSuper = useSelector((state) => state.auth.isSuper);
   const admin = useSelector((state) => state.auth.admin);
+  const type = localStorage.getItem("type");
 
   const superPages = [
-    { id: 1, path: HOME_PAGE, name: t("home") },
+    { id: 1, path: `/home/${type}`, name: t("home") },
     { id: 2, path: USERS_PAGE, name: t("users") },
     { id: 4, path: CATEGORIES_PAGE, name: t("categories") },
     { id: 3, path: COUNTRIES_PAGE, name: t("countries") },
   ];
 
   const pages = [
-    { id: 1, path: HOME_PAGE, name: t("home") },
+    { id: 1, path: `/home/${type}`, name: t("home") },
     { id: 2, path: USERS_PAGE, name: t("users") },
   ];
 
   const technicianPages = [
-    { id: 1, path: HOME_PAGE, name: t("home") },
+    { id: 1, path: `/home/${type}`, name: t("home") },
     { id: 2, path: `/user/${admin?.id}`, name: t("owners") },
   ];
 
   const ownerPages = [
-    { id: 1, path: HOME_PAGE, name: t("home") },
+    { id: 1, path: `/home/${type}`, name: t("home") },
     { id: 2, path: BOXES_PAGE, name: t("system") },
   ];
 
