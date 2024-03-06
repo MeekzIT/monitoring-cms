@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { registrateOrder } from "../../store/actions/subscribe-action";
 import { useNavigate } from "react-router-dom";
 import { PAYMENT_PAGE } from "../../routing/pats";
+import React from "react";
+import { getCurrency } from "../../hooks/helpers";
 
 const Subscribe = () => {
   const dispatch = useDispatch();
@@ -20,8 +22,15 @@ const Subscribe = () => {
     >
       <h1>Ваша подписка закончилась</h1>
       <h3>
-        Для дальнейшего использования нашего платформы приступайте к оплате.
+        Для дальнейшего использования нашего платформы приступайте к оплате .
         Течение подписки 30 дней.
+      </h3>
+      <h3
+        style={{
+          color: "red",
+        }}
+      >
+       Oплатите {data?.variant} {getCurrency(data?.countryId)}
       </h3>
       <Button
         size="large"
