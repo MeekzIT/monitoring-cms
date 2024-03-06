@@ -103,11 +103,12 @@ export const logoutAction = () => {
         }
       )
       .then(function (response) {
+        const type = localStorage.getItem("type");
+
         localStorage.removeItem("isAuth");
         localStorage.removeItem("isSuper");
         localStorage.removeItem("token");
-        localStorage.clear();
-        window.location.href = "/";
+        window.location.href = `/${type}`;
         if (response.data.succes) {
           // dispatch({ type: SET_AUTH, payload: false });
         }
