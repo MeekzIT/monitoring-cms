@@ -27,6 +27,8 @@ export default function MainLayout() {
       {data?.role == "owner" ? (
         data?.subscribe ? (
           <Sidebar close={close} setClose={setClose} />
+        ) : data?.variant == "0" ? (
+          <Sidebar close={close} setClose={setClose} />
         ) : null
       ) : (
         <Sidebar close={close} setClose={setClose} />
