@@ -18,25 +18,25 @@ export default function MainLayout() {
   const [close, setClose] = useState(!isMobile);
   const auth = useSelector((state) => state.auth.isAuth);
   const data = useSelector((state) => state.auth.admin);
-  console.log(data, data?.role == "owner" && data?.variant == "0", "====");
+  console.log(isMobile, "====");
   useEffect(() => {
     setClose(!isMobile);
   }, [isMobile]);
   return (
     <div className="home">
       {data?.role == "owner" ? (
-        data?.subscribe ? (
+        data?.subscribe && close ? (
           <Sidebar close={close} setClose={setClose} />
-        ) : data?.variant == "0" ? (
+        ) : data?.variant == "0" && close ? (
           <Sidebar close={close} setClose={setClose} />
         ) : null
       ) : (
-        <Sidebar close={close} setClose={setClose} />
+        close && <Sidebar close={close} setClose={setClose} />
       )}
-
+      {/* {close && <Sidebar close={close} setClose={setClose} />} */}
       <div
         className="homeContainer"
-        style={{ display: close && isMobile ? "none" : "block" }}
+        style={{ display: isMobile && close ? "none" : "block" }}
       >
         <Navbar close={close} setClose={setClose} />
         <Box>

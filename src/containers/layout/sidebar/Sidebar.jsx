@@ -3,11 +3,9 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import {
-  ADMINS_PAGE,
   BOXES_PAGE,
   CATEGORIES_PAGE,
   COUNTRIES_PAGE,
-  HOME_PAGE,
   USERS_PAGE,
 } from "../../../routing/pats";
 import { useTranslation } from "react-i18next";
