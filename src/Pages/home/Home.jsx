@@ -31,7 +31,7 @@ const HomePage = () => {
         </div>
       )}
       {isSuper == "superAdmin" && <SuperHome />}
-      {isSuper == "admin" && <AdminHome />}
+      {/* {isSuper == "admin" && <AdminHome />} */}
       {isSuper == "owner" && <OwnerHome />}
       {isSuper == "user" && <UserHome />}
     </div>

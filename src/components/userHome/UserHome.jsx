@@ -49,7 +49,10 @@ const UserHome = () => {
         <Typography gutterBottom variant="h5" component="div">
           {t("users")}
         </Typography>
-        <TableContainer component={Paper} onClick={() => navigate(USERS_PAGE)}>
+        <TableContainer
+          component={Paper}
+          onClick={() => navigate(`/user/${user?.id}`)}
+        >
           {" "}
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
