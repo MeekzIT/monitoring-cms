@@ -87,7 +87,7 @@ export default function MainLayout() {
                 }}
               >
                 <Routes>
-                  <Route path="/home" element={<Subscribe />} />
+                  <Route path="/home/:type" element={<Subscribe />} />
                   <Route path={PAYMENT_PAGE} element={<Payment />} />
                   <Route path={PAYMENT_RESULT} element={<Result />} />
                 </Routes>
