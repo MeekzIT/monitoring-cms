@@ -59,7 +59,7 @@ export function LanguageSwitcher() {
               ...languages,
               {
                 id: 5,
-                langEn: "az",
+                langEn: "en",
               },
             ]?.map((item) => {
               return (

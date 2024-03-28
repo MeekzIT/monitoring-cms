@@ -38,7 +38,7 @@ i18n
   .use(i18nextBrowserLanguageDetector)
   .use(i18nextHttpBackend)
   .init({
-    supportedLngs: ["ru", "en", "am", "ge", "az"],
+    supportedLngs: ["ru", "en", "am", "ge"],
     fallbackLng: "ru",
     detection: {
       order: ["cookie"],
