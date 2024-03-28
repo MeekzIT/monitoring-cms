@@ -341,6 +341,7 @@ const Boxes = () => {
                 <TableHead>
                   <TableRow>
                     <TableCell>{t("name")}</TableCell>
+                    <TableCell align="left">MoikaID</TableCell>
                     <TableCell align="left"></TableCell>
 
                     <TableCell align="left">{t("geolocation")}</TableCell>
@@ -355,6 +356,7 @@ const Boxes = () => {
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell align="left">{row.name}</TableCell>
+                      <TableCell align="left">{row.id}</TableCell>
                       <TableCell align="left">
                         <Button
                           variant="outlined"

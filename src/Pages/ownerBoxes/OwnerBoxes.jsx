@@ -301,6 +301,7 @@ const OwnerBoxes = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>{t("name")}</TableCell>
+                  <TableCell>{t("moikaID")}</TableCell>
                   <TableCell align="left"></TableCell>
                   <TableCell align="left">{t("geolocation")}</TableCell>
                   <TableCell align="left">{t("edit")}</TableCell>
@@ -314,6 +315,7 @@ const OwnerBoxes = () => {
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell align="left">{row.name}</TableCell>
+                    <TableCell align="left">{row.id}</TableCell>
                     <TableCell align="left">
                       <Button
                         variant="outlined"
