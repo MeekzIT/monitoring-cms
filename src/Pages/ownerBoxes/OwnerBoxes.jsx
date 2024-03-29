@@ -35,6 +35,7 @@ import GoBack from "../../components/goBack/GoBack";
 import {
   addBox,
   addBoxExpenses,
+  deleteBox,
   destroyBoxExpenses,
   editBoxExpenses,
   getBoxExpenses,
@@ -60,6 +61,7 @@ import PaymentIcon from "@mui/icons-material/Payment";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import dayjs from "dayjs";
 import { themePallete } from "../..";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const OwnerBoxes = () => {
   const { t } = useTranslation();
@@ -305,6 +307,7 @@ const OwnerBoxes = () => {
                   <TableCell align="left"></TableCell>
                   <TableCell align="left">{t("geolocation")}</TableCell>
                   <TableCell align="left">{t("edit")}</TableCell>
+                  <TableCell align="left">{t("delete")}</TableCell>
                   <TableCell align="left">{t("difrentExspenses")}</TableCell>
                 </TableRow>
               </TableHead>
@@ -341,6 +344,17 @@ const OwnerBoxes = () => {
                         }}
                       >
                         <EditIcon />
+                      </Button>
+                    </TableCell>
+                    <TableCell align="left">
+                      <Button
+                        variant="outlined"
+                        onClick={() => {
+                          dispatch(deleteBox(row.id));
+                          dispatch(getBoxes(owner?.deviceOwner));
+                        }}
+                      >
+                        <DeleteIcon />
                       </Button>
                     </TableCell>
                     <TableCell align="left">

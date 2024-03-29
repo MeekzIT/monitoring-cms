@@ -41,6 +41,7 @@ import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
 import {
   addBox,
   addBoxExpenses,
+  deleteBox,
   destroyBoxExpenses,
   editBoxExpenses,
   getBoxExpenses,
@@ -64,6 +65,7 @@ import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import PaymentIcon from "@mui/icons-material/Payment";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import dayjs from "dayjs";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { themePallete } from "../..";
 
 const Boxes = () => {
@@ -346,6 +348,7 @@ const Boxes = () => {
 
                     <TableCell align="left">{t("geolocation")}</TableCell>
                     <TableCell align="left">{t("edit")}</TableCell>
+                    <TableCell align="left">{t("delete")}</TableCell>
                     <TableCell align="left">{t("difrentExspenses")}</TableCell>
                   </TableRow>
                 </TableHead>
@@ -384,6 +387,17 @@ const Boxes = () => {
                           }}
                         >
                           <EditIcon />
+                        </Button>
+                      </TableCell>
+                      <TableCell align="left">
+                        <Button
+                          variant="outlined"
+                          onClick={() => {
+                            dispatch(deleteBox(row.id));
+                            dispatch(getBoxes(owner?.deviceOwner));
+                          }}
+                        >
+                          <DeleteIcon />
                         </Button>
                       </TableCell>
                       <TableCell align="left">

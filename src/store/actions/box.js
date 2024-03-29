@@ -59,6 +59,31 @@ export const editBoxExpenses = (data) => {
   };
 };
 
+export const deleteBox = (data) => {
+  return (dispatch) => {
+    axios
+      .post(`${keys.api}/box/destroy`, data, {
+        headers: {
+          Authorization: `Bearer ${keys.token}`,
+        },
+      })
+      .then((response) => {
+        if (response.data.succes) {
+          Swal.fire({
+            position: "center",
+            iconColor: "#008491",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
 export const addBoxExpenses = (data) => {
   return (dispatch) => {
     axios
