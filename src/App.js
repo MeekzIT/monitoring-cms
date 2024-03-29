@@ -38,7 +38,7 @@ function App() {
     const timeoutId = setTimeout(() => {
       dispatch(logoutAction());
       console.log("1 hour has passed!");
-    }, 3600000);
+    }, 1200000);
 
     return () => {
       clearTimeout(timeoutId);
