@@ -32,6 +32,8 @@ const Navbar = ({ close, setClose }) => {
     setAnchorEl(null);
   };
   const handleLogOut = () => {
+    localStorage.removeItem("isAuth");
+    localStorage.removeItem("isSuper");
     dispatch(logoutAction());
     navigate(LOGIN_PAGE);
   };
