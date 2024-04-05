@@ -618,7 +618,7 @@ const Boxes = () => {
                               {expand === row.id ? (
                                 <TableRow>
                                   <TableCell colSpan="1">
-                                    {row.data ? (
+                                    {row?.data ? (
                                       <Table
                                         sx={{ minWidth: 650 }}
                                         aria-label="simple table"
@@ -651,7 +651,7 @@ const Boxes = () => {
                                           </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                          {row.data?.map((row) => (
+                                          {row?.data?.map((row) => (
                                             <TableRow
                                               key={row.modeName}
                                               sx={{
