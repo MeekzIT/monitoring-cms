@@ -105,9 +105,9 @@ const LineChart = ({ benefit, expense, all, mont, startDate, endDate }) => {
   };
   return (
     <div>
-      { chartData.options && chartData.series &&  <Chart
-        options={chartData.options}
-        series={chartData.series}
+      { chartData?.options && chartData?.series &&  <Chart
+        options={chartData?.options}
+        series={chartData?.series}
         type="line"
         width={isMobile ? "300" : "500"}
       />}

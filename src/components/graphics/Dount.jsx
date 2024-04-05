@@ -125,9 +125,9 @@ const DonutChart = ({
         </div>
       </div>
     {
-      chartData.options && chartData.series &&  <Chart
-      options={chartData.options}
-      series={chartData.series}
+      chartData?.options && chartData?.series &&  <Chart
+      options={chartData?.options}
+      series={chartData?.series}
       type="donut"
       width={isMobile ? "300" : "500"}
     />
