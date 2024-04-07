@@ -84,7 +84,6 @@ const OwnerSystemModal = ({ open, handleClose, data }) => {
             }) => (
               <Form style={{ padding: "10px" }}>
                 <Grid container spacing={2}>
-                  {console.log(errors)}
 
                   <Grid item xs={12}>
                     <Field

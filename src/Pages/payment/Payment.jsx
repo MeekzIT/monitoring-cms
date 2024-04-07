@@ -48,10 +48,8 @@ const Payment = () => {
     validationSchema,
     onSubmit: (values) => {
       // dispatch(createOrder({ ...values, mdOrder }));
-      console.log(values);
     },
   });
-  console.log(formik.errors);
   return (
     <Container maxWidth="md" component="main" className="payment">
       <form onSubmit={formik.handleSubmit}>

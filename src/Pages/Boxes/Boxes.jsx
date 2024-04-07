@@ -10,6 +10,7 @@ import LocalAtmIcon from "@mui/icons-material/LocalAtm"
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn"
 import PaymentIcon from "@mui/icons-material/Payment"
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye"
+import SettingsIcon from "@mui/icons-material/Settings"
 import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest"
 import TimelapseIcon from "@mui/icons-material/Timelapse"
 import WaterDropIcon from "@mui/icons-material/WaterDrop"
@@ -18,6 +19,8 @@ import {
 	Button,
 	Divider,
 	Grid,
+	Menu,
+	MenuItem,
 	Modal,
 	TextField,
 	Typography,
@@ -84,6 +87,8 @@ const Boxes = () => {
 	const [currentId, setCurrentId] = useState(null)
 	const [currentOwner, setCurrentOwner] = useState(null)
 	const [name, setName] = useState(null)
+	const [openDel, setOpenDel] = useState(false)
+
 	const [geo, setGeo] = useState(null)
 	const [ownerId, setOwnerId] = useState(null)
 	const [addField, setAddField] = useState(false)
@@ -98,7 +103,11 @@ const Boxes = () => {
 	const [showRows, setShowRows] = useState(false)
 	const [info, setInfo] = useState(null)
 	const [openAdd, setOpenAdd] = useState(false)
-	const [openGenerate, setOpenGenerate] = useState(false)
+	const [anchorEl, setAnchorEl] = useState(null)
+	const openMenu = Boolean(anchorEl)
+	const handleClick = event => {
+		setAnchorEl(event.currentTarget)
+	}
 	const [expand, setExpand] = useState(false)
 	const handleNested = id => {
 		if (typeof expand == "boolean") {
@@ -106,7 +115,12 @@ const Boxes = () => {
 		} else setExpand(false)
 	}
 
-	console.log(data, "datadatadata")
+	const handleNavigate = (rowId, ownerId) => {
+		dispatch(getSingleBox(rowId))
+		dispatch(getBoxes(id, rowId))
+		navigate(`/user/${user_id}/owner/${ownerId}/item/${rowId}`)
+	}
+
 	const style = {
 		position: "absolute",
 		top: "50%",
@@ -167,7 +181,7 @@ const Boxes = () => {
 		let items = []
 		// data?.filter((i) => i.ownerId == ownerId;);
 		data
-			?.filter(i => i.ownerId == ownerId)[0]
+			?.filter(i => i.ownerId == currentId)[0]
 			?.Items?.map(y => items.push(y.p2))
 		items.length && dispatch(getItemInfoBenefits(JSON.stringify(items)))
 	}, [ownerId])
@@ -277,21 +291,6 @@ const Boxes = () => {
 						)}
 					</div>
 					<Box className='grap'>
-						{/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer
-                components={["DatePicker", "DatePicker", "DatePicker"]}
-              >
-                <DatePicker
-                  label={"date"}
-                  views={["month", "year"]}
-                  format="YYYY-MM"
-                  onChange={(date) =>
-                    handleDateChange(dayjs(date).format("YYYY-MM"))
-                  }
-                  sx={{ width: "250px" }}
-                />
-              </DemoContainer>
-            </LocalizationProvider> */}
 						{selectedDate && (
 							<Button
 								onClick={() => {
@@ -338,17 +337,34 @@ const Boxes = () => {
 				<Box sx={{ overflow: "auto" }}>
 					<Box sx={{ width: "100%", display: "table", tableLayout: "fixed" }}>
 						<TableContainer component={Paper}>
-							<Table sx={{ minWidth: 650 }} aria-label='simple table'>
+							<Table sx={{ minWidth: 300 }} aria-label='simple table'>
 								<TableHead>
 									<TableRow>
 										<TableCell>{t("name")}</TableCell>
-										<TableCell align='left'>MoikaID</TableCell>
-										<TableCell align='left'></TableCell>
-
-										<TableCell align='left'>{t("geolocation")}</TableCell>
-										<TableCell align='left'>{t("edit")}</TableCell>
-										<TableCell align='left'>{t("delete")}</TableCell>
-										<TableCell align='left'>{t("difrentExspenses")}</TableCell>
+										{!isMobile && <TableCell align='left'>MoikaID</TableCell>}
+										{isMobile && (
+											<TableCell align='left'>
+												MoikaID / {t("geolocation")}
+											</TableCell>
+										)}
+										{!isMobile && <TableCell align='left'></TableCell>}
+										{!isMobile && (
+											<TableCell align='left'>{t("geolocation")}</TableCell>
+										)}
+										{!isMobile && (
+											<TableCell align='left'>{t("edit")}</TableCell>
+										)}
+										{!isMobile && (
+											<TableCell align='left'>{t("delete")}</TableCell>
+										)}
+										{!isMobile && (
+											<TableCell align='left'>
+												{t("difrentExspenses")}
+											</TableCell>
+										)}
+										{isMobile && (
+											<TableCell align='left'>{t("settings")}</TableCell>
+										)}
 									</TableRow>
 								</TableHead>
 								<TableBody>
@@ -357,77 +373,167 @@ const Boxes = () => {
 											key={row.id}
 											sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
 										>
-											<TableCell align='left'>{row.name}</TableCell>
-											<TableCell align='left'>{row.id}</TableCell>
-											<TableCell align='left'>
-												<Button
-													variant='outlined'
-													onClick={() => {
-														dispatch(getSingleBox(row.id))
-														dispatch(getBoxes(id, row.id))
-														navigate(
-															`/user/${user_id}/owner/${row?.ownerId}/item/${row.id}`
-														)
-													}}
-												>
-													<RemoveRedEyeIcon />
-												</Button>
+											<TableCell
+												align='left'
+												onClick={() =>
+													isMobile && handleNavigate(row.id, row?.ownerId)
+												}
+											>
+												{row.name}
 											</TableCell>
-											<TableCell align='left'>{row.geolocation}</TableCell>
-											<TableCell align='left'>
-												<Button
-													variant='outlined'
-													onClick={() => {
+											{isMobile && (
+												<TableCell
+													align='left'
+													onClick={() =>
+														isMobile && handleNavigate(row.id, row?.ownerId)
+													}
+												>
+													<bold>{row.id}</bold> / {row.geolocation}
+												</TableCell>
+											)}
+											{!isMobile && (
+												<TableCell align='left'>{row.id}</TableCell>
+											)}
+											{!isMobile && (
+												<TableCell align='left'>
+													<Button
+														variant='outlined'
+														onClick={() => {
+															dispatch(getSingleBox(row.id))
+															dispatch(getBoxes(id, row.id))
+															navigate(
+																`/user/${user_id}/owner/${row?.ownerId}/item/${row.id}`
+															)
+														}}
+													>
+														<RemoveRedEyeIcon />
+													</Button>
+												</TableCell>
+											)}
+											{!isMobile && (
+												<TableCell align='left'>{row.geolocation}</TableCell>
+											)}
+											{!isMobile ? (
+												<>
+													<TableCell align='left'>
+														<Button
+															variant='outlined'
+															onClick={() => {
+																setName(row.name)
+																setGeo(row.geolocation)
+																setCurrentId(row.id)
+
+																setOpen(true)
+															}}
+														>
+															<EditIcon />
+														</Button>
+													</TableCell>
+													<TableCell align='left'>
+														<Button
+															variant='outlined'
+															onClick={() => {
+																setOpenDel(true)
+																// dispatch(deleteBox(row.id))
+																// dispatch(getBoxes(owner?.deviceOwner))
+															}}
+														>
+															<DeleteIcon />
+														</Button>
+													</TableCell>
+													<TableCell align='left'>
+														<Button
+															variant='outlined'
+															onClick={() => {
+																setCurrentId(row.id)
+																setCurrentOwner(row.ownerId)
+																dispatch(
+																	getBoxExpenses({
+																		boxId: row.id,
+																		ownerId: row.ownerId,
+																	})
+																)
+																setOpenSettings(true)
+															}}
+														>
+															<SettingsSuggestIcon />
+														</Button>
+													</TableCell>
+												</>
+											) : (
+												<TableCell
+													align='left'
+													onClick={e => {
+														setCurrentId(row?.id)
+														setCurrentOwner(row.ownerId)
 														setName(row.name)
 														setGeo(row.geolocation)
-														setCurrentId(row.id)
-
-														setOpen(true)
 													}}
 												>
-													<EditIcon />
-												</Button>
-											</TableCell>
-											<TableCell align='left'>
-												<Button
-													variant='outlined'
-													onClick={() => {
-														dispatch(deleteBox(row.id))
-														dispatch(getBoxes(owner?.deviceOwner))
-													}}
-												>
-													<DeleteIcon />
-												</Button>
-											</TableCell>
-											<TableCell align='left'>
-												<Button
-													variant='outlined'
-													onClick={() => {
-														setCurrentId(row.id)
-														setCurrentOwner(row.ownerId)
-														dispatch(
-															getBoxExpenses({
-																boxId: row.id,
-																ownerId: row.ownerId,
-															})
-														)
-														setOpenSettings(true)
-													}}
-												>
-													<SettingsSuggestIcon />
-												</Button>
-											</TableCell>
-											{/* <TableCell align="left">
-                        <Button
-                          variant="outlined"
-                          onClick={() => {
-                            setOwnerId(row.id);
-                            setOpenStatistics(true);
-                          }}
-                        >
-                          <AutoGraphIcon />
-                        </Button>
-                      </TableCell> */}
+													<Button
+														id={row.id}
+														variant='outlined'
+														aria-controls={open ? "basic-menu" : undefined}
+														aria-haspopup='true'
+														aria-expanded={open ? "true" : undefined}
+														onClick={e => {
+															handleClick(e)
+														}}
+													>
+														<SettingsIcon />
+													</Button>
+													<Menu
+														anchorEl={anchorEl}
+														open={openMenu}
+														onClose={() => {
+															setAnchorEl(null)
+														}}
+													>
+														<MenuItem>
+															<Button
+																fullWidth
+																variant='outlined'
+																endIcon={<EditIcon />}
+																onClick={() => {
+																	setOpen(true)
+																}}
+															>
+																{t("edit")}
+															</Button>
+														</MenuItem>
+														<MenuItem>
+															<Button
+																fullWidth
+																variant='outlined'
+																endIcon={<DeleteIcon />}
+																onClick={() => {
+																	setOpenDel(true)
+																}}
+															>
+																{t("delete")}
+															</Button>
+														</MenuItem>
+														<MenuItem>
+															<Button
+																fullWidth
+																variant='outlined'
+																endIcon={<SettingsSuggestIcon />}
+																onClick={() => {
+																	dispatch(
+																		getBoxExpenses({
+																			boxId: currentId,
+																			ownerId: currentOwner,
+																		})
+																	)
+																	setOpenSettings(true)
+																}}
+															>
+																{t("difrentExspenses")}
+															</Button>
+														</MenuItem>
+													</Menu>
+												</TableCell>
+											)}
 										</TableRow>
 									))}
 								</TableBody>
@@ -704,19 +810,6 @@ const Boxes = () => {
 																	</TableCell>
 																</TableRow>
 															) : null}
-															{/* <TableCell align="left">
-                                <Button
-                                  variant="outlined"
-                                  onClick={() => {
-                                    navigate(
-                                      `/owner/${id}/item/${user_id}/${row.id}/${row.type}`
-                                      // /owner/:owner_id/item/:id/:single/:active
-                                    );
-                                  }}
-                                >
-                                  <RemoveRedEyeIcon />
-                                </Button>
-                              </TableCell> */}
 														</TableRow>
 													))}
 												</TableBody>
@@ -755,7 +848,53 @@ const Boxes = () => {
 					</Box>
 				</Box>
 			</Modal>
-
+			<Modal
+				open={openDel}
+				onClose={() => {
+					setOpenDel(false)
+				}}
+			>
+				<Box sx={style}>
+					<Typography id='modal-modal-title' variant='h6' component='h2'>
+						{t("delete")} ?
+					</Typography>
+					<div
+						className='mobile-modal-close-btn'
+						onClick={() => setOpenDel(false)}
+					>
+						<CloseIcon fontSize='large' />
+					</div>
+					<Typography
+						className='btnsBox'
+						id='modal-modal-description'
+						sx={{ mt: 2 }}
+					>
+						<div>
+							<Button
+								variant='contained'
+								onClick={() => {
+									setOpenDel(false)
+								}}
+								sx={{ color: "white" }}
+							>
+								{t("no")}
+							</Button>
+						</div>
+						<div>
+							<Button
+								variant='outlined'
+								onClick={() => {
+									dispatch(deleteBox(currentId))
+									dispatch(getBoxes(currentOwner))
+									setOpenDel(false)
+								}}
+							>
+								{t("yes")}
+							</Button>
+						</div>
+					</Typography>
+				</Box>
+			</Modal>
 			<Modal
 				open={openSettings}
 				onClose={() => {

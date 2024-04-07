@@ -9,7 +9,6 @@ import { HOME_PAGE } from "../../routing/pats";
 const Result = () => {
   // const { orderId } = useParams();
   const dispatch = useDispatch();
-  console.log(window.location.search);
   let orderId = new URLSearchParams(window.location.search).get("orderId");
   const data = useSelector((state) => state.subscribe.status);
   useEffect(() => {

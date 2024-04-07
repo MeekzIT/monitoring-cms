@@ -109,7 +109,6 @@ const EditUser = ({ open, handleClose, countries, data }) => {
             }) => (
               <Form style={{ padding: "10px" }}>
                 <Grid container spacing={2}>
-                  {console.log(errors)}
                   <Grid item xs={12} sm={6}>
                     <Field
                       as={TextField}

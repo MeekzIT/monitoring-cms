@@ -13,11 +13,9 @@ import { initReactI18next } from "react-i18next";
 
 import "./index.css";
 import ScrollToTop from "./components/scroll-to-top/ScrollToTop";
-console.log(window.location.href, "href");
 
 export let themePallete = "#008491";
 const type = localStorage.getItem("type");
-console.log(type);
 if (type == "jsx") {
   themePallete = "#008491";
 } else if (type == "taha") {

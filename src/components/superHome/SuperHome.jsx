@@ -1,8 +1,6 @@
-import CoinsCounter from "../coinsCounter/CoinsCounter";
 import SettingCard from "../settingCard/SettingCard";
-import Chart from "react-apexcharts";
 import "../ownerHome/OwnerHome.css";
-import { Box, Card, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { getUsers } from "../../store/actions/users-action";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +16,6 @@ import { useNavigate } from "react-router-dom";
 import { USERS_PAGE } from "../../routing/pats";
 import { getCountries } from "../../store/actions/statistics-action";
 import { useIsMobile } from "../../hooks/useScreenType";
-import { getAdmins } from "../../store/actions/auth-action";
 
 const SuperHome = () => {
   const dispatch = useDispatch();

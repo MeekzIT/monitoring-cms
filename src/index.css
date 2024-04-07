@@ -1,178 +1,189 @@
 body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+		sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 .error-message {
-  font-size: 16px;
-  line-height: 12px;
-  color: maroon;
+	font-size: 16px;
+	line-height: 12px;
+	color: maroon;
 }
 
 .pagBox {
-  display: flex;
-  margin-top: 10px;
-  align-items: center;
+	display: flex;
+	margin-top: 10px;
+	align-items: center;
 }
 
 .pagItem {
-  width: 21px;
-  height: 21px;
-  border: 1px solid black;
-  color: black;
-  border-radius: 50%;
-  padding: 5px;
-  margin-left: 15px;
-  text-align: center;
-  font-weight: bold;
+	width: 21px;
+	height: 21px;
+	border: 1px solid black;
+	color: black;
+	border-radius: 50%;
+	padding: 5px;
+	margin-left: 15px;
+	text-align: center;
+	font-weight: bold;
 }
 
 .ActivePagItem {
-  width: 21px;
-  height: 21px;
- 
-  border-radius: 50%;
-  padding: 5px;
-  margin-left: 15px;
-  text-align: center;
-  font-weight: bold;
+	width: 21px;
+	height: 21px;
+
+	border-radius: 50%;
+	padding: 5px;
+	margin-left: 15px;
+	text-align: center;
+	font-weight: bold;
 }
 
 .loading-box {
-  width: 100%;
-  height: 60vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 20px;
+	width: 100%;
+	height: 60vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 20px;
 }
 
 .btnsBox {
-  display: flex;
+	display: flex;
 }
 
 .btnsBox div {
-  margin: 10px;
-  color: white;
+	margin: 10px;
+	color: white;
 }
 
 .steper-item {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .change-field {
-  display: flex;
-  justify-content: space-between;
+	display: flex;
+	justify-content: space-between;
 }
 
 .change-field-double {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 10px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: 10px;
 }
 
 @media only screen and (max-width: 600px) {
-  .change-field {
-    display: flex;
-    justify-content: unset;
-  }
+	.change-field {
+		display: flex;
+		justify-content: unset;
+	}
 
-  .grap {
-    width: 100%;
-  }
+	.grap {
+		width: 100%;
+	}
 }
 
 .indications-box {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+	display: flex;
+	align-items: center;
+	gap: 20px;
 }
 
 .mobile-modal-close-btn {
-  position: absolute;
-  top: 4%;
-  right: 15%;
+	position: absolute;
+	top: 4%;
+	right: 15%;
 }
 
 .mobile-modal-close-btn svg {
-  fill: #008491;
+	fill: #008491;
 }
 
 .css-19kzrtu {
-  padding: 0 !important;
-  padding-left: 5px !important;
+	padding: 0 !important;
+	padding-left: 5px !important;
 }
 
 .settings-icon {
-  position: absolute;
-  top: 10%;
+	position: absolute;
+	top: 10%;
 }
 
 .online {
-  color: green;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
+	color: green;
+	font-size: 16px;
+	display: flex;
+	align-items: center;
+	gap: 5px;
 }
 
 .offline {
-  color: maroon;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
+	color: maroon;
+	font-size: 16px;
+	display: flex;
+	align-items: center;
+	gap: 5px;
 }
 
 .apexcharts-legend-text {
-  font-size: 16px !important;
+	font-size: 16px !important;
 }
 
 .apexcharts-legend-text {
-  font-size: 20px !important;
+	font-size: 20px !important;
 }
 
 .swal2-icon.swal2-success [class^="swal2-success-line"][class$="tip"] {
-  left: 1.8125em !important;
+	left: 1.8125em !important;
 }
 
 .swal2-icon.swal2-error [class^="swal2-x-mark-line"] {
-  width: 3.9375em !important;
-  height: 1.3125em !important;
+	width: 3.9375em !important;
+	height: 1.3125em !important;
 }
 
 .grapsBox {
-  display: flex;
-  flex-wrap: wrap;
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .grap {
-  width: 45%;
+	width: 45%;
 }
 
 @media only screen and (max-width: 900px) {
-  .grap {
-    width: 100%;
-  }
+	.grap {
+		width: 100%;
+	}
 
-  .grapsBox {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+	.grapsBox {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
 }
 
 .coint-show-heading {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding-left: 10px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding-left: 10px;
 }
+
+/* .MuiOutlinedInput-input {
+	max-width: 300px !important;
+}
+
+.MuiOutlinedInput-root {
+	min-width: 300px !important;
+}
+.MuiSelect-select {
+	min-width: 300px !important;
+} */
