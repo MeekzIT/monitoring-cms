@@ -190,7 +190,7 @@ const Boxes = () => {
 		single !== null && setInfo(boxesInfo?.filter(i => i.box.id == single)[0])
 		single !== null && setShowRows(true)
 	}, [single])
-	console.log(user,"user", owner, "owner");
+	console.log(user?.countryId, "user", owner, "owner")
 	return (
 		<div>
 			<Box m={3}>
