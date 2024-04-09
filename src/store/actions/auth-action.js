@@ -1,7 +1,7 @@
 import axios from "axios"
 import Swal from "sweetalert2"
 import { keys } from "../../keys"
-import { HOME_PAGE } from "../../routing/pats"
+import { HOME_PAGE, LOGIN_PAGE } from "../../routing/pats"
 import {
 	CRATE_ADMIN,
 	DESTSROY_ADMIN,
@@ -123,7 +123,7 @@ export const logoutAction = data => {
 					localStorage.removeItem("isAuth")
 					localStorage.removeItem("isSuper")
 					localStorage.removeItem("token")
-					window.location.href = `/${type}`
+					window.location.href = LOGIN_PAGE
 				}
 			})
 			.catch(function (error) {
