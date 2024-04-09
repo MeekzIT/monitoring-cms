@@ -37,6 +37,7 @@ import {
 	GET_SINGLE_OWNER,
 	GET_SINGLE_USER,
 	GET_USERS,
+	SINGLE_OWNER,
 } from "../types"
 
 const initialState = {
@@ -67,6 +68,7 @@ const initialState = {
 	boxLinear: null,
 	ownerStatistics: null,
 	ownerSystem: null,
+	singleOwner: null,
 }
 
 export const userReducer = (state = initialState, action) => {
@@ -81,6 +83,12 @@ export const userReducer = (state = initialState, action) => {
 			return {
 				...state,
 				boxInfo: action.payload,
+			}
+
+		case SINGLE_OWNER:
+			return {
+				...state,
+				singleOwner: action.payload,
 			}
 		case GET_BOXES_INFO:
 			return {

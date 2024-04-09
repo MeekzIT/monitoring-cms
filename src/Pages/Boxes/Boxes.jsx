@@ -65,6 +65,7 @@ import {
 	getSingleBox,
 	getSingleOwners,
 	getSingleUser,
+	singleOwner,
 } from "../../store/actions/users-action"
 
 const Boxes = () => {
@@ -77,6 +78,7 @@ const Boxes = () => {
 	const user = useSelector(state => state.user.single)
 	const owner = useSelector(state => state.user.owner)
 	const data = useSelector(state => state.user.boxes)
+	const owner1 = useSelector(state => state.user.singleOwner)
 	const boxInfo = useSelector(state => state.user.boxInfo)
 	const boxesInfo = useSelector(state => state.user.boxesInfo)
 	const boxExpernses = useSelector(state => state.user.boxExpernses)
@@ -140,6 +142,10 @@ const Boxes = () => {
 		gap: isMobile && "20px",
 		overflowY: "scroll",
 	}
+
+	useEffect(() => {
+		dispatch(getSingleUser(user_id))
+	}, [])
 	useEffect(() => {
 		dispatch(getSingleUser(user_id))
 		dispatch(getBoxes(id))
@@ -174,7 +180,9 @@ const Boxes = () => {
 	}, [selectedDate, dountDate, dountDate2])
 
 	useEffect(() => {
-		user && dispatch(getSingleOwners(id))
+		dispatch(getSingleUser(user_id))
+		dispatch(singleOwner(user_id))
+		user && dispatch(getSingleOwners(user_id))
 	}, [user])
 
 	useEffect(() => {
@@ -190,7 +198,8 @@ const Boxes = () => {
 		single !== null && setInfo(boxesInfo?.filter(i => i.box.id == single)[0])
 		single !== null && setShowRows(true)
 	}, [single])
-	console.log(user?.countryId, "user", owner, "owner")
+
+	console.log(owner1, "user?.countryIduser?.countryIduser?.countryId")
 	return (
 		<div>
 			<Box m={3}>
@@ -252,10 +261,11 @@ const Boxes = () => {
 									expenses={boxInfo?.ratio ? boxInfo.ratio : 0}
 									expensesValue={boxInfo?.expense}
 									benefitValue={boxInfo?.benefit}
-									countryId={user?.countryId}
+									countryId={owner1?.countryId}
 									openStatistics={openStatistics}
 									setOpenStatistics={setOpenStatistics}
 									singleId={null}
+									title={"статистика всех местоположений"}
 									show={true}
 								/>
 								<div>

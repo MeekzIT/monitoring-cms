@@ -42,6 +42,7 @@ import {
 	getSingleBoxInfo,
 	getSingleOwners,
 	getSingleUser,
+	singleOwner,
 } from "../../store/actions/users-action"
 
 const Items = () => {
@@ -53,7 +54,7 @@ const Items = () => {
 	const isMobile = useIsMobile()
 	const location = useLocation()
 	const user = useSelector(state => state.user.single)
-	const owner = useSelector(state => state.user.owner)
+	const owner = useSelector(state => state.user.singleOwner)
 	const items = useSelector(state => state.user.items)
 	const isSuper = useSelector(state => state.auth.isSuper)
 	const singleBoxInfo = useSelector(state => state.user.singleBoxInfo)
@@ -146,6 +147,7 @@ const Items = () => {
 	}, [selectedDate, dountDate, dountDate2])
 
 	useEffect(() => {
+		dispatch(singleOwner(user_id))
 		user && dispatch(getSingleOwners(id))
 	}, [user])
 	return (
@@ -207,10 +209,11 @@ const Items = () => {
 								expenses={singleBoxInfo?.ratio}
 								expensesValue={singleBoxInfo?.expense}
 								benefitValue={singleBoxInfo?.benefit}
-								countryId={user?.countryId}
+								countryId={owner?.countryId}
 								openStatistics={openStatistics}
 								setOpenStatistics={setOpenStatistics}
 								show={true}
+								title={"статистика всех режимов "}
 							/>
 							<div>
 								<hr />
@@ -310,7 +313,7 @@ const Items = () => {
 														<CircleIcon />
 													</span>
 												)}
-											{t("name")} -	{row.name}
+												{t("name")} - {row.name}
 											</TableCell>
 											{!isMobile && (
 												<TableCell align='left'>

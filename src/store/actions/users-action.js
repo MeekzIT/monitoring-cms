@@ -35,6 +35,7 @@ import {
 	GET_SINGLE_OWNER,
 	GET_SINGLE_USER,
 	GET_USERS,
+	SINGLE_OWNER,
 } from "../types"
 
 export const getUsers = (page, adminId) => {
@@ -439,6 +440,29 @@ export const editItemChanges = data => {
 						timer: 1500,
 					})
 				}
+			})
+			.catch(error => {
+				console.error(error)
+			})
+	}
+}
+
+export const singleOwner = id => {
+	return dispatch => {
+		axios
+			.get(`${keys.api}/owner/single`, {
+				headers: {
+					Authorization: `Bearer ${keys.token}`,
+				},
+				params: {
+					id,
+				},
+			})
+			.then(response => {
+				dispatch({
+					type: SINGLE_OWNER,
+					payload: response.data,
+				})
 			})
 			.catch(error => {
 				console.error(error)
