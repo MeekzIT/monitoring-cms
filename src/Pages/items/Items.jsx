@@ -310,7 +310,7 @@ const Items = () => {
 														<CircleIcon />
 													</span>
 												)}
-												{row.name}
+											{t("name")} -	{row.name}
 											</TableCell>
 											{!isMobile && (
 												<TableCell align='left'>
