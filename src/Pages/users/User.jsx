@@ -325,7 +325,7 @@ const UserPage = () => {
 							<Button
 								variant='outlined'
 								onClick={() => {
-									dispatch(destroyUsers(current))
+									dispatch(destroyUsers({id:current}))
 									dispatch(getUsers(page))
 									dispatch(anulateUser())
 									setOpenDel(false)
