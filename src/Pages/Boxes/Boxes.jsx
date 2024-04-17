@@ -183,7 +183,7 @@ const Boxes = () => {
 		dispatch(getSingleUser(user_id))
 		dispatch(singleOwner(user_id))
 		user && dispatch(getSingleOwners(user_id))
-	}, [user])
+	}, [])
 
 	useEffect(() => {
 		let items = []
@@ -199,7 +199,6 @@ const Boxes = () => {
 		single !== null && setShowRows(true)
 	}, [single])
 
-	console.log(owner1, "user?.countryIduser?.countryIduser?.countryId")
 	return (
 		<div>
 			<Box m={3}>
