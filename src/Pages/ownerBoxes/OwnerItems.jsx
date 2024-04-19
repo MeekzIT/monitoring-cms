@@ -261,7 +261,7 @@ const Items = () => {
 												}}
 												align='left'
 											>
-												ID-{row.p2}
+												ID-{row?.p2} {row?.name}
 											</TableCell>
 											{!isMobile && (
 												<TableCell align='left'>
