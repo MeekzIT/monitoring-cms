@@ -32,7 +32,6 @@ export default function MainLayout() {
 			) : (
 				close && <Sidebar close={close} setClose={setClose} />
 			)}
-			{/* {close && <Sidebar close={close} setClose={setClose} />} */}
 			<div
 				className='homeContainer'
 				style={{ display: isMobile && close ? "none" : "block" }}
