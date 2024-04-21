@@ -1,32 +1,31 @@
 {
-  "theme_color": "#FFFFFF",
-  "background_color": "#FFFFFF",
-  "display": "fullscreen",
-  "scope": "/",
-  "start_url": ".",
-  "name": "StrongWash Monitoring",
-  "short_name": "SW monitoring",
-  "description": "monitoring system",
-  "icons": [
-    {
-      "src": "/icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/icon-256x256.png",
-      "sizes": "256x256",
-      "type": "image/png"
-    },
-    {
-      "src": "/icon-384x384.png",
-      "sizes": "384x384",
-      "type": "image/png"
-    },
-    {
-      "src": "/icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
+	"theme_color": "#055abb",
+	"background_color": "#ffffff",
+	"display": "browser",
+	"scope": "/",
+	"start_url": "/",
+	"name": "StrongWash Monitoring",
+	"short_name": "Strong Wash",
+	"icons": [
+		{
+			"src": "/icon-192x192-sw.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		},
+		{
+			"src": "/icon-256x256-sw.png",
+			"sizes": "256x256",
+			"type": "image/png"
+		},
+		{
+			"src": "/icon-384x384-sw.png",
+			"sizes": "384x384",
+			"type": "image/png"
+		},
+		{
+			"src": "/icon-512x512-sw.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	]
 }
