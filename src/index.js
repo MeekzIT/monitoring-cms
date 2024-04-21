@@ -17,11 +17,13 @@ import ScrollToTop from "./components/scroll-to-top/ScrollToTop";
 export let themePallete = "#008491";
 const type = localStorage.getItem("type");
 if (type == "jsx") {
-  themePallete = "#008491";
+	themePallete = "#008491"
 } else if (type == "taha") {
-  themePallete = "#800000";
+	themePallete = "#800000"
 } else if (type == "senyu") {
-  themePallete = "#FFA500";
+	themePallete = "#FFA500"
+} else if (type == "strongwash") {
+	themePallete = "#055abb"
 }
 const theme = createTheme({
   palette: {

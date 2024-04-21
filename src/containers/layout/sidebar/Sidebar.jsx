@@ -16,6 +16,7 @@ import {
 import jsx from "./logos/jsx.png"
 import senyu from "./logos/sanyu.png"
 import taha from "./logos/taha.png"
+import sw from "./logos/sw.png"
 import "./sidebar.css"
 
 const Sidebar = ({ close, setClose }) => {
@@ -62,6 +63,10 @@ const Sidebar = ({ close, setClose }) => {
 		if (type == "senyu") {
 			return <img src={senyu} alt='logo' />
 		}
+
+    if(type == "strongwash"){
+      return <img src={sw} alt='sw' />
+    }
 	}, [])
 
 	useEffect(() => {

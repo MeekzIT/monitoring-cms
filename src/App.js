@@ -32,6 +32,10 @@ function App() {
       localStorage.setItem("type", "senyu");
     }
 
+     if (window.location.host == "strongwash.online") {
+				localStorage.setItem("type", "strongwash")
+			}
+
 
     if (isAuth) {
       dispatch(setAuthAction(true));
