@@ -24,23 +24,12 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch } from "react-redux";
 import {
   editItemInfo,
-  getItemInfoCalc,
 } from "../../store/actions/users-action";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import DoubleField from "../changeField/DoubleField";
 import ChangeSelect from "../changeField/ChangedSelect";
 import { useParams } from "react-router-dom";
 import { themePallete } from "../..";
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: themePallete,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
 
 const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
   const { t } = useTranslation();
@@ -263,7 +252,7 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
                 name="waterPrice"
                 value={changedData?.waterPrice || currentData?.waterPrice}
                 handleChangeData={handleChangeData}
-                title={`${t("waterPrice")} ( ㎥ )`}
+                title={`${t("waterPrice")} ( 1㎥ )`}
               />
             </Box>
             <Box m={2}>
@@ -274,7 +263,7 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
                   currentData?.modeValuePerLitre
                 }
                 handleChangeData={handleChangeData}
-                title={`${t("modeValuePerLitre")} ( L. )`}
+                title={`${t("modeValuePerLitre")} ( 1L. )`}
               />
             </Box>
             <Box m={2}>

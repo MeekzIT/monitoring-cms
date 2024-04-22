@@ -201,8 +201,8 @@ export function compareWithUTC(inputDateTimeString) {
 	// Get the current time in UTC+0 (UTC)
 	const currentUTC = new Date()
 
-	// Calculate the range for comparison (5 minutes in milliseconds)
-	const timeRange = 5 * 60 * 1000
+	// Calculate the range for comparison (60 minutes in milliseconds)
+	const timeRange = 60 * 60 * 1000
 
 	// Calculate the difference between inputDateTime and currentUTC in milliseconds
 	const timeDifference = inputDateTime - currentUTC
