@@ -252,7 +252,7 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
                 name="waterPrice"
                 value={changedData?.waterPrice || currentData?.waterPrice}
                 handleChangeData={handleChangeData}
-                title={`${t("waterPrice")} ( 1㎥ )`}
+                title={`${t("waterPrice")} ( ㎥ )`}
               />
             </Box>
             <Box m={2}>
@@ -263,7 +263,7 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
                   currentData?.modeValuePerLitre
                 }
                 handleChangeData={handleChangeData}
-                title={`${t("modeValuePerLitre")} ( 1L. )`}
+                title={`${t("modeValuePerLitre")} ( L. )`}
               />
             </Box>
             <Box m={2}>
