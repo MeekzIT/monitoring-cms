@@ -69,13 +69,13 @@ body {
 
 .change-field {
 	display: flex;
-	justify-content: space-between;
+	/* justify-content: space-between; */
+	gap: 10px;
 }
 
 .change-field-double {
 	display: flex;
 	align-items: center;
-	flex-direction: column;
 	gap: 10px;
 }
 
@@ -152,6 +152,7 @@ body {
 .grapsBox {
 	display: flex;
 	flex-wrap: wrap;
+	gap: 10px;
 }
 
 .grap {

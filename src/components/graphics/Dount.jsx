@@ -51,6 +51,9 @@ const DonutChart = ({
 				`${t("benefit")} ${benefitValue} ${
 					show !== false ? getCurrency(countryId) : ""
 				}`,
+				`${t("all")} ${benefitValue + expensesValue} ${
+					show !== false ? getCurrency(countryId) : ""
+				}`,
 			],
 			plotOptions: {
 				pie: {
@@ -90,7 +93,6 @@ const DonutChart = ({
 		series: [expenses, benefit],
 	}
 
-	console.log(countryId, "countryId")
 	return (
 		<Box
 			sx={{
@@ -111,7 +113,7 @@ const DonutChart = ({
 				}}
 				className='apexcharts-legend apexcharts-align-center apx-legend-position-right'
 			>
-				<div
+				{/* <div
 					style={{
 						display: "flex",
 						alignItems: "center",
@@ -124,7 +126,7 @@ const DonutChart = ({
 						{t("all")} {benefitValue + expensesValue}
 						{show !== false ? getCurrency(countryId) : ""}
 					</Typography>
-				</div>
+				</div> */}
 				{title && isMobile && (
 					<div>
 						<Button
