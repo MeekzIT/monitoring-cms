@@ -209,7 +209,7 @@ const Items = () => {
 								expenses={singleBoxInfo?.ratio}
 								expensesValue={singleBoxInfo?.expense}
 								benefitValue={singleBoxInfo?.benefit}
-								countryId={owner?.countryId}
+								countryId={user?.countryId}
 								openStatistics={openStatistics}
 								setOpenStatistics={setOpenStatistics}
 								show={true}

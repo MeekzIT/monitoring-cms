@@ -92,7 +92,6 @@ const Boxes = () => {
 	const [openDel, setOpenDel] = useState(false)
 
 	const [geo, setGeo] = useState(null)
-	const [ownerId, setOwnerId] = useState(null)
 	const [addField, setAddField] = useState(false)
 	const [addedFieldValueName, setAddedFieldValueName] = useState("")
 	const [addedFieldValuePrice, setAddedFieldValuePrice] = useState("")
@@ -145,9 +144,6 @@ const Boxes = () => {
 
 	useEffect(() => {
 		dispatch(getSingleUser(user_id))
-	}, [])
-	useEffect(() => {
-		dispatch(getSingleUser(user_id))
 		dispatch(getBoxes(id))
 		dispatch(
 			getBoxInfo({
@@ -192,13 +188,13 @@ const Boxes = () => {
 			?.filter(i => i.ownerId == currentId)[0]
 			?.Items?.map(y => items.push(y.p2))
 		items.length && dispatch(getItemInfoBenefits(JSON.stringify(items)))
-	}, [ownerId])
+	}, [])
 
 	useEffect(() => {
 		single !== null && setInfo(boxesInfo?.filter(i => i.box.id == single)[0])
 		single !== null && setShowRows(true)
 	}, [single])
-
+	
 	return (
 		<div>
 			<Box m={3}>
@@ -260,7 +256,7 @@ const Boxes = () => {
 									expenses={boxInfo?.ratio ? boxInfo.ratio : 0}
 									expensesValue={boxInfo?.expense}
 									benefitValue={boxInfo?.benefit}
-									countryId={owner1?.countryId}
+									countryId={user?.countryId}
 									openStatistics={openStatistics}
 									setOpenStatistics={setOpenStatistics}
 									singleId={null}

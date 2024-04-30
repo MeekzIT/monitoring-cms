@@ -176,7 +176,7 @@ export const userReducer = (state = initialState, action) => {
 			)
 			return {
 				...state,
-				owner: singleOwner[0],
+				owner: singleOwner && singleOwner[0],
 			}
 		case GET_SINGLE_BOX:
 			let singleBox = state.boxes?.filter(i => i.id == action.payload)

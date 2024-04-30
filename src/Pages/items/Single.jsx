@@ -60,7 +60,6 @@ import {
 	getItemSingle,
 	getSingleInfo,
 	getSingleLinear,
-	getSingleOwners,
 } from "../../store/actions/users-action"
 
 const Single = () => {
@@ -137,10 +136,8 @@ const Single = () => {
 	}, [access, selectedDate, dountDate, dountDate2])
 
 	useEffect(() => {
-		user && dispatch(getSingleOwners(id))
-
 		setAccess(data?.access)
-	}, [user, data])
+	}, [data])
 
 	const handleChangeData = (name, value) => {
 		changedData[name] = value
@@ -155,7 +152,7 @@ const Single = () => {
 			behavior: "smooth",
 		})
 	}
-
+	console.log(user)
 	return (
 		<Box p={2} fullWidth>
 			<Box p={2}>
@@ -264,7 +261,7 @@ const Single = () => {
 															expenses={singleInfo?.ratio}
 															expensesValue={singleInfo?.expense}
 															benefitValue={singleInfo?.benefit}
-															countryId={owner?.countryId}
+															countryId={user?.countryId}
 															openStatistics={null}
 															singleId={null}
 															show={false}

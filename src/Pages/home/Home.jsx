@@ -5,6 +5,7 @@ import OwnerHome from "../../components/ownerHome/OwnerHome"
 import SuperHome from "../../components/superHome/SuperHome"
 import UserHome from "../../components/userHome/UserHome"
 import { getHomePageStatistics } from "../../store/actions/statistics-action"
+
 import "./home.css"
 
 const HomePage = () => {
@@ -12,14 +13,14 @@ const HomePage = () => {
 	const isSuper = useSelector(state => state.auth.isSuper)
 	useEffect(() => {
 		dispatch(getHomePageStatistics())
-	}, [])
+	}, [dispatch])
 
 	return (
 		<div>
 			<Maps />
-			{isSuper == "superAdmin" && <SuperHome />}
-			{isSuper == "owner" && <OwnerHome />}
-			{isSuper == "user" && <UserHome />}
+			{isSuper === "superAdmin" && <SuperHome />}
+			{isSuper === "owner" && <OwnerHome />}
+			{isSuper === "user" && <UserHome />}
 		</div>
 	)
 }

@@ -4,7 +4,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
 import EditIcon from "@mui/icons-material/Edit"
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye"
 import SettingsIcon from "@mui/icons-material/Settings"
-import { Box, Button, Menu, MenuItem, Modal, Typography } from "@mui/material"
+import { Box, Button, Menu, MenuItem } from "@mui/material"
 import Paper from "@mui/material/Paper"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
@@ -23,56 +23,38 @@ import { getMe } from "../../store/actions/auth-action"
 import { getCountries } from "../../store/actions/statistics-action"
 import {
 	anulateUser,
-	destroyUsers,
 	getSingleUser,
 	getUsers,
 } from "../../store/actions/users-action"
 import AddUser from "./AddUser"
+import DelUser from "./DelUser"
 import EditUser from "./EditUser"
 
 const UserPage = () => {
 	const { t } = useTranslation()
+	const isMobile = useIsMobile()
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const [current, setCurrrent] = useState(null)
-
 	const [anchorEl, setAnchorEl] = useState(null)
-	const openMenu = Boolean(anchorEl)
-	const handleClick = event => {
-		setAnchorEl(event.currentTarget)
-	}
+	const [open, setOpen] = useState(false)
+	const [openEdit, setOpenEdit] = useState(false)
+	const [openDel, setOpenDel] = useState(false)
 	const [page, setPage] = useState(0)
 	const [pages, setPages] = useState([])
+
 	const data = useSelector(state => state.user.users)
 	const count = useSelector(state => state.user.count)
 	const countries = useSelector(state => state.statistics.countries)
 	const user = useSelector(state => state.auth.admin)
 
-	const [open, setOpen] = useState(false)
-	const [openEdit, setOpenEdit] = useState(false)
-	const [openDel, setOpenDel] = useState(false)
-	const isMobile = useIsMobile()
-
 	const handleOpen = () => setOpen(true)
 	const handleClose = () => setOpen(false)
-	const style = {
-		position: "absolute",
-		top: "50%",
-		left: "50%",
-		transform: "translate(-50%, -50%)",
-		width: isMobile ? "100%" : 400,
-		bgcolor: "background.paper",
-		border: `3px solid ${themePallete}`,
-		boxShadow: 24,
-		p: 4,
-		borderRadius: "10px",
-		minHeight: isMobile ? "100vh" : null,
-		display: isMobile && "flex",
-		justifyContent: isMobile && "center",
-		alignItems: isMobile && "center",
-		flexDirection: isMobile && "column",
-		gap: isMobile && "20px",
+	const openMenu = Boolean(anchorEl)
+	const handleClick = event => {
+		setAnchorEl(event.currentTarget)
 	}
+	
 	useEffect(() => {
 		if (count) {
 			setPages(makeArray(Math.ceil(count / 12)))
@@ -82,10 +64,11 @@ const UserPage = () => {
 	useEffect(() => {
 		dispatch(getCountries())
 		dispatch(getMe())
-	}, [])
+	}, [dispatch])
+
 	useEffect(() => {
 		user && dispatch(getUsers(page))
-	}, [page, user])
+	}, [dispatch, page, user])
 
 	return (
 		<Box m={3}>
@@ -294,49 +277,12 @@ const UserPage = () => {
 					</div>
 				</div>
 			</Box>
-			<Modal
-				open={openDel}
-				onClose={() => {
-					setOpenDel(false)
-					dispatch(anulateUser())
-				}}
-			>
-				<Box sx={style}>
-					<Typography id='modal-modal-title' variant='h6' component='h2'>
-						{t("delete")} ?
-					</Typography>
-					<Typography
-						className='btnsBox'
-						id='modal-modal-description'
-						sx={{ mt: 2 }}
-					>
-						<div>
-							<Button
-								variant='contained'
-								onClick={() => {
-									setOpenDel(false)
-								}}
-								sx={{ color: "white" }}
-							>
-								No
-							</Button>
-						</div>
-						<div>
-							<Button
-								variant='outlined'
-								onClick={() => {
-									dispatch(destroyUsers({id:current}))
-									dispatch(getUsers(page))
-									dispatch(anulateUser())
-									setOpenDel(false)
-								}}
-							>
-								Yes
-							</Button>
-						</div>
-					</Typography>
-				</Box>
-			</Modal>
+			<DelUser
+				openDel={openDel}
+				setOpenDel={setOpenDel}
+				current={current}
+				page={page}
+			/>
 			<AddUser open={open} handleClose={handleClose} countries={countries} />
 			{current && (
 				<EditUser
