@@ -1,33 +1,31 @@
 {
-    "theme_color": "#FFA500",
-    "background_color": "#FFFFFF",
-    "display": "fullscreen",
-    "scope": "/",
-    "start_url": ".",
-    "name": "Senyu",
-    "short_name": "Senyu",
-    "description": "monitoring system",
-    "icons": [
-      {
-        "src": "/icon-192x192.png",
-        "sizes": "192x192",
-        "type": "image/png"
-      },
-      {
-        "src": "/icon-256x256.png",
-        "sizes": "256x256",
-        "type": "image/png"
-      },
-      {
-        "src": "/icon-384x384.png",
-        "sizes": "384x384",
-        "type": "image/png"
-      },
-      {
-        "src": "/icon-512x512.png",
-        "sizes": "512x512",
-        "type": "image/png"
-      }
-    ]
-  }
-  
+	"theme_color": "#FFA500",
+	"background_color": "#FFFFFF",
+	"display": "fullscreen",
+	"scope": "/",
+	"start_url": "/",
+	"name": "Senyu Monitoring",
+	"short_name": "Senyu",
+	"icons": [
+		{
+			"src": "/icon-192x192-sen.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		},
+		{
+			"src": "/icon-256x256-sen.png",
+			"sizes": "256x256",
+			"type": "image/png"
+		},
+		{
+			"src": "/icon-384x384-sen.png",
+			"sizes": "384x384",
+			"type": "image/png"
+		},
+		{
+			"src": "/icon-512x512-sen.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	]
+}
