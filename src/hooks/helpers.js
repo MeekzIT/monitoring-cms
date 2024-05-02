@@ -20,9 +20,9 @@ export const getCurrency = roll => {
 	} else if (roll == 0) {
 		return "₽"
 	} else if (roll == 4) {
-		return "₸"
-	} else if (roll == 2) {
 		return "₾"
+	} else if (roll == 2) {
+		return "₽"
 	} else if (roll == 5) {
 		return "Br"
 	} else if (roll == 6) {
