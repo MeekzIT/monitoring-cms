@@ -23,7 +23,7 @@ function App() {
 			localStorage.setItem("type", "jsx")
 		}
 
-		if (window.location.pathname == "/senyu") {
+		if (window.location.host == "senyu.online") {
 			localStorage.setItem("type", "senyu")
 		}
 
