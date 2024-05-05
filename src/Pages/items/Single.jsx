@@ -168,7 +168,7 @@ const Single = () => {
 				<Grid p={2}>
 					<Typography id='modal-modal-title' variant='h3' component='h1'>
 						{t("device")}
-						{compareWithUTC(data?.datatime) ? (
+						{data?.datatime && compareWithUTC(data?.datatime) ? (
 							<span className='online'>{t("online")}</span>
 						) : (
 							<span className='offline'>{t("offline")}</span>

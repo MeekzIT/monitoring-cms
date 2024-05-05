@@ -304,7 +304,7 @@ const Items = () => {
 													isMobile && handleNavigate(row.p2, row.p0)
 												}
 											>
-												{compareWithUTC(row.datatime) ? (
+												{row.datatime && compareWithUTC(row.datatime) ? (
 													<span className='online'>
 														<CircleIcon />
 													</span>

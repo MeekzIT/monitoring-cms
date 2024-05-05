@@ -282,7 +282,7 @@ const Items = () => {
 												</TableCell>
 											)}
 											<TableCell align='left'>
-												{compareWithUTC(row.datatime) ? (
+												{row?.datatime && compareWithUTC(row?.datatime) ? (
 													<span className='online'>
 														<CircleIcon />
 													</span>
