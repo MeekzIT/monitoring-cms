@@ -5,7 +5,7 @@
 	"scope": "/",
 	"start_url": "/",
 	"name": "StrongWash Monitoring",
-	"short_name": "Strong Wash",
+	"short_name": "Monitoring",
 	"icons": [
 		{
 			"src": "/icon-192x192-sw.png",

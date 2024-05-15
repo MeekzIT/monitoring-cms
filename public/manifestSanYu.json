@@ -5,7 +5,7 @@
 	"scope": "/",
 	"start_url": "/",
 	"name": "Senyu Monitoring",
-	"short_name": "Senyu",
+	"short_name": "Monitoring",
 	"icons": [
 		{
 			"src": "/icon-192x192-sen.png",
