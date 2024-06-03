@@ -439,6 +439,7 @@ const Boxes = () => {
 															variant='outlined'
 															onClick={() => {
 																setOpenDel(true)
+																setCurrentId(row.id)
 																// dispatch(deleteBox(row.id))
 																// dispatch(getBoxes(owner?.deviceOwner))
 															}}
@@ -890,7 +891,7 @@ const Boxes = () => {
 								variant='outlined'
 								onClick={() => {
 									dispatch(deleteBox({ id: currentId }))
-									dispatch(getBoxes(currentOwner))
+									dispatch(getBoxes(id))
 									setOpenDel(false)
 								}}
 							>

@@ -360,6 +360,7 @@ const OwnerBoxes = () => {
 														variant='outlined'
 														onClick={() => {
 															setOpenDel(true)
+															setCurrentId(row.id)
 														}}
 														// onClick={() => {
 														// 	dispatch(deleteBox(row.id))
@@ -577,7 +578,8 @@ const OwnerBoxes = () => {
 								variant='outlined'
 								onClick={() => {
 									dispatch(deleteBox({ id: currentId }))
-									dispatch(getBoxes(currentOwner))
+									dispatch(getBoxes(owner?.deviceOwner))
+									// dispatch(getBoxes(currentOwner))
 									setOpenDel(false)
 								}}
 							>
