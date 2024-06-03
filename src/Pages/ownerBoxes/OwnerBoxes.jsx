@@ -576,7 +576,7 @@ const OwnerBoxes = () => {
 							<Button
 								variant='outlined'
 								onClick={() => {
-									dispatch(deleteBox(currentId))
+									dispatch(deleteBox({ id: currentId }))
 									dispatch(getBoxes(currentOwner))
 									setOpenDel(false)
 								}}

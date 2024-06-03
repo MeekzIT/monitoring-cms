@@ -194,7 +194,7 @@ const Boxes = () => {
 		single !== null && setInfo(boxesInfo?.filter(i => i.box.id == single)[0])
 		single !== null && setShowRows(true)
 	}, [single])
-	
+
 	return (
 		<div>
 			<Box m={3}>
@@ -889,7 +889,7 @@ const Boxes = () => {
 							<Button
 								variant='outlined'
 								onClick={() => {
-									dispatch(deleteBox(currentId))
+									dispatch(deleteBox({ id: currentId }))
 									dispatch(getBoxes(currentOwner))
 									setOpenDel(false)
 								}}
