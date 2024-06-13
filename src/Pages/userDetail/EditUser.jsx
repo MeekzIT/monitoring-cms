@@ -3,24 +3,20 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useTranslation } from "react-i18next";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import {
   FormControl,
   Grid,
-  IconButton,
-  InputAdornment,
   InputLabel,
   MenuItem,
   Select,
   TextField,
 } from "@mui/material";
-import { useState } from "react";
 import { generatePassword } from "../../hooks/generatePassword";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import useCopyToClipboard from "../../hooks/useCopyToClipboard";
 import { useDispatch, useSelector } from "react-redux";
-import { addUsers, editOwner } from "../../store/actions/users-action";
+import {  editOwner } from "../../store/actions/users-action";
 import { useIsMobile } from "../../hooks/useScreenType";
 import CloseIcon from "@mui/icons-material/Close";
 import { themePallete } from "../..";
@@ -29,9 +25,7 @@ const EditUser = ({ open, handleClose, countries, data }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const isMobile = useIsMobile();
-  const user = useSelector((state) => state.auth.admin);
 
-  const [isCopied, copyToClipboard] = useCopyToClipboard();
   const signupSchema = Yup.object().shape({
     firstName: Yup.string()
       .min(2, "Too Short!")
@@ -178,15 +172,6 @@ const EditUser = ({ open, handleClose, countries, data }) => {
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    {/* <Field
-                      as={TextField}
-                      name="countryId"
-                      label="Country ID"
-                      variant="outlined"
-                      fullWidth
-                      error={touched.countryId && Boolean(errors.countryId)}
-                      helperText={touched.countryId && errors.countryId}
-                    /> */}
                     <FormControl fullWidth>
                       <InputLabel id="demo-simple-select-label">
                         countryId

@@ -10,10 +10,8 @@ import { useDispatch } from "react-redux";
 import { useIsMobile } from "../../hooks/useScreenType";
 import { useParams } from "react-router-dom";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
-import { createOrder } from "../../store/actions/subscribe-action";
 
 const Payment = () => {
-  const { mdOrder } = useParams();
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const isMobile = useIsMobile();

@@ -1,21 +1,13 @@
-import Box from "@mui/material/Box"
-import Button from "@mui/material/Button"
-import Modal from "@mui/material/Modal"
-import Typography from "@mui/material/Typography"
-import { useTranslation } from "react-i18next"
-import { useDispatch } from "react-redux"
-import { themePallete } from "../.."
-import { useIsMobile } from "../../hooks/useScreenType"
-import {
-	anulateUser,
-	destroyUsers,
-	getUsers,
-} from "../../store/actions/users-action"
+import { Box, Button, Modal, Typography } from "@mui/material"
 
-const DelUser = ({ openDel, setOpenDel, current, page }) => {
+import { useIsMobile } from "../../hooks/useScreenType"
+import { useTranslation } from "react-i18next"
+import { themePallete } from "../.."
+
+const DeleteModal = ({ open, handleClose, handleDelete }) => {
 	const { t } = useTranslation()
-	const dispatch = useDispatch()
 	const isMobile = useIsMobile()
+
 	const style = {
 		position: "absolute",
 		top: "50%",
@@ -36,13 +28,7 @@ const DelUser = ({ openDel, setOpenDel, current, page }) => {
 	}
 
 	return (
-		<Modal
-			open={openDel}
-			onClose={() => {
-				setOpenDel(false)
-				dispatch(anulateUser())
-			}}
-		>
+		<Modal open={open} onClose={handleClose}>
 			<Box sx={style}>
 				<Typography id='modal-modal-title' variant='h6' component='h2'>
 					{t("delete")} ?
@@ -55,25 +41,21 @@ const DelUser = ({ openDel, setOpenDel, current, page }) => {
 					<div>
 						<Button
 							variant='contained'
-							onClick={() => {
-								setOpenDel(false)
-							}}
+							onClick={handleClose}
 							sx={{ color: "white" }}
 						>
-							No
+							{t("no")}
 						</Button>
 					</div>
 					<div>
 						<Button
 							variant='outlined'
 							onClick={() => {
-								dispatch(destroyUsers({ id: current }))
-								dispatch(getUsers(page))
-								dispatch(anulateUser())
-								setOpenDel(false)
+								handleDelete()
+								handleClose()
 							}}
 						>
-							Yes
+							{t("yes")}
 						</Button>
 					</div>
 				</Typography>
@@ -82,4 +64,4 @@ const DelUser = ({ openDel, setOpenDel, current, page }) => {
 	)
 }
 
-export default DelUser
+export default DeleteModal
