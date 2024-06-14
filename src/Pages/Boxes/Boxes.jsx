@@ -116,6 +116,13 @@ const Boxes = () => {
 				endDate: dountDate2,
 			})
 		)
+		dispatch(
+			getBoxLinear({
+				ownerId: id,
+				date: dountDate,
+				endDate: dountDate2,
+			})
+		)
 	}, [selectedDate, dountDate, dountDate2])
 
 	useEffect(() => {
