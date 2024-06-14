@@ -115,6 +115,8 @@ const Items = () => {
 		dispatch(singleOwner(user_id))
 		user && dispatch(getSingleOwners(id))
 	}, [dispatch, id, user, user_id])
+
+	console.log(user,"lll");
 	return (
 		<div>
 			<Box m={2}>
