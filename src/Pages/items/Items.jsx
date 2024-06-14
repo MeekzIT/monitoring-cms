@@ -116,7 +116,6 @@ const Items = () => {
 		user && dispatch(getSingleOwners(id))
 	}, [dispatch, id, user, user_id])
 
-	console.log(user,"lll");
 	return (
 		<div>
 			<Box m={2}>
@@ -131,7 +130,7 @@ const Items = () => {
 				info={singleBoxInfo}
 				linear={boxLinear}
 				handleFilter={handleFilter}
-				countryId={owner?.countryId}
+				countryId={user?.countryId}
 				setOpenStatistics={setOpenStatistics}
 				handleDountDateChange={handleDountDateChange}
 				handleDountDateChange2={handleDountDateChange2}
