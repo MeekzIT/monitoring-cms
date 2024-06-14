@@ -1,10 +1,7 @@
 import BubbleChartIcon from "@mui/icons-material/BubbleChart"
 import CalculateIcon from "@mui/icons-material/Calculate"
 import ElectricBoltIcon from "@mui/icons-material/ElectricBolt"
-import LocalAtmIcon from "@mui/icons-material/LocalAtm"
 import LockIcon from "@mui/icons-material/Lock"
-import MonetizationOnIcon from "@mui/icons-material/MonetizationOn"
-import PaymentIcon from "@mui/icons-material/Payment"
 import PlayCircleIcon from "@mui/icons-material/PlayCircle"
 import TimelapseIcon from "@mui/icons-material/Timelapse"
 import VisibilityIcon from "@mui/icons-material/Visibility"
@@ -61,6 +58,7 @@ import {
 	getSingleInfo,
 	getSingleLinear,
 } from "../../store/actions/users-action"
+import DeteBox from "../../packages/dateBox/DateBox"
 
 const Single = () => {
 	const { t } = useTranslation()
@@ -89,16 +87,8 @@ const Single = () => {
 	const itemInfoCalc2 = useSelector(state => state.user.calcData2)
 	const singleInfo = useSelector(state => state.user.singleInfo)
 	const prcemt = useSelector(state => state.user.infoPrcent)
-	useEffect(() => {
-		// dispatch(getSingleUser(user_id));
-		dispatch(getBoxes(owner_id))
-		dispatch(getItemSingle(single))
 
-		dispatch(getItemCurrent({ single, active }))
-		dispatch(getItemInfo(single, active))
-		dispatch(getItemInfoPrcent(single))
-		dispatch(getItemInfoModes(single))
-		dispatch(getItemDates(single))
+	const handleFilter = () => {
 		dispatch(
 			getSingleInfo({
 				ownerId: single,
@@ -128,12 +118,37 @@ const Single = () => {
 				})
 			)
 		}
+	}
+	useEffect(() => {
+		// dispatch(getSingleUser(user_id));
+		dispatch(getBoxes(owner_id))
+		dispatch(getItemSingle(single))
+
+		dispatch(getItemCurrent({ single, active }))
+		dispatch(getItemInfo(single, active))
+		dispatch(getItemInfoPrcent(single))
+		dispatch(getItemInfoModes(single))
+		dispatch(getItemDates(single))
+
 		if (active == 1) {
 			dispatch(getItemInfoCalc(single, dountDate))
 		} else if (active == 2) {
 			dispatch(getItemInfoCalc2(single))
 		}
-	}, [access, selectedDate, dountDate, dountDate2])
+			dispatch(
+				getSingleInfo({
+					ownerId: single,
+					date: dountDate,
+					endDate: dountDate2,
+				})
+			)
+			dispatch(
+				getSingleLinear({
+					ownerId: single,
+					date: selectedDate,
+				})
+			)
+	}, [access])
 
 	useEffect(() => {
 		setAccess(data?.access)
@@ -207,126 +222,20 @@ const Single = () => {
 							<>
 								{data && (
 									<>
-										<div
-											className='grapsBox'
-											onClick={() => {
-												setShowDetails(!showDetails)
-											}}
-										>
-											<div className='grap'>
-												<div className='grapsBox'>
-													<LocalizationProvider dateAdapter={AdapterDayjs}>
-														<DemoContainer components={["DatePicker"]}>
-															<DatePicker
-																label='start'
-																format='YYYY-MM-DD'
-																value={dountDate}
-																onChange={date =>
-																	handleDountDateChange(
-																		dayjs(date).format("YYYY-MM-DD")
-																	)
-																}
-															/>
-														</DemoContainer>
-													</LocalizationProvider>
-													<LocalizationProvider dateAdapter={AdapterDayjs}>
-														<DemoContainer components={["DatePicker"]}>
-															<DatePicker
-																label='end'
-																format='YYYY-MM-DD'
-																value={dountDate2}
-																onChange={date =>
-																	handleDountDateChange2(
-																		dayjs(date).format("YYYY-MM-DD")
-																	)
-																}
-															/>
-														</DemoContainer>
-													</LocalizationProvider>
-													{(dountDate || dountDate2) && (
-														<Button
-															onClick={() => {
-																handleDountDateChange(null)
-																handleDountDateChange2(null)
-															}}
-														>
-															clear filtres
-														</Button>
-													)}
-												</div>
-												{singleInfo !== null && (
-													<>
-														<DonutChart
-															benefit={100 - singleInfo?.ratio}
-															expenses={singleInfo?.ratio}
-															expensesValue={singleInfo?.expense}
-															benefitValue={singleInfo?.benefit}
-															countryId={user?.countryId}
-															openStatistics={null}
-															singleId={null}
-															show={false}
-														/>
-
-														<div>
-															<hr />
-															<Typography
-																className='coint-show-heading'
-																sx={{ color: themePallete }}
-															>
-																{" "}
-																<MonetizationOnIcon
-																	sx={{ color: themePallete }}
-																/>
-																<div> Coin - {singleInfo?.coin}</div>
-															</Typography>
-															<hr />
-															<Typography
-																className='coint-show-heading'
-																sx={{ color: themePallete }}
-															>
-																{" "}
-																<LocalAtmIcon sx={{ color: themePallete }} />
-																<div> Bill - {singleInfo?.cash}</div>
-															</Typography>
-															<hr />
-															<Typography
-																className='coint-show-heading'
-																sx={{ color: themePallete }}
-															>
-																<PaymentIcon sx={{ color: themePallete }} />
-																<div> Cash Less - {singleInfo?.bill}</div>
-															</Typography>
-															<hr />
-														</div>
-													</>
-												)}
-											</div>
-											<Box className='grap'>
-												{selectedDate && (
-													<Button
-														onClick={() => {
-															handleDateChange()
-														}}
-													>
-														clear filtres
-													</Button>
-												)}
-												<LineChart
-													benefit={singleLinear?.map(i => {
-														return i.result
-													})}
-													expense={singleLinear?.map(i => {
-														return i.caxs
-													})}
-													all={singleLinear?.map(i => {
-														return i.all
-													})}
-													mont={selectedDate}
-													startDate={dountDate}
-													endDate={dountDate2}
-												/>
-											</Box>
-										</div>
+										<DeteBox
+											dountDate={dountDate}
+											dountDate2={dountDate2}
+											selectedDate={selectedDate}
+											openStatistics={false}
+											info={singleInfo}
+											linear={singleLinear}
+											handleFilter={handleFilter}
+											countryId={owner?.countryId}
+											setOpenStatistics={false}
+											handleDountDateChange={handleDountDateChange}
+											handleDountDateChange2={handleDountDateChange2}
+											handleDateChange={handleDateChange}
+										/>
 										{showDetails ? (
 											<Box mt={2} mb={2}>
 												<Box sx={{ overflow: "auto" }}>

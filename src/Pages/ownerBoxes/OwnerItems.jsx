@@ -49,25 +49,8 @@ const Items = () => {
 			setExpand(id)
 		} else setExpand(false)
 	}
-	const style = {
-		position: "absolute",
-		top: "50%",
-		left: "50%",
-		transform: "translate(-50%, -50%)",
-		width: isMobile ? "100%" : 800,
-		bgcolor: "background.paper",
-		border: `3px solid ${themePallete}`,
-		boxShadow: 24,
-		p: 4,
-		borderRadius: "10px",
-		minHeight: isMobile ? "100vh" : null,
-		display: isMobile && "flex",
-		justifyContent: isMobile && "center",
-		alignItems: isMobile && "center",
-		flexDirection: isMobile && "column",
-		gap: isMobile && "20px",
-	}
-	useEffect(() => {
+
+	const handleFilter = () => {
 		dispatch(
 			getSingleBoxInfo({
 				ownerId: id,
@@ -92,12 +75,14 @@ const Items = () => {
 				})
 			)
 		}
+	}
+	useEffect(() => {
 		dispatch(getBoxes(id, box_id))
 	}, [])
 
 	useEffect(() => {
 		user && dispatch(getSingleOwners(id))
-	}, [user, selectedDate, dountDate, dountDate2])
+	}, [user])
 
 	return (
 		<div>
@@ -113,6 +98,7 @@ const Items = () => {
 				info={singleBoxInfo}
 				linear={boxLinear}
 				countryId={owner?.countryId}
+				handleFilter={handleFilter}
 				setOpenStatistics={setOpenStatistics}
 				handleDountDateChange={handleDountDateChange}
 				handleDountDateChange2={handleDountDateChange2}

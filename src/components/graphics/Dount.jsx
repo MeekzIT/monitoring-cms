@@ -45,7 +45,7 @@ const DonutChart = ({
 				},
 			},
 			labels: [
-				`${t("expenses")} ${expensesValue} ${
+				`${t("expenses")} ${expensesValue ? expensesValue : 0} ${
 					show !== false ? getCurrency(countryId) : ""
 				}`,
 				`${t("benefit")} ${benefitValue} ${

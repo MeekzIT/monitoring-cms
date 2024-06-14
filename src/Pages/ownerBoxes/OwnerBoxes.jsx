@@ -65,13 +65,7 @@ const OwnerBoxes = () => {
 		dispatch(getMe())
 	}, [])
 
-	useEffect(() => {
-		dispatch(getBoxes(owner?.deviceOwner))
-		dispatch(
-			getBoxInfo({
-				ownerId: owner?.deviceOwner,
-			})
-		)
+	const handleFilter = () => {
 		dispatch(
 			getBoxesInfo({
 				ownerId: owner?.deviceOwner,
@@ -95,7 +89,30 @@ const OwnerBoxes = () => {
 				})
 			)
 		}
-	}, [owner, selectedDate, dountDate, dountDate2])
+	}
+
+	useEffect(() => {
+		dispatch(getBoxes(owner?.deviceOwner))
+		dispatch(
+			getBoxInfo({
+				ownerId: owner?.deviceOwner,
+			})
+		)
+		dispatch(
+			getBoxLinear({
+				ownerId: owner?.deviceOwner,
+				date: dountDate,
+				endDate: dountDate2,
+			})
+		)
+		dispatch(
+			getBoxesInfo({
+				ownerId: owner?.deviceOwner,
+				date: dountDate,
+				endDate: dountDate2,
+			})
+		)
+	}, [owner])
 
 	const handleNavigate = rowId => {
 		dispatch(getSingleBox(rowId))
@@ -215,6 +232,7 @@ const OwnerBoxes = () => {
 					info={boxInfo}
 					linear={boxLinear}
 					countryId={owner?.countryId}
+					handleFilter={handleFilter}
 					setOpenStatistics={setOpenStatistics}
 					handleDountDateChange={handleDountDateChange}
 					handleDountDateChange2={handleDountDateChange2}

@@ -75,14 +75,8 @@ const Boxes = () => {
 		dispatch(getBoxes(id, rowId))
 		navigate(`/user/${user_id}/owner/${ownerId}/item/${rowId}`)
 	}
-	useEffect(() => {
-		dispatch(getSingleUser(user_id))
-		dispatch(getBoxes(id))
-		dispatch(
-			getBoxInfo({
-				ownerId: id,
-			})
-		)
+
+	const handleFilter = () => {
 		dispatch(
 			getBoxesInfo({
 				ownerId: id,
@@ -106,6 +100,22 @@ const Boxes = () => {
 				})
 			)
 		}
+	}
+	useEffect(() => {
+		dispatch(getSingleUser(user_id))
+		dispatch(getBoxes(id))
+		dispatch(
+			getBoxInfo({
+				ownerId: id,
+			})
+		)
+		dispatch(
+			getBoxesInfo({
+				ownerId: id,
+				date: dountDate,
+				endDate: dountDate2,
+			})
+		)
 	}, [selectedDate, dountDate, dountDate2])
 
 	useEffect(() => {
@@ -244,6 +254,7 @@ const Boxes = () => {
 					selectedDate={selectedDate}
 					openStatistics={openStatistics}
 					info={boxInfo}
+					handleFilter={handleFilter}
 					linear={boxLinear}
 					countryId={user?.countryId}
 					setOpenStatistics={setOpenStatistics}

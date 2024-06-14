@@ -1,7 +1,7 @@
 import CircleIcon from "@mui/icons-material/Circle"
 import EditIcon from "@mui/icons-material/Edit"
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye"
-import { Box, Button} from "@mui/material"
+import { Box, Button } from "@mui/material"
 import Paper from "@mui/material/Paper"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
@@ -61,7 +61,8 @@ const Items = () => {
 	const handleNavigate = (p2, p0) => {
 		navigate(`/owner/${owner_id}/item/${id}/${p2}/${p0}`)
 	}
-	useEffect(() => {
+
+	const handleFilter = () => {
 		dispatch(
 			getSingleBoxInfo({
 				ownerId: owner_id,
@@ -88,9 +89,27 @@ const Items = () => {
 				})
 			)
 		}
+	}
+	useEffect(() => {
+		dispatch(
+			getSingleBoxInfo({
+				ownerId: owner_id,
+				boxId: id,
+				date: dountDate,
+				endDate: dountDate2,
+			})
+		)
+		dispatch(
+			getBoxLinear({
+				ownerId: owner_id,
+				date: dountDate,
+				endDate: dountDate2,
+				boxId: id,
+			})
+		)
 		dispatch(getSingleUser(user_id))
 		dispatch(getBoxes(owner_id, id))
-	}, [selectedDate, dountDate, dountDate2, dispatch, owner_id, id, user_id])
+	}, [dispatch, owner_id, id, user_id])
 
 	useEffect(() => {
 		dispatch(singleOwner(user_id))
@@ -109,6 +128,7 @@ const Items = () => {
 				openStatistics={openStatistics}
 				info={singleBoxInfo}
 				linear={boxLinear}
+				handleFilter={handleFilter}
 				countryId={owner?.countryId}
 				setOpenStatistics={setOpenStatistics}
 				handleDountDateChange={handleDountDateChange}

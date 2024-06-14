@@ -6,11 +6,15 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo"
 import LocalAtmIcon from "@mui/icons-material/LocalAtm"
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn"
 import PaymentIcon from "@mui/icons-material/Payment"
+import FilterAltIcon from "@mui/icons-material/FilterAlt"
+import FilterAltOffIcon from "@mui/icons-material/FilterAltOff"
 import dayjs from "dayjs"
 
 import DonutChart from "../../components/graphics/Dount"
 import LineChart from "../../components/graphics/LineChart"
 import { themePallete } from "../.."
+import { useTranslation } from "react-i18next"
+import { useState } from "react"
 
 const DeteBox = ({
 	dountDate,
@@ -24,7 +28,10 @@ const DeteBox = ({
 	handleDountDateChange,
 	handleDountDateChange2,
 	handleDateChange,
+	handleFilter,
 }) => {
+	const { t } = useTranslation()
+	const [filter, setFilter] = useState(false)
 	return (
 		<div className='grapsBox'>
 			<div className='grap'>
@@ -55,14 +62,23 @@ const DeteBox = ({
 							/>
 						</DemoContainer>
 					</LocalizationProvider>
-					{(dountDate || dountDate2) && (
-						<Button
-							onClick={() => {
-								handleDountDateChange(null)
-								handleDountDateChange2(null)
-							}}
-						>
-							clear filtres
+					<Button
+						onClick={() => {
+							handleFilter()
+							setFilter(true)
+						}}
+					>
+						<FilterAltIcon /> {t("Set Filters")}
+					</Button>
+					{filter && (
+						<Button size='small'>
+							<FilterAltOffIcon
+								onClick={() => {
+									handleDountDateChange(null)
+									handleDountDateChange2(null)
+									setFilter(false)
+								}}
+							/>{" "}
 						</Button>
 					)}
 				</div>
@@ -95,7 +111,6 @@ const DeteBox = ({
 								className='coint-show-heading'
 								sx={{ color: themePallete }}
 							>
-								{" "}
 								<LocalAtmIcon sx={{ color: themePallete }} />
 								<div> Bill - {info?.cash}</div>
 							</Typography>
