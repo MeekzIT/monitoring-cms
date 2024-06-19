@@ -56,7 +56,7 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
 		top: "50%",
 		left: "50%",
 		transform: "translate(-50%, -50%)",
-		width: isMobile ? "100%" : 900,
+		width: "100%",
 		bgcolor: "background.paper",
 		border: `3px solid ${themePallete}`,
 		boxShadow: 24,
@@ -64,7 +64,7 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
 		borderRadius: "10px",
 		maxHeight: isMobile ? "100vh" : 600,
 		minHeight: isMobile ? "100vh" : 400,
-		maxWidth: isMobile ? 600 : 900,
+		maxWidth: isMobile ? 600 : 1200,
 		display: isMobile && "flex",
 		justifyContent: isMobile && "center",
 		alignItems: isMobile && "center",
@@ -106,23 +106,18 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
 										<TableRow>
 											<TableCell align='left'>{t("rejim")}</TableCell>
 											<TableCell align='left'>
-												{/* <WaterDropIcon sx={{ color: themePallete }} /> */}
 												{t("enginePower")}
 											</TableCell>
 											<TableCell align='left'>
-												{/* <ElectricBoltIcon sx={{ color: themePallete }} /> */}
 												{t("electricPrice")}
 											</TableCell>{" "}
 											<TableCell align='left'>
-												{/* <BubbleChartIcon sx={{ color: themePallete }} /> */}
 												{`${t("waterPerMinute")}`}
 											</TableCell>{" "}
 											<TableCell align='left'>
-												{/* <TimelapseIcon sx={{ color: themePallete }} /> */}
 												{`${t("waterPrice")} (1㎥)`}
 											</TableCell>
 											<TableCell align='left'>
-												{/* <PlayCircleIcon sx={{ color: themePallete }} /> */}
 												{`${t("modeValuePerLitre")} (1L)`}
 											</TableCell>
 											<TableCell align='right'>
@@ -155,32 +150,6 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
 													ownerID={single}
 													options={options}
 												/>
-												{/* <TableCell align='left'>{row.water}</TableCell>
-													<TableCell align='left'>{row.electric}</TableCell>
-													<TableCell align='left'>{row.modeValue}</TableCell>
-													<TableCell align='left'>{row.seconds}</TableCell>
-													<TableCell align='left'>{row.used}</TableCell>
-													<TableCell align='right'>
-														<Button
-															variant='outlined'
-															endIcon={
-																<SettingsSuggestIcon
-																	sx={{ color: themePallete }}
-																/>
-															}
-															onClick={() => {
-																setShowSettings(!showSettings)
-																setCurrentData(
-																	data?.filter(
-																		i => i.functionId == row.functionId
-																	)[0]
-																)
-																setCurrentFunctionID(row.functionId)
-															}}
-														>
-															{t("settings")}
-														</Button>
-													</TableCell> */}
 											</TableRow>
 										))}
 									</TableBody>

@@ -22,12 +22,6 @@ import {
 	TableRow,
 	Typography,
 } from "@mui/material"
-
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
-import { DatePicker } from "@mui/x-date-pickers/DatePicker"
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo"
-import dayjs from "dayjs"
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
@@ -39,8 +33,6 @@ import ItemField3 from "../../components/changeField/ItemFields3"
 import Calculator from "../../components/claculator/Calculator"
 import Calculator2 from "../../components/claculator/Calculator2"
 import GoBack from "../../components/goBack/GoBack"
-import DonutChart from "../../components/graphics/Dount"
-import LineChart from "../../components/graphics/LineChart"
 import { compareWithUTC } from "../../hooks/helpers"
 import { useIsMobile } from "../../hooks/useScreenType"
 import { changeItemActivity } from "../../store/actions/auth-action"
@@ -135,19 +127,19 @@ const Single = () => {
 		} else if (active == 2) {
 			dispatch(getItemInfoCalc2(single))
 		}
-			dispatch(
-				getSingleInfo({
-					ownerId: single,
-					date: dountDate,
-					endDate: dountDate2,
-				})
-			)
-			dispatch(
-				getSingleLinear({
-					ownerId: single,
-					date: selectedDate,
-				})
-			)
+		dispatch(
+			getSingleInfo({
+				ownerId: single,
+				date: dountDate,
+				endDate: dountDate2,
+			})
+		)
+		dispatch(
+			getSingleLinear({
+				ownerId: single,
+				date: selectedDate,
+			})
+		)
 	}, [access])
 
 	useEffect(() => {
@@ -167,7 +159,7 @@ const Single = () => {
 			behavior: "smooth",
 		})
 	}
-	console.log(user)
+	console.log(owner)
 	return (
 		<Box p={2} fullWidth>
 			<Box p={2}>
@@ -230,7 +222,7 @@ const Single = () => {
 											info={singleInfo}
 											linear={singleLinear}
 											handleFilter={handleFilter}
-											countryId={owner?.countryId}
+											countryId={user?.countryId || null}
 											setOpenStatistics={false}
 											handleDountDateChange={handleDountDateChange}
 											handleDountDateChange2={handleDountDateChange2}

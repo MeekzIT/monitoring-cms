@@ -22,7 +22,10 @@ const DoubleField = ({
 	const changeFieldState = () => {
 		setEdit(!edit)
 	}
-
+	console.log(
+		{ fieldValueFirst, fieldValueSecond },
+		{ firstValue, secondValue }
+	)
 	return (
 		<div>
 			<Typography id='modal-modal-title' variant='h6' component='h3'>
@@ -31,15 +34,23 @@ const DoubleField = ({
 			{edit ? (
 				<div className='change-field'>
 					<TextField
+						fullWidth
 						variant='outlined'
 						name={nameFirst}
+						style={{
+							minWidth: "50px",
+						}}
 						defaultValue={fieldValueFirst}
 						value={fieldValueFirst}
 						onChange={e => setFieldValueFirst(e.target.value)}
 					/>
 					<TextField
+						fullWidth
 						variant='outlined'
 						name={nameFirst}
+						style={{
+							minWidth: "50px",
+						}}
 						defaultValue={fieldValueSecond}
 						value={fieldValueSecond}
 						onChange={e => setFieldValueSecond(e.target.value)}

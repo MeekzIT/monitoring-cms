@@ -113,7 +113,7 @@ const Items = () => {
 
 	useEffect(() => {
 		dispatch(singleOwner(user_id))
-		user && dispatch(getSingleOwners(id))
+		dispatch(getSingleOwners(id))
 	}, [dispatch, id, user, user_id])
 
 	return (

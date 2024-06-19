@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux"
 import { editItemInfo } from "../../store/actions/users-action"
 import ChangeField from "../changeField/ChangeField"
 import ChangeSelect from "../changeField/ChangedSelect"
-import DoubleField from '../changeField/DoubleField'
+import DoubleField from "../changeField/DoubleField"
 
 const CalcRow = ({ row, data, active, ownerID, options }) => {
 	const [changedData, setChangedData] = useState({})
@@ -22,6 +22,7 @@ const CalcRow = ({ row, data, active, ownerID, options }) => {
 			})
 		)
 	}
+	console.log(data, "datadata")
 	return (
 		<>
 			<TableCell component='th' scope='row' align='left'>
