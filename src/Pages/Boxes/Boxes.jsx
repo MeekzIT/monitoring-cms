@@ -271,7 +271,7 @@ const Boxes = () => {
 					<h4>{owner?.email}</h4>
 				</Box>
 				<hr />
-				{dateBox()}
+				{dateBox}
 				<hr />
 				<Box
 					sx={{

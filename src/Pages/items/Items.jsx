@@ -141,7 +141,7 @@ const Items = () => {
 				<GoBack prevPath={location.pathname} />
 			</Box>
 			<hr />
-			{dateBox()}
+			{dateBox}
 			<hr />
 			<div>
 				<Box m={2}>

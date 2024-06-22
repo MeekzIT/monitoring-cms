@@ -233,7 +233,7 @@ const Single = () => {
 							<>
 								{data && (
 									<>
-										{dateBox()}
+										{dateBox}
 										{showDetails ? (
 											<Box mt={2} mb={2}>
 												<Box sx={{ overflow: "auto" }}>
