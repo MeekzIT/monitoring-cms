@@ -23,7 +23,7 @@ import AddBox from "./AddModal"
 import OtherSeetings from "./OtherSettings"
 import Statistics from "./Statistics"
 import DataTable from "../../packages/Table/DataTable"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useMemo } from "react"
 import DeteBox from "../../packages/dateBox/DateBox"
 
 const Boxes = () => {
@@ -129,9 +129,6 @@ const Boxes = () => {
 		dispatch(getSingleUser(user_id))
 		dispatch(singleOwner(user_id))
 		user && dispatch(getSingleOwners(user_id))
-	}, [])
-
-	useEffect(() => {
 		let items = []
 		data
 			?.filter(i => i.ownerId == currentId)[0]
@@ -241,6 +238,25 @@ const Boxes = () => {
 		},
 	]
 
+	const dateBox = useMemo(() => {
+		return (
+			<DeteBox
+				dountDate={dountDate}
+				dountDate2={dountDate2}
+				selectedDate={selectedDate}
+				openStatistics={openStatistics}
+				info={boxInfo}
+				handleFilter={handleFilter}
+				linear={boxLinear}
+				countryId={user?.countryId}
+				setOpenStatistics={setOpenStatistics}
+				handleDountDateChange={handleDountDateChange}
+				handleDountDateChange2={handleDountDateChange2}
+				handleDateChange={handleDateChange}
+			/>
+		)
+	}, [boxInfo, boxLinear])
+
 	return (
 		<div>
 			<Box m={3}>
@@ -255,20 +271,7 @@ const Boxes = () => {
 					<h4>{owner?.email}</h4>
 				</Box>
 				<hr />
-				<DeteBox
-					dountDate={dountDate}
-					dountDate2={dountDate2}
-					selectedDate={selectedDate}
-					openStatistics={openStatistics}
-					info={boxInfo}
-					handleFilter={handleFilter}
-					linear={boxLinear}
-					countryId={user?.countryId}
-					setOpenStatistics={setOpenStatistics}
-					handleDountDateChange={handleDountDateChange}
-					handleDountDateChange2={handleDountDateChange2}
-					handleDateChange={handleDateChange}
-				/>
+				{dateBox()}
 				<hr />
 				<Box
 					sx={{

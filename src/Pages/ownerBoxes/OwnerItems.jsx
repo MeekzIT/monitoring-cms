@@ -25,6 +25,7 @@ import {
 } from "../../store/actions/users-action"
 import Statistics from "../Boxes/Statistics"
 import DeteBox from "../../packages/dateBox/DateBox"
+import { useMemo } from "react"
 
 const Items = () => {
 	const navigate = useNavigate()
@@ -76,20 +77,14 @@ const Items = () => {
 			)
 		}
 	}
-	useEffect(() => {
-		dispatch(getBoxes(id, box_id))
-	}, [])
 
 	useEffect(() => {
+		dispatch(getBoxes(id, box_id))
 		user && dispatch(getSingleOwners(id))
 	}, [user])
 
-	return (
-		<div>
-			<Box>
-				<GoBack prevPath={location.pathname} />
-			</Box>
-			<hr />
+	const dateBox = useMemo(() => {
+		return (
 			<DeteBox
 				dountDate={dountDate}
 				dountDate2={dountDate2}
@@ -104,7 +99,15 @@ const Items = () => {
 				handleDountDateChange2={handleDountDateChange2}
 				handleDateChange={handleDateChange}
 			/>
-
+		)
+	}, [singleBoxInfo, boxLinear])
+	return (
+		<div>
+			<Box>
+				<GoBack prevPath={location.pathname} />
+			</Box>
+			<hr />
+			{dateBox()}
 			<hr />
 			<div>
 				<hr />

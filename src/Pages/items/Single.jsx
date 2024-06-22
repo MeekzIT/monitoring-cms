@@ -51,6 +51,7 @@ import {
 	getSingleLinear,
 } from "../../store/actions/users-action"
 import DeteBox from "../../packages/dateBox/DateBox"
+import { useMemo } from "react"
 
 const Single = () => {
 	const { t } = useTranslation()
@@ -159,7 +160,25 @@ const Single = () => {
 			behavior: "smooth",
 		})
 	}
-	console.log(owner)
+
+	const dateBox = useMemo(() => {
+		return (
+			<DeteBox
+				dountDate={dountDate}
+				dountDate2={dountDate2}
+				selectedDate={selectedDate}
+				openStatistics={false}
+				info={singleInfo}
+				linear={singleLinear}
+				handleFilter={handleFilter}
+				countryId={user?.countryId || null}
+				setOpenStatistics={false}
+				handleDountDateChange={handleDountDateChange}
+				handleDountDateChange2={handleDountDateChange2}
+				handleDateChange={handleDateChange}
+			/>
+		)
+	}, [singleInfo, singleLinear])
 	return (
 		<Box p={2} fullWidth>
 			<Box p={2}>
@@ -214,20 +233,7 @@ const Single = () => {
 							<>
 								{data && (
 									<>
-										<DeteBox
-											dountDate={dountDate}
-											dountDate2={dountDate2}
-											selectedDate={selectedDate}
-											openStatistics={false}
-											info={singleInfo}
-											linear={singleLinear}
-											handleFilter={handleFilter}
-											countryId={user?.countryId || null}
-											setOpenStatistics={false}
-											handleDountDateChange={handleDountDateChange}
-											handleDountDateChange2={handleDountDateChange2}
-											handleDateChange={handleDateChange}
-										/>
+										{dateBox()}
 										{showDetails ? (
 											<Box mt={2} mb={2}>
 												<Box sx={{ overflow: "auto" }}>

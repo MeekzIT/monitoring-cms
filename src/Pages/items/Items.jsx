@@ -29,6 +29,7 @@ import {
 import BoxName from "./components/NameModal"
 import Statistics from "../Boxes/Statistics"
 import DeteBox from "../../packages/dateBox/DateBox"
+import { useMemo } from "react"
 
 const Items = () => {
 	const { t } = useTranslation()
@@ -116,12 +117,8 @@ const Items = () => {
 		dispatch(getSingleOwners(id))
 	}, [dispatch, id, user, user_id])
 
-	return (
-		<div>
-			<Box m={2}>
-				<GoBack prevPath={location.pathname} />
-			</Box>
-			<hr />
+	const dateBox = useMemo(() => {
+		return (
 			<DeteBox
 				dountDate={dountDate}
 				dountDate2={dountDate2}
@@ -136,6 +133,15 @@ const Items = () => {
 				handleDountDateChange2={handleDountDateChange2}
 				handleDateChange={handleDateChange}
 			/>
+		)
+	}, [singleBoxInfo, boxLinear])
+	return (
+		<div>
+			<Box m={2}>
+				<GoBack prevPath={location.pathname} />
+			</Box>
+			<hr />
+			{dateBox()}
 			<hr />
 			<div>
 				<Box m={2}>

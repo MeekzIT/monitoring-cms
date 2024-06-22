@@ -22,6 +22,7 @@ import Statistics from "../Boxes/Statistics"
 import OtherSeetings from "../Boxes/OtherSettings"
 import DataTable from "../../packages/Table/DataTable"
 import DeteBox from "../../packages/dateBox/DateBox"
+import { useMemo } from "react"
 
 const OwnerBoxes = () => {
 	const { t } = useTranslation()
@@ -212,6 +213,24 @@ const OwnerBoxes = () => {
 			action: false,
 		},
 	]
+	const dateBox = useMemo(() => {
+		return (
+			<DeteBox
+				dountDate={dountDate}
+				dountDate2={dountDate2}
+				selectedDate={selectedDate}
+				openStatistics={openStatistics}
+				info={boxInfo}
+				linear={boxLinear}
+				countryId={owner?.countryId}
+				handleFilter={handleFilter}
+				setOpenStatistics={setOpenStatistics}
+				handleDountDateChange={handleDountDateChange}
+				handleDountDateChange2={handleDountDateChange2}
+				handleDateChange={handleDateChange}
+			/>
+		)
+	}, [boxInfo, boxLinear])
 
 	return (
 		<div>
@@ -224,20 +243,7 @@ const OwnerBoxes = () => {
 					<h4>{owner?.email}</h4>
 				</Box>
 				<hr />
-				<DeteBox
-					dountDate={dountDate}
-					dountDate2={dountDate2}
-					selectedDate={selectedDate}
-					openStatistics={openStatistics}
-					info={boxInfo}
-					linear={boxLinear}
-					countryId={owner?.countryId}
-					handleFilter={handleFilter}
-					setOpenStatistics={setOpenStatistics}
-					handleDountDateChange={handleDountDateChange}
-					handleDountDateChange2={handleDountDateChange2}
-					handleDateChange={handleDateChange}
-				/>
+				{dateBox()}
 				<hr />
 				<Box
 					sx={{
