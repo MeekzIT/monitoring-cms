@@ -230,7 +230,16 @@ const OwnerBoxes = () => {
 				handleDateChange={handleDateChange}
 			/>
 		)
-	}, [boxInfo, boxLinear])
+	}, [
+		boxInfo,
+		boxLinear,
+		dountDate,
+		dountDate2,
+		handleFilter,
+		handleDateChange,
+		handleDountDateChange2,
+		handleDountDateChange,
+	])
 
 	return (
 		<div>

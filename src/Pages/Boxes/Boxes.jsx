@@ -237,7 +237,7 @@ const Boxes = () => {
 			action: false,
 		},
 	]
-
+	console.log({ boxInfo })
 	const dateBox = useMemo(() => {
 		return (
 			<DeteBox
@@ -255,7 +255,16 @@ const Boxes = () => {
 				handleDateChange={handleDateChange}
 			/>
 		)
-	}, [boxInfo, boxLinear])
+	}, [
+		boxInfo,
+		boxLinear,
+		dountDate,
+		dountDate2,
+		handleFilter,
+		handleDateChange,
+		handleDountDateChange2,
+		handleDountDateChange,
+	])
 
 	return (
 		<div>

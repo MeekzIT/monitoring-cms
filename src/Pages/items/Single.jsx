@@ -178,7 +178,16 @@ const Single = () => {
 				handleDateChange={handleDateChange}
 			/>
 		)
-	}, [singleInfo, singleLinear])
+	}, [
+		singleInfo,
+		singleLinear,
+		dountDate,
+		dountDate2,
+		handleFilter,
+		handleDateChange,
+		handleDountDateChange2,
+		handleDountDateChange,
+	])
 	return (
 		<Box p={2} fullWidth>
 			<Box p={2}>

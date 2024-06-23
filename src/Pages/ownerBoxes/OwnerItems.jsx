@@ -100,7 +100,16 @@ const Items = () => {
 				handleDateChange={handleDateChange}
 			/>
 		)
-	}, [singleBoxInfo, boxLinear])
+	}, [
+		singleBoxInfo,
+		boxLinear,
+		dountDate,
+		dountDate2,
+		handleFilter,
+		handleDateChange,
+		handleDountDateChange2,
+		handleDountDateChange,
+	])
 	return (
 		<div>
 			<Box>
