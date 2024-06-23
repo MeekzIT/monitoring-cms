@@ -55,6 +55,7 @@ const Boxes = () => {
 	const [info, setInfo] = useState(null)
 	const [openAdd, setOpenAdd] = useState(false)
 	const [expand, setExpand] = useState(false)
+	const [filter, setFilter] = useState(false)
 
 	const user = useSelector(state => state.user.single)
 	const owner = useSelector(state => state.user.owner)
@@ -100,7 +101,29 @@ const Boxes = () => {
 				})
 			)
 		}
+		setFilter(true)
 	}
+
+	const handleClearFilter = () => {
+		handleDountDateChange()
+		handleDountDateChange2()
+		dispatch(
+			getBoxesInfo({
+				ownerId: id,
+				date: dountDate,
+				endDate: dountDate2,
+			})
+		)
+		dispatch(
+			getBoxLinear({
+				ownerId: id,
+				date: dountDate,
+				endDate: dountDate2,
+			})
+		)
+		setFilter(false)
+	}
+
 	useEffect(() => {
 		dispatch(getSingleUser(user_id))
 		dispatch(getBoxes(id))
@@ -237,6 +260,7 @@ const Boxes = () => {
 			action: false,
 		},
 	]
+
 	console.log({ boxInfo })
 	const dateBox = useMemo(() => {
 		return (
@@ -246,7 +270,9 @@ const Boxes = () => {
 				selectedDate={selectedDate}
 				openStatistics={openStatistics}
 				info={boxInfo}
+				filter={filter}
 				handleFilter={handleFilter}
+				handleClearFilter={handleClearFilter}
 				linear={boxLinear}
 				countryId={user?.countryId}
 				setOpenStatistics={setOpenStatistics}

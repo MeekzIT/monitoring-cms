@@ -68,6 +68,7 @@ const Single = () => {
 	const [selectedDate, handleDateChange] = useState()
 	const [dountDate, handleDountDateChange] = useState()
 	const [dountDate2, handleDountDateChange2] = useState()
+	const [filter, setFilter] = useState(false)
 	const data = useSelector(state => state.user.singleItem)
 	const isSuper = useSelector(state => state.auth.isSuper)
 	const user = useSelector(state => state.user.single)
@@ -111,6 +112,25 @@ const Single = () => {
 				})
 			)
 		}
+		setFilter(true)
+	}
+	const handleClearFilter = () => {
+		handleDountDateChange()
+		handleDountDateChange2()
+		dispatch(
+			getSingleInfo({
+				ownerId: single,
+				date: dountDate,
+				endDate: dountDate2,
+			})
+		)
+		dispatch(
+			getSingleLinear({
+				ownerId: single,
+				date: selectedDate,
+			})
+		)
+		setFilter(false)
 	}
 	useEffect(() => {
 		// dispatch(getSingleUser(user_id));
@@ -168,9 +188,11 @@ const Single = () => {
 				dountDate2={dountDate2}
 				selectedDate={selectedDate}
 				openStatistics={false}
+				filter={filter}
 				info={singleInfo}
 				linear={singleLinear}
 				handleFilter={handleFilter}
+				handleClearFilter={handleClearFilter}
 				countryId={user?.countryId || null}
 				setOpenStatistics={false}
 				handleDountDateChange={handleDountDateChange}

@@ -44,6 +44,7 @@ const Items = () => {
 	const [openStatistics, setOpenStatistics] = useState(false)
 	const [expand, setExpand] = useState(false)
 	const [openGenerate, setOpenGenerate] = useState(false)
+	const [filter, setFilter] = useState(false)
 
 	const handleNested = id => {
 		if (typeof expand == "boolean") {
@@ -76,6 +77,24 @@ const Items = () => {
 				})
 			)
 		}
+		setFilter(true)
+	}
+
+	const handleClearFilter = () => {
+		handleDountDateChange()
+		handleDountDateChange2()
+		dispatch(
+			getSingleBoxInfo({
+				ownerId: id,
+				boxId: box_id,
+			})
+		)
+		dispatch(
+			getBoxLinear({
+				ownerId: id,
+			})
+		)
+		setFilter(false)
 	}
 
 	useEffect(() => {
@@ -91,9 +110,11 @@ const Items = () => {
 				selectedDate={selectedDate}
 				openStatistics={openStatistics}
 				info={singleBoxInfo}
+				filter={filter}
 				linear={boxLinear}
 				countryId={owner?.countryId}
 				handleFilter={handleFilter}
+				handleClearFilter={handleClearFilter}
 				setOpenStatistics={setOpenStatistics}
 				handleDountDateChange={handleDountDateChange}
 				handleDountDateChange2={handleDountDateChange2}

@@ -22,6 +22,7 @@ const DeteBox = ({
 	selectedDate,
 	openStatistics,
 	info,
+	filter,
 	linear,
 	countryId,
 	setOpenStatistics,
@@ -29,9 +30,10 @@ const DeteBox = ({
 	handleDountDateChange2,
 	handleDateChange,
 	handleFilter,
+	handleClearFilter,
 }) => {
 	const { t } = useTranslation()
-	const [filter, setFilter] = useState(false)
+	
 	return (
 		<div className='grapsBox'>
 			<div className='grap'>
@@ -63,22 +65,13 @@ const DeteBox = ({
 						</DemoContainer>
 					</LocalizationProvider>
 					<Button
-						onClick={() => {
-							handleFilter()
-							setFilter(true)
-						}}
+						onClick={handleFilter}
 					>
 						<FilterAltIcon /> {t("Set Filters")}
 					</Button>
 					{filter && (
 						<Button size='small'>
-							<FilterAltOffIcon
-								onClick={() => {
-									handleDountDateChange(null)
-									handleDountDateChange2(null)
-									setFilter(false)
-								}}
-							/>{" "}
+							<FilterAltOffIcon onClick={handleClearFilter} />{" "}
 						</Button>
 					)}
 				</div>
