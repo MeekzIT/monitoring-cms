@@ -101,15 +101,11 @@ const Items = () => {
 			getSingleBoxInfo({
 				ownerId: owner_id,
 				boxId: id,
-				date: dountDate,
-				endDate: dountDate2,
 			})
 		)
 		dispatch(
 			getBoxLinear({
 				ownerId: owner_id,
-				date: dountDate,
-				endDate: dountDate2,
 				boxId: id,
 			})
 		)

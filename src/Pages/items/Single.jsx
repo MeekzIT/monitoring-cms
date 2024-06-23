@@ -120,14 +120,11 @@ const Single = () => {
 		dispatch(
 			getSingleInfo({
 				ownerId: single,
-				date: dountDate,
-				endDate: dountDate2,
 			})
 		)
 		dispatch(
 			getSingleLinear({
 				ownerId: single,
-				date: selectedDate,
 			})
 		)
 		setFilter(false)

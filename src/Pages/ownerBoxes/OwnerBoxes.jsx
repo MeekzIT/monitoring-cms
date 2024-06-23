@@ -100,15 +100,11 @@ const OwnerBoxes = () => {
 		dispatch(
 			getBoxLinear({
 				ownerId: owner?.deviceOwner,
-				date: dountDate,
-				endDate: dountDate2,
 			})
 		)
 		dispatch(
 			getBoxesInfo({
 				ownerId: owner?.deviceOwner,
-				date: dountDate,
-				endDate: dountDate2,
 			})
 		)
 		setFilter(false)

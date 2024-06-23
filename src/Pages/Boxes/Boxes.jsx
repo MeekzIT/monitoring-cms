@@ -110,15 +110,11 @@ const Boxes = () => {
 		dispatch(
 			getBoxesInfo({
 				ownerId: id,
-				date: dountDate,
-				endDate: dountDate2,
 			})
 		)
 		dispatch(
 			getBoxLinear({
 				ownerId: id,
-				date: dountDate,
-				endDate: dountDate2,
 			})
 		)
 		setFilter(false)
