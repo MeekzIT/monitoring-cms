@@ -257,7 +257,6 @@ const Boxes = () => {
 		},
 	]
 
-	console.log({ boxInfo })
 	const dateBox = useMemo(() => {
 		return (
 			<DeteBox
@@ -265,7 +264,7 @@ const Boxes = () => {
 				dountDate2={dountDate2}
 				selectedDate={selectedDate}
 				openStatistics={openStatistics}
-				info={boxInfo}
+				info={boxesInfo && boxesInfo[0]}
 				filter={filter}
 				handleFilter={handleFilter}
 				handleClearFilter={handleClearFilter}
@@ -278,7 +277,7 @@ const Boxes = () => {
 			/>
 		)
 	}, [
-		boxInfo,
+		boxesInfo,
 		boxLinear,
 		dountDate,
 		dountDate2,
