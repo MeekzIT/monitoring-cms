@@ -95,8 +95,8 @@ const OwnerBoxes = () => {
 	}
 
 	const handleClearFilter = () => {
-		handleDountDateChange()
-		handleDountDateChange2()
+		handleDountDateChange(null)
+		handleDountDateChange2(null)
 		dispatch(
 			getBoxLinear({
 				ownerId: owner?.deviceOwner,

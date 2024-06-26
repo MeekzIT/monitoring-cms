@@ -115,8 +115,8 @@ const Single = () => {
 		setFilter(true)
 	}
 	const handleClearFilter = () => {
-		handleDountDateChange()
-		handleDountDateChange2()
+		handleDountDateChange(null)
+		handleDountDateChange2(null)
 		dispatch(
 			getSingleInfo({
 				ownerId: single,

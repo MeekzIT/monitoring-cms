@@ -81,8 +81,8 @@ const Items = () => {
 	}
 
 	const handleClearFilter = () => {
-		handleDountDateChange()
-		handleDountDateChange2()
+		handleDountDateChange(null)
+		handleDountDateChange2(null)
 		dispatch(
 			getSingleBoxInfo({
 				ownerId: id,
