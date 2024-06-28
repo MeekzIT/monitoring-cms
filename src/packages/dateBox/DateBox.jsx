@@ -78,8 +78,8 @@ const DeteBox = ({
 				{info !== null && (
 					<>
 						<DonutChart
-							benefit={info.ratio ? 100 - info?.ratio : 100}
-							expenses={info?.ratio ? info.ratio : 0}
+							benefit={info?.ratio ? 100 - info?.ratio : 100}
+							expenses={info?.ratio ? info?.ratio : 0}
 							expensesValue={info?.expense}
 							benefitValue={info?.benefit}
 							countryId={countryId}
