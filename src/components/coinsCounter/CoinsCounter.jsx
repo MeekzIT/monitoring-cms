@@ -41,7 +41,7 @@ const CoinsCounter = () => {
                   : data.countryId == 3
                   ? "₸"
                   : data.countryId == 4
-                  ? "	₾"
+                  ? "	₾ Tetri"
                   : data.countryId == 5
                   ? "byn ₽"
                   : data.countryId == 6
@@ -62,7 +62,7 @@ const CoinsCounter = () => {
                   : data.countryId == 3
                   ? "₸"
                   : data.countryId == 4
-                  ? "	₾"
+                  ? "	₾ Tetri"
                   : data.countryId == 5
                   ? "byn ₽"
                   : data.countryId == 6
