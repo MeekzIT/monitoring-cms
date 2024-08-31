@@ -2,7 +2,7 @@ import StackedLineChartIcon from "@mui/icons-material/StackedLineChart"
 import { Box, Button, Typography } from "@mui/material"
 import React from "react"
 import Chart from "react-apexcharts"
-import { getCurrency } from "../../hooks/helpers"
+import { getCurrency, getPrice } from "../../hooks/helpers"
 import { useIsMobile } from "../../hooks/useScreenType"
 // import { Doughnut } from "react-chartjs-2";
 import CircleIcon from "@mui/icons-material/Circle"
@@ -45,15 +45,9 @@ const DonutChart = ({
 				},
 			},
 			labels: [
-				`${t("expenses")} ${expensesValue ? expensesValue : 0} ${
-					show !== false ? getCurrency(countryId) : ""
-				}`,
-				`${t("benefit")} ${benefitValue} ${
-					show !== false ? getCurrency(countryId) : ""
-				}`,
-				`${t("all")} ${benefitValue + expensesValue} ${
-					show !== false ? getCurrency(countryId) : ""
-				}`,
+				`${t("expenses")} ${expensesValue ? getPrice(countryId, expensesValue) : 0} ${show !== false ? getCurrency(countryId) : ""}`,
+                		`${t("benefit")} ${getPrice(countryId, benefitValue)} ${show !== false ? getCurrency(countryId) : ""}`,
+                		`${t("all")} ${getPrice(countryId, benefitValue + expensesValue)} ${show !== false ? getCurrency(countryId) : ""}`,
 			],
 			plotOptions: {
 				pie: {
