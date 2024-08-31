@@ -20,7 +20,7 @@ export const getCurrency = roll => {
 	} else if (roll == 0) {
 		return "₽"
 	} else if (roll == 4) {
-		return "₾ Tetri"
+		return "₾"
 	} else if (roll == 2) {
 		return "₽"
 	} else if (roll == 5) {
