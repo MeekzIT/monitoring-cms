@@ -34,6 +34,13 @@ export const getCurrency = roll => {
 	} else return null
 }
 
+
+export const getPrice = (roll, price) => {
+    if (roll == 4) {
+        return Number(price) / 100
+    } else return price
+}
+
 export const getBonusType = type => {
 	if (type == 0) {
 		return "bonus-for-loyal-cards"
