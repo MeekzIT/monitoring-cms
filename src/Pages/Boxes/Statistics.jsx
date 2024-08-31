@@ -21,7 +21,7 @@ import {
 import { useDispatch } from "react-redux"
 import { useIsMobile } from "../../hooks/useScreenType"
 import { themePallete } from "../.."
-import { getCurrency } from "../../hooks/helpers"
+import { getCurrency, getPrice } from "../../hooks/helpers"
 import CalculateIcon from "@mui/icons-material/Calculate"
 import DonutChart from "../../components/graphics/Dount"
 import ElectricBoltIcon from "@mui/icons-material/ElectricBolt"
@@ -131,10 +131,10 @@ const Statistics = ({
 															{row.type == 1 ? t("moika") : t("cux")}
 														</TableCell>
 														<TableCell align='left'>
-															{row.result} {getCurrency(countryId)}
+                                                            								{getPrice(countryId, row.result)} {getCurrency(countryId)}
 														</TableCell>
 														<TableCell align='left'>
-															{row.caxs} {getCurrency(countryId)}
+                                                            								{getPrice(countryId, row.caxs)} {getCurrency(countryId)}
 														</TableCell>
 														<TableCell align='left'>
 															{Math.round(100 - row.ratio)} %
