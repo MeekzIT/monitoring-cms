@@ -91,7 +91,7 @@ export const getMode = mode => {
 	} else if (mode == 19) {
 		return "wheelpump"
 	} else if (mode == 20) {
-		return "foam pressure"
+		return "foamPressure"
 	} else if (mode == 21) {
 		return "fan"
 	} else return null
