@@ -385,7 +385,7 @@ const Boxes = () => {
 				setAddedFieldValueName={setAddedFieldValueName}
 				addedFieldValuePrice={addedFieldValuePrice}
 				setAddedFieldValuePrice={setAddedFieldValuePrice}
-				currentId={user?.countryId}
+                currentId={currentId}
 				currentOwner={currentOwner}
 				boxExpernses={boxExpernses}
 				setNameExpenses={setNameExpenses}
