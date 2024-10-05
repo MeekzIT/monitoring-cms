@@ -170,6 +170,7 @@ export const getSingleUser = id => {
 }
 
 export const getBoxes = (id, boxId) => {
+    if(!id || !boxId) return
 	return dispatch => {
 		axios
 			.get(`${keys.api}/owner/boxes-owners`, {
@@ -177,7 +178,7 @@ export const getBoxes = (id, boxId) => {
 					Authorization: `Bearer ${keys.token}`,
 				},
 				params: {
-					ownerId: id,
+                    ownerId: id,
 					boxId,
 				},
 			})
