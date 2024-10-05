@@ -122,7 +122,7 @@ const Boxes = () => {
 
 	useEffect(() => {
 		dispatch(getSingleUser(user_id))
-		// dispatch(getBoxes(id))
+		dispatch(getBoxes(id))
 		dispatch(
 			getBoxInfo({
 				ownerId: id,
