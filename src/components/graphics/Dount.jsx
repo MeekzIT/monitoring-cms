@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next"
 const DonutChart = ({
 	benefit,
 	expenses,
+	all,
 	expensesValue,
 	benefitValue,
 	countryId,
@@ -47,7 +48,7 @@ const DonutChart = ({
 			labels: [
 				`${t("expenses")} ${expensesValue ? getPrice(countryId, expensesValue) : 0} ${show !== false ? getCurrency(countryId) : ""}`,
                 		`${t("benefit")} ${getPrice(countryId, benefitValue)} ${show !== false ? getCurrency(countryId) : ""}`,
-                		`${t("all")} ${getPrice(countryId, benefitValue + expensesValue)} ${show !== false ? getCurrency(countryId) : ""}`,
+                		`${t("all")} ${getPrice(countryId, all)} ${show !== false ? getCurrency(countryId) : ""}`,
 			],
 			plotOptions: {
 				pie: {

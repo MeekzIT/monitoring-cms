@@ -267,6 +267,7 @@ const Statistics = ({
 											<DonutChart
 												benefit={100 - i?.ratio}
 												expenses={i?.ratio}
+												all={Number(i?.expense) + Number(i?.benefit)}
 												expensesValue={i?.expense}
 												benefitValue={i?.benefit}
 												countryId={countryId}
