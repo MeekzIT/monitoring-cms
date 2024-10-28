@@ -9,11 +9,11 @@ import { useIsMobile } from "../../hooks/useScreenType"
 import { getMe } from "../../store/actions/auth-action"
 import { deleteBox, getBoxExpenses } from "../../store/actions/box"
 import {
-	getBoxInfo,
-	getBoxLinear,
-	getBoxes,
-	getBoxesInfo,
-	getSingleBox,
+  getBoxInfo,
+  getBoxLinear,
+  getBoxes,
+  getBoxesInfo,
+  getSingleBox,
 } from "../../store/actions/users-action"
 import EditBox from "../Boxes/EditModal"
 import DeleteModal from "../../packages/Modals/DeleteModal"
@@ -59,77 +59,79 @@ const OwnerBoxes = () => {
 	const [filter, setFilter] = useState(false)
 
 	const handleNested = id => {
-		if (typeof expand == "boolean") {
+    if (typeof expand == "boolean") {
 			setExpand(id)
 		} else setExpand(false)
 	}
-	useEffect(() => {
+  useEffect(() => {
 		dispatch(getMe())
 	}, [])
 
-	const handleFilter = () => {
-		dispatch(
-			getBoxesInfo({
-				ownerId: owner?.deviceOwner,
-				date: dountDate,
-				endDate: dountDate2,
-			})
+  const handleFilter = () => {
+    dispatch(
+      getBoxesInfo({
+        ownerId: owner?.deviceOwner,
+        date: dountDate,
+        endDate: dountDate2,
+      })
 		)
-		if (!dountDate || !dountDate2) {
-			dispatch(
-				getBoxLinear({
-					ownerId: owner?.deviceOwner,
-					date: selectedDate,
-				})
+    if (!dountDate || !dountDate2) {
+      dispatch(
+        getBoxLinear({
+          ownerId: owner?.deviceOwner,
+          date: selectedDate,
+        })
 			)
-		} else {
-			dispatch(
-				getBoxLinear({
-					ownerId: owner?.deviceOwner,
-					date: dountDate,
-					endDate: dountDate2,
-				})
+    } else {
+      dispatch(
+        getBoxLinear({
+          ownerId: owner?.deviceOwner,
+          date: dountDate,
+          endDate: dountDate2,
+        })
 			)
-		}
+    }
 		setFilter(true)
 	}
 
-	const handleClearFilter = () => {
+  const handleClearFilter = () => {
 		handleDountDateChange(null)
 		handleDountDateChange2(null)
-		dispatch(
-			getBoxLinear({
-				ownerId: owner?.deviceOwner,
-			})
+    dispatch(
+      getBoxLinear({
+        ownerId: owner?.deviceOwner,
+      })
 		)
-		dispatch(
-			getBoxesInfo({
-				ownerId: owner?.deviceOwner,
-			})
+    dispatch(
+      getBoxesInfo({
+        ownerId: owner?.deviceOwner,
+      })
 		)
 		setFilter(false)
 	}
 
-	useEffect(() => {
-		dispatch(getBoxes(owner?.deviceOwner))
-		dispatch(
-			getBoxInfo({
-				ownerId: owner?.deviceOwner,
-			})
+  useEffect(() => {
+    if (owner?.deviceOwner) {
+      dispatch(getBoxes(owner?.deviceOwner));
+    }
+    dispatch(
+      getBoxInfo({
+        ownerId: owner?.deviceOwner,
+      })
 		)
-		dispatch(
-			getBoxLinear({
-				ownerId: owner?.deviceOwner,
-				date: dountDate,
-				endDate: dountDate2,
-			})
+    dispatch(
+      getBoxLinear({
+        ownerId: owner?.deviceOwner,
+        date: dountDate,
+        endDate: dountDate2,
+      })
 		)
-		dispatch(
-			getBoxesInfo({
-				ownerId: owner?.deviceOwner,
-				date: dountDate,
-				endDate: dountDate2,
-			})
+    dispatch(
+      getBoxesInfo({
+        ownerId: owner?.deviceOwner,
+        date: dountDate,
+        endDate: dountDate2,
+      })
 		)
 	}, [owner])
 
@@ -138,245 +140,245 @@ const OwnerBoxes = () => {
 		navigate(`/owner-items/${owner?.deviceOwner}/${rowId}`)
 	}
 
-	const cells = [
-		{ id: 1, name: "name", show: true },
-		{ id: 2, name: "MoikaID", show: !isMobile },
-		{ id: 3, name: <>"MoikaID / {t("geolocation")}"</>, show: isMobile },
-		{ id: 4, name: null, show: true },
-		{ id: 5, name: "geolocation", show: !isMobile },
-		{ id: 6, name: "difrentExspenses", show: true },
+  const cells = [
+    { id: 1, name: "name", show: true },
+    { id: 2, name: "MoikaID", show: !isMobile },
+    { id: 3, name: <>"MoikaID / {t("geolocation")}"</>, show: isMobile },
+    { id: 4, name: null, show: true },
+    { id: 5, name: "geolocation", show: !isMobile },
+    { id: 6, name: "difrentExspenses", show: true },
 	]
 
-	const columns = [
-		{
-			id: 1,
+  const columns = [
+    {
+      id: 1,
 			name: row => {
 				return <>{row.name}</>
-			},
-			show: true,
-			action: true,
+      },
+      show: true,
+      action: true,
 			fn: row => {
 				dispatch(getSingleBox(row.id))
 				dispatch(getBoxes(owner?.deviceOwner, row.id))
 				isMobile && handleNavigate(row.id, row?.ownerId)
-			},
-		},
-		{
-			id: 2,
+      },
+    },
+    {
+      id: 2,
 			name: row => {
 				return <>{row.id}</>
-			},
-			show: !isMobile,
-			action: false,
-		},
-		{
-			id: 3,
+      },
+      show: !isMobile,
+      action: false,
+    },
+    {
+      id: 3,
 			name: row => {
-				return (
-					<>
-						<bold>{row.id}</bold> / {row.geolocation}
-					</>
+        return (
+          <>
+            <bold>{row.id}</bold> / {row.geolocation}
+          </>
 				)
-			},
-			show: isMobile,
-			action: true,
+      },
+      show: isMobile,
+      action: true,
 			fn: row => {
 				dispatch(getSingleBox(row.id))
 				dispatch(getBoxes(owner?.deviceOwner, row.id))
 				isMobile && handleNavigate(row.id, row?.ownerId)
-			},
-		},
-		{
-			id: 4,
-			name: null,
-			action: true,
-			show: !isMobile,
+      },
+    },
+    {
+      id: 4,
+      name: null,
+      action: true,
+      show: !isMobile,
 			fn: row => {
 				dispatch(getSingleBox(row.id))
 				dispatch(getBoxes(owner?.deviceOwner, row.id))
 				handleNavigate(row.id, row?.ownerId)
-			},
-		},
-		{
-			id: 5,
+      },
+    },
+    {
+      id: 5,
 			name: row => {
 				return <>{row.geolocation}</>
-			},
-			show: true,
-			action: false,
-		},
-		{
-			id: 6,
+      },
+      show: true,
+      action: false,
+    },
+    {
+      id: 6,
 			name: row => {
-				return (
-					<Button
+        return (
+          <Button
 						variant='outlined'
-						onClick={() => {
+            onClick={() => {
 							setCurrentId(row.id)
 							setCurrentOwner(row.ownerId)
-							dispatch(
-								getBoxExpenses({
-									boxId: row.id,
-									ownerId: row.ownerId,
-								})
+              dispatch(
+                getBoxExpenses({
+                  boxId: row.id,
+                  ownerId: row.ownerId,
+                })
 							)
 							setOpenSettings(true)
-						}}
-					>
-						<SettingsSuggestIcon />
-					</Button>
+            }}
+          >
+            <SettingsSuggestIcon />
+          </Button>
 				)
-			},
-			show: true,
-			action: false,
-		},
+      },
+      show: true,
+      action: false,
+    },
 	]
-	const dateBox = useMemo(() => {
-		return (
-			<DeteBox
-				dountDate={dountDate}
-				dountDate2={dountDate2}
-				selectedDate={selectedDate}
-				filter={filter}
-				openStatistics={openStatistics}
-				info={boxInfo}
-				linear={boxLinear}
-				countryId={owner?.countryId}
-				handleFilter={handleFilter}
-				handleClearFilter={handleClearFilter}
-				setOpenStatistics={setOpenStatistics}
-				handleDountDateChange={handleDountDateChange}
-				handleDountDateChange2={handleDountDateChange2}
-				handleDateChange={handleDateChange}
-			/>
+  const dateBox = useMemo(() => {
+    return (
+      <DeteBox
+        dountDate={dountDate}
+        dountDate2={dountDate2}
+        selectedDate={selectedDate}
+        filter={filter}
+        openStatistics={openStatistics}
+        info={boxInfo}
+        linear={boxLinear}
+        countryId={owner?.countryId}
+        handleFilter={handleFilter}
+        handleClearFilter={handleClearFilter}
+        setOpenStatistics={setOpenStatistics}
+        handleDountDateChange={handleDountDateChange}
+        handleDountDateChange2={handleDountDateChange2}
+        handleDateChange={handleDateChange}
+      />
 		)
-	}, [
-		boxInfo,
-		boxLinear,
-		dountDate,
-		dountDate2,
-		handleFilter,
-		handleDateChange,
-		handleDountDateChange2,
-		handleDountDateChange,
+  }, [
+    boxInfo,
+    boxLinear,
+    dountDate,
+    dountDate2,
+    handleFilter,
+    handleDateChange,
+    handleDountDateChange2,
+    handleDountDateChange,
 	])
 
-	return (
-		<div>
-			<Box m={3}>
-				<GoBack />
-				<Box>
-					<h1>
-						{owner?.firstName} {owner?.lastName}
-					</h1>
-					<h4>{owner?.email}</h4>
-				</Box>
-				<hr />
-				{dateBox}
-				<hr />
-				<Box
-					sx={{
-						display: "flex",
-						gap: "10px",
-					}}
-				>
-					<Button
+  return (
+    <div>
+      <Box m={3}>
+        <GoBack />
+        <Box>
+          <h1>
+            {owner?.firstName} {owner?.lastName}
+          </h1>
+          <h4>{owner?.email}</h4>
+        </Box>
+        <hr />
+        {dateBox}
+        <hr />
+        <Box
+          sx={{
+            display: "flex",
+            gap: "10px",
+          }}
+        >
+          <Button
 						variant='contained'
-						sx={{ color: "white" }}
-						onClick={() => setOpenAdd(true)}
-					>
-						{t("add-object")}
-					</Button>
-				</Box>
-				<hr />
-				<DataTable
-					cells={cells}
-					data={data}
-					columns={columns}
-					setCurrrent={setCurrentId}
+            sx={{ color: "white" }}
+            onClick={() => setOpenAdd(true)}
+          >
+            {t("add-object")}
+          </Button>
+        </Box>
+        <hr />
+        <DataTable
+          cells={cells}
+          data={data}
+          columns={columns}
+          setCurrrent={setCurrentId}
 					handleEdit={row => {
 						setName(row.name)
 						setGeo(row.geolocation)
 						setCurrentId(row.id)
 						setOpen(true)
-					}}
+          }}
 					handleDelete={row => {
 						setOpenDel(true)
 						setCurrentId(row.id)
-					}}
-					isDeleting
-					isEditing
-				/>
-			</Box>
+          }}
+          isDeleting
+          isEditing
+        />
+      </Box>
 
-			<EditBox
-				open={open}
-				handleClose={() => {
+      <EditBox
+        open={open}
+        handleClose={() => {
 					setOpen(false)
 					setGeo("")
 					setName("")
-				}}
-				currentId={currentId}
-				setGeo={setGeo}
-				setName={setName}
-				name={name}
-				geo={geo}
-			/>
+        }}
+        currentId={currentId}
+        setGeo={setGeo}
+        setName={setName}
+        name={name}
+        geo={geo}
+      />
 
-			<DeleteModal
-				open={openDel}
-				handleClose={() => {
+      <DeleteModal
+        open={openDel}
+        handleClose={() => {
 					setOpenDel(false)
-				}}
-				handleDelete={() => {
+        }}
+        handleDelete={() => {
 					dispatch(deleteBox({ id: currentId }))
 					dispatch(getBoxes(owner?.deviceOwner))
 					setOpenDel(false)
-				}}
-			/>
-			<AddBox
-				open={openAdd}
-				handleClose={() => setOpenAdd(false)}
-				setGeo={setGeo}
-				setName={setName}
-				name={name}
-				geo={geo}
-			/>
-			<Statistics
-				open={openStatistics}
-				handleClose={() => {
+        }}
+      />
+      <AddBox
+        open={openAdd}
+        handleClose={() => setOpenAdd(false)}
+        setGeo={setGeo}
+        setName={setName}
+        name={name}
+        geo={geo}
+      />
+      <Statistics
+        open={openStatistics}
+        handleClose={() => {
 					setOpenStatistics(false)
-				}}
-				countryId={currentId}
-				setShowRows={setShowRows}
-				setInfo={setInfo}
-				setSingle={setSingle}
-				showRows={showRows}
-				result={info?.allResult}
-				expand={expand}
-				boxesInfo={boxesInfo}
-				handleNested={handleNested}
-			/>
-			<OtherSeetings
-				open={openSettings}
-				handleClose={() => {
+        }}
+        countryId={currentId}
+        setShowRows={setShowRows}
+        setInfo={setInfo}
+        setSingle={setSingle}
+        showRows={showRows}
+        result={info?.allResult}
+        expand={expand}
+        boxesInfo={boxesInfo}
+        handleNested={handleNested}
+      />
+      <OtherSeetings
+        open={openSettings}
+        handleClose={() => {
 					setOpenSettings(false)
-				}}
-				setAddField={setAddField}
-				addField={addField}
-				addedFieldValueName={addedFieldValueName}
-				setAddedFieldValueName={setAddedFieldValueName}
-				addedFieldValuePrice={addedFieldValuePrice}
-				setAddedFieldValuePrice={setAddedFieldValuePrice}
-				currentId={currentId}
-				currentOwner={currentOwner}
-				boxExpernses={boxExpernses}
-				setNameExpenses={setNameExpenses}
-				setPrice={setPrice}
-				nameExpenses={nameExpenses}
-				price={price}
-			/>
-		</div>
+        }}
+        setAddField={setAddField}
+        addField={addField}
+        addedFieldValueName={addedFieldValueName}
+        setAddedFieldValueName={setAddedFieldValueName}
+        addedFieldValuePrice={addedFieldValuePrice}
+        setAddedFieldValuePrice={setAddedFieldValuePrice}
+        currentId={currentId}
+        currentOwner={currentOwner}
+        boxExpernses={boxExpernses}
+        setNameExpenses={setNameExpenses}
+        setPrice={setPrice}
+        nameExpenses={nameExpenses}
+        price={price}
+      />
+    </div>
 	)
 }
 
