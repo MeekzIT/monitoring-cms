@@ -26,20 +26,7 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
 	const [showSettings, setShowSettings] = useState(false)
 	const [currentFunctionId, setCurrentFunctionID] = useState()
 	const [currentData, setCurrentData] = useState(null)
-	const [changedData, setChangedData] = useState({})
-	const handleChangeData = (name, value) => {
-		changedData[name] = value
-		setChangedData(changedData)
-		dispatch(
-			editItemInfo({
-				...changedData,
-				functionId: currentFunctionId,
-				ownerID: single,
-				active,
-			})
-		)
-		setChangedData({})
-	}
+	
 	useEffect(() => {
 		if (data !== null && data !== undefined && currentFunctionId) {
 			setCurrentData(data?.filter(i => i.functionId == currentFunctionId)[0])
@@ -76,7 +63,7 @@ const Calculator = ({ open, handleClose, data, itemInfoCalc, active }) => {
 
 	const generateOptions = () => {
 		const options = []
-		for (let i = 2; i <= 100; i += 2) {
+		for (let i = 0; i <= 100; i += 2) {
 			options.push(i)
 		}
 		return options
