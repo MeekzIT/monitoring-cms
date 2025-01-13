@@ -1,8 +1,8 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<!-- <script>
+  <head>
+    <meta charset="utf-8" />
+    <!-- <script>
       var manifestUrl =
         type == "https://monitoring.jsxmachines.com/"
           ? "/jsInovations.svg"
@@ -11,40 +11,42 @@
         '<link rel="icon" href="%PUBLIC_URL%' + manifestUrl + '" />'
       );
     </script> -->
-		<!-- <link rel="icon" href="%PUBLIC_URL%/jsInovations.svg" /> -->
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/jvectormap/2.0.4/jquery-jvectormap.css"
-			type="text/css"
-			media="screen"
-		/>
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="theme-color" content="#000000" />
-		<meta name="description" content="Online Monitoring" />
-		<script>
-			const type = localStorage.getItem("type")
-			var manifestUrl =
-				type == "jsx"
-					? "/manifest.json"
-					: type == "taha"
-					? "/manifestAz.json"
-					: type == "senyu"
-					? "/manifestSanYu.json"
-					: type == "strongwash"
-					? "/manifestSW.json"
-					: "/manifest.json"
-			document.write(
-				'<link rel="manifest" href="%PUBLIC_URL%' + manifestUrl + '" />'
-			)
-		</script>
-		<!-- <link rel="apple-touch-icon" href="%PUBLIC_URL%/jsInovations.svg" /> -->
-		<!-- <link rel="manifest" href="%PUBLIC_URL%/manifest.json" /> -->
-		<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-		<script src="https://cdn.jsdelivr.net/npm/react-apexcharts"></script>
-		<title>Monitoring</title>
-	</head>
-	<body>
-		<noscript>You need to enable JavaScript to run this app.</noscript>
-		<div id="root"></div>
-	</body>
+    <!-- <link rel="icon" href="%PUBLIC_URL%/jsInovations.svg" /> -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jvectormap/2.0.4/jquery-jvectormap.css"
+      type="text/css"
+      media="screen"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Online Monitoring" />
+    <script>
+      const type = localStorage.getItem("type");
+      var manifestUrl =
+        type == "jsx"
+          ? "/manifest.json"
+          : type == "taha"
+          ? "/manifestAz.json"
+          : type == "senyu"
+          ? "/manifestSanYu.json"
+          : type == "strongwash"
+          ? "/manifestSW.json"
+          : type == "rmsystems"
+          ? "/manifestRm.json"
+          : "/manifest.json";
+      document.write(
+        '<link rel="manifest" href="%PUBLIC_URL%' + manifestUrl + '" />'
+      );
+    </script>
+    <!-- <link rel="apple-touch-icon" href="%PUBLIC_URL%/jsInovations.svg" /> -->
+    <!-- <link rel="manifest" href="%PUBLIC_URL%/manifest.json" /> -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-apexcharts"></script>
+    <title>Monitoring</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
 </html>
