@@ -75,6 +75,8 @@ export default function Maps() {
           BY: 200,
           KZ: 200,
           KG: 200,
+          UZ: 200,
+          TJ: 200,
         }
       : setCoutry;
 
