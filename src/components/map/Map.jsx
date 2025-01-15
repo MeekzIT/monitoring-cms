@@ -55,6 +55,14 @@ export default function Maps() {
     setCoutry = {
       AZ: 200,
     };
+  } else if (data?.countryId == 9) {
+    setCoutry = {
+      TJ: 200,
+    };
+  } else if (data?.countryId == 10) {
+    setCoutry = {
+      UZ: 200,
+    };
   }
 
   let mapData =
