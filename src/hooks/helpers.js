@@ -33,6 +33,8 @@ export const getCurrency = (roll) => {
     return "₼";
   } else if (roll == 9) {
     return "C";
+  }else if (roll == 10) {
+    return "сум";
   } else return null;
 };
 
